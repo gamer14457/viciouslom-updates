@@ -8,9 +8,9 @@
   },
   "keys": {
     "VLM_TESTE_001": {
-      "status": "active",
+      "status": "blocked",
       "plan": "test",
-      "expiresAt": "2026-02-31T23:59:59Z",
+      "expiresAt": "2026-12-31T23:59:59Z",
       "maxIds": 1,
       "ids": [],
       "allowAutoBind": true,
