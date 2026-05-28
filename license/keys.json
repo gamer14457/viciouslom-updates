@@ -1,6 +1,6 @@
 {
   "schema": "VICIOUSLOM_LICENSE_KEYS_V1",
-  "updatedAt": "2026-05-28T12:35:55Z",
+  "updatedAt": "2026-05-28T12:38:36Z",
   "system": {
     "name": "ViciousLom License",
     "mode": "github-json-test",
@@ -8,7 +8,7 @@
   },
   "keys": {
     "VLM_TESTE_001": {
-      "status": "blocked",
+      "status": "active",
       "plan": "test",
       "expiresAt": "2026-12-31T23:59:59Z",
       "maxIds": 1,
@@ -16,7 +16,7 @@
         "335778529937171"
       ],
       "allowAutoBind": true,
-      "note": "Key bloqueada para teste lite"
+      "note": "Key liberada para teste lite"
     },
     "VLM_TESTE_002": {
       "status": "active",
