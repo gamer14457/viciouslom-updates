@@ -1,0 +1,83 @@
+{
+  "ok": true,
+  "type": "vlm.signed_block_policy_envelope_f10",
+  "payload": {
+    "ok": true,
+    "apiVersion": "F10",
+    "type": "vlm.block_policy_f10",
+    "name": "VLM_BLOCK_POLICY_F10_OK",
+    "version": "F10-block-policy-1.0.0",
+    "issuedAt": "2026-06-02T11:18:59.990Z",
+    "expiresAt": "2026-12-31T23:59:59Z",
+    "defaultMode": "locked",
+    "bootstrapModule": "MainView_SystemTop.ts",
+    "protectedModules": [
+      "AchievementView.ts",
+      "ActivityDataCache.ts",
+      "AdModel.ts",
+      "ArtifactControl.ts",
+      "ArtifactDataCache.ts",
+      "BattleMain.ts",
+      "BattlePassDataCache.ts",
+      "BubbleControl.ts",
+      "BubbleDataCache.ts",
+      "ChatControl.ts",
+      "EquipControl.ts",
+      "EquipModel.ts",
+      "FrameDataCache.ts",
+      "HeadFrameControl.ts",
+      "HorseControl.ts",
+      "HorseDataChche.ts",
+      "HorseSkinView.ts",
+      "HurtUtil.ts",
+      "MainView.ts",
+      "MainView_BoxInfo.ts",
+      "PetModel.ts",
+      "PlayerClosetView.ts",
+      "RedBagListView.ts",
+      "RoleControl.ts",
+      "RoleDataCache.ts",
+      "SkillModel.ts",
+      "SurveyView.ts",
+      "TaskControl.ts",
+      "TaskDataCache.ts",
+      "TitleControl.ts",
+      "TitleDataCache.ts",
+      "WingControl.ts",
+      "WingDataCache.ts"
+    ],
+    "blocks": [
+      {
+        "blockId": "p01",
+        "url": "secure-runtime/blocks/p01.vlm",
+        "encrypted": true,
+        "obfuscated": true,
+        "executable": true,
+        "keyId": "f10-p01",
+        "modules": [
+          "HorseControl.ts",
+          "HorseDataChche.ts",
+          "HorseSkinView.ts",
+          "WingControl.ts",
+          "WingDataCache.ts",
+          "ArtifactControl.ts",
+          "ArtifactDataCache.ts"
+        ],
+        "cipherSha256": "1cd69ae4fcfc25e9709db71911bbe33079bf8287d4459ae7c797d22358f0ad8f",
+        "allowedForLicense": true
+      }
+    ],
+    "flags": {
+      "signed": true,
+      "encryptedBlocks": true,
+      "fakeMenuForUnauthorized": true,
+      "secretMenu": false,
+      "patchesEnabled": false
+    }
+  },
+  "signature": {
+    "alg": "ES256",
+    "kid": "vlm-p256-v1",
+    "value": "_ehJDj7DzTRLICwQ5bLSjrPI5iog8ggN_J7HQ-MLUeCe8J3_Txyei7TysrNlSd2i4UNxC0_PlPS5vbyX4PUrkg"
+  }
+}
