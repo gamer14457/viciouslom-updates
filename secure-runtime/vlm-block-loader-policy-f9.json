@@ -1,0 +1,79 @@
+{
+  "ok": true,
+  "type": "vlm.signed_block_loader_policy_envelope_f9",
+  "payload": {
+    "ok": true,
+    "apiVersion": "F9",
+    "type": "vlm.block_loader_policy_f9",
+    "name": "VLM_BLOCK_LOADER_POLICY_F9_OK",
+    "version": "F9-dummy-encrypted-block-loader-1.0.0",
+    "issuedAt": "2026-06-02T09:53:16.534Z",
+    "expiresAt": "2026-12-31T23:59:59Z",
+    "defaultMode": "locked",
+    "bootstrapModule": "MainView_SystemTop.ts",
+    "protectedModules": [
+      "AchievementView.ts",
+      "ActivityDataCache.ts",
+      "AdModel.ts",
+      "ArtifactControl.ts",
+      "ArtifactDataCache.ts",
+      "BattleMain.ts",
+      "BattlePassDataCache.ts",
+      "BubbleControl.ts",
+      "BubbleDataCache.ts",
+      "ChatControl.ts",
+      "EquipControl.ts",
+      "EquipModel.ts",
+      "FrameDataCache.ts",
+      "HeadFrameControl.ts",
+      "HorseControl.ts",
+      "HorseDataChche.ts",
+      "HorseSkinView.ts",
+      "HurtUtil.ts",
+      "MainView.ts",
+      "MainView_BoxInfo.ts",
+      "PetModel.ts",
+      "PlayerClosetView.ts",
+      "RedBagListView.ts",
+      "RoleControl.ts",
+      "RoleDataCache.ts",
+      "SkillModel.ts",
+      "SurveyView.ts",
+      "TaskControl.ts",
+      "TaskDataCache.ts",
+      "TitleControl.ts",
+      "TitleDataCache.ts",
+      "WingControl.ts",
+      "WingDataCache.ts"
+    ],
+    "blocks": [
+      {
+        "blockId": "vlm-dummy-pack",
+        "url": "secure-runtime/blocks/vlm-dummy-pack.vlm",
+        "encrypted": true,
+        "obfuscated": true,
+        "executable": true,
+        "keyId": "vlm-f9-dummy-test-key",
+        "modules": [
+          "HorseControl.ts",
+          "WingControl.ts",
+          "ArtifactControl.ts"
+        ],
+        "allowedForTest": true
+      }
+    ],
+    "flags": {
+      "signed": true,
+      "encryptedBlocks": true,
+      "fakeMenuForUnauthorized": true,
+      "testDummyBlock": true,
+      "secretMenu": false,
+      "patchesEnabled": false
+    }
+  },
+  "signature": {
+    "alg": "ES256",
+    "kid": "vlm-p256-v1",
+    "value": "220ODLPtQ6CzeqL1QNHCcbc8B5DqxTKQe3OIfqTXK1Jv5LWYmYiCIkr9xBH_YxX_PwS2IizvRNbnLwHYSX-BPg"
+  }
+}
