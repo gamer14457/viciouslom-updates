@@ -6,8 +6,8 @@
     "apiVersion": "F10",
     "type": "vlm.block_policy_f10",
     "name": "VLM_BLOCK_POLICY_F10_OK",
-    "version": "F10-block-policy-1.0.1",
-    "issuedAt": "2026-06-02T11:27:27.890Z",
+    "version": "F10-nostub-policy-1.0.0",
+    "issuedAt": "2026-06-02T11:53:30.737Z",
     "expiresAt": "2026-12-31T23:59:59Z",
     "defaultMode": "locked",
     "bootstrapModule": "MainView_SystemTop.ts",
@@ -53,23 +53,21 @@
         "encrypted": true,
         "obfuscated": true,
         "executable": true,
+        "mode": "patch",
         "keyId": "f10-p01",
         "modules": [
           "HorseControl.ts",
-          "HorseDataChche.ts",
-          "HorseSkinView.ts",
           "WingControl.ts",
-          "WingDataCache.ts",
-          "ArtifactControl.ts",
-          "ArtifactDataCache.ts"
+          "ArtifactControl.ts"
         ],
-        "cipherSha256": "5c0e8df8a9dc26c330909a237555cd73defcc05bc698a328fa60dd7fabb702f3",
+        "cipherSha256": "4b8f2d9da6a9604acb6347e90225419c1e6ce7c47c462c317574dbedbc2b8f9d",
         "allowedForLicense": true
       }
     ],
     "flags": {
       "signed": true,
       "encryptedBlocks": true,
+      "noStub": true,
       "fakeMenuForUnauthorized": true,
       "secretMenu": false,
       "patchesEnabled": false
@@ -78,6 +76,6 @@
   "signature": {
     "alg": "ES256",
     "kid": "vlm-p256-v1",
-    "value": "6XmczfMBhUJfWInig-1AzYT1Tk8DjksASM6SlySaHbwsvJXsDLZKnuomPdszC7X3gf0GmmfV5Il63l9q5pb2fA"
+    "value": "Eo9683Kq63enFIW7VhsJRN4LRrUafqNa-hzRxwBSU3zIEA5nqijEYIvs6oXlcQaoQAx1p4gjv4VNiLfcONDNyw"
   }
 }
