@@ -6,11 +6,14 @@
     "apiVersion": "F10",
     "type": "vlm.block_policy_f10",
     "name": "VLM_BLOCK_POLICY_F10_OK",
-    "version": "F10-nostub-policy-1.0.0",
-    "issuedAt": "2026-06-02T11:53:30.737Z",
+    "version": "F10-role-policy-nostub-1.0.1",
+    "issuedAt": "2026-06-02T12:16:54.898Z",
     "expiresAt": "2026-12-31T23:59:59Z",
     "defaultMode": "locked",
     "bootstrapModule": "MainView_SystemTop.ts",
+    "authorizedRoleHashes": [
+      "234839eda1c28620e79dc30999cc104ec4d5fae4380e966ec40ac00d806ad457"
+    ],
     "protectedModules": [
       "AchievementView.ts",
       "ActivityDataCache.ts",
@@ -60,7 +63,6 @@
           "WingControl.ts",
           "ArtifactControl.ts"
         ],
-        "cipherSha256": "4b8f2d9da6a9604acb6347e90225419c1e6ce7c47c462c317574dbedbc2b8f9d",
         "allowedForLicense": true
       }
     ],
@@ -68,6 +70,7 @@
       "signed": true,
       "encryptedBlocks": true,
       "noStub": true,
+      "rolePolicyTest": true,
       "fakeMenuForUnauthorized": true,
       "secretMenu": false,
       "patchesEnabled": false
@@ -76,6 +79,6 @@
   "signature": {
     "alg": "ES256",
     "kid": "vlm-p256-v1",
-    "value": "Eo9683Kq63enFIW7VhsJRN4LRrUafqNa-hzRxwBSU3zIEA5nqijEYIvs6oXlcQaoQAx1p4gjv4VNiLfcONDNyw"
+    "value": "MDTwFrdMCUxQ9U-_NUFdJSul4r-x_JKIg4l78UqS-lUzmWMZy_9wsUeCJeskMxjx_UY1d84urKdrT5KF8wjZHw"
   }
 }
