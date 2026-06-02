@@ -3,11 +3,11 @@
   "type": "vlm.signed_manifest_envelope",
   "payload": {
     "ok": true,
-    "apiVersion": "7D-combo",
+    "apiVersion": "7D-safe",
     "type": "vlm.signed_manifest_test",
     "name": "VLM_SIGNED_MANIFEST_TEST_OK",
-    "version": "7D-combo-signed-manifest-1.0.0",
-    "issuedAt": "2026-06-02T08:39:36.998Z",
+    "version": "7D-safe-signed-manifest-1.0.0",
+    "issuedAt": "2026-06-02T08:42:07.477Z",
     "transport": "github_raw",
     "executable": false,
     "encrypted": false,
@@ -38,6 +38,6 @@
   "signature": {
     "alg": "ES256",
     "kid": "vlm-p256-v1",
-    "value": "5f9WliifIuxz3LfqPFIEMPN20Vnc28_7t7Jci1OJM16-4xJ0wo-bXpo3xMauFDauVfHcVq2b4pv_giVEmV2DoA"
+    "value": "nYHRnrltwMNa-UoiPBY3ki_eh7jwDU_jJSe70NX8bMVWgtWIAxj1cUjrO60qRlQSR_kZfaXl1aTnwdEN658hXg"
   }
 }
