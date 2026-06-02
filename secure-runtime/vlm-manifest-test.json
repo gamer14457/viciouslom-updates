@@ -1,0 +1,21 @@
+{
+  "ok": true,
+  "type": "vlm.raw_manifest_test",
+  "name": "VLM_MANIFEST_TEST_OK",
+  "version": "7B-raw-httpclient-test-1.0.0",
+  "message": "GitHub RAW VLM acessado com sucesso pelo HttpClient interno do jogo.",
+  "transport": "github_raw",
+  "runtime": {
+    "loader": "MainView_SystemTop",
+    "http": "HttpClient.ts",
+    "storage": "StorageUtil.ts",
+    "ui": "MessageView.ts"
+  },
+  "flags": {
+    "signed": false,
+    "encrypted": false,
+    "executable": false,
+    "testOnly": true
+  },
+  "updatedAt": "2026-06-02T00:00:00Z"
+}
