@@ -1,0 +1,43 @@
+{
+  "ok": true,
+  "type": "vlm.signed_manifest_envelope",
+  "payload": {
+    "ok": true,
+    "apiVersion": "7D-combo",
+    "type": "vlm.signed_manifest_test",
+    "name": "VLM_SIGNED_MANIFEST_TEST_OK",
+    "version": "7D-combo-signed-manifest-1.0.0",
+    "issuedAt": "2026-06-02T08:39:36.998Z",
+    "transport": "github_raw",
+    "executable": false,
+    "encrypted": false,
+    "runtime": {
+      "loader": "MainView_SystemTop",
+      "http": "HttpClient.ts",
+      "storage": "StorageUtil.ts",
+      "ui": "MessageView.ts",
+      "crypto": "VLM_PURE_CRYPTO"
+    },
+    "license": {
+      "mode": "test",
+      "roleId": "335778529937171",
+      "deviceId": "VLM-DEVICE-TESTE-001",
+      "status": "active"
+    },
+    "flags": {
+      "signed": true,
+      "encrypted": false,
+      "executable": false,
+      "testOnly": true,
+      "secretMenu": false,
+      "patchesEnabled": false,
+      "liteMenu": true
+    },
+    "message": "Manifest VLM assinado baixado pelo GitHub RAW e validado no cliente."
+  },
+  "signature": {
+    "alg": "ES256",
+    "kid": "vlm-p256-v1",
+    "value": "5f9WliifIuxz3LfqPFIEMPN20Vnc28_7t7Jci1OJM16-4xJ0wo-bXpo3xMauFDauVfHcVq2b4pv_giVEmV2DoA"
+  }
+}
