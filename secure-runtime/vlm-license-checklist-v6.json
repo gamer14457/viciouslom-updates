@@ -1,0 +1,59 @@
+{
+  "ok": true,
+  "type": "vlm.signed_license_manifest_envelope_v6",
+  "payload": {
+    "ok": true,
+    "apiVersion": "7E-V6",
+    "type": "vlm.license_manifest_v6",
+    "name": "VLM_LICENSE_GATE_CHECKLIST_OK",
+    "version": "7E-v6-license-gate-checklist-1.0.0",
+    "issuedAt": "2026-06-02T08:52:14.399Z",
+    "expiresAt": "2026-12-31T23:59:59Z",
+    "transport": "github_raw",
+    "executable": false,
+    "encrypted": false,
+    "license": {
+      "mode": "test",
+      "keyCode": "VLM-TESTE-SECURE-V2",
+      "roleId": "335778529937171",
+      "deviceId": "VLM-DEVICE-TESTE-001",
+      "status": "active",
+      "tier": "vip",
+      "reason": "authorized_test_license"
+    },
+    "menu": {
+      "title": "ViciousLom Secure Runtime",
+      "subtitle": "License Gate V6 Checklist",
+      "brand": "ViciousLom",
+      "theme": "dark-premium",
+      "accent": "blue-neon",
+      "support": "@viciouslom",
+      "discord": "https://discord.gg/ZNnHQjqZhy",
+      "locked": false
+    },
+    "flags": {
+      "signed": true,
+      "encrypted": false,
+      "executable": false,
+      "testOnly": true,
+      "liteMenu": true,
+      "secretMenu": false,
+      "patchesEnabled": false,
+      "licenseGate": true,
+      "cacheEnabled": true
+    },
+    "expectedClient": {
+      "loader": "MainView_SystemTop.ts",
+      "http": "HttpClient.ts",
+      "storage": "StorageUtil.ts",
+      "ui": "MessageView.ts",
+      "crypto": "VLM_PURE_CRYPTO"
+    },
+    "message": "Manifest VLM License Gate V6 assinado e validável no cliente."
+  },
+  "signature": {
+    "alg": "ES256",
+    "kid": "vlm-p256-v1",
+    "value": "jrJVVWHR_jOtsQnUeKMYGlaRtoq1uvamQBAXkbirfc5E9ubLD9UFZtbni9sCz3wtVt7i9kLzDaEwgh1XTsYCOQ"
+  }
+}
