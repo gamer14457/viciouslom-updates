@@ -6,8 +6,8 @@
     "apiVersion": "F10",
     "type": "vlm.block_policy_f10",
     "name": "VLM_BLOCK_POLICY_F10_OK",
-    "version": "F10-block-policy-1.0.0",
-    "issuedAt": "2026-06-02T11:18:59.990Z",
+    "version": "F10-block-policy-1.0.1",
+    "issuedAt": "2026-06-02T11:27:27.890Z",
     "expiresAt": "2026-12-31T23:59:59Z",
     "defaultMode": "locked",
     "bootstrapModule": "MainView_SystemTop.ts",
@@ -63,7 +63,7 @@
           "ArtifactControl.ts",
           "ArtifactDataCache.ts"
         ],
-        "cipherSha256": "1cd69ae4fcfc25e9709db71911bbe33079bf8287d4459ae7c797d22358f0ad8f",
+        "cipherSha256": "5c0e8df8a9dc26c330909a237555cd73defcc05bc698a328fa60dd7fabb702f3",
         "allowedForLicense": true
       }
     ],
@@ -78,6 +78,6 @@
   "signature": {
     "alg": "ES256",
     "kid": "vlm-p256-v1",
-    "value": "_ehJDj7DzTRLICwQ5bLSjrPI5iog8ggN_J7HQ-MLUeCe8J3_Txyei7TysrNlSd2i4UNxC0_PlPS5vbyX4PUrkg"
+    "value": "6XmczfMBhUJfWInig-1AzYT1Tk8DjksASM6SlySaHbwsvJXsDLZKnuomPdszC7X3gf0GmmfV5Il63l9q5pb2fA"
   }
 }
