@@ -1,3 +1,145 @@
+;try{(function(){
+if(window.VLM_ACTIVATE_ONCE_FOREVER_V2)return;
+window.VLM_ACTIVATE_ONCE_FOREVER_V2=1;
+
+function clean(v){return String(v||"").trim().replace(/^key=/i,"").trim().toUpperCase()}
+
+function getRole(){
+  try{
+    return String(
+      window.VLM_ROLE_ID||
+      window._vlm_role_id||
+      window.roleId||
+      localStorage.getItem("vlm_role_id")||
+      localStorage.getItem("VLM_ROLE_ID")||
+      ""
+    ).trim();
+  }catch(e){return ""}
+}
+
+function getKey(){
+  try{
+    var r=getRole();
+    var direct=clean(
+      window.VLM_PENDING_KEY||
+      window._vlm_pending_key||
+      localStorage.getItem("vlm_key")||
+      localStorage.getItem("VLM_KEY")||
+      ""
+    );
+    if(direct)return direct;
+
+    if(r){
+      var saved=clean(localStorage.getItem("_vlm_saved_key_"+r)||"");
+      if(saved)return saved;
+    }
+
+    for(var i=0;i<localStorage.length;i++){
+      var k=localStorage.key(i)||"";
+      if(k.indexOf("_vlm_saved_key_")===0){
+        var v=clean(localStorage.getItem(k)||"");
+        if(v)return v;
+      }
+    }
+  }catch(e){}
+  return "";
+}
+
+function sig(){
+  var r=getRole()||"NO_ROLE";
+  var k=getKey()||"NO_KEY";
+  return r+"_"+k.slice(0,6)+"_"+k.slice(-6)+"_"+k.length;
+}
+
+function doneKey(){return "_vlm_activate_done_forever_"+sig()}
+function inflightKey(){return "_vlm_activate_inflight_"+sig()}
+
+function markDone(){
+  try{
+    var t=String(Date.now());
+    localStorage.setItem(doneKey(),t);
+    localStorage.setItem("_vlm_license_activated_once","1");
+    localStorage.setItem("_vlm_license_activated_once_at",t);
+    window.VLM_LICENSE_ACTIVATED_ONCE=true;
+  }catch(e){}
+}
+
+function isDone(){
+  try{
+    if(window.VLM_LICENSE_ACTIVATED_ONCE)return true;
+    if(localStorage.getItem(doneKey()))return true;
+    if(localStorage.getItem("_vlm_license_activated_once")==="1")return true;
+  }catch(e){}
+  return false;
+}
+
+function wrap(){
+  try{
+    var fn=window.VLM_activateKeyFromChat;
+    if(typeof fn!=="function")return;
+    if(fn.__VLM_ACTIVATE_ONCE_FOREVER_V2)return;
+
+    var original=fn;
+    var inFlight=null;
+
+    var wrapped=function(){
+      if(isDone()){
+        try{console.warn("[VLM_ACTIVATE_ONCE_FOREVER_V2] activate bloqueado: já ativado")}catch(e){}
+        return Promise.resolve({ok:true,alreadyActivated:true,blockedBy:"VLM_ACTIVATE_ONCE_FOREVER_V2"});
+      }
+
+      if(inFlight){
+        try{console.warn("[VLM_ACTIVATE_ONCE_FOREVER_V2] reaproveitando ativação em andamento")}catch(e){}
+        return inFlight;
+      }
+
+      try{localStorage.setItem(inflightKey(),String(Date.now()))}catch(e){}
+
+      inFlight=Promise.resolve()
+        .then(()=>original.apply(this,arguments))
+        .then(function(res){
+          markDone();
+          inFlight=null;
+          try{localStorage.removeItem(inflightKey())}catch(e){}
+          try{console.warn("[VLM_ACTIVATE_ONCE_FOREVER_V2] ativou uma vez; futuras ativações bloqueadas")}catch(e){}
+          return res || {ok:true,activated:true};
+        },function(err){
+          inFlight=null;
+          try{localStorage.removeItem(inflightKey())}catch(e){}
+          throw err;
+        });
+
+      return inFlight;
+    };
+
+    wrapped.__VLM_ACTIVATE_ONCE_FOREVER_V2=true;
+    wrapped.__original=original;
+    window.VLM_activateKeyFromChat=wrapped;
+
+    try{console.warn("[VLM_ACTIVATE_ONCE_FOREVER_V2] instalado")}catch(e){}
+  }catch(e){}
+}
+
+wrap();
+var tm=setInterval(wrap,200);
+setTimeout(function(){try{clearInterval(tm)}catch(e){}},30000);
+
+var _fetch=window.fetch;
+if(typeof _fetch==="function" && !_fetch.__VLM_ACTIVATE_ONCE_FOREVER_V2){
+  var nf=function(input,init){
+    try{
+      var u=String((input&&input.url)||input||"");
+      if(u.indexOf("/activate")>=0 && u.indexOf("vlm-license-api")>=0 && isDone()){
+        try{console.warn("[VLM_ACTIVATE_ONCE_FOREVER_V2] fetch /activate bloqueado: já ativado")}catch(e){}
+        return Promise.resolve(new Response(JSON.stringify({ok:true,alreadyActivated:true,blockedBy:"VLM_ACTIVATE_ONCE_FOREVER_V2"}),{status:200,headers:{"content-type":"application/json"}}));
+      }
+    }catch(e){}
+    return _fetch.apply(this,arguments);
+  };
+  nf.__VLM_ACTIVATE_ONCE_FOREVER_V2=true;
+  window.fetch=nf;
+}
+})();}catch(e){try{console.error("[VLM_ACTIVATE_ONCE_FOREVER_V2] fail",e)}catch(x){}};
 /*VLM_REMOVE_FAKE_LOCK_PANEL_FINAL*/
 /*__VLM_WEB_ONE_SHOT_CLEAN_START__*/
 (function(){
