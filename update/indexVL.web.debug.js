@@ -8609,3 +8609,133 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["cc","./index83.ts"
     };
     });
 });
+
+;(()=>{const TAG="VLM_WEB_AUTO_ACTIVATE_V1";
+try{
+if(window[TAG])return;window[TAG]=1;
+function log(){try{console.log("[VLM_WEB_AUTO]",...arguments)}catch(e){}}
+function readPayload(){
+  try{
+    if(window.VLM_APK_BRIDGE_PAYLOAD&&window.VLM_APK_BRIDGE_PAYLOAD.key)return window.VLM_APK_BRIDGE_PAYLOAD;
+    let a=sessionStorage.getItem("vlm_apk_bridge_payload_v1")||localStorage.getItem("vlm_apk_bridge_payload_v1");
+    if(a)return JSON.parse(a);
+  }catch(e){}
+  return null;
+}
+function okId(v){
+  v=String(v||"").trim();
+  return /^[0-9]{6,22}$/.test(v)?v:"";
+}
+function scanObj(o,depth,path,seen){
+  try{
+    if(!o||depth<0)return "";
+    if(typeof o!=="object"&&typeof o!=="function")return "";
+    if(seen.has(o))return "";seen.add(o);
+    let keys=Object.keys(o).slice(0,80);
+    for(let k of keys){
+      let v;
+      try{v=o[k]}catch(e){continue}
+      let kp=(path+"."+k).toLowerCase();
+      if((/roleid|role_id|role_id_str|playerid|player_id|rid/.test(kp)||(/role|player/.test(path.toLowerCase())&&/^id$/i.test(k)))&&okId(v))return okId(v);
+      if(depth>0&&(typeof v==="object"||typeof v==="function")){
+        let r=scanObj(v,depth-1,kp,seen);
+        if(r)return r;
+      }
+    }
+  }catch(e){}
+  return "";
+}
+function findRoleId(){
+  try{
+    let direct=[
+      window.roleId,window.RoleId,window.ROLE_ID,window.playerId,
+      window._roleId,window._playerId,window.vlmRoleId,window.VLM_ROLE_ID
+    ];
+    for(let v of direct){let r=okId(v);if(r)return r;}
+  }catch(e){}
+  try{
+    for(let i=0;i<localStorage.length;i++){
+      let k=localStorage.key(i),v=localStorage.getItem(k);
+      if(/role|player|user|account/i.test(k)){
+        let r=okId(v);if(r)return r;
+        try{r=scanObj(JSON.parse(v),3,k,new WeakSet());if(r)return r;}catch(e){}
+      }
+    }
+  }catch(e){}
+  try{
+    let roots=["playerModel","PlayerModel","roleModel","RoleModel","userModel","UserModel","game","Game","app","App","cc"];
+    for(let n of roots){
+      let r=scanObj(window[n],4,n,new WeakSet());
+      if(r)return r;
+    }
+  }catch(e){}
+  try{
+    if(window.cc&&cc.director&&cc.director.getScene){
+      let scene=cc.director.getScene();
+      let r=scanObj(scene,5,"cc.scene",new WeakSet());
+      if(r)return r;
+    }
+  }catch(e){}
+  return "";
+}
+function deviceId(){
+  try{
+    let k="vlm_web_device_id";
+    let v=localStorage.getItem(k);
+    if(!v){v="web_"+Date.now().toString(36)+"_"+Math.random().toString(36).slice(2,10);localStorage.setItem(k,v)}
+    return v;
+  }catch(e){return "web_"+Date.now()}
+}
+async function activate(key,roleId,payload){
+  let path=(payload&&payload.activatePath)||"/vlm-web-activate";
+  let body={key,roleId,deviceId:deviceId(),apkVersion:"web",client:"web",mode:(payload&&payload.mode)||"client"};
+  log("activate start",body);
+  let r=await fetch(path,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(body)});
+  let txt=await r.text();
+  let j={};
+  try{j=JSON.parse(txt)}catch(e){j={ok:false,message:"BAD JSON",raw:txt.slice(0,300)}}
+  log("activate result",j);
+  if(j&&j.ok!==false&&(j.status==="active"||j.status==="activated"||j.ok===true)){
+    try{
+      localStorage.setItem("MOD_KEY_VALID","1");
+      localStorage.setItem("VLM_KEY",key);
+      localStorage.setItem("vlm_license_key",key);
+      localStorage.setItem("vlm_license_active","1");
+      localStorage.setItem("vlm_license_roleId",roleId);
+      localStorage.setItem("vlm_web_auto_activate_result",JSON.stringify(j));
+    }catch(e){}
+    try{window.dispatchEvent(new CustomEvent("VLM_LICENSE_ACTIVE",{detail:j}))}catch(e){}
+    try{
+      ["VLM_onLicenseActive","VLM_refreshMenu","VLM_refreshPremium","VLM_applyPremium","VLM_setPremiumActive"].forEach(n=>{try{if(typeof window[n]==="function")window[n](j)}catch(e){}});
+    }catch(e){}
+    let rk="vlm_web_reload_done_"+key+"_"+roleId;
+    try{
+      if(!sessionStorage.getItem(rk)){
+        sessionStorage.setItem(rk,"1");
+        setTimeout(()=>location.reload(),900);
+      }
+    }catch(e){}
+    return true;
+  }
+  return false;
+}
+let tries=0;
+let timer=setInterval(async()=>{
+  tries++;
+  try{
+    let payload=readPayload();
+    let key=payload&&payload.key;
+    if(!key){if(tries>180)clearInterval(timer);return}
+    if(typeof window.VLM_activateKeyFromChat==="function"){try{window.VLM_activateKeyFromChat(key)}catch(e){}}
+    if(window.VLM_licenseController&&typeof window.VLM_licenseController.activateTypedLicenseKey==="function"){try{window.VLM_licenseController.activateTypedLicenseKey(key)}catch(e){}}
+    let roleId=findRoleId();
+    if(!roleId){if(tries%10===0)log("waiting roleId");if(tries>240)clearInterval(timer);return}
+    let doneKey="vlm_web_auto_done_"+key+"_"+roleId;
+    try{if(localStorage.getItem(doneKey)==="1"){clearInterval(timer);return}}catch(e){}
+    let ok=await activate(key,roleId,payload);
+    if(ok){try{localStorage.setItem(doneKey,"1")}catch(e){}clearInterval(timer)}
+  }catch(e){log("error",e&&e.message?e.message:e)}
+  if(tries>300)clearInterval(timer);
+},1000);
+log("installed");
+}catch(e){try{console.log("[VLM_WEB_AUTO] boot error",e)}catch(_){}}})();
