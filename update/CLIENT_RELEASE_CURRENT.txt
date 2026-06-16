@@ -1,0 +1,10 @@
+ViciousLom Web Client Release
+date=20260616_172156
+source=update/indexVL.web.DEV_FASTPVP_V3_CHALLENGE_FIX_TRIAL.js
+production=update/indexVL.web.js
+size=20010948
+sha256=98fa5b0d007db09c4f5993c3bffae236308a2c81427c1c474c83f3d6350fc24b
+status=CLIENT_READY
+client_url=https://vlm.gamervicius14.workers.dev/play
+activation=Key pelo painel Premium Access / Change Key
+notes=FASTPVP_V3 + CHALLENGE_FIX aprovado; Work pode precisar ajuste fino posterior em solicitação inválida.
