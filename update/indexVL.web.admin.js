@@ -1,4 +1,277 @@
 
+
+/* VLM_FLUIDEZ_V2 */
+(function(){
+  "use strict";
+  if (window.__VLM_FLUIDEZ_V2__) return;
+  window.__VLM_FLUIDEZ_V2__ = true;
+
+  var TAG = "[VLM_FLUIDEZ_V2]";
+  var START = Date.now();
+  var BOOT_MS = 120000;
+
+  function log(){
+    try { console.warn.apply(console, arguments); } catch(e){}
+  }
+
+  function boot(){
+    try { return Date.now() - START < BOOT_MS; } catch(e){ return true; }
+  }
+
+  function roleReady(){
+    try {
+      var rid = "";
+      try { if (window.IS && window.Rt) rid = String(window.IS(window.Rt).GetRoleId() || ""); } catch(e){}
+      try { if (!rid) rid = String(localStorage.getItem("vlm_license_roleId") || ""); } catch(e){}
+      return !!(rid && rid !== "0" && rid.length >= 8);
+    } catch(e){ return false; }
+  }
+
+  function manualRecent(){
+    try { return Date.now() - (window.__VLM_LAST_MENU_USER_ACTION_TS__ || 0) < 20000; } catch(e){ return false; }
+  }
+
+  function blockTelemetryUrl(url){
+    url = String(url || "");
+    return (
+      url.indexOf("y.joynetgame.com/datacf") >= 0 ||
+      url.indexOf("mkts.joynetgame.com/ads") >= 0 ||
+      url.indexOf("analytics.google.com") >= 0 ||
+      url.indexOf("googletagmanager.com/gtag") >= 0 ||
+      url.indexOf("google.com.br/ads") >= 0 ||
+      url.indexOf("facebook.com/tr/") >= 0 ||
+      url.indexOf("connect.facebook.net") >= 0 ||
+      url.indexOf("applovin.com") >= 0 ||
+      url.indexOf("axon.ai") >= 0 ||
+      url.indexOf("albss.com") >= 0 ||
+      url.indexOf("psgw.joynetgame.com/crashlog") >= 0 ||
+      url.indexOf("psgw.gamervicius14.workers.dev/crashlog") >= 0
+    );
+  }
+
+  function blockLegacyLicense(url){
+    url = String(url || "");
+    return url.indexOf("gist.githubusercontent.com") >= 0 && url.indexOf("licenca") >= 0;
+  }
+
+  function heavyProtocolText(txt){
+    txt = String(txt || "");
+    return (
+      txt.indexOf("home.home_mine_info_c2s") >= 0 ||
+      txt.indexOf("home.home_farm_search_list_c2s") >= 0 ||
+      txt.indexOf("worker_common.worker_common_farm_housekeeper") >= 0 ||
+      txt.indexOf("worker_processing_workshop.worker_pw_info_c2s") >= 0 ||
+      txt.indexOf("worker_processing_workshop.worker_pw_food_auto_use_c2s") >= 0 ||
+      txt.indexOf("vlmAutoParkingOperate") >= 0 ||
+      txt.indexOf("_vlmMineBgBusy") >= 0 ||
+      txt.indexOf("_vlmAutoFarmBusy") >= 0 ||
+      txt.indexOf("_vlmWsBusy") >= 0 ||
+      txt.indexOf("清除广告奖励") >= 0
+    );
+  }
+
+  function shouldBlockHeavy(txt){
+    if (!heavyProtocolText(txt)) return false;
+    if (manualRecent() && roleReady()) return false;
+    if (boot()) return true;
+    if (!roleReady()) return true;
+    return false;
+  }
+
+  try {
+    document.addEventListener("click", function(){ window.__VLM_LAST_MENU_USER_ACTION_TS__ = Date.now(); }, true);
+    document.addEventListener("touchend", function(){ window.__VLM_LAST_MENU_USER_ACTION_TS__ = Date.now(); }, true);
+    document.addEventListener("pointerup", function(){ window.__VLM_LAST_MENU_USER_ACTION_TS__ = Date.now(); }, true);
+  } catch(e){}
+
+  try {
+    var _fetch = window.fetch;
+    if (_fetch) {
+      window.fetch = function(input, init){
+        try {
+          var url = String((input && input.url) || input || "");
+          var body = init && init.body ? String(init.body) : "";
+          var all = url + " " + body;
+
+          if (blockLegacyLicense(url)) {
+            log(TAG, "blocked legacy license fetch");
+            return Promise.resolve(new Response("{}", {
+              status: 200,
+              headers: {"content-type":"application/json","x-vlm-fluidez-v2":"legacy-license-blocked"}
+            }));
+          }
+
+          if (blockTelemetryUrl(url)) {
+            return Promise.resolve(new Response("", {
+              status: 204,
+              headers: {"x-vlm-fluidez-v2":"telemetry-blocked"}
+            }));
+          }
+
+          if (shouldBlockHeavy(all)) {
+            log(TAG, "blocked heavy fetch", url.slice(0,120));
+            return Promise.resolve(new Response("{}", {
+              status: 204,
+              headers: {"content-type":"application/json","x-vlm-fluidez-v2":"heavy-fetch-blocked"}
+            }));
+          }
+        } catch(e){}
+        return _fetch.apply(this, arguments);
+      };
+    }
+  } catch(e){}
+
+  try {
+    var XHR = window.XMLHttpRequest;
+    if (XHR && XHR.prototype) {
+      var _open = XHR.prototype.open;
+      var _send = XHR.prototype.send;
+
+      XHR.prototype.open = function(method, url){
+        try { this.__vlm_fluidez_url = String(url || ""); } catch(e){}
+        return _open.apply(this, arguments);
+      };
+
+      XHR.prototype.send = function(body){
+        try {
+          var url = String(this.__vlm_fluidez_url || "");
+          var all = url + " " + String(body || "");
+
+          if (blockLegacyLicense(url) || blockTelemetryUrl(url) || shouldBlockHeavy(all)) {
+            if (blockLegacyLicense(url)) log(TAG, "blocked legacy license xhr");
+            else if (shouldBlockHeavy(all)) log(TAG, "blocked heavy xhr", url.slice(0,120));
+
+            try {
+              Object.defineProperty(this, "readyState", { value: 4, configurable: true });
+              Object.defineProperty(this, "status", { value: blockLegacyLicense(url) ? 200 : 204, configurable: true });
+              Object.defineProperty(this, "responseText", { value: blockLegacyLicense(url) ? "{}" : "", configurable: true });
+              if (typeof this.onreadystatechange === "function") this.onreadystatechange();
+              if (typeof this.onload === "function") this.onload();
+            } catch(e){}
+            return;
+          }
+        } catch(e){}
+        return _send.apply(this, arguments);
+      };
+    }
+  } catch(e){}
+
+  try {
+    var WS = window.WebSocket;
+    if (WS && WS.prototype && WS.prototype.send) {
+      var _wssend = WS.prototype.send;
+      WS.prototype.send = function(data){
+        try {
+          var txt = typeof data === "string" ? data : "";
+          if (shouldBlockHeavy(txt)) {
+            log(TAG, "blocked heavy websocket packet", txt.slice(0,90));
+            return;
+          }
+        } catch(e){}
+        return _wssend.apply(this, arguments);
+      };
+    }
+  } catch(e){}
+
+  try {
+    var _st = window.setTimeout;
+    var _si = window.setInterval;
+
+    window.setTimeout = function(fn, delay){
+      try {
+        if (shouldBlockHeavy(String(fn))) {
+          log(TAG, "blocked timeout heavy callback", String(fn).slice(0,90));
+          return 0;
+        }
+      } catch(e){}
+      return _st.apply(this, arguments);
+    };
+
+    window.setInterval = function(fn, delay){
+      try {
+        if (shouldBlockHeavy(String(fn))) {
+          log(TAG, "blocked interval heavy callback", String(fn).slice(0,90));
+          return 0;
+        }
+      } catch(e){}
+      return _si.apply(this, arguments);
+    };
+  } catch(e){}
+
+  try {
+    var _beacon = navigator.sendBeacon;
+    if (_beacon) {
+      navigator.sendBeacon = function(url, data){
+        try {
+          if (blockTelemetryUrl(url) || blockLegacyLicense(url) || shouldBlockHeavy(String(url)+" "+String(data||""))) {
+            return true;
+          }
+        } catch(e){}
+        return _beacon.apply(this, arguments);
+      };
+    }
+  } catch(e){}
+
+  try {
+    var _warn = console.warn, _err = console.error, _log = console.log;
+
+    function quiet(args, original){
+      try {
+        var joined = Array.prototype.slice.call(args).join(" ");
+
+        if (
+          joined.indexOf("清除广告奖励") >= 0 ||
+          joined.indexOf("ccccccc") >= 0 ||
+          joined.indexOf("musicValue:") >= 0 ||
+          joined.indexOf("开始加载字体") >= 0 ||
+          joined.indexOf("MainView_EquipInfo  already add") >= 0 ||
+          joined.indexOf("GoodsGetView 正在加载中") >= 0 ||
+          joined.indexOf("设置分享参数回调") >= 0 ||
+          joined.indexOf("googleAchievement id:1") >= 0
+        ) return;
+
+        if (joined.indexOf("网络未连接") >= 0 && heavyProtocolText(joined)) return;
+      } catch(e){}
+      return original.apply(console, args);
+    }
+
+    console.warn = function(){ return quiet(arguments, _warn); };
+    console.error = function(){ return quiet(arguments, _err); };
+    console.log = function(){ return quiet(arguments, _log); };
+  } catch(e){}
+
+  try {
+    var _create = document.createElement;
+    document.createElement = function(tag){
+      var el = _create.apply(document, arguments);
+      try {
+        var t = String(tag || "").toLowerCase();
+        if (t === "script" || t === "img" || t === "iframe") {
+          var proto = Object.getPrototypeOf(el);
+          var desc = Object.getOwnPropertyDescriptor(proto, "src");
+          if (desc && desc.set && desc.get) {
+            Object.defineProperty(el, "src", {
+              configurable: true,
+              get: function(){ return desc.get.call(this); },
+              set: function(v){
+                try {
+                  if (blockTelemetryUrl(v) || blockLegacyLicense(v)) {
+                    return desc.set.call(this, "about:blank");
+                  }
+                } catch(e){}
+                return desc.set.call(this, v);
+              }
+            });
+          }
+        }
+      } catch(e){}
+      return el;
+    };
+  } catch(e){}
+
+  log(TAG, "installed bootMs=" + BOOT_MS);
+})();
+
 /* VLM_BOOT_LEVE_V1 */
 (function(){
   "use strict";
