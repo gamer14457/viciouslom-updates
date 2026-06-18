@@ -1,3 +1,250 @@
+
+/* VLM_BOOT_LEVE_V1 */
+(function(){
+  "use strict";
+  if (window.__VLM_BOOT_LEVE_V1__) return;
+  window.__VLM_BOOT_LEVE_V1__ = true;
+
+  var TAG = "[VLM_BOOT_LEVE_V1]";
+  var BOOT_MS = 90000;
+  var start = Date.now();
+
+  function log(){
+    try { console.warn.apply(console, arguments); } catch(e){}
+  }
+
+  function now(){ return Date.now(); }
+
+  function isBootWindow(){
+    try { return (now() - start) < BOOT_MS; } catch(e){ return true; }
+  }
+
+  function hasRole(){
+    try {
+      var rid = "";
+      try {
+        if (window.IS && window.Rt) rid = String(window.IS(window.Rt).GetRoleId() || "");
+      } catch(e){}
+      try {
+        if (!rid && localStorage) rid = String(localStorage.getItem("vlm_license_roleId") || "");
+      } catch(e){}
+      return !!(rid && rid !== "0" && rid.length >= 8);
+    } catch(e){ return false; }
+  }
+
+  function isManualWindow(){
+    try { return (now() - (window.__VLM_LAST_MENU_USER_ACTION_TS__ || 0)) < 15000; } catch(e){ return false; }
+  }
+
+  function shouldBlockAutoText(txt){
+    txt = String(txt || "");
+    if (!txt) return false;
+
+    var heavy =
+      txt.indexOf("VLM_SHERIFF") >= 0 ||
+      txt.indexOf("VLM_ASSIST") >= 0 ||
+      txt.indexOf("VLM_WORKSHOP") >= 0 ||
+      txt.indexOf("SHOP_ONCE") >= 0 ||
+      txt.indexOf("SWEEP_EMPTY") >= 0 ||
+      txt.indexOf("SWEEP_LIST") >= 0 ||
+      txt.indexOf("START_V2") >= 0 ||
+      txt.indexOf("home_mine_info_c2s") >= 0 ||
+      txt.indexOf("worker_pw_info_c2s") >= 0 ||
+      txt.indexOf("worker_common_farm_housekeeper") >= 0 ||
+      txt.indexOf("home_farm_search_list_c2s") >= 0;
+
+    if (!heavy) return false;
+
+    if (isManualWindow() && hasRole()) return false;
+
+    if (isBootWindow()) return true;
+
+    if (!hasRole()) return true;
+
+    return false;
+  }
+
+  function killBootStorage(){
+    try {
+      var keysOff = [
+        "vlm_sheriff_on_v1",
+        "vlm_sheriff_v1",
+        "vlm_assist_on_v1",
+        "vlm_assist_v1",
+        "vlm_workshop_on_v1",
+        "vlm_workshop_v1",
+        "vlm_auto_assist_v1",
+        "vlm_auto_workshop_v1",
+        "vlm_auto_sheriff_v1",
+        "VLM_SHERIFF_ON",
+        "VLM_ASSIST_ON",
+        "VLM_WORKSHOP_ON",
+        "sheriff_on",
+        "assist_on",
+        "workshop_on"
+      ];
+
+      for (var i=0;i<keysOff.length;i++){
+        try { localStorage.setItem(keysOff[i], "0"); } catch(e){}
+        try { sessionStorage.setItem(keysOff[i], "0"); } catch(e){}
+      }
+
+      window.VLM_SHERIFF_ON = false;
+      window.VLM_ASSIST_ON = false;
+      window.VLM_WORKSHOP_ON = false;
+      window.__VLM_BOOT_SAFE_HEAVY_AUTORUN_OFF__ = true;
+    } catch(e){}
+  }
+
+  killBootStorage();
+
+  try {
+    document.addEventListener("click", function(){
+      window.__VLM_LAST_MENU_USER_ACTION_TS__ = now();
+    }, true);
+    document.addEventListener("touchend", function(){
+      window.__VLM_LAST_MENU_USER_ACTION_TS__ = now();
+    }, true);
+    document.addEventListener("pointerup", function(){
+      window.__VLM_LAST_MENU_USER_ACTION_TS__ = now();
+    }, true);
+  } catch(e){}
+
+  try {
+    var _setTimeout = window.setTimeout;
+    var _setInterval = window.setInterval;
+
+    window.setTimeout = function(fn, delay){
+      try {
+        if (shouldBlockAutoText(String(fn))) {
+          log(TAG, "blocked setTimeout heavy autorun", String(fn).slice(0,90));
+          return 0;
+        }
+      } catch(e){}
+      return _setTimeout.apply(this, arguments);
+    };
+
+    window.setInterval = function(fn, delay){
+      try {
+        if (shouldBlockAutoText(String(fn))) {
+          log(TAG, "blocked setInterval heavy autorun", String(fn).slice(0,90));
+          return 0;
+        }
+      } catch(e){}
+      return _setInterval.apply(this, arguments);
+    };
+  } catch(e){}
+
+  try {
+    var _fetch = window.fetch;
+    if (_fetch) {
+      window.fetch = function(input, init){
+        try {
+          var url = String((input && input.url) || input || "");
+          var body = init && init.body ? String(init.body) : "";
+          var all = url + " " + body;
+
+          if (url.indexOf("gist.githubusercontent.com") >= 0 && url.indexOf("licenca.disabled.json") >= 0) {
+            log(TAG, "blocked legacy licenca.disabled.json fetch");
+            return Promise.resolve(new Response("{}", {
+              status: 200,
+              headers: {
+                "content-type": "application/json",
+                "x-vlm-boot-leve": "legacy-license-blocked"
+              }
+            }));
+          }
+
+          if (shouldBlockAutoText(all)) {
+            log(TAG, "blocked heavy fetch during boot", url.slice(0,120));
+            return Promise.resolve(new Response("{}", {
+              status: 204,
+              headers: {
+                "content-type": "application/json",
+                "x-vlm-boot-leve": "heavy-fetch-blocked"
+              }
+            }));
+          }
+        } catch(e){}
+        return _fetch.apply(this, arguments);
+      };
+    }
+  } catch(e){}
+
+  try {
+    var XHR = window.XMLHttpRequest;
+    if (XHR && XHR.prototype) {
+      var _open = XHR.prototype.open;
+      var _send = XHR.prototype.send;
+
+      XHR.prototype.open = function(method, url){
+        try { this.__vlm_boot_url = String(url || ""); } catch(e){}
+        return _open.apply(this, arguments);
+      };
+
+      XHR.prototype.send = function(body){
+        try {
+          var url = String(this.__vlm_boot_url || "");
+          var all = url + " " + String(body || "");
+
+          if (url.indexOf("gist.githubusercontent.com") >= 0 && url.indexOf("licenca.disabled.json") >= 0) {
+            log(TAG, "blocked legacy licenca.disabled.json xhr");
+            try {
+              Object.defineProperty(this, "readyState", { value: 4, configurable: true });
+              Object.defineProperty(this, "status", { value: 200, configurable: true });
+              Object.defineProperty(this, "responseText", { value: "{}", configurable: true });
+              if (typeof this.onreadystatechange === "function") this.onreadystatechange();
+            } catch(e){}
+            return;
+          }
+
+          if (shouldBlockAutoText(all)) {
+            log(TAG, "blocked heavy xhr during boot", url.slice(0,120));
+            try {
+              Object.defineProperty(this, "readyState", { value: 4, configurable: true });
+              Object.defineProperty(this, "status", { value: 204, configurable: true });
+              Object.defineProperty(this, "responseText", { value: "{}", configurable: true });
+              if (typeof this.onreadystatechange === "function") this.onreadystatechange();
+            } catch(e){}
+            return;
+          }
+        } catch(e){}
+        return _send.apply(this, arguments);
+      };
+    }
+  } catch(e){}
+
+  try {
+    var _warn = console.warn, _err = console.error, _log = console.log;
+
+    function quietHeavy(args, original){
+      try {
+        var joined = Array.prototype.slice.call(args).join(" ");
+        if (
+          joined.indexOf("[VLM_SHERIFF] INSTALLED") >= 0 ||
+          joined.indexOf("[VLM_ASSIST] SWEEP_EMPTY") >= 0 ||
+          joined.indexOf("[VLM_ASSIST] SWEEP_LIST") >= 0 ||
+          joined.indexOf("[VLM_WORKSHOP] START_V2") >= 0 ||
+          joined.indexOf("[VLM_ASSIST] SHOP_ONCE") >= 0
+        ) return;
+      } catch(e){}
+      return original.apply(console, args);
+    }
+
+    console.warn = function(){ return quietHeavy(arguments, _warn); };
+    console.error = function(){ return quietHeavy(arguments, _err); };
+    console.log = function(){ return quietHeavy(arguments, _log); };
+  } catch(e){}
+
+  try {
+    setInterval(function(){
+      try { killBootStorage(); } catch(e){}
+    }, 15000);
+  } catch(e){}
+
+  log(TAG, "installed bootMs=" + BOOT_MS);
+})();
+
 ;(function(){try{var W=window;if(W.__VLM_ADMIN_LOGFIX_V3__)return;Object.defineProperty(W,"__VLM_ADMIN_LOGFIX_V3__",{value:1,configurable:false});var now=Date.now;var seen=Object.create(null);function joinArgs(args){try{return Array.prototype.slice.call(args).map(function(x){try{return typeof x==="string"?x:JSON.stringify(x)}catch(e){return String(x)}}).join(" ")}catch(e){return""}}function isNoisy(args){var s=joinArgs(args);var keys=["[VLM_SHERIFF] INSTALLED","[VLM_ASSIST] SWEEP_EMPTY","[VLM_ASSIST] SWEEP_LIST","[VLM_WORKSHOP] START_V2","MainView_EquipInfo  already add!","ccccccc","ccccccccccccc2222222222","musicValue:","开始加载字体"];for(var i=0;i<keys.length;i++){if(s.indexOf(keys[i])>=0){var k=keys[i];var t=now();if(t-(seen[k]||0)<15000)return true;seen[k]=t;return false}}return false}try{["log","warn","error"].forEach(function(k){var old=console[k];if(!old||old.__vlmLogfixV3)return;var fn=function(){if(isNoisy(arguments))return;return old.apply(console,arguments)};fn.__vlmLogfixV3=1;console[k]=fn})}catch(e){}try{var oldFetch=W.fetch;if(oldFetch&&!oldFetch.__vlmLogfixV3){var pending=Object.create(null);W.fetch=function(input,init){var url="";try{url=String(typeof input==="string"?input:(input&&input.url)||"")}catch(e){}var body="";try{body=String(init&&init.body||"")}catch(e){}if(/gist\.githubusercontent\.com\/gamer14457\/.*licenca\.json/i.test(url)&&/[?&]id=(?:&|$)/.test(url)){return Promise.resolve(new Response("{}",{status:200,headers:{"content-type":"application/json","x-vlm-logfix":"legacy-license-empty-blocked"}}))}if(/vlm-license-api.*\/activate/i.test(url)||/\/activate(?:\?|$)/i.test(url)){var key=url+"|"+body.slice(0,800);if(pending[key]){try{console.warn("[VLM_ADMIN_LOGFIX_V3] duplicate activate suppressed")}catch(e){}return pending[key].then(function(r){return r.clone()})}pending[key]=oldFetch.apply(this,arguments).then(function(r){setTimeout(function(){delete pending[key]},12000);return r.clone()}).catch(function(e){delete pending[key];throw e});return pending[key].then(function(r){return r.clone()})}return oldFetch.apply(this,arguments)};W.fetch.__vlmLogfixV3=1}}catch(e){}try{if(W.Response&&Response.prototype&&Response.prototype.json&&!Response.prototype.json.__vlmLogfixV3){var oldJson=Response.prototype.json;var newJson=function(){var c;try{c=this.clone()}catch(e){}return oldJson.call(this).catch(function(er){if(c&&c.text){return c.text().then(function(t){if(/^\s*</.test(t)){try{console.warn("[VLM_ADMIN_LOGFIX_V3] HTML returned where JSON expected; neutralized")}catch(e){}return {}}throw er})}throw er})};newJson.__vlmLogfixV3=1;Response.prototype.json=newJson}}catch(e){}try{var X=W.XMLHttpRequest;if(X&&X.prototype&&!X.prototype.__vlmLogfixV3){var oldOpen=X.prototype.open;var oldSend=X.prototype.send;var last=Object.create(null);X.prototype.open=function(m,u){this.__vlmUrl=String(u||"");return oldOpen.apply(this,arguments)};X.prototype.send=function(body){try{var u=this.__vlmUrl||"";if(/gist\.githubusercontent\.com\/gamer14457\/.*licenca\.json/i.test(u)&&/[?&]id=(?:&|$)/.test(u)){var self=this;setTimeout(function(){try{Object.defineProperty(self,"readyState",{value:4,configurable:true});Object.defineProperty(self,"status",{value:200,configurable:true});Object.defineProperty(self,"responseText",{value:"{}",configurable:true});Object.defineProperty(self,"response",{value:"{}",configurable:true});if(typeof self.onreadystatechange==="function")self.onreadystatechange();if(typeof self.onload==="function")self.onload()}catch(e){}},0);return}if(/vlm-license-api.*\/activate/i.test(u)||/\/activate(?:\?|$)/i.test(u)){var k=u+"|"+String(body||"").slice(0,800);var t=now();if(last[k]&&t-last[k]<5000){try{console.warn("[VLM_ADMIN_LOGFIX_V3] duplicate XHR activate suppressed")}catch(e){}return}last[k]=t}}catch(e){}return oldSend.apply(this,arguments)};X.prototype.__vlmLogfixV3=1}}catch(e){}try{var oldSetInterval=W.setInterval;if(oldSetInterval&&!oldSetInterval.__vlmLogfixV3){var map=Object.create(null);W.setInterval=function(fn,ms){try{var s=String(fn).slice(0,1200);if(/VLM_SHERIFF|VLM_ASSIST|VLM_WORKSHOP|activate pending panel\/chat key/i.test(s)){var k=String(ms)+"|"+s;if(map[k])return map[k];var id=oldSetInterval.apply(this,arguments);map[k]=id;return id}}catch(e){}return oldSetInterval.apply(this,arguments)};W.setInterval.__vlmLogfixV3=1}}catch(e){}try{console.warn("[VLM_ADMIN_LOGFIX_V3] installed")}catch(e){}}catch(e){try{console.error("[VLM_ADMIN_LOGFIX_V3] fail",e)}catch(_){}}})();
 ;(()=>{try{const V="VLM_KEY_PANEL_FIX_V1",H="https://vlm-license-api.gamervicius14.workers.dev";if(window[V])return;window[V]=1;const norm=e=>String(e||"").trim().replace(/^(key\s*=\s*)+/i,"").trim();const save=e=>{try{e=norm(e);if(e){localStorage.setItem("vlm_web_key",e);localStorage.setItem("vlm_pending_key",e)}return e}catch(t){return norm(e)}};const get=()=>{try{let e=new URL(location.href).searchParams.get("key")||"";if(e){e=save(e);try{history.replaceState(null,"",location.origin+location.pathname)}catch(t){}return e}}catch(e){}for(const e of["vlm_pending_key","vlm_web_key"]){try{let t=save(localStorage.getItem(e)||"");if(t)return t}catch(t){}}return""};try{get()}catch(e){}const O=XMLHttpRequest.prototype.open,S=XMLHttpRequest.prototype.send;XMLHttpRequest.prototype.open=function(e,t){try{this.__vlm_url=String(t||"");if(this.__vlm_url.indexOf(H+"/verify")===0){let e=get();if(e){t=this.__vlm_url.replace(H+"/verify",H+"/activate");this.__vlm_url=String(t);arguments[1]=t}}}catch(e){}return O.apply(this,arguments)};XMLHttpRequest.prototype.send=function(e){try{if(this.__vlm_url&&this.__vlm_url.indexOf(H)===0){let t={};try{t=JSON.parse(e||"{}")||{}}catch(i){t={}}let i=norm(t.key||get());if(i)t.key=i;if(!t.apkVersion)t.apkVersion="web";if(!t.client)t.client="web";if(!t.mode)t.mode="client";e=JSON.stringify(t)}}catch(t){}return S.call(this,e)};try{window.VLM_NORMALIZE_KEY=norm}catch(e){}console.warn("[VLM_KEY_PANEL_FIX_V1] installed")}catch(e){}})();
 System.register("chunks:///_virtual/AccomplishmentView.ts",["./rollupPluginModLoBabelHelpers.js","cc","./V2.ts","./AudioMgr.ts","./index4.ts","./UIList.ts","./NodeUtil.ts","./StringUtil.ts","./index84.ts","./UIEffectAsset.ts","./BagModel.ts","./TaskControl.ts","./TaskDataCache.ts","./TaskDefine.ts","./AchievementControl.ts","./AchievementDataCache.ts","./AchievementDefine.ts","./EaseMethod.ts","./BaseSubView.ts"],(function(t){"use strict";var i,e,n,o,s,a,d,c,h,r,l,m,u,f,v,p,g,C,I,S,y,T,w,A,F,k,b;return{setters:[function(t){i=t.inheritsLoose},function(t){e=t.cclegacy,n=t.ScrollView,o=t.UITransform,s=t.Vec3,a=t.Sprite,d=t.Label,c=t.ProgressBar,h=t.Button,r=t.js},function(t){l=t.V2},function(t){m=t.audioMgr},null,function(t){u=t.ListItem},function(t){f=t.default},function(t){v=t.default},null,function(t){p=t.UIEffectAsset},function(t){g=t.BagModel},function(t){C=t.default},function(t){I=t.TaskDataCache},function(t){S=t.TaskEventDefine,y=t.TaskType,T=t.TaskState},function(t){w=t.default},function(t){A=t.AchievementDataCache},function(t){F=t.AchievementEventDefine},function(t){k=t.EasingMethod},function(t){b=t.BaseSubView}],execute:function(){e._RF.push({},"f8f34pi5+xHJITBPl0kfy0C","AccomplishmentView",void 0);t("default",function(t){function e(){var i;return(i=t.call(this)||this).taskList=void 0,i.nodeFly=void 0,i.utFly=void 0,i.target=void 0,i.totaleTask=void 0,i.name="AccomplishmentView",i.url="ui/module/achievement/AccomplishmentView",i}i(e,t);var a=e.prototype;return a.onInit=function(){var t=this.findChildComponent("view/taskList",n);this.taskList=this.addUIList(t,x,!0,1,1),this.totaleTask=new x,this.totaleTask.init(null,this.findChild("view/totalTask/item"),this),this.nodeFly=this.findChild("flyRoot"),this.utFly=this.nodeFly.getComponent(o),this.target=this.findChild("target")},a.registerUpdateHandler=function(){this.addEvent(S.TASK_INFO_UPDATE,this.updateTaskInfo,this),this.addEvent(F.AccomplishmentUpdate,this.updateTaskInfo,this),this.addEvent(S.Task_FLY_DIAMOND,this.flyDiamo,this)},a.onAfterOpen=function(){this.updateTaskInfo()},a.onBeforeClose=function(){},a.onDestroy=function(){},a.updateTaskInfo=function(){var t,i=IS(A).GetAccomplishmentTask();i.sort((function(t,i){var e=IS(I).GetTaskItem(y.Achievement,t.id),n=IS(I).GetTaskItem(y.Achievement,i.id),o=e?e.state:T.Normal,s=n?n.state:T.Normal;return o==T.Complete&&s!=T.Complete?-1:o!=T.Complete&&s==T.Complete?1:o!=s?o<s?-1:1:t.order-i.order}));var e=configAchievement_total.getDataByKey(IS(A).GetAccomplishmentId());this.totaleTask.onRender({isSpec:!0,id:e.id,condition:(t={},t[2]=e.number,t),name:e.name,desc:e.desc,reward:e.reward}),this.taskList.datas=i},a.flyDiamo=function(t){var i=new s,e=new l;this.utFly.convertToNodeSpaceAR(t,i);var n=this.utFly.convertToNodeSpaceAR(this.target.worldPosition,new s),o=p.alloc("ui/module/common/FlyDiamo",this.nodeFly,1);o.position=e.set(i.x,i.y);var a=new l(i.x,i.y),d=s.subtract(new s,n,i);this.addTween(0,1,.95,(function(t,n){s.multiplyScalar(i,d,n),e.set(a).add2f(i.x,i.y),o.position=e})).easing(k.BACK_IN).call((function(){m.playSound("common_jinbitiao")})).start()},e}(b));var x=function(t){function e(){for(var i,e=arguments.length,n=new Array(e),o=0;o<e;o++)n[o]=arguments[o];return(i=t.call.apply(t,[this].concat(n))||this).txtDesc=void 0,i.pb=void 0,i.txtSchedule=void 0,i.btnGet=void 0,i.notFinish=void 0,i.btnFinish=void 0,i.imgFrame=void 0,i.imgIcon=void 0,i.txtNum=void 0,i.moveTween=void 0,i.name=void 0,i}i(e,t);var n=e.prototype;return n.onInit=function(){var t=this;this.imgFrame=f.findChildComponent(this.node,"imgFrame",a),this.imgIcon=f.findChildComponent(this.node,"imgIcon",a),this.txtNum=f.findChildComponent(this.node,"txtNum",d),this.txtDesc=f.findChildComponent(this.node,"txtDesc",d),this.name=f.findChildComponent(this.node,"name",d),this.pb=f.findChildComponent(this.node,"ProgressBar",c),this.txtSchedule=f.findChildComponent(this.node,"ProgressBar/schedule",d),this.btnGet=f.findChild(this.node,"btnGet"),this.view.addComponentCallbackListener(this.btnGet,h.EventType.CLICK,(function(){t.data.isSpec?IS(w).send_task_achievement_reward_c2s():t.flyOut()})),this.btnFinish=f.findChild(this.node,"received"),this.notFinish=f.findChild(this.node,"notFinish"),this.view.addComponentCallbackListener(this.imgFrame.node,h.EventType.CLICK,(function(){IS(g).OpenItemTips(t.data.reward[0][0],t.imgFrame.node)}))},n.flyOut=function(){var t=this;null!=this.moveTween&&this.moveTween.stop();var i=new s,e=this.node.getComponent(o).contentSize,n=this.node.position,a=new s(n.x,n.y);this.moveTween=this.view.addTween(0,1,.15,(function(n,o){i.set(a).add3f(-1.1*e.x*o,0,0),t.node.position=i})).easing(k.LINEAR).call((function(){IS(C).send_10_2(y.Achievement,t.data.id)})).start()},n.onRender=function(t,i){var e,n;this.data=t,this.name.string=v.formatStr(t.name,null!=(e=t.name_num)?e:""),this.txtDesc.string=v.formatStr(t.desc,null!=(n=t.desc_num)?n:""),this.txtNum.string=t.reward[0][1];var o,s=t.reward[0][0],a=configGoods.getDataByKey(s),d=a.quality,c=configColor.getDataByKey(d);this.view.loadIcon(this.imgIcon,a.icon_group,a.icon),this.view.loadIcon(this.imgFrame,"icon_equip",c.path);var h,l=0;if(t.isSpec?(h=T.Normal,l=IS(A).GetAccomplishmentProgress(),IS(A).GetAccomplishmentGetId()==IS(A).GetAccomplishmentId()?h=T.Received:l>=t.condition[2]&&(h=T.Complete)):(l=(o=IS(I).GetTaskItem(y.Achievement,t.id)).count,h=o.state),o||t.isSpec)if(h==T.Normal){var m=l<=t.condition[2]?l:t.condition[2];this.pb.progress=m/t.condition[2],this.txtSchedule.string=r.formatStr("%s/%s",m,t.condition[2]),this.btnGet.active=!1,this.btnFinish.active=!1,this.notFinish.active=!0}else h==T.Complete?(this.pb.progress=1,this.txtSchedule.string=r.formatStr("%s/%s",t.condition[2],t.condition[2]),this.btnGet.active=!0,this.btnFinish.active=!1,this.notFinish.active=!1):(this.pb.progress=1,this.txtSchedule.string=r.formatStr("%s/%s",t.condition[2],t.condition[2]),this.btnGet.active=!1,this.btnFinish.active=!0,this.notFinish.active=!1);else this.pb.progress=0,this.txtSchedule.string=r.formatStr("%s/%s",0,t.condition[2]),this.btnGet.active=!1,this.btnFinish.active=!1,this.notFinish.active=!0},e}(u);e._RF.pop()}}}));
