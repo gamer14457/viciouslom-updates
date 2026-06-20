@@ -8548,3 +8548,141 @@ window.alert=function(msg){
 try{console.warn("[VLM_PROMAX_INSTALL_APP_EN_V1] installed")}catch(_){}
 }catch(e){try{console.warn("[VLM_PROMAX_INSTALL_APP_EN_V1_FAIL]",String(e&&e.message||e))}catch(_){}}})();
 
+;(()=>{try{
+const MARK="VLM_PROMAX_FLOATING_VL_ICON_FIX_V1";
+if(globalThis.__VLM_PROMAX_FLOATING_VL_ICON_FIX_V1__)return;
+globalThis.__VLM_PROMAX_FLOATING_VL_ICON_FIX_V1__=true;
+
+const P={
+  violet:"#A78BFA",
+  violet2:"#8B5CF6",
+  violet3:"#C084FC",
+  soft:"#F5F3FF",
+  bg:"rgba(8,10,24,.92)",
+  glow:"rgba(167,139,250,.78)",
+  glow2:"rgba(139,92,246,.50)"
+};
+
+function txt(el){
+  try{return (el.innerText||el.textContent||"").trim()}catch(_){return""}
+}
+
+function looksLikeFloating99(el){
+  try{
+    if(!el || el.nodeType!==1)return false;
+    const t=txt(el);
+    if(t!=="99" && t!=="VL")return false;
+
+    const r=el.getBoundingClientRect();
+    if(!r || !r.width || !r.height)return false;
+
+    // Botão pequeno/flutuante. Evita números de painel/lista.
+    if(r.width<28 || r.height<28 || r.width>150 || r.height>150)return false;
+
+    // Normalmente fica no topo/direita no loading ou no painel flutuante.
+    const nearRight = r.left > innerWidth*0.45;
+    const nearTop = r.top < innerHeight*0.45;
+    const floatingSize = r.width <= 120 && r.height <= 120;
+
+    return floatingSize && (nearRight || nearTop);
+  }catch(_){return false}
+}
+
+function setVL(el){
+  try{
+    if(!el)return;
+
+    if(txt(el)==="99"){
+      el.textContent="VL";
+    }
+
+    el.setAttribute("data-vlm-floating-vl","1");
+
+    el.style.color=P.soft;
+    el.style.borderColor=P.violet;
+    el.style.outlineColor=P.violet;
+    el.style.background=P.bg;
+    el.style.textShadow=`0 0 10px ${P.glow}, 0 0 18px ${P.glow2}`;
+    el.style.boxShadow=`0 0 14px ${P.glow}, inset 0 0 14px rgba(139,92,246,.16)`;
+    el.style.accentColor=P.violet;
+
+    const parent=el.parentElement;
+    if(parent){
+      const pt=txt(parent);
+      const pr=parent.getBoundingClientRect();
+      if((pt==="99"||pt==="VL") && pr.width<=170 && pr.height<=170){
+        parent.setAttribute("data-vlm-floating-vl-parent","1");
+        parent.style.borderColor=P.violet;
+        parent.style.boxShadow=`0 0 16px ${P.glow}, inset 0 0 18px rgba(139,92,246,.14)`;
+      }
+    }
+  }catch(_){}
+}
+
+function fix(){
+  try{
+    const nodes=document.querySelectorAll("div,span,button,a");
+    for(const el of nodes){
+      if(looksLikeFloating99(el))setVL(el);
+    }
+  }catch(_){}
+}
+
+function installCss(){
+  try{
+    if(document.getElementById("vlm-floating-vl-icon-fix-style"))return;
+    const st=document.createElement("style");
+    st.id="vlm-floating-vl-icon-fix-style";
+    st.textContent=`
+[data-vlm-floating-vl="1"]{
+  color:${P.soft}!important;
+  border-color:${P.violet}!important;
+  outline-color:${P.violet}!important;
+  text-shadow:0 0 10px ${P.glow},0 0 18px ${P.glow2}!important;
+  box-shadow:0 0 14px ${P.glow}, inset 0 0 14px rgba(139,92,246,.16)!important;
+}
+[data-vlm-floating-vl-parent="1"]{
+  border-color:${P.violet}!important;
+  box-shadow:0 0 16px ${P.glow}, inset 0 0 18px rgba(139,92,246,.14)!important;
+}
+`;
+    (document.head||document.documentElement).appendChild(st);
+  }catch(_){}
+}
+
+installCss();
+
+// Correção rápida no começo para reduzir o piscar.
+let fast=0;
+const fastId=setInterval(()=>{
+  fast++;
+  fix();
+  if(fast>80)clearInterval(fastId);
+},50);
+
+// Correção leve contínua só para quando o status recriar o texto.
+let slow=0;
+const slowId=setInterval(()=>{
+  slow++;
+  fix();
+  if(slow>1200)clearInterval(slowId);
+},300);
+
+// Observer seguro: só texto/filhos, sem attributes, sem protótipos globais.
+try{
+  let scheduled=false;
+  const mo=new MutationObserver(()=>{
+    if(scheduled)return;
+    scheduled=true;
+    setTimeout(()=>{scheduled=false;fix()},30);
+  });
+  mo.observe(document.body||document.documentElement,{childList:true,subtree:true,characterData:true});
+}catch(_){}
+
+setTimeout(fix,100);
+setTimeout(fix,500);
+setTimeout(fix,1500);
+
+console.warn("[VLM_PROMAX_FLOATING_VL_ICON_FIX_V1] installed");
+}catch(e){try{console.warn("[VLM_PROMAX_FLOATING_VL_ICON_FIX_V1_FAIL]",String(e&&e.message||e))}catch(_){}}})();
+
