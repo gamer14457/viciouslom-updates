@@ -9319,3 +9319,258 @@ const id=setInterval(()=>{
 console.warn("[VLM_PROMAX_UPDATE_BUTTON_V1] installed");
 }catch(e){try{console.warn("[VLM_PROMAX_UPDATE_BUTTON_V1_FAIL]",String(e&&e.message||e))}catch(_){}}})();
 
+;(()=>{try{
+const MARK="VLM_PROMAX_UPDATE_BUTTON_V2_STRICT";
+if(globalThis.__VLM_PROMAX_UPDATE_BUTTON_V2_STRICT__)return;
+globalThis.__VLM_PROMAX_UPDATE_BUTTON_V2_STRICT__=true;
+
+function norm(t){
+  try{return String(t||"").replace(/\s+/g," ").trim().toUpperCase()}catch(_){return""}
+}
+
+function getChannel(){
+  try{
+    const v = localStorage.getItem("MOD_CHANNEL") || localStorage.getItem("VLM_MOD_CHANNEL") || "";
+    if(/^(live|test)$/i.test(v))return v.toLowerCase();
+  }catch(_){}
+  return "live";
+}
+
+function isUpdateLabel(t){
+  t=norm(t).replace(/^↻\s*/,"").trim();
+  return t==="UPDATE" || t==="ATUALIZAR" || t==="RECARREGAR PAYLOAD" || t==="RELOAD PAYLOAD";
+}
+
+function rectOk(el){
+  try{
+    const r=el.getBoundingClientRect();
+    if(!r || !r.width || !r.height)return false;
+    if(r.width < 75 || r.width > 390)return false;
+    if(r.height < 25 || r.height > 95)return false;
+    if(r.width*r.height > 38000)return false;
+    return true;
+  }catch(_){return false}
+}
+
+function pointInside(el, ev){
+  try{
+    const r=el.getBoundingClientRect();
+    const src = ev.changedTouches && ev.changedTouches[0] ? ev.changedTouches[0] : ev;
+    const x = src.clientX || 0;
+    const y = src.clientY || 0;
+    return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+  }catch(_){return true}
+}
+
+function findUpdateButton(ev){
+  try{
+    const path = ev.composedPath ? ev.composedPath() : [];
+    const arr = path && path.length ? path : [ev.target];
+
+    for(const el of arr){
+      if(!el || el.nodeType !== 1)continue;
+
+      const own = norm(el.innerText || el.textContent || "");
+      if(isUpdateLabel(own) && rectOk(el) && pointInside(el, ev)){
+        return el;
+      }
+
+      let p = el.parentElement;
+      for(let i=0;p && i<3;p=p.parentElement,i++){
+        const t = norm(p.innerText || p.textContent || "");
+        if(isUpdateLabel(t) && rectOk(p) && pointInside(p, ev)){
+          return p;
+        }
+
+        try{
+          const r=p.getBoundingClientRect();
+          if(r.width>430 || r.height>130)break;
+        }catch(_){}
+      }
+    }
+  }catch(_){}
+  return null;
+}
+
+function closeModal(){
+  try{
+    const old=document.getElementById("vlm-promax-update-modal-v2");
+    if(old)old.remove();
+  }catch(_){}
+}
+
+function showModal(title, html){
+  try{
+    closeModal();
+
+    const wrap=document.createElement("div");
+    wrap.id="vlm-promax-update-modal-v2";
+    wrap.setAttribute("style",[
+      "position:fixed",
+      "inset:0",
+      "z-index:2147483647",
+      "display:flex",
+      "align-items:center",
+      "justify-content:center",
+      "background:rgba(0,0,0,.58)",
+      "font-family:Arial,system-ui,sans-serif"
+    ].join(";"));
+
+    const box=document.createElement("div");
+    box.setAttribute("style",[
+      "width:min(88vw,455px)",
+      "border:1px solid rgba(167,139,250,.95)",
+      "border-radius:20px",
+      "background:linear-gradient(145deg,rgba(7,9,24,.97),rgba(24,18,48,.97))",
+      "box-shadow:0 0 30px rgba(167,139,250,.55), inset 0 0 24px rgba(139,92,246,.14)",
+      "color:#F5F3FF",
+      "padding:22px 20px",
+      "line-height:1.45"
+    ].join(";"));
+
+    const h=document.createElement("div");
+    h.textContent=title;
+    h.setAttribute("style",[
+      "font-size:22px",
+      "font-weight:900",
+      "margin-bottom:14px",
+      "color:#E9D5FF",
+      "text-shadow:0 0 12px rgba(167,139,250,.88)"
+    ].join(";"));
+
+    const body=document.createElement("div");
+    body.innerHTML=html;
+
+    const btn=document.createElement("button");
+    btn.textContent="Close";
+    btn.setAttribute("style",[
+      "margin-top:18px",
+      "width:100%",
+      "height:44px",
+      "border-radius:14px",
+      "border:1px solid #A78BFA",
+      "background:rgba(167,139,250,.12)",
+      "color:#F5F3FF",
+      "font-size:16px",
+      "font-weight:800",
+      "box-shadow:0 0 14px rgba(167,139,250,.42)",
+      "outline:none"
+    ].join(";"));
+    btn.onclick=closeModal;
+
+    box.appendChild(h);
+    box.appendChild(body);
+    box.appendChild(btn);
+    wrap.appendChild(box);
+
+    wrap.addEventListener("click",e=>{if(e.target===wrap)closeModal()});
+    document.documentElement.appendChild(wrap);
+  }catch(e){
+    try{console.warn("[VLM_PROMAX_UPDATE_BUTTON_V2_STRICT_MODAL_FAIL]",String(e&&e.message||e))}catch(_){}
+  }
+}
+
+function esc(v){
+  return String(v||"").replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]));
+}
+
+async function checkUpdate(){
+  const channel=getChannel();
+  const url="/__vlm/promax/manifest?channel="+encodeURIComponent(channel)+"&t="+Date.now();
+
+  console.warn("[VLM_PROMAX_UPDATE_BUTTON_V2_STRICT] check",url);
+
+  showModal("Viciouslom Update",'<div style="font-size:15px;color:#DDD6FE">Checking update service...</div>');
+
+  try{
+    const res=await fetch(url,{cache:"no-store",headers:{"accept":"application/json"}});
+    const text=await res.text();
+
+    console.warn("[VLM_PROMAX_UPDATE_BUTTON_V2_STRICT] response",res.status,text.slice(0,220));
+
+    if(!res.ok){
+      showModal("Viciouslom Update",
+        '<div style="font-size:15px;color:#F5F3FF;margin-bottom:10px">Update service is not available yet.</div>'+
+        '<div style="font-size:13px;color:#A78BFA">HTTP '+res.status+'</div>'
+      );
+      return;
+    }
+
+    let data=null;
+    try{data=JSON.parse(text)}catch(_){}
+
+    if(!data){
+      showModal("Viciouslom Update",
+        '<div style="font-size:15px;color:#F5F3FF">Worker answered, but response is not JSON.</div>'
+      );
+      return;
+    }
+
+    showModal("Viciouslom Update",
+      '<div style="font-size:15px;color:#F5F3FF;margin-bottom:8px"><b>Status:</b> '+(data.ok?'Online':'Unavailable')+'</div>'+
+      '<div style="font-size:14px;color:#DDD6FE"><b>Channel:</b> '+esc(data.channel||channel).toUpperCase()+'</div>'+
+      '<div style="font-size:14px;color:#DDD6FE"><b>Current:</b> '+esc(data.currentVersion||'v3.95')+'</div>'+
+      '<div style="font-size:14px;color:#DDD6FE"><b>Latest:</b> '+esc(data.latestVersion||data.version||'v3.95')+'</div>'+
+      '<div style="font-size:14px;color:#DDD6FE"><b>Payload:</b> '+(data.payloadEnabled?'Enabled':'Not enabled yet')+'</div>'+
+      '<div style="font-size:13px;color:#A78BFA;margin-top:12px">'+esc(data.message||'Update service online.')+'</div>'
+    );
+  }catch(e){
+    showModal("Viciouslom Update",
+      '<div style="font-size:15px;color:#F5F3FF;margin-bottom:10px">Could not reach update service.</div>'+
+      '<div style="font-size:13px;color:#A78BFA">'+esc(e&&e.message||e)+'</div>'
+    );
+  }
+}
+
+function markButtons(){
+  try{
+    const nodes=document.querySelectorAll("a,button,div,span");
+    for(const el of nodes){
+      const t=norm(el.innerText||el.textContent||"");
+      if(!isUpdateLabel(t) || !rectOk(el))continue;
+      el.setAttribute("data-vlm-update-button-v2","1");
+      el.textContent="UPDATE";
+      el.style.cursor="pointer";
+    }
+  }catch(_){}
+}
+
+function handler(ev){
+  try{
+    const btn=findUpdateButton(ev);
+    if(!btn)return;
+
+    ev.preventDefault();
+    ev.stopPropagation();
+    if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();
+
+    const now=Date.now();
+    if(globalThis.__VLM_PROMAX_UPDATE_V2_LAST__ && now-globalThis.__VLM_PROMAX_UPDATE_V2_LAST__<1000)return false;
+    globalThis.__VLM_PROMAX_UPDATE_V2_LAST__=now;
+
+    checkUpdate();
+    return false;
+  }catch(e){
+    try{console.warn("[VLM_PROMAX_UPDATE_BUTTON_V2_STRICT_HANDLER_FAIL]",String(e&&e.message||e))}catch(_){}
+  }
+}
+
+document.addEventListener("pointerdown",handler,true);
+document.addEventListener("touchstart",handler,{capture:true,passive:false});
+document.addEventListener("click",handler,true);
+document.addEventListener("touchend",handler,{capture:true,passive:false});
+
+setTimeout(markButtons,200);
+setTimeout(markButtons,1000);
+setTimeout(markButtons,2500);
+
+let tries=0;
+const id=setInterval(()=>{
+  tries++;
+  markButtons();
+  if(tries>80)clearInterval(id);
+},1000);
+
+console.warn("[VLM_PROMAX_UPDATE_BUTTON_V2_STRICT] installed");
+}catch(e){try{console.warn("[VLM_PROMAX_UPDATE_BUTTON_V2_STRICT_FAIL]",String(e&&e.message||e))}catch(_){}}})();
+
