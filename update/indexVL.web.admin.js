@@ -8687,9 +8687,9 @@ console.warn("[VLM_PROMAX_FLOATING_VL_ICON_FIX_V1] installed");
 }catch(e){try{console.warn("[VLM_PROMAX_FLOATING_VL_ICON_FIX_V1_FAIL]",String(e&&e.message||e))}catch(_){}}})();
 
 ;(()=>{try{
-const MARK="VLM_PROMAX_BUY_KEY_DFG_LINK_V2";
-if(globalThis.__VLM_PROMAX_BUY_KEY_DFG_LINK_V2__)return;
-globalThis.__VLM_PROMAX_BUY_KEY_DFG_LINK_V2__=true;
+const MARK="VLM_PROMAX_BUY_KEY_DFG_LINK_V3_STRICT";
+if(globalThis.__VLM_PROMAX_BUY_KEY_DFG_LINK_V3_STRICT__)return;
+globalThis.__VLM_PROMAX_BUY_KEY_DFG_LINK_V3_STRICT__=true;
 
 const BUY_URL="https://www.dfg.com.br/pt/sites-lojas-e-sistemas-prontos/legend-of-mushroom-script-906867232";
 
@@ -8697,20 +8697,61 @@ function norm(t){
   try{return String(t||"").replace(/\s+/g," ").trim().toUpperCase()}catch(_){return""}
 }
 
-function isBuyKeyText(t){
-  t=norm(t);
-  return /COMPRAR\s+CHAVE|COMPRAR\s+KEY|BUY\s+KEY|PURCHASE\s+KEY|ADQUIRIR\s+CHAVE|OBTER\s+CHAVE/.test(t);
+function isExactBuyKeyLabel(t){
+  t=norm(t).replace(/^🛒\s*/,"").trim();
+  return /^(COMPRAR CHAVE|COMPRAR KEY|BUY KEY|PURCHASE KEY|ADQUIRIR CHAVE|OBTER CHAVE)$/.test(t);
 }
 
-function findBuyButtonFrom(target){
+function rectOk(el){
   try{
-    let el=target&&target.nodeType===3?target.parentElement:target;
-    for(let i=0;el&&i<10;el=el.parentElement,i++){
-      const t=norm(el.innerText||el.textContent||"");
-      if(!t)continue;
-      if(isBuyKeyText(t)){
-        const r=el.getBoundingClientRect();
-        if(r.width>=70&&r.height>=20)return el;
+    const r=el.getBoundingClientRect();
+    if(!r || !r.width || !r.height)return false;
+
+    // Botão real do print: largo, mas não o painel inteiro.
+    if(r.width < 90 || r.width > 380)return false;
+    if(r.height < 28 || r.height > 95)return false;
+
+    // Evita painel inteiro, footer inteiro, bloco LICENSE inteiro.
+    if(r.width * r.height > 36000)return false;
+
+    return true;
+  }catch(_){return false}
+}
+
+function pointInside(el, ev){
+  try{
+    const r=el.getBoundingClientRect();
+    const x = ev.clientX || (ev.changedTouches && ev.changedTouches[0] && ev.changedTouches[0].clientX) || 0;
+    const y = ev.clientY || (ev.changedTouches && ev.changedTouches[0] && ev.changedTouches[0].clientY) || 0;
+    return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+  }catch(_){return true}
+}
+
+function candidateFromPath(ev){
+  try{
+    const path = ev.composedPath ? ev.composedPath() : [];
+    const arr = path && path.length ? path : [];
+    for(const el of arr){
+      if(!el || el.nodeType !== 1)continue;
+
+      const own = norm(el.innerText || el.textContent || "");
+      if(isExactBuyKeyLabel(own) && rectOk(el) && pointInside(el, ev)){
+        return el;
+      }
+
+      // Se clicou no ícone 🛒/filho, aceitar só o pai direto/curto que tenha texto exato.
+      let p = el.parentElement;
+      for(let i=0;p && i<3;p=p.parentElement,i++){
+        const t = norm(p.innerText || p.textContent || "");
+        if(isExactBuyKeyLabel(t) && rectOk(p) && pointInside(p, ev)){
+          return p;
+        }
+
+        // Se o pai já é grande demais, parar. Não subir até o painel inteiro.
+        try{
+          const r=p.getBoundingClientRect();
+          if(r.width>420 || r.height>120)break;
+        }catch(_){}
       }
     }
   }catch(_){}
@@ -8722,8 +8763,8 @@ function markButtons(){
     const nodes=document.querySelectorAll("a,button,div,span");
     for(const el of nodes){
       const t=norm(el.innerText||el.textContent||"");
-      if(!isBuyKeyText(t))continue;
-      el.setAttribute("data-vlm-buy-key-dfg-v2","1");
+      if(!isExactBuyKeyLabel(t) || !rectOk(el))continue;
+      el.setAttribute("data-vlm-buy-key-dfg-v3","1");
       el.style.cursor="pointer";
       if(el.tagName==="A"){
         el.href=BUY_URL;
@@ -8736,25 +8777,21 @@ function markButtons(){
 
 function openBuyLink(){
   try{
-    console.warn("[VLM_PROMAX_BUY_KEY_DFG_LINK_V2] open",BUY_URL);
-
-    // No WebView, window.open pode virar popup interno. Mesmo assim o URL será o DFG.
+    console.warn("[VLM_PROMAX_BUY_KEY_DFG_LINK_V3_STRICT] open", BUY_URL);
     try{ window.open(BUY_URL,"_blank","noopener,noreferrer"); }catch(_){}
-
-    // Fallback forte: se o app bloquear popup, navega para o DFG.
     setTimeout(()=>{try{
       if(String(location.href).indexOf("dfg.com.br")<0){
         location.href=BUY_URL;
       }
     }catch(_){}},120);
   }catch(e){
-    try{console.warn("[VLM_PROMAX_BUY_KEY_DFG_LINK_V2_FAIL]",String(e&&e.message||e))}catch(_){}
+    try{console.warn("[VLM_PROMAX_BUY_KEY_DFG_LINK_V3_STRICT_FAIL]",String(e&&e.message||e))}catch(_){}
   }
 }
 
 function handler(ev){
   try{
-    const btn=findBuyButtonFrom(ev.target);
+    const btn = candidateFromPath(ev);
     if(!btn)return;
 
     ev.preventDefault();
@@ -8762,32 +8799,31 @@ function handler(ev){
     if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();
 
     const now=Date.now();
-    if(globalThis.__VLM_PROMAX_BUY_KEY_DFG_LAST__ && now-globalThis.__VLM_PROMAX_BUY_KEY_DFG_LAST__<900)return false;
-    globalThis.__VLM_PROMAX_BUY_KEY_DFG_LAST__=now;
+    if(globalThis.__VLM_PROMAX_BUY_KEY_DFG_V3_LAST__ && now-globalThis.__VLM_PROMAX_BUY_KEY_DFG_V3_LAST__<1000)return false;
+    globalThis.__VLM_PROMAX_BUY_KEY_DFG_V3_LAST__=now;
 
     openBuyLink();
     return false;
   }catch(e){
-    try{console.warn("[VLM_PROMAX_BUY_KEY_DFG_HANDLER_FAIL]",String(e&&e.message||e))}catch(_){}
+    try{console.warn("[VLM_PROMAX_BUY_KEY_DFG_LINK_V3_HANDLER_FAIL]",String(e&&e.message||e))}catch(_){}
   }
 }
 
-document.addEventListener("pointerdown",handler,true);
+// Só eventos finais. Não usar pointerdown para não disparar em scroll/toque comum.
 document.addEventListener("click",handler,true);
-document.addEventListener("touchstart",handler,{capture:true,passive:false});
 document.addEventListener("touchend",handler,{capture:true,passive:false});
 
-setTimeout(markButtons,200);
-setTimeout(markButtons,1000);
-setTimeout(markButtons,2500);
+setTimeout(markButtons,300);
+setTimeout(markButtons,1500);
+setTimeout(markButtons,3500);
 
 let tries=0;
 const id=setInterval(()=>{
   tries++;
   markButtons();
-  if(tries>80)clearInterval(id);
-},1000);
+  if(tries>60)clearInterval(id);
+},1200);
 
-console.warn("[VLM_PROMAX_BUY_KEY_DFG_LINK_V2] installed");
-}catch(e){try{console.warn("[VLM_PROMAX_BUY_KEY_DFG_LINK_V2_FAIL]",String(e&&e.message||e))}catch(_){}}})();
+console.warn("[VLM_PROMAX_BUY_KEY_DFG_LINK_V3_STRICT] installed");
+}catch(e){try{console.warn("[VLM_PROMAX_BUY_KEY_DFG_LINK_V3_STRICT_FAIL]",String(e&&e.message||e))}catch(_){}}})();
 
