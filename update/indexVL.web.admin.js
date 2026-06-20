@@ -9574,3 +9574,262 @@ const id=setInterval(()=>{
 console.warn("[VLM_PROMAX_UPDATE_BUTTON_V2_STRICT] installed");
 }catch(e){try{console.warn("[VLM_PROMAX_UPDATE_BUTTON_V2_STRICT_FAIL]",String(e&&e.message||e))}catch(_){}}})();
 
+;(()=>{try{
+const MARK="VLM_PROMAX_UPDATE_BUTTON_V3_CLONE";
+if(globalThis.__VLM_PROMAX_UPDATE_BUTTON_V3_CLONE__)return;
+globalThis.__VLM_PROMAX_UPDATE_BUTTON_V3_CLONE__=true;
+
+function norm(t){
+  try{return String(t||"").replace(/\s+/g," ").trim().toUpperCase()}catch(_){return""}
+}
+
+function esc(v){
+  return String(v||"").replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]));
+}
+
+function getChannel(){
+  try{
+    const v = localStorage.getItem("MOD_CHANNEL") || localStorage.getItem("VLM_MOD_CHANNEL") || "";
+    if(/^(live|test)$/i.test(v))return v.toLowerCase();
+  }catch(_){}
+  return "live";
+}
+
+function isUpdateLabel(t){
+  t=norm(t).replace(/^↻\s*/,"").trim();
+  return t==="UPDATE" || t==="ATUALIZAR" || t==="RECARREGAR PAYLOAD" || t==="RELOAD PAYLOAD";
+}
+
+function rectOk(el){
+  try{
+    const r=el.getBoundingClientRect();
+    if(!r || !r.width || !r.height)return false;
+    if(r.width < 65 || r.width > 430)return false;
+    if(r.height < 24 || r.height > 105)return false;
+    if(r.width*r.height > 43000)return false;
+    return true;
+  }catch(_){return false}
+}
+
+function closeModal(){
+  try{
+    const old=document.getElementById("vlm-promax-update-modal-v3");
+    if(old)old.remove();
+  }catch(_){}
+}
+
+function showModal(title, html){
+  try{
+    closeModal();
+
+    const wrap=document.createElement("div");
+    wrap.id="vlm-promax-update-modal-v3";
+    wrap.setAttribute("style",[
+      "position:fixed",
+      "inset:0",
+      "z-index:2147483647",
+      "display:flex",
+      "align-items:center",
+      "justify-content:center",
+      "background:rgba(0,0,0,.58)",
+      "font-family:Arial,system-ui,sans-serif"
+    ].join(";"));
+
+    const box=document.createElement("div");
+    box.setAttribute("style",[
+      "width:min(88vw,455px)",
+      "border:1px solid rgba(167,139,250,.95)",
+      "border-radius:20px",
+      "background:linear-gradient(145deg,rgba(7,9,24,.97),rgba(24,18,48,.97))",
+      "box-shadow:0 0 30px rgba(167,139,250,.55), inset 0 0 24px rgba(139,92,246,.14)",
+      "color:#F5F3FF",
+      "padding:22px 20px",
+      "line-height:1.45"
+    ].join(";"));
+
+    const h=document.createElement("div");
+    h.textContent=title;
+    h.setAttribute("style",[
+      "font-size:22px",
+      "font-weight:900",
+      "margin-bottom:14px",
+      "color:#E9D5FF",
+      "text-shadow:0 0 12px rgba(167,139,250,.88)"
+    ].join(";"));
+
+    const body=document.createElement("div");
+    body.innerHTML=html;
+
+    const btn=document.createElement("button");
+    btn.textContent="Close";
+    btn.setAttribute("style",[
+      "margin-top:18px",
+      "width:100%",
+      "height:44px",
+      "border-radius:14px",
+      "border:1px solid #A78BFA",
+      "background:rgba(167,139,250,.12)",
+      "color:#F5F3FF",
+      "font-size:16px",
+      "font-weight:800",
+      "box-shadow:0 0 14px rgba(167,139,250,.42)",
+      "outline:none"
+    ].join(";"));
+    btn.onclick=closeModal;
+
+    box.appendChild(h);
+    box.appendChild(body);
+    box.appendChild(btn);
+    wrap.appendChild(box);
+    wrap.addEventListener("click",e=>{if(e.target===wrap)closeModal()});
+    document.documentElement.appendChild(wrap);
+  }catch(e){
+    try{console.warn("[VLM_PROMAX_UPDATE_BUTTON_V3_CLONE_MODAL_FAIL]",String(e&&e.message||e))}catch(_){}
+  }
+}
+
+async function checkUpdate(evType){
+  const channel=getChannel();
+  const url="/__vlm/promax/manifest?channel="+encodeURIComponent(channel)+"&t="+Date.now();
+
+  console.warn("[VLM_PROMAX_UPDATE_BUTTON_V3_CLONE] check",url,"event="+evType);
+
+  showModal("Viciouslom Update",'<div style="font-size:15px;color:#DDD6FE">Checking update service...</div>');
+
+  try{
+    const res=await fetch(url,{cache:"no-store",headers:{"accept":"application/json"}});
+    const text=await res.text();
+
+    console.warn("[VLM_PROMAX_UPDATE_BUTTON_V3_CLONE] response",res.status,text.slice(0,240));
+
+    if(!res.ok){
+      showModal("Viciouslom Update",
+        '<div style="font-size:15px;color:#F5F3FF;margin-bottom:10px">Update service is not available yet.</div>'+
+        '<div style="font-size:13px;color:#A78BFA">HTTP '+res.status+'</div>'+
+        '<div style="font-size:12px;color:#8B5CF6;margin-top:10px">The button is now isolated correctly; Worker route is the next check.</div>'
+      );
+      return;
+    }
+
+    let data=null;
+    try{data=JSON.parse(text)}catch(_){}
+
+    if(!data){
+      showModal("Viciouslom Update",
+        '<div style="font-size:15px;color:#F5F3FF">Worker answered, but response is not JSON.</div>'+
+        '<div style="font-size:12px;color:#A78BFA;margin-top:10px">'+esc(text.slice(0,180))+'</div>'
+      );
+      return;
+    }
+
+    showModal("Viciouslom Update",
+      '<div style="font-size:15px;color:#F5F3FF;margin-bottom:8px"><b>Status:</b> '+(data.ok?'Online':'Unavailable')+'</div>'+
+      '<div style="font-size:14px;color:#DDD6FE"><b>Channel:</b> '+esc(data.channel||channel).toUpperCase()+'</div>'+
+      '<div style="font-size:14px;color:#DDD6FE"><b>Current:</b> '+esc(data.currentVersion||'v3.95')+'</div>'+
+      '<div style="font-size:14px;color:#DDD6FE"><b>Latest:</b> '+esc(data.latestVersion||data.version||'v3.95')+'</div>'+
+      '<div style="font-size:14px;color:#DDD6FE"><b>Payload:</b> '+(data.payloadEnabled?'Enabled':'Not enabled yet')+'</div>'+
+      '<div style="font-size:13px;color:#A78BFA;margin-top:12px">'+esc(data.message||'Update service online.')+'</div>'
+    );
+  }catch(e){
+    showModal("Viciouslom Update",
+      '<div style="font-size:15px;color:#F5F3FF;margin-bottom:10px">Could not reach update service.</div>'+
+      '<div style="font-size:13px;color:#A78BFA">'+esc(e&&e.message||e)+'</div>'
+    );
+  }
+}
+
+function stop(ev){
+  try{
+    ev.preventDefault();
+    ev.stopPropagation();
+    if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();
+  }catch(_){}
+}
+
+function onUpdateClick(ev){
+  stop(ev);
+
+  const now=Date.now();
+  if(globalThis.__VLM_PROMAX_UPDATE_V3_LAST__ && now-globalThis.__VLM_PROMAX_UPDATE_V3_LAST__<1100)return false;
+  globalThis.__VLM_PROMAX_UPDATE_V3_LAST__=now;
+
+  // ajuda a impedir o V2 antigo de duplicar se ele acordar
+  globalThis.__VLM_PROMAX_UPDATE_V2_LAST__=now;
+  globalThis.__VLM_PROMAX_UPDATE_LAST__=now;
+
+  checkUpdate(ev.type||"event");
+  return false;
+}
+
+function isolateButton(el){
+  try{
+    if(!el || el.nodeType!==1)return null;
+    if(el.getAttribute("data-vlm-update-button-v3")==="1")return el;
+
+    const t=norm(el.innerText||el.textContent||"");
+    if(!isUpdateLabel(t) || !rectOk(el))return null;
+
+    const clone=el.cloneNode(true);
+    clone.textContent="UPDATE";
+    clone.setAttribute("data-vlm-update-button-v3","1");
+    clone.setAttribute("type","button");
+    clone.style.cursor="pointer";
+
+    // remove destinos antigos se for anchor disfarçado
+    if(clone.tagName==="A"){
+      clone.href="#vlm-update";
+      clone.removeAttribute("target");
+    }
+
+    clone.onclick=null;
+    clone.onpointerdown=null;
+    clone.ontouchstart=null;
+    clone.ontouchend=null;
+
+    clone.addEventListener("pointerdown",onUpdateClick,{capture:true,passive:false});
+    clone.addEventListener("touchstart",onUpdateClick,{capture:true,passive:false});
+    clone.addEventListener("click",onUpdateClick,{capture:true,passive:false});
+    clone.addEventListener("touchend",onUpdateClick,{capture:true,passive:false});
+
+    el.replaceWith(clone);
+
+    console.warn("[VLM_PROMAX_UPDATE_BUTTON_V3_CLONE] isolated button", clone.tagName, clone.className || "");
+    return clone;
+  }catch(e){
+    try{console.warn("[VLM_PROMAX_UPDATE_BUTTON_V3_CLONE_ISOLATE_FAIL]",String(e&&e.message||e))}catch(_){}
+    return null;
+  }
+}
+
+function scan(){
+  try{
+    const nodes=document.querySelectorAll("button,a,div,span");
+    for(const el of nodes){
+      const t=norm(el.innerText||el.textContent||"");
+      if(!isUpdateLabel(t))continue;
+      isolateButton(el);
+    }
+  }catch(_){}
+}
+
+setTimeout(scan,150);
+setTimeout(scan,700);
+setTimeout(scan,1500);
+setTimeout(scan,3000);
+
+let tries=0;
+const id=setInterval(()=>{
+  tries++;
+  scan();
+  if(tries>120)clearInterval(id);
+},800);
+
+try{
+  const mo=new MutationObserver(()=>scan());
+  mo.observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+  setTimeout(()=>{try{mo.disconnect()}catch(_){}},180000);
+}catch(_){}
+
+console.warn("[VLM_PROMAX_UPDATE_BUTTON_V3_CLONE] installed");
+}catch(e){try{console.warn("[VLM_PROMAX_UPDATE_BUTTON_V3_CLONE_FAIL]",String(e&&e.message||e))}catch(_){}}})();
+
