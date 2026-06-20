@@ -8686,3 +8686,108 @@ setTimeout(fix,1500);
 console.warn("[VLM_PROMAX_FLOATING_VL_ICON_FIX_V1] installed");
 }catch(e){try{console.warn("[VLM_PROMAX_FLOATING_VL_ICON_FIX_V1_FAIL]",String(e&&e.message||e))}catch(_){}}})();
 
+;(()=>{try{
+const MARK="VLM_PROMAX_BUY_KEY_DFG_LINK_V2";
+if(globalThis.__VLM_PROMAX_BUY_KEY_DFG_LINK_V2__)return;
+globalThis.__VLM_PROMAX_BUY_KEY_DFG_LINK_V2__=true;
+
+const BUY_URL="https://www.dfg.com.br/pt/sites-lojas-e-sistemas-prontos/legend-of-mushroom-script-906867232";
+
+function norm(t){
+  try{return String(t||"").replace(/\s+/g," ").trim().toUpperCase()}catch(_){return""}
+}
+
+function isBuyKeyText(t){
+  t=norm(t);
+  return /COMPRAR\s+CHAVE|COMPRAR\s+KEY|BUY\s+KEY|PURCHASE\s+KEY|ADQUIRIR\s+CHAVE|OBTER\s+CHAVE/.test(t);
+}
+
+function findBuyButtonFrom(target){
+  try{
+    let el=target&&target.nodeType===3?target.parentElement:target;
+    for(let i=0;el&&i<10;el=el.parentElement,i++){
+      const t=norm(el.innerText||el.textContent||"");
+      if(!t)continue;
+      if(isBuyKeyText(t)){
+        const r=el.getBoundingClientRect();
+        if(r.width>=70&&r.height>=20)return el;
+      }
+    }
+  }catch(_){}
+  return null;
+}
+
+function markButtons(){
+  try{
+    const nodes=document.querySelectorAll("a,button,div,span");
+    for(const el of nodes){
+      const t=norm(el.innerText||el.textContent||"");
+      if(!isBuyKeyText(t))continue;
+      el.setAttribute("data-vlm-buy-key-dfg-v2","1");
+      el.style.cursor="pointer";
+      if(el.tagName==="A"){
+        el.href=BUY_URL;
+        el.target="_blank";
+        el.rel="noopener noreferrer";
+      }
+    }
+  }catch(_){}
+}
+
+function openBuyLink(){
+  try{
+    console.warn("[VLM_PROMAX_BUY_KEY_DFG_LINK_V2] open",BUY_URL);
+
+    // No WebView, window.open pode virar popup interno. Mesmo assim o URL será o DFG.
+    try{ window.open(BUY_URL,"_blank","noopener,noreferrer"); }catch(_){}
+
+    // Fallback forte: se o app bloquear popup, navega para o DFG.
+    setTimeout(()=>{try{
+      if(String(location.href).indexOf("dfg.com.br")<0){
+        location.href=BUY_URL;
+      }
+    }catch(_){}},120);
+  }catch(e){
+    try{console.warn("[VLM_PROMAX_BUY_KEY_DFG_LINK_V2_FAIL]",String(e&&e.message||e))}catch(_){}
+  }
+}
+
+function handler(ev){
+  try{
+    const btn=findBuyButtonFrom(ev.target);
+    if(!btn)return;
+
+    ev.preventDefault();
+    ev.stopPropagation();
+    if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();
+
+    const now=Date.now();
+    if(globalThis.__VLM_PROMAX_BUY_KEY_DFG_LAST__ && now-globalThis.__VLM_PROMAX_BUY_KEY_DFG_LAST__<900)return false;
+    globalThis.__VLM_PROMAX_BUY_KEY_DFG_LAST__=now;
+
+    openBuyLink();
+    return false;
+  }catch(e){
+    try{console.warn("[VLM_PROMAX_BUY_KEY_DFG_HANDLER_FAIL]",String(e&&e.message||e))}catch(_){}
+  }
+}
+
+document.addEventListener("pointerdown",handler,true);
+document.addEventListener("click",handler,true);
+document.addEventListener("touchstart",handler,{capture:true,passive:false});
+document.addEventListener("touchend",handler,{capture:true,passive:false});
+
+setTimeout(markButtons,200);
+setTimeout(markButtons,1000);
+setTimeout(markButtons,2500);
+
+let tries=0;
+const id=setInterval(()=>{
+  tries++;
+  markButtons();
+  if(tries>80)clearInterval(id);
+},1000);
+
+console.warn("[VLM_PROMAX_BUY_KEY_DFG_LINK_V2] installed");
+}catch(e){try{console.warn("[VLM_PROMAX_BUY_KEY_DFG_LINK_V2_FAIL]",String(e&&e.message||e))}catch(_){}}})();
+
