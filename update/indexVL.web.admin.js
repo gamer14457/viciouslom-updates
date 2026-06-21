@@ -10129,182 +10129,248 @@ console.warn("[VLM_PROMAX_UPDATE_BUTTON_V4_SHIELD] installed");
 }catch(e){try{console.warn("[VLM_PROMAX_UPDATE_BUTTON_V4_SHIELD_FAIL]",String(e&&e.message||e))}catch(_){}}})();
 
 ;(()=>{try{
-  const MARK="VLM_PROMAX_UPDATE_BUTTON_V6_CAPTURE";
-  if(window.__VLM_PROMAX_UPDATE_BUTTON_V6_CAPTURE__) return;
-  window.__VLM_PROMAX_UPDATE_BUTTON_V6_CAPTURE__=1;
+  const MARK="VLM_PROMAX_MENU_CLASSIC_EMERALD_V6_SAFE";
+  if(window.__VLM_PROMAX_MENU_CLASSIC_EMERALD_V6_SAFE__) return;
+  window.__VLM_PROMAX_MENU_CLASSIC_EMERALD_V6_SAFE__=1;
 
-  let last=0;
-  let busy=false;
-
-  function txt(el){
-    try{return String((el&&((el.innerText||el.textContent)||""))||"").replace(/\s+/g," ").trim();}
-    catch(e){return "";}
+  const css = `
+  :root{
+    --vlm-emerald:#22ff9a;
+    --vlm-mint:#78ffd6;
+    --vlm-cyan:#33ffe8;
+    --vlm-lime:#caff4a;
+    --vlm-deep:#030c0a;
+    --vlm-panel:rgba(2,10,12,.84);
   }
 
-  function up(el, max){
-    const arr=[];
-    let n=el;
-    for(let i=0;n&&i<(max||8);i++,n=n.parentElement) arr.push(n);
-    return arr;
+  @keyframes vlmEmeraldSoftFlow{
+    0%{background-position:0% 50%,0 0,0 0}
+    50%{background-position:100% 50%,24px 18px,-18px 26px}
+    100%{background-position:0% 50%,0 0,0 0}
   }
 
-  function isUpdateTarget(ev){
-    const t=ev&&ev.target;
-    if(!t || !t.tagName) return false;
-    if(String(t.tagName).toUpperCase()==="CANVAS") return false;
+  @keyframes vlmEmeraldBorderPulse{
+    0%,100%{box-shadow:0 0 18px rgba(34,255,154,.34), inset 0 0 22px rgba(51,255,232,.08)}
+    50%{box-shadow:0 0 28px rgba(120,255,214,.52), inset 0 0 30px rgba(202,255,74,.10)}
+  }
 
-    const nodes=up(t,8);
-    for(const n of nodes){
-      if(!n || !n.tagName) continue;
-      const tag=String(n.tagName).toUpperCase();
-      const cls=String(n.className||"");
-      const label=txt(n).toUpperCase();
+  /* Escopo restrito ao menu ProMax. Não mexe no Canvas nem no jogo. */
+  #lom-panel,
+  .lom-panel,
+  .lom-root,
+  .lom-wrap,
+  [class*="lom-panel"]{
+    border-color:rgba(72,255,190,.78)!important;
+    color:#ecfff8!important;
+    background:
+      radial-gradient(circle at 18% 10%, rgba(34,255,154,.18), transparent 35%),
+      radial-gradient(circle at 86% 2%, rgba(51,255,232,.13), transparent 38%),
+      linear-gradient(150deg, rgba(2,10,12,.91), rgba(4,15,17,.86) 45%, rgba(2,7,12,.92))!important;
+    box-shadow:
+      0 0 20px rgba(34,255,154,.32),
+      0 0 42px rgba(51,255,232,.16),
+      inset 0 0 28px rgba(120,255,214,.08)!important;
+    animation:vlmEmeraldBorderPulse 5.8s ease-in-out infinite!important;
+  }
 
-      if(label==="UPDATE" && (tag==="BUTTON" || cls.includes("lom-btn") || cls.includes("ghost"))) return true;
+  #lom-panel::before,
+  .lom-panel::before,
+  .lom-root::before,
+  .lom-wrap::before,
+  [class*="lom-panel"]::before{
+    pointer-events:none!important;
+    opacity:.46!important;
+    background:
+      linear-gradient(115deg, rgba(34,255,154,.18), transparent 28%, rgba(51,255,232,.15), transparent 58%, rgba(202,255,74,.12)),
+      repeating-linear-gradient(90deg, rgba(120,255,214,.10) 0 1px, transparent 1px 32px),
+      repeating-linear-gradient(0deg, rgba(120,255,214,.08) 0 1px, transparent 1px 32px)!important;
+    background-size:220% 220%,32px 32px,32px 32px!important;
+    animation:vlmEmeraldSoftFlow 18s linear infinite!important;
+  }
 
-      if(tag==="BUTTON" && txt(n).toUpperCase()==="UPDATE") return true;
+  #lom-panel::after,
+  .lom-panel::after,
+  .lom-root::after,
+  .lom-wrap::after,
+  [class*="lom-panel"]::after{
+    pointer-events:none!important;
+    opacity:.32!important;
+    background:
+      repeating-linear-gradient(60deg, rgba(34,255,154,.13) 0 1px, transparent 1px 22px),
+      repeating-linear-gradient(120deg, rgba(51,255,232,.10) 0 1px, transparent 1px 24px)!important;
+  }
+
+  /* Header clássico, só troca aura para verde. */
+  #lom-panel header,
+  .lom-panel header,
+  #lom-panel .lom-head,
+  .lom-panel .lom-head,
+  #lom-panel [class*="head"],
+  .lom-panel [class*="head"]{
+    border-color:rgba(72,255,190,.35)!important;
+    background:
+      linear-gradient(90deg, rgba(34,255,154,.11), transparent 48%, rgba(51,255,232,.10)),
+      rgba(0,0,0,.12)!important;
+  }
+
+  #lom-panel .lom-logo,
+  .lom-panel .lom-logo,
+  #lom-panel [class*="logo"],
+  .lom-panel [class*="logo"],
+  #lom-panel .lom-vl,
+  .lom-panel .lom-vl{
+    border-color:rgba(72,255,190,.85)!important;
+    color:#baffdf!important;
+    text-shadow:0 0 12px rgba(34,255,154,.75)!important;
+    box-shadow:0 0 20px rgba(34,255,154,.30), inset 0 0 16px rgba(51,255,232,.10)!important;
+  }
+
+  #lom-panel .lom-title,
+  .lom-panel .lom-title,
+  #lom-panel h1,
+  .lom-panel h1{
+    color:#f5fff9!important;
+    text-shadow:0 0 16px rgba(34,255,154,.42)!important;
+  }
+
+  #lom-panel .lom-ver,
+  .lom-panel .lom-ver,
+  #lom-panel [class*="version"],
+  .lom-panel [class*="version"]{
+    color:#d9ff8a!important;
+    text-shadow:0 0 12px rgba(202,255,74,.35)!important;
+  }
+
+  /* Tabs: mantém formato original, troca azul/roxo por verde/ciano. */
+  #lom-panel .lom-tab,
+  .lom-panel .lom-tab,
+  #lom-panel .lom-sec,
+  .lom-panel .lom-sec,
+  #lom-panel button,
+  .lom-panel button{
+    border-color:rgba(72,255,190,.62)!important;
+    color:#d9fff1!important;
+    background:
+      linear-gradient(135deg, rgba(4,18,18,.82), rgba(10,24,26,.70))!important;
+    text-shadow:0 0 8px rgba(34,255,154,.22)!important;
+    box-shadow:0 0 12px rgba(34,255,154,.16), inset 0 0 18px rgba(51,255,232,.05)!important;
+  }
+
+  #lom-panel .lom-tab.active,
+  .lom-panel .lom-tab.active,
+  #lom-panel .active,
+  .lom-panel .active,
+  #lom-panel [aria-selected="true"],
+  .lom-panel [aria-selected="true"]{
+    border-color:rgba(202,255,74,.95)!important;
+    color:#f2ffd0!important;
+    box-shadow:0 0 18px rgba(202,255,74,.38), inset 0 0 22px rgba(34,255,154,.08)!important;
+  }
+
+  /* Linhas/cards: escuros, clássicos, verde neon discreto. */
+  #lom-panel .lom-row,
+  .lom-panel .lom-row,
+  #lom-panel .lom-card,
+  .lom-panel .lom-card,
+  #lom-panel [class*="row"],
+  .lom-panel [class*="row"]{
+    border-color:rgba(72,255,190,.38)!important;
+    background:
+      linear-gradient(135deg, rgba(2,12,13,.76), rgba(5,15,19,.70))!important;
+    box-shadow:inset 0 0 18px rgba(51,255,232,.04), 0 0 12px rgba(34,255,154,.10)!important;
+  }
+
+  #lom-panel .lom-row:hover,
+  .lom-panel .lom-row:hover,
+  #lom-panel button:hover,
+  .lom-panel button:hover{
+    border-color:rgba(120,255,214,.9)!important;
+    box-shadow:0 0 18px rgba(34,255,154,.28), inset 0 0 18px rgba(51,255,232,.08)!important;
+  }
+
+  /* Switch/select: verde esmeralda. */
+  #lom-panel input,
+  .lom-panel input,
+  #lom-panel select,
+  .lom-panel select,
+  #lom-panel .lom-select,
+  .lom-panel .lom-select,
+  #lom-panel [class*="select"],
+  .lom-panel [class*="select"],
+  #lom-panel [class*="toggle"],
+  .lom-panel [class*="toggle"]{
+    border-color:rgba(72,255,190,.72)!important;
+    color:#eafff4!important;
+    background-color:rgba(3,13,15,.78)!important;
+    box-shadow:0 0 14px rgba(34,255,154,.20), inset 0 0 14px rgba(51,255,232,.06)!important;
+  }
+
+  /* Rodapé: verde/ciano sem mudar posição. */
+  #lom-panel footer,
+  .lom-panel footer,
+  #lom-panel .lom-foot,
+  .lom-panel .lom-foot,
+  #lom-panel [class*="foot"],
+  .lom-panel [class*="foot"]{
+    border-color:rgba(72,255,190,.30)!important;
+    background:linear-gradient(90deg, rgba(3,14,14,.72), rgba(0,0,0,.24), rgba(3,16,18,.72))!important;
+    color:#caffec!important;
+  }
+
+  #lom-panel a,
+  .lom-panel a{
+    color:#9dffd6!important;
+    text-shadow:0 0 10px rgba(34,255,154,.28)!important;
+  }
+
+  /* Floating VL / ícone segue a paleta verde. */
+  .lom-fab,
+  .vlm-fab,
+  #vlm-fab,
+  [class*="floating"],
+  [class*="fab"]{
+    border-color:rgba(72,255,190,.85)!important;
+    color:#eafff5!important;
+    background:
+      radial-gradient(circle at 35% 25%, rgba(34,255,154,.18), transparent 35%),
+      linear-gradient(145deg, rgba(4,12,17,.96), rgba(8,9,25,.92))!important;
+    box-shadow:0 0 22px rgba(34,255,154,.35), 0 0 38px rgba(51,255,232,.16)!important;
+  }
+
+  /* Scrollbar verde quando o WebView respeitar. */
+  #lom-panel ::-webkit-scrollbar,
+  .lom-panel ::-webkit-scrollbar{
+    width:6px!important;
+    height:6px!important;
+  }
+  #lom-panel ::-webkit-scrollbar-thumb,
+  .lom-panel ::-webkit-scrollbar-thumb{
+    background:linear-gradient(180deg,#22ff9a,#33ffe8,#caff4a)!important;
+    border-radius:99px!important;
+  }
+
+  /* Acessibilidade/performance: sem animação se sistema pedir redução. */
+  @media (prefers-reduced-motion: reduce){
+    #lom-panel,
+    .lom-panel,
+    .lom-root,
+    .lom-wrap,
+    [class*="lom-panel"],
+    #lom-panel::before,
+    .lom-panel::before,
+    .lom-root::before,
+    .lom-wrap::before,
+    [class*="lom-panel"]::before{
+      animation:none!important;
     }
-
-    return false;
   }
+  `;
 
-  function modal(html){
-    try{
-      let old=document.getElementById("vlm-promax-update-v6-modal");
-      if(old) old.remove();
+  const st=document.createElement("style");
+  st.id="vlm-promax-menu-classic-emerald-v6-style";
+  st.textContent=css;
+  document.head.appendChild(st);
 
-      const wrap=document.createElement("div");
-      wrap.id="vlm-promax-update-v6-modal";
-      wrap.style.cssText=[
-        "position:fixed",
-        "inset:0",
-        "z-index:2147483647",
-        "display:flex",
-        "align-items:center",
-        "justify-content:center",
-        "background:rgba(2,0,14,.48)",
-        "backdrop-filter:blur(4px)"
-      ].join(";");
-
-      const box=document.createElement("div");
-      box.style.cssText=[
-        "width:min(92vw,520px)",
-        "border:1px solid rgba(172,124,255,.9)",
-        "border-radius:24px",
-        "background:linear-gradient(145deg,rgba(8,5,28,.96),rgba(18,10,44,.94))",
-        "box-shadow:0 0 35px rgba(160,95,255,.55), inset 0 0 28px rgba(117,234,255,.12)",
-        "color:#f6efff",
-        "font:600 16px system-ui,-apple-system,Segoe UI,sans-serif",
-        "padding:24px",
-        "line-height:1.5"
-      ].join(";");
-
-      box.innerHTML=html;
-
-      const btn=document.createElement("button");
-      btn.textContent="Close";
-      btn.style.cssText=[
-        "margin-top:22px",
-        "width:100%",
-        "height:54px",
-        "border-radius:18px",
-        "border:1px solid rgba(182,137,255,.95)",
-        "background:rgba(255,255,255,.04)",
-        "color:#fff",
-        "font:800 17px system-ui",
-        "letter-spacing:.02em"
-      ].join(";");
-      btn.onclick=()=>wrap.remove();
-
-      box.appendChild(btn);
-      wrap.appendChild(box);
-      document.body.appendChild(wrap);
-    }catch(e){
-      alert(String(html).replace(/<[^>]+>/g," "));
-    }
-  }
-
-  function esc(v){
-    return String(v==null?"":v).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-  }
-
-  async function run(){
-    if(busy) return;
-    busy=true;
-
-    try{
-      const channel=(localStorage.getItem("VLM_PROMAX_CHANNEL")||localStorage.getItem("MOD_CHANNEL")||"live").toLowerCase()==="test"?"test":"live";
-      const url="/__vlm/promax/manifest?channel="+encodeURIComponent(channel)+"&t="+Date.now();
-
-      console.warn("["+MARK+"] check "+url);
-
-      const r=await fetch(url,{cache:"no-store",headers:{"accept":"application/json,text/plain,*/*"}});
-      const raw=await r.text();
-
-      console.warn("["+MARK+"] response "+r.status+" "+raw.slice(0,180));
-
-      let j=null;
-      try{j=JSON.parse(raw);}catch(e){}
-
-      if(!r.ok || !j || j.ok!==true){
-        modal(
-          '<h2 style="margin:0 0 14px;font-size:26px;color:#fff">Viciouslom Update</h2>'+
-          '<div style="color:#ffb4c8">Manifest error</div>'+
-          '<div style="margin-top:10px;color:#d9ccff">HTTP: '+esc(r.status)+'</div>'+
-          '<pre style="white-space:pre-wrap;max-height:180px;overflow:auto;background:rgba(255,255,255,.05);border-radius:12px;padding:12px;color:#cfc3ff">'+esc(raw.slice(0,900))+'</pre>'
-        );
-        return;
-      }
-
-      modal(
-        '<h2 style="margin:0 0 16px;font-size:28px;color:#fff;text-shadow:0 0 18px rgba(190,130,255,.75)">Viciouslom Update</h2>'+
-        '<div><b>Status:</b> Online</div>'+
-        '<div><b>Channel:</b> '+esc(String(j.channel||channel).toUpperCase())+'</div>'+
-        '<div><b>Current:</b> '+esc(j.currentVersion||j.version||"v3.95")+'</div>'+
-        '<div><b>Latest:</b> '+esc(j.latestVersion||j.version||"v3.95")+'</div>'+
-        '<div><b>Payload:</b> '+(j.payloadEnabled?'Enabled':'Not enabled yet')+'</div>'+
-        '<div style="margin-top:18px;color:#bfa7ff">'+esc(j.message||"Update service online. No payload update configured yet.")+'</div>'
-      );
-    }catch(e){
-      console.warn("["+MARK+"] error",e);
-      modal(
-        '<h2 style="margin:0 0 14px;font-size:26px;color:#fff">Viciouslom Update</h2>'+
-        '<div style="color:#ffb4c8">Erro ao consultar update.</div>'+
-        '<pre style="white-space:pre-wrap;background:rgba(255,255,255,.05);border-radius:12px;padding:12px;color:#cfc3ff">'+esc(e&&e.stack||e)+'</pre>'
-      );
-    }finally{
-      setTimeout(()=>{busy=false},700);
-    }
-  }
-
-  function intercept(ev){
-    try{
-      if(!isUpdateTarget(ev)) return;
-
-      const now=Date.now();
-      if(now-last<650){
-        ev.preventDefault();
-        ev.stopPropagation();
-        if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
-        return false;
-      }
-      last=now;
-
-      ev.preventDefault();
-      ev.stopPropagation();
-      if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
-
-      setTimeout(run,20);
-      return false;
-    }catch(e){
-      console.warn("["+MARK+"] intercept error",e);
-    }
-  }
-
-  ["pointerdown","touchstart","mousedown","pointerup","touchend","mouseup","click"].forEach(ev=>{
-    document.addEventListener(ev,intercept,true);
-  });
-
-  console.warn("["+MARK+"] installed capture");
-}catch(e){console.warn("[VLM_PROMAX_UPDATE_BUTTON_V6_CAPTURE] install error",e)}})();
+  console.warn("["+MARK+"] installed classic emerald palette");
+}catch(e){console.warn("[VLM_PROMAX_MENU_CLASSIC_EMERALD_V6_SAFE] install error",e)}})();
 
