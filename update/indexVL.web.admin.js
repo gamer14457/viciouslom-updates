@@ -10128,3 +10128,183 @@ try{
 console.warn("[VLM_PROMAX_UPDATE_BUTTON_V4_SHIELD] installed");
 }catch(e){try{console.warn("[VLM_PROMAX_UPDATE_BUTTON_V4_SHIELD_FAIL]",String(e&&e.message||e))}catch(_){}}})();
 
+;(()=>{try{
+  const MARK="VLM_PROMAX_UPDATE_BUTTON_V6_CAPTURE";
+  if(window.__VLM_PROMAX_UPDATE_BUTTON_V6_CAPTURE__) return;
+  window.__VLM_PROMAX_UPDATE_BUTTON_V6_CAPTURE__=1;
+
+  let last=0;
+  let busy=false;
+
+  function txt(el){
+    try{return String((el&&((el.innerText||el.textContent)||""))||"").replace(/\s+/g," ").trim();}
+    catch(e){return "";}
+  }
+
+  function up(el, max){
+    const arr=[];
+    let n=el;
+    for(let i=0;n&&i<(max||8);i++,n=n.parentElement) arr.push(n);
+    return arr;
+  }
+
+  function isUpdateTarget(ev){
+    const t=ev&&ev.target;
+    if(!t || !t.tagName) return false;
+    if(String(t.tagName).toUpperCase()==="CANVAS") return false;
+
+    const nodes=up(t,8);
+    for(const n of nodes){
+      if(!n || !n.tagName) continue;
+      const tag=String(n.tagName).toUpperCase();
+      const cls=String(n.className||"");
+      const label=txt(n).toUpperCase();
+
+      if(label==="UPDATE" && (tag==="BUTTON" || cls.includes("lom-btn") || cls.includes("ghost"))) return true;
+
+      if(tag==="BUTTON" && txt(n).toUpperCase()==="UPDATE") return true;
+    }
+
+    return false;
+  }
+
+  function modal(html){
+    try{
+      let old=document.getElementById("vlm-promax-update-v6-modal");
+      if(old) old.remove();
+
+      const wrap=document.createElement("div");
+      wrap.id="vlm-promax-update-v6-modal";
+      wrap.style.cssText=[
+        "position:fixed",
+        "inset:0",
+        "z-index:2147483647",
+        "display:flex",
+        "align-items:center",
+        "justify-content:center",
+        "background:rgba(2,0,14,.48)",
+        "backdrop-filter:blur(4px)"
+      ].join(";");
+
+      const box=document.createElement("div");
+      box.style.cssText=[
+        "width:min(92vw,520px)",
+        "border:1px solid rgba(172,124,255,.9)",
+        "border-radius:24px",
+        "background:linear-gradient(145deg,rgba(8,5,28,.96),rgba(18,10,44,.94))",
+        "box-shadow:0 0 35px rgba(160,95,255,.55), inset 0 0 28px rgba(117,234,255,.12)",
+        "color:#f6efff",
+        "font:600 16px system-ui,-apple-system,Segoe UI,sans-serif",
+        "padding:24px",
+        "line-height:1.5"
+      ].join(";");
+
+      box.innerHTML=html;
+
+      const btn=document.createElement("button");
+      btn.textContent="Close";
+      btn.style.cssText=[
+        "margin-top:22px",
+        "width:100%",
+        "height:54px",
+        "border-radius:18px",
+        "border:1px solid rgba(182,137,255,.95)",
+        "background:rgba(255,255,255,.04)",
+        "color:#fff",
+        "font:800 17px system-ui",
+        "letter-spacing:.02em"
+      ].join(";");
+      btn.onclick=()=>wrap.remove();
+
+      box.appendChild(btn);
+      wrap.appendChild(box);
+      document.body.appendChild(wrap);
+    }catch(e){
+      alert(String(html).replace(/<[^>]+>/g," "));
+    }
+  }
+
+  function esc(v){
+    return String(v==null?"":v).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  }
+
+  async function run(){
+    if(busy) return;
+    busy=true;
+
+    try{
+      const channel=(localStorage.getItem("VLM_PROMAX_CHANNEL")||localStorage.getItem("MOD_CHANNEL")||"live").toLowerCase()==="test"?"test":"live";
+      const url="/__vlm/promax/manifest?channel="+encodeURIComponent(channel)+"&t="+Date.now();
+
+      console.warn("["+MARK+"] check "+url);
+
+      const r=await fetch(url,{cache:"no-store",headers:{"accept":"application/json,text/plain,*/*"}});
+      const raw=await r.text();
+
+      console.warn("["+MARK+"] response "+r.status+" "+raw.slice(0,180));
+
+      let j=null;
+      try{j=JSON.parse(raw);}catch(e){}
+
+      if(!r.ok || !j || j.ok!==true){
+        modal(
+          '<h2 style="margin:0 0 14px;font-size:26px;color:#fff">Viciouslom Update</h2>'+
+          '<div style="color:#ffb4c8">Manifest error</div>'+
+          '<div style="margin-top:10px;color:#d9ccff">HTTP: '+esc(r.status)+'</div>'+
+          '<pre style="white-space:pre-wrap;max-height:180px;overflow:auto;background:rgba(255,255,255,.05);border-radius:12px;padding:12px;color:#cfc3ff">'+esc(raw.slice(0,900))+'</pre>'
+        );
+        return;
+      }
+
+      modal(
+        '<h2 style="margin:0 0 16px;font-size:28px;color:#fff;text-shadow:0 0 18px rgba(190,130,255,.75)">Viciouslom Update</h2>'+
+        '<div><b>Status:</b> Online</div>'+
+        '<div><b>Channel:</b> '+esc(String(j.channel||channel).toUpperCase())+'</div>'+
+        '<div><b>Current:</b> '+esc(j.currentVersion||j.version||"v3.95")+'</div>'+
+        '<div><b>Latest:</b> '+esc(j.latestVersion||j.version||"v3.95")+'</div>'+
+        '<div><b>Payload:</b> '+(j.payloadEnabled?'Enabled':'Not enabled yet')+'</div>'+
+        '<div style="margin-top:18px;color:#bfa7ff">'+esc(j.message||"Update service online. No payload update configured yet.")+'</div>'
+      );
+    }catch(e){
+      console.warn("["+MARK+"] error",e);
+      modal(
+        '<h2 style="margin:0 0 14px;font-size:26px;color:#fff">Viciouslom Update</h2>'+
+        '<div style="color:#ffb4c8">Erro ao consultar update.</div>'+
+        '<pre style="white-space:pre-wrap;background:rgba(255,255,255,.05);border-radius:12px;padding:12px;color:#cfc3ff">'+esc(e&&e.stack||e)+'</pre>'
+      );
+    }finally{
+      setTimeout(()=>{busy=false},700);
+    }
+  }
+
+  function intercept(ev){
+    try{
+      if(!isUpdateTarget(ev)) return;
+
+      const now=Date.now();
+      if(now-last<650){
+        ev.preventDefault();
+        ev.stopPropagation();
+        if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
+        return false;
+      }
+      last=now;
+
+      ev.preventDefault();
+      ev.stopPropagation();
+      if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
+
+      setTimeout(run,20);
+      return false;
+    }catch(e){
+      console.warn("["+MARK+"] intercept error",e);
+    }
+  }
+
+  ["pointerdown","touchstart","mousedown","pointerup","touchend","mouseup","click"].forEach(ev=>{
+    document.addEventListener(ev,intercept,true);
+  });
+
+  console.warn("["+MARK+"] installed capture");
+}catch(e){console.warn("[VLM_PROMAX_UPDATE_BUTTON_V6_CAPTURE] install error",e)}})();
+
