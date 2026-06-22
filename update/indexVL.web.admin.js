@@ -9250,7 +9250,7 @@ async function checkUpdate(){
     }
 
     const version=data.version || data.latestVersion || "unknown";
-    const current=data.currentVersion || "v7.00";
+    const current=data.currentVersion || "v3.95";
     const message=data.message || (data.ok ? "Update service is online." : "No update available.");
 
     showModal("Viciouslom Update",
@@ -9509,8 +9509,8 @@ async function checkUpdate(){
     showModal("Viciouslom Update",
       '<div style="font-size:15px;color:#F5F3FF;margin-bottom:8px"><b>Status:</b> '+(data.ok?'Online':'Unavailable')+'</div>'+
       '<div style="font-size:14px;color:#DDD6FE"><b>Channel:</b> '+esc(data.channel||channel).toUpperCase()+'</div>'+
-      '<div style="font-size:14px;color:#DDD6FE"><b>Current:</b> '+esc(data.currentVersion||'v7.00')+'</div>'+
-      '<div style="font-size:14px;color:#DDD6FE"><b>Latest:</b> '+esc(data.latestVersion||data.version||'v7.00')+'</div>'+
+      '<div style="font-size:14px;color:#DDD6FE"><b>Current:</b> '+esc(data.currentVersion||'v3.95')+'</div>'+
+      '<div style="font-size:14px;color:#DDD6FE"><b>Latest:</b> '+esc(data.latestVersion||data.version||'v3.95')+'</div>'+
       '<div style="font-size:14px;color:#DDD6FE"><b>Payload:</b> '+(data.payloadEnabled?'Enabled':'Not enabled yet')+'</div>'+
       '<div style="font-size:13px;color:#A78BFA;margin-top:12px">'+esc(data.message||'Update service online.')+'</div>'
     );
@@ -9725,8 +9725,8 @@ async function checkUpdate(evType){
     showModal("Viciouslom Update",
       '<div style="font-size:15px;color:#F5F3FF;margin-bottom:8px"><b>Status:</b> '+(data.ok?'Online':'Unavailable')+'</div>'+
       '<div style="font-size:14px;color:#DDD6FE"><b>Channel:</b> '+esc(data.channel||channel).toUpperCase()+'</div>'+
-      '<div style="font-size:14px;color:#DDD6FE"><b>Current:</b> '+esc(data.currentVersion||'v7.00')+'</div>'+
-      '<div style="font-size:14px;color:#DDD6FE"><b>Latest:</b> '+esc(data.latestVersion||data.version||'v7.00')+'</div>'+
+      '<div style="font-size:14px;color:#DDD6FE"><b>Current:</b> '+esc(data.currentVersion||'v3.95')+'</div>'+
+      '<div style="font-size:14px;color:#DDD6FE"><b>Latest:</b> '+esc(data.latestVersion||data.version||'v3.95')+'</div>'+
       '<div style="font-size:14px;color:#DDD6FE"><b>Payload:</b> '+(data.payloadEnabled?'Enabled':'Not enabled yet')+'</div>'+
       '<div style="font-size:13px;color:#A78BFA;margin-top:12px">'+esc(data.message||'Update service online.')+'</div>'
     );
@@ -10013,8 +10013,8 @@ async function checkUpdate(evType){
     showModal("Viciouslom Update",
       '<div style="font-size:15px;color:#F5F3FF;margin-bottom:8px"><b>Status:</b> '+(data.ok?'Online':'Unavailable')+'</div>'+
       '<div style="font-size:14px;color:#DDD6FE"><b>Channel:</b> '+esc(data.channel||channel).toUpperCase()+'</div>'+
-      '<div style="font-size:14px;color:#DDD6FE"><b>Current:</b> '+esc(data.currentVersion||'v7.00')+'</div>'+
-      '<div style="font-size:14px;color:#DDD6FE"><b>Latest:</b> '+esc(data.latestVersion||data.version||'v7.00')+'</div>'+
+      '<div style="font-size:14px;color:#DDD6FE"><b>Current:</b> '+esc(data.currentVersion||'v3.95')+'</div>'+
+      '<div style="font-size:14px;color:#DDD6FE"><b>Latest:</b> '+esc(data.latestVersion||data.version||'v3.95')+'</div>'+
       '<div style="font-size:14px;color:#DDD6FE"><b>Payload:</b> '+(data.payloadEnabled?'Enabled':'Not enabled yet')+'</div>'+
       '<div style="font-size:13px;color:#A78BFA;margin-top:12px">'+esc(data.message||'Update service online.')+'</div>'
     );
@@ -10260,8 +10260,8 @@ console.warn("[VLM_PROMAX_UPDATE_BUTTON_V4_SHIELD] installed");
         '<h2 style="margin:0 0 16px;font-size:28px;color:#fff;text-shadow:0 0 18px rgba(190,130,255,.75)">Viciouslom Update</h2>'+
         '<div><b>Status:</b> Online</div>'+
         '<div><b>Channel:</b> '+esc(String(j.channel||channel).toUpperCase())+'</div>'+
-        '<div><b>Current:</b> '+esc(j.currentVersion||j.version||"v7.00")+'</div>'+
-        '<div><b>Latest:</b> '+esc(j.latestVersion||j.version||"v7.00")+'</div>'+
+        '<div><b>Current:</b> '+esc(j.currentVersion||j.version||"v3.95")+'</div>'+
+        '<div><b>Latest:</b> '+esc(j.latestVersion||j.version||"v3.95")+'</div>'+
         '<div><b>Payload:</b> '+(j.payloadEnabled?'Enabled':'Not enabled yet')+'</div>'+
         '<div style="margin-top:18px;color:#bfa7ff">'+esc(j.message||"Update service online. No payload update configured yet.")+'</div>'
       );
@@ -10346,73 +10346,67 @@ try{
 
 
 
-/* VLM_PROMAX_UX_V7_CHANNEL_KEY_GUIDE_V1 */
+/* VLM_PROMAX_UX_V7_SAFE_VISUAL_V2B */
 (function(){
   "use strict";
 
-  var MARK = "VLM_PROMAX_UX_V7_CHANNEL_KEY_GUIDE_V1";
+  var MARK = "VLM_PROMAX_UX_V7_SAFE_VISUAL_V2B";
   if (window[MARK]) return;
   window[MARK] = true;
 
-  var ADMIN_URL = "https://vlm-dev-core4.gamervicius14.workers.dev/play";
-  var CLIENT_URL = "https://vlm.gamervicius14.workers.dev/play";
+  var ADMIN_HOST = "vlm-dev-core4.gamervicius14.workers.dev";
+  var CLIENT_HOST = "vlm.gamervicius14.workers.dev";
+  var IS_ADMIN = location.hostname === ADMIN_HOST || location.href.indexOf("vlm-dev-core4") >= 0;
+  var ENV_LABEL = IS_ADMIN ? "Admin" : "Client";
   var KEY_RE = /\b(?:LOM|VLM)-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}\b/i;
 
-  function norm(s) {
-    return String(s || "").replace(/\s+/g, " ").trim();
-  }
+  function norm(s){ return String(s || "").replace(/\s+/g, " ").trim(); }
 
-  function isBadParent(el) {
-    if (!el || !el.tagName) return true;
-    var t = String(el.tagName).toLowerCase();
-    return t === "script" || t === "style" || t === "textarea" || t === "noscript";
+  function safeTextNode(node) {
+    if (!node || !node.parentElement) return false;
+    var tag = String(node.parentElement.tagName || "").toLowerCase();
+    return !/^(script|style|textarea|noscript)$/i.test(tag);
   }
 
   function getCurrentKey() {
-    var candidates = [];
+    var list = [];
 
     try {
       var u = new URL(location.href);
-      ["key", "license", "lic", "vlm_key", "VLM_KEY", "activeKey"].forEach(function(k){
+      ["key","license","lic","vlm_key","VLM_KEY","activeKey"].forEach(function(k){
         var v = u.searchParams.get(k);
-        if (v) candidates.push(v);
+        if (v) list.push(v);
       });
     } catch(e) {}
 
     try {
-      ["VLM_ACTIVE_KEY", "VLM_LICENSE_KEY", "VLM_KEY", "vlm_key", "key", "licenseKey", "activeKey"].forEach(function(k){
+      [localStorage, sessionStorage].forEach(function(store){
+        if (!store) return;
+
+        ["VLM_ACTIVE_KEY","VLM_LICENSE_KEY","VLM_KEY","LOM_KEY","vlm_key","licenseKey","activeKey","key"].forEach(function(k){
+          try {
+            var v = store.getItem(k);
+            if (v) list.push(v);
+          } catch(e) {}
+        });
+
         try {
-          if (window[k]) candidates.push(String(window[k]));
+          for (var i = 0; i < store.length; i++) {
+            var sk = store.key(i);
+            var sv = store.getItem(sk);
+            if (sv && /key|license|vlm|lom/i.test(sk + " " + sv)) list.push(sv);
+          }
         } catch(e) {}
       });
     } catch(e) {}
-
-    [window.localStorage, window.sessionStorage].forEach(function(store){
-      if (!store) return;
-
-      ["VLM_ACTIVE_KEY", "VLM_LICENSE_KEY", "VLM_KEY", "vlm_key", "key", "licenseKey", "activeKey", "LOM_KEY"].forEach(function(k){
-        try {
-          var v = store.getItem(k);
-          if (v) candidates.push(v);
-        } catch(e) {}
-      });
-
-      try {
-        for (var i = 0; i < store.length; i++) {
-          var sk = store.key(i);
-          var sv = store.getItem(sk);
-          if (sk) candidates.push(sk);
-          if (sv) candidates.push(sv);
-        }
-      } catch(e) {}
-    });
 
     try {
-      candidates.push(document.cookie || "");
+      var bodyText = document.body ? document.body.innerText : "";
+      if (bodyText) list.push(bodyText);
     } catch(e) {}
 
-    for (var i = 0; i < candidates.length; i++) {
-      var raw = String(candidates[i] || "");
+    for (var i = 0; i < list.length; i++) {
+      var raw = String(list[i] || "");
       try { raw = decodeURIComponent(raw); } catch(e) {}
       var m = raw.match(KEY_RE);
       if (m && m[0]) return m[0].toUpperCase();
@@ -10421,249 +10415,161 @@ try{
     return "";
   }
 
-  function replaceVisibleText(root) {
-    root = root || document.body || document.documentElement;
+  function replaceVisibleTexts() {
+    var root = document.body || document.documentElement;
     if (!root) return;
 
     var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode: function(node) {
-        if (!node || !node.parentElement || isBadParent(node.parentElement)) return NodeFilter.FILTER_REJECT;
+        if (!safeTextNode(node)) return NodeFilter.FILTER_REJECT;
         var v = node.nodeValue || "";
-        if (!v || !/v3\.95|\bTEST\b|\bLIVE\b|\btest\b|\blive\b/.test(v)) return NodeFilter.FILTER_SKIP;
+        if (!/v3\.95|\bTEST\b|\bLIVE\b|\btest\b|\blive\b|·\s*(Admin|Client)/i.test(v)) return NodeFilter.FILTER_SKIP;
         return NodeFilter.FILTER_ACCEPT;
       }
     });
 
-    var list = [];
-    while (walker.nextNode()) list.push(walker.currentNode);
+    var nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
 
-    list.forEach(function(node) {
+    nodes.forEach(function(node){
       var v = node.nodeValue || "";
-      var trimmed = norm(v);
-      var nv = v.replace(/v3\.95/g, "v7.00");
+      var t = norm(v);
+      var nv = v;
 
-      if (/^TEST$/.test(trimmed)) nv = "ADMIN";
-      else if (/^LIVE$/.test(trimmed)) nv = "CLIENT";
-      else if (/^test$/i.test(trimmed)) nv = "Admin";
-      else if (/^live$/i.test(trimmed)) nv = "Client";
-      else {
-        nv = nv
-          .replace(/([·•]\s*)test\b/ig, "$1Admin")
-          .replace(/([·•]\s*)live\b/ig, "$1Client");
-      }
+      // Visual apenas.
+      nv = nv.replace(/v3\.95/g, "v7.00");
+
+      // Header sempre pela URL real.
+      nv = nv.replace(/v7\.00\s*·\s*(Admin|Client|test|live)/ig, "v7.00 · " + ENV_LABEL);
+
+      // Dropdown/labels.
+      if (/^TEST$/i.test(t)) nv = "ADMIN";
+      else if (/^LIVE$/i.test(t)) nv = "CLIENT";
+      else if (/^test$/i.test(t)) nv = "Admin";
+      else if (/^live$/i.test(t)) nv = "Client";
 
       if (nv !== v) node.nodeValue = nv;
     });
   }
 
-  function patchSelectOptions() {
+  function findTextEls(names) {
+    var arr = [];
     try {
-      Array.prototype.forEach.call(document.querySelectorAll("select option"), function(opt) {
-        var v = norm(opt.value).toLowerCase();
-        var t = norm(opt.textContent).toLowerCase();
-
-        if (v === "test" || t === "test") opt.textContent = "Admin";
-        if (v === "live" || t === "live") opt.textContent = "Client";
-      });
-    } catch(e) {}
-  }
-
-  function visible(el) {
-    try {
-      var r = el.getBoundingClientRect();
-      return r.width > 20 && r.height > 8 && r.bottom > 0 && r.right > 0;
-    } catch(e) {
-      return false;
-    }
-  }
-
-  function ownText(el) {
-    var out = "";
-    try {
-      Array.prototype.forEach.call(el.childNodes || [], function(n) {
-        if (n.nodeType === 3) out += n.nodeValue || "";
-      });
-    } catch(e) {}
-    return norm(out);
-  }
-
-  function findLabelEls(labels) {
-    var result = [];
-    try {
-      Array.prototype.forEach.call(document.querySelectorAll("div,span,p,h1,h2,h3,h4,label,strong,b"), function(el) {
+      Array.prototype.forEach.call(document.querySelectorAll("div,span,p,label,strong,b,h1,h2,h3,h4"), function(el){
         var t = norm(el.textContent);
-        var o = ownText(el);
-        if (labels.indexOf(t) !== -1 || labels.indexOf(o) !== -1) result.push(el);
+        if (names.indexOf(t) >= 0) arr.push(el);
       });
     } catch(e) {}
-    return result;
+    return arr;
   }
 
-  function applyKeyStyle(el, key) {
-    if (!el) return;
+  function ensureActiveKeyOnly() {
+    var labels = findTextEls(["Active Key", "Chave Ativa"]);
+    if (!labels.length) return;
 
-    var value = key || "Not detected";
-
-    try {
-      if ("value" in el && /input|textarea/i.test(el.tagName)) {
-        el.value = value;
-      } else {
-        el.textContent = value;
-      }
-
-      el.setAttribute("data-vlm-active-key-rendered", "1");
-      el.style.color = key ? "#43d17a" : "#7f8ca8";
-      el.style.textAlign = "center";
-      el.style.fontFamily = "monospace";
-      el.style.letterSpacing = key ? "0.16em" : "0.05em";
-      el.style.fontWeight = "700";
-      el.style.fontSize = "clamp(14px, 3.2vw, 22px)";
-      el.style.whiteSpace = "nowrap";
-      el.style.overflow = "hidden";
-      el.style.textOverflow = "ellipsis";
-      el.style.background = "rgba(5, 12, 32, 0.82)";
-      el.style.borderRadius = "16px";
-      el.style.padding = "12px 16px";
-      el.style.minHeight = "42px";
-      el.style.display = "flex";
-      el.style.alignItems = "center";
-      el.style.justifyContent = "center";
-    } catch(e) {}
-  }
-
-  function patchActiveKey() {
     var key = getCurrentKey();
-    var labels = findLabelEls(["Active Key", "Chave Ativa"]);
+    var val = key || "Not detected";
 
-    labels.forEach(function(label) {
+    labels.forEach(function(label){
       try {
-        var lr = label.getBoundingClientRect();
-        var all = Array.prototype.slice.call(document.querySelectorAll("div,span,p,input"));
-
-        var candidates = all.filter(function(el) {
-          if (!visible(el) || el === label || label.contains(el) || el.contains(label)) return false;
-
-          var r = el.getBoundingClientRect();
-          if (r.top < lr.bottom - 4) return false;
-          if (r.top > lr.bottom + 180) return false;
-          if (r.right < lr.left - 40 || r.left > lr.right + 40) return false;
-
-          var txt = norm(el.textContent);
-          if (/buy|comprar|sair|logout|log out|language|idioma|validade|permanente/i.test(txt)) return false;
-          if (txt.length > 60) return false;
-
-          return true;
-        }).sort(function(a, b) {
-          return a.getBoundingClientRect().top - b.getBoundingClientRect().top;
-        });
-
-        var box = candidates[0];
-
+        var box = document.querySelector("[data-vlm-active-key-box-v2b='1']");
         if (!box) {
           box = document.createElement("div");
-          box.setAttribute("data-vlm-active-key-box", "1");
+          box.setAttribute("data-vlm-active-key-box-v2b", "1");
           label.insertAdjacentElement("afterend", box);
         }
 
-        applyKeyStyle(box, key);
+        box.textContent = val;
+        box.style.cssText = [
+          "margin:14px auto 0",
+          "width:min(86%,620px)",
+          "min-height:44px",
+          "display:flex",
+          "align-items:center",
+          "justify-content:center",
+          "border-radius:18px",
+          "background:rgba(5,12,32,.88)",
+          "color:" + (key ? "#43d17a" : "#7f8ca8"),
+          "font-family:monospace",
+          "font-weight:800",
+          "font-size:clamp(14px,3.4vw,22px)",
+          "letter-spacing:" + (key ? ".14em" : ".04em"),
+          "white-space:nowrap",
+          "overflow:hidden",
+          "text-overflow:ellipsis",
+          "padding:12px 18px",
+          "box-sizing:border-box"
+        ].join(";");
       } catch(e) {}
     });
   }
 
-  function showQuickGuide() {
-    var old = document.getElementById("vlm-quick-guide-modal-v7");
+  function showGuide() {
+    var old = document.getElementById("vlm-quick-guide-modal-v7safe2b");
     if (old) old.remove();
 
-    var overlay = document.createElement("div");
-    overlay.id = "vlm-quick-guide-modal-v7";
-    overlay.style.cssText = [
-      "position:fixed",
-      "inset:0",
-      "z-index:2147483647",
-      "background:rgba(0,0,0,.62)",
-      "display:flex",
-      "align-items:center",
-      "justify-content:center",
-      "padding:18px",
-      "font-family:system-ui,-apple-system,Segoe UI,sans-serif"
-    ].join(";");
+    var ov = document.createElement("div");
+    ov.id = "vlm-quick-guide-modal-v7safe2b";
+    ov.style.cssText = "position:fixed;inset:0;z-index:2147483647;background:rgba(0,0,0,.62);display:flex;align-items:center;justify-content:center;padding:18px;font-family:system-ui,-apple-system,Segoe UI,sans-serif";
 
     var box = document.createElement("div");
-    box.style.cssText = [
-      "width:min(720px,94vw)",
-      "max-height:86vh",
-      "overflow:auto",
-      "border:1px solid rgba(63,220,255,.75)",
-      "border-radius:22px",
-      "background:linear-gradient(180deg,rgba(7,14,34,.98),rgba(8,8,26,.98))",
-      "box-shadow:0 0 28px rgba(63,220,255,.28)",
-      "color:#eaf8ff",
-      "padding:22px"
-    ].join(";");
+    box.style.cssText = "width:min(720px,94vw);max-height:86vh;overflow:auto;border:1px solid rgba(63,220,255,.75);border-radius:22px;background:linear-gradient(180deg,rgba(7,14,34,.98),rgba(8,8,26,.98));box-shadow:0 0 28px rgba(63,220,255,.28);color:#eaf8ff;padding:22px";
 
     box.innerHTML =
       '<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px">' +
-        '<h2 style="margin:0;color:#39dfff;font-size:22px">📘 Quick Guide: license & setup</h2>' +
-        '<button data-close="1" style="border:1px solid #39dfff;background:transparent;color:#bff6ff;border-radius:12px;padding:8px 12px;font-weight:700">Close</button>' +
+      '<h2 style="margin:0;color:#39dfff;font-size:22px">📘 Quick Guide: license & setup</h2>' +
+      '<button data-close="1" style="border:1px solid #39dfff;background:transparent;color:#bff6ff;border-radius:12px;padding:8px 12px;font-weight:700">Close</button>' +
       '</div>' +
       '<div style="line-height:1.55;font-size:15px">' +
-        '<p><b>Active Key:</b> use the key shown in the License tab. Keep it saved before clearing cache.</p>' +
-        '<p><b>Channel:</b> <span style="color:#44e07b">Admin</span> = canary/test environment. <span style="color:#44e07b">Client</span> = public/client environment.</p>' +
-        '<hr style="border:0;border-top:1px solid rgba(63,220,255,.25);margin:14px 0">' +
-        '<p><b>iOS PWA:</b> open the link in Safari, tap Share, then Add to Home Screen.</p>' +
-        '<p><b>Android PWA:</b> open the link in Chrome, tap menu ⋮, then Add to Home screen or Install app.</p>' +
-        '<p><b>Cache:</b> after an update, use Clear Cache only when instructed, then reopen the page.</p>' +
+      '<p><b>iOS PWA:</b> open in Safari, tap Share, then Add to Home Screen.</p>' +
+      '<p><b>Android PWA:</b> open in Chrome, tap menu ⋮, then Add to Home screen / Install app.</p>' +
+      '<p><b>Channel:</b> Admin = canary/test environment. Client = public/client environment.</p>' +
+      '<p><b>Active Key:</b> keep your current key saved before clearing cache.</p>' +
       '</div>';
 
-    overlay.appendChild(box);
-    document.body.appendChild(overlay);
+    ov.appendChild(box);
+    document.body.appendChild(ov);
 
-    overlay.addEventListener("click", function(ev) {
-      if (ev.target === overlay || ev.target.getAttribute("data-close") === "1") overlay.remove();
+    ov.addEventListener("click", function(ev){
+      if (ev.target === ov || ev.target.getAttribute("data-close") === "1") ov.remove();
     }, true);
   }
 
-  function patchGuideClick() {
-    if (window.__vlmGuideClickV7Installed) return;
-    window.__vlmGuideClickV7Installed = true;
+  function installGuideClick() {
+    if (window.__vlmGuideSafeV2BInstalled) return;
+    window.__vlmGuideSafeV2BInstalled = true;
 
-    document.addEventListener("click", function(ev) {
+    document.addEventListener("click", function(ev){
       try {
-        var el = ev.target && ev.target.closest ? ev.target.closest("button,a,span,div,li") : null;
+        var el = ev.target && ev.target.closest ? ev.target.closest("button,a,span,div") : null;
         if (!el) return;
-
-        var t = norm(ownText(el) || el.textContent);
-        if (/^(?:📺\s*)?(Guide|Guia)$/i.test(t) || (/^(Guide|Guia)\b/i.test(t) && t.length <= 22)) {
+        var t = norm(el.textContent);
+        if (/^(📺\s*)?(Guide|Guia)$/i.test(t) || (/^(Guide|Guia)\b/i.test(t) && t.length < 24)) {
           ev.preventDefault();
           ev.stopPropagation();
-          showQuickGuide();
+          showGuide();
           return false;
         }
-
-        setTimeout(applyPatch, 60);
-        setTimeout(applyPatch, 350);
-        setTimeout(applyPatch, 900);
       } catch(e) {}
     }, true);
   }
 
-  function applyPatch() {
-    replaceVisibleText(document.body || document.documentElement);
-    patchSelectOptions();
-    patchActiveKey();
-    patchGuideClick();
+  function apply() {
+    replaceVisibleTexts();
+    ensureActiveKeyOnly();
+    installGuideClick();
   }
 
-  applyPatch();
+  apply();
 
-  var count = 0;
-  var timer = setInterval(function() {
-    applyPatch();
-    count++;
-    if (count > 180) clearInterval(timer);
+  var ticks = 0;
+  var timer = setInterval(function(){
+    apply();
+    ticks++;
+    if (ticks > 120) clearInterval(timer);
   }, 1000);
 
-  console.warn("[" + MARK + "] installed");
+  console.warn("[" + MARK + "] installed visual-only");
 })();
-/* /VLM_PROMAX_UX_V7_CHANNEL_KEY_GUIDE_V1 */
+/* /VLM_PROMAX_UX_V7_SAFE_VISUAL_V2B */
 
