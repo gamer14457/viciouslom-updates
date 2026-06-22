@@ -10346,16 +10346,17 @@ try{
 
 
 
-/* VLM_PROMAX_UX_V7_SAFE_VISUAL_V2B */
+/* VLM_PROMAX_UX_V7_SAFE_V3_LICENSE_CHANNEL_CLOSE */
 (function(){
   "use strict";
 
-  var MARK = "VLM_PROMAX_UX_V7_SAFE_VISUAL_V2B";
+  var MARK = "VLM_PROMAX_UX_V7_SAFE_V3_LICENSE_CHANNEL_CLOSE";
   if (window[MARK]) return;
   window[MARK] = true;
 
+  var ADMIN_PLAY = "https://vlm-dev-core4.gamervicius14.workers.dev/play";
+  var CLIENT_PLAY = "https://vlm.gamervicius14.workers.dev/play";
   var ADMIN_HOST = "vlm-dev-core4.gamervicius14.workers.dev";
-  var CLIENT_HOST = "vlm.gamervicius14.workers.dev";
   var IS_ADMIN = location.hostname === ADMIN_HOST || location.href.indexOf("vlm-dev-core4") >= 0;
   var ENV_LABEL = IS_ADMIN ? "Admin" : "Client";
   var KEY_RE = /\b(?:LOM|VLM)-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}\b/i;
@@ -10436,13 +10437,9 @@ try{
       var t = norm(v);
       var nv = v;
 
-      // Visual apenas.
       nv = nv.replace(/v3\.95/g, "v7.00");
-
-      // Header sempre pela URL real.
       nv = nv.replace(/v7\.00\s*·\s*(Admin|Client|test|live)/ig, "v7.00 · " + ENV_LABEL);
 
-      // Dropdown/labels.
       if (/^TEST$/i.test(t)) nv = "ADMIN";
       else if (/^LIVE$/i.test(t)) nv = "CLIENT";
       else if (/^test$/i.test(t)) nv = "Admin";
@@ -10452,30 +10449,53 @@ try{
     });
   }
 
-  function findTextEls(names) {
+  function findTextEls(pattern) {
     var arr = [];
     try {
-      Array.prototype.forEach.call(document.querySelectorAll("div,span,p,label,strong,b,h1,h2,h3,h4"), function(el){
+      Array.prototype.forEach.call(document.querySelectorAll("button,a,div,span,p,label,strong,b,h1,h2,h3,h4"), function(el){
         var t = norm(el.textContent);
-        if (names.indexOf(t) >= 0) arr.push(el);
+        if (pattern.test(t)) arr.push(el);
       });
     } catch(e) {}
     return arr;
   }
 
+  function styleBuyKey() {
+    findTextEls(/^(BUY\s*KEY|COMPRAR\s*CHAVE)$/i).forEach(function(el){
+      try {
+        el.setAttribute("data-vlm-buy-key-yellow-v3", "1");
+        el.style.setProperty("background", "linear-gradient(180deg,#ffd84d,#ffab19)", "important");
+        el.style.setProperty("color", "#160d00", "important");
+        el.style.setProperty("border", "1px solid rgba(255,230,120,.95)", "important");
+        el.style.setProperty("border-radius", "16px", "important");
+        el.style.setProperty("box-shadow", "0 0 18px rgba(255,184,30,.42), inset 0 1px 0 rgba(255,255,255,.35)", "important");
+        el.style.setProperty("font-weight", "900", "important");
+        el.style.setProperty("letter-spacing", ".04em", "important");
+        el.style.setProperty("text-transform", "uppercase", "important");
+        el.style.setProperty("padding", "12px 16px", "important");
+      } catch(e) {}
+    });
+  }
+
   function ensureActiveKeyOnly() {
-    var labels = findTextEls(["Active Key", "Chave Ativa"]);
+    var labels = findTextEls(/^(Active\s*Key|Chave\s*Ativa)$/i);
     if (!labels.length) return;
 
     var key = getCurrentKey();
-    var val = key || "Not detected";
+    var val = key || "No key found";
 
     labels.forEach(function(label){
       try {
-        var box = document.querySelector("[data-vlm-active-key-box-v2b='1']");
+        var next = label.nextElementSibling;
+        var box = null;
+
+        if (next && next.getAttribute && next.getAttribute("data-vlm-active-key-box-v3") === "1") {
+          box = next;
+        }
+
         if (!box) {
           box = document.createElement("div");
-          box.setAttribute("data-vlm-active-key-box-v2b", "1");
+          box.setAttribute("data-vlm-active-key-box-v3", "1");
           label.insertAdjacentElement("afterend", box);
         }
 
@@ -10504,12 +10524,43 @@ try{
     });
   }
 
+  function promaxContext(el) {
+    try {
+      var n = el;
+      for (var i = 0; i < 8 && n; i++, n = n.parentElement) {
+        var txt = norm(n.textContent);
+        if (/Viciouslom|ProMax|License|Active Key|Chave Ativa|BUY KEY|COMPRAR CHAVE|Channel|Canal/i.test(txt)) return true;
+      }
+    } catch(e) {}
+    return false;
+  }
+
+  function handleChannelClick(ev) {
+    try {
+      var el = ev.target && ev.target.closest ? ev.target.closest("button,a,div,span,li,option") : null;
+      if (!el || !promaxContext(el)) return;
+
+      var t = norm(el.textContent || el.value || "");
+      if (!/^(Admin|ADMIN|Test|TEST|Client|CLIENT|Live|LIVE)$/i.test(t)) return;
+
+      var target = /^(Client|CLIENT|Live|LIVE)$/i.test(t) ? CLIENT_PLAY : ADMIN_PLAY;
+
+      ev.preventDefault();
+      ev.stopPropagation();
+
+      if (location.href !== target) {
+        setTimeout(function(){ location.href = target; }, 80);
+      }
+      return false;
+    } catch(e) {}
+  }
+
   function showGuide() {
-    var old = document.getElementById("vlm-quick-guide-modal-v7safe2b");
+    var old = document.getElementById("vlm-quick-guide-modal-v7safe3");
     if (old) old.remove();
 
     var ov = document.createElement("div");
-    ov.id = "vlm-quick-guide-modal-v7safe2b";
+    ov.id = "vlm-quick-guide-modal-v7safe3";
     ov.style.cssText = "position:fixed;inset:0;z-index:2147483647;background:rgba(0,0,0,.62);display:flex;align-items:center;justify-content:center;padding:18px;font-family:system-ui,-apple-system,Segoe UI,sans-serif";
 
     var box = document.createElement("div");
@@ -10523,8 +10574,8 @@ try{
       '<div style="line-height:1.55;font-size:15px">' +
       '<p><b>iOS PWA:</b> open in Safari, tap Share, then Add to Home Screen.</p>' +
       '<p><b>Android PWA:</b> open in Chrome, tap menu ⋮, then Add to Home screen / Install app.</p>' +
-      '<p><b>Channel:</b> Admin = canary/test environment. Client = public/client environment.</p>' +
-      '<p><b>Active Key:</b> keep your current key saved before clearing cache.</p>' +
+      '<p><b>Channel:</b> Admin = canary/admin. Client = public/client link.</p>' +
+      '<p><b>Active Key:</b> shown in green on the License tab when detected.</p>' +
       '</div>';
 
     ov.appendChild(box);
@@ -10535,29 +10586,47 @@ try{
     }, true);
   }
 
-  function installGuideClick() {
-    if (window.__vlmGuideSafeV2BInstalled) return;
-    window.__vlmGuideSafeV2BInstalled = true;
+  function installClicks() {
+    if (window.__vlmUxV3ClicksInstalled) return;
+    window.__vlmUxV3ClicksInstalled = true;
 
     document.addEventListener("click", function(ev){
       try {
+        handleChannelClick(ev);
+
         var el = ev.target && ev.target.closest ? ev.target.closest("button,a,span,div") : null;
         if (!el) return;
+
         var t = norm(el.textContent);
+
         if (/^(📺\s*)?(Guide|Guia)$/i.test(t) || (/^(Guide|Guia)\b/i.test(t) && t.length < 24)) {
           ev.preventDefault();
           ev.stopPropagation();
           showGuide();
           return false;
         }
+
+        if (/^(×|X|Close|Fechar)$/i.test(t) && promaxContext(el)) {
+          ev.__vlmCloseMenuV3 = true;
+          setTimeout(function(){ replaceVisibleTexts(); styleBuyKey(); ensureActiveKeyOnly(); }, 80);
+        }
       } catch(e) {}
     }, true);
+
+    document.addEventListener("click", function(ev){
+      try {
+        if (ev.__vlmCloseMenuV3) {
+          ev.stopPropagation();
+        }
+      } catch(e) {}
+    }, false);
   }
 
   function apply() {
     replaceVisibleTexts();
+    styleBuyKey();
     ensureActiveKeyOnly();
-    installGuideClick();
+    installClicks();
   }
 
   apply();
@@ -10566,10 +10635,10 @@ try{
   var timer = setInterval(function(){
     apply();
     ticks++;
-    if (ticks > 120) clearInterval(timer);
+    if (ticks > 180) clearInterval(timer);
   }, 1000);
 
-  console.warn("[" + MARK + "] installed visual-only");
+  console.warn("[" + MARK + "] installed");
 })();
-/* /VLM_PROMAX_UX_V7_SAFE_VISUAL_V2B */
+/* /VLM_PROMAX_UX_V7_SAFE_V3_LICENSE_CHANNEL_CLOSE */
 
