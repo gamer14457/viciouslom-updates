@@ -10398,3 +10398,236 @@ function _0x36248b(){getRuntimeSingleton("SeasonDataCache","SeasonDataCache")["t
     try{__LOMDBG&&console.log(_0x5c9bbd,"naval full runtime armed");}catch(e){}
   });
 })();
+
+
+;(function(){
+  "use strict";
+  var MARKER = "VLM_UPDATE_BUTTON_CHANNEL_PANEL_V1";
+  if (typeof window === "undefined" || window.__VLM_UPDATE_BUTTON_CHANNEL_PANEL_V1__) return;
+  window.__VLM_UPDATE_BUTTON_CHANNEL_PANEL_V1__ = true;
+
+  function envName(){
+    try {
+      var h = location.hostname || "";
+      if (h.indexOf("vlm-dev-core4") >= 0) return "ADMIN";
+      if (h.indexOf("vlm.gamervicius14") >= 0) return "CLIENTE";
+    } catch(_){}
+    return "UNKNOWN";
+  }
+
+  function toast(msg, color){
+    try {
+      var old = document.getElementById("vlm-update-channel-toast");
+      if (old) old.remove();
+      var d = document.createElement("div");
+      d.id = "vlm-update-channel-toast";
+      d.textContent = msg;
+      d.style.cssText = [
+        "position:fixed",
+        "left:50%",
+        "top:22px",
+        "transform:translateX(-50%)",
+        "z-index:2147483647",
+        "background:" + (color || "rgba(18,20,30,.96)"),
+        "color:#fff",
+        "font:700 13px system-ui,-apple-system,Segoe UI,sans-serif",
+        "padding:10px 14px",
+        "border:1px solid rgba(255,255,255,.14)",
+        "border-radius:14px",
+        "box-shadow:0 18px 50px rgba(0,0,0,.45)",
+        "backdrop-filter:blur(12px)",
+        "max-width:82vw",
+        "text-align:center",
+        "pointer-events:none"
+      ].join(";");
+      document.body.appendChild(d);
+      setTimeout(function(){ try { d.remove(); } catch(_){} }, 2600);
+    } catch(_){}
+  }
+
+  function manifestUrl(channel){
+    return "/__vlm/promax/manifest?channel=" + encodeURIComponent(channel) + "&t=" + Date.now();
+  }
+
+  function getManifest(channel){
+    return fetch(manifestUrl(channel), {
+      method: "GET",
+      cache: "no-store",
+      credentials: "omit",
+      headers: {
+        "accept": "application/json",
+        "cache-control": "no-cache"
+      }
+    }).then(function(r){
+      return r.text().then(function(t){
+        var j = null;
+        try { j = JSON.parse(t); } catch(_){}
+        if (!r.ok || !j || j.ok !== true) {
+          throw new Error("manifest_invalid_" + channel + "_" + r.status);
+        }
+        return j;
+      });
+    });
+  }
+
+  function goChannel(channel){
+    var label = channel === "test" ? "TEST / ADMIN" : "LIVE / CLIENTE";
+    toast("Checking " + label + "...", "rgba(23,28,48,.96)");
+    return getManifest(channel).then(function(m){
+      if (m.deployByButton !== false || m.switchOnly !== true) {
+        throw new Error("manifest_not_switch_only");
+      }
+      var target = String(m.playUrl || "");
+      if (!target) throw new Error("missing_play_url");
+
+      try {
+        localStorage.setItem("VLM_PROMAX_CHANNEL", channel);
+        localStorage.setItem("VLM_PROMAX_CHANNEL_ENV", String(m.environment || ""));
+        localStorage.setItem("VLM_PROMAX_CHANNEL_BUILD", String(m.build || ""));
+        localStorage.setItem("VLM_PROMAX_CHANNEL_SHA", String(m.indexSha || ""));
+      } catch(_){}
+
+      var sep = target.indexOf("?") >= 0 ? "&" : "?";
+      target += sep + "vlm_channel=" + encodeURIComponent(channel) + "&vlm_update=" + Date.now();
+
+      toast("Opening " + label + "...", channel === "test" ? "rgba(124,92,255,.96)" : "rgba(0,185,125,.96)");
+      setTimeout(function(){ location.href = target; }, 350);
+    }).catch(function(err){
+      console.warn("[" + MARKER + "] switch failed", err);
+      toast("Update channel failed: " + String(err && err.message || err), "rgba(230,73,73,.96)");
+    });
+  }
+
+  function removePanel(){
+    try {
+      var x = document.getElementById("vlm-update-channel-panel-root");
+      if (x) x.remove();
+    } catch(_){}
+  }
+
+  function openPanel(){
+    try {
+      removePanel();
+
+      var root = document.createElement("div");
+      root.id = "vlm-update-channel-panel-root";
+      root.style.cssText = [
+        "position:fixed",
+        "inset:0",
+        "z-index:2147483646",
+        "display:flex",
+        "align-items:center",
+        "justify-content:center",
+        "background:rgba(3,5,12,.58)",
+        "backdrop-filter:blur(10px)",
+        "font-family:system-ui,-apple-system,Segoe UI,sans-serif"
+      ].join(";");
+
+      var box = document.createElement("div");
+      box.style.cssText = [
+        "width:min(420px,92vw)",
+        "border-radius:24px",
+        "padding:18px",
+        "background:linear-gradient(180deg,rgba(22,25,44,.98),rgba(10,12,24,.98))",
+        "border:1px solid rgba(255,255,255,.12)",
+        "box-shadow:0 24px 80px rgba(0,0,0,.62)",
+        "color:#fff"
+      ].join(";");
+
+      var cur = envName();
+      box.innerHTML =
+        '<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px">' +
+          '<div>' +
+            '<div style="font-size:12px;letter-spacing:.16em;color:#9aa4c7;font-weight:800">VICIOUSLOM PROMAX</div>' +
+            '<div style="font-size:20px;font-weight:900;margin-top:2px">Update Channel</div>' +
+          '</div>' +
+          '<button id="vlm-up-close" style="border:0;border-radius:12px;background:rgba(255,255,255,.10);color:#fff;width:38px;height:38px;font-size:20px;font-weight:900">×</button>' +
+        '</div>' +
+        '<div style="border-radius:16px;background:rgba(255,255,255,.07);padding:10px 12px;margin-bottom:12px;color:#dce3ff;font-size:13px">' +
+          '<b>Current:</b> ' + cur + '<br>' +
+          '<span style="color:#9aa4c7">This button only switches channel. It does not deploy.</span>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">' +
+          '<button id="vlm-up-test" style="border:1px solid rgba(157,132,255,.55);border-radius:18px;background:linear-gradient(180deg,rgba(124,92,255,.34),rgba(124,92,255,.16));color:#fff;padding:14px 10px;text-align:left">' +
+            '<div style="font-size:18px;font-weight:900">TEST</div>' +
+            '<div style="font-size:12px;color:#d8d1ff;margin-top:4px">ADMIN / Canary</div>' +
+          '</button>' +
+          '<button id="vlm-up-live" style="border:1px solid rgba(50,220,160,.55);border-radius:18px;background:linear-gradient(180deg,rgba(0,185,125,.34),rgba(0,185,125,.14));color:#fff;padding:14px 10px;text-align:left">' +
+            '<div style="font-size:18px;font-weight:900">LIVE</div>' +
+            '<div style="font-size:12px;color:#c8ffe9;margin-top:4px">CLIENT / Production</div>' +
+          '</button>' +
+        '</div>' +
+        '<button id="vlm-up-check" style="width:100%;border:1px solid rgba(255,255,255,.14);border-radius:16px;background:rgba(255,255,255,.08);color:#fff;padding:12px;font-weight:900">CHECK CURRENT CHANNEL</button>' +
+        '<pre id="vlm-up-status" style="white-space:pre-wrap;max-height:180px;overflow:auto;margin:12px 0 0;padding:10px;border-radius:14px;background:rgba(0,0,0,.25);color:#bfc8ec;font-size:11px;line-height:1.35">Ready.</pre>';
+
+      root.appendChild(box);
+      document.body.appendChild(root);
+
+      function st(s){
+        try { document.getElementById("vlm-up-status").textContent = s; } catch(_){}
+      }
+
+      document.getElementById("vlm-up-close").onclick = removePanel;
+      document.getElementById("vlm-up-test").onclick = function(){ st("Opening TEST / ADMIN..."); goChannel("test"); };
+      document.getElementById("vlm-up-live").onclick = function(){ st("Opening LIVE / CLIENTE..."); goChannel("live"); };
+      document.getElementById("vlm-up-check").onclick = function(){
+        var ch = envName() === "ADMIN" ? "test" : "live";
+        st("Checking manifest " + ch + "...");
+        getManifest(ch).then(function(m){
+          st([
+            "OK: " + m.channel + " / " + m.environment,
+            "Build: " + m.build,
+            "SHA: " + m.indexSha,
+            "Size: " + m.indexSize,
+            "switchOnly: " + m.switchOnly,
+            "deployByButton: " + m.deployByButton
+          ].join("\n"));
+        }).catch(function(e){
+          st("ERROR: " + String(e && e.message || e));
+        });
+      };
+
+      root.addEventListener("click", function(ev){
+        if (ev.target === root) removePanel();
+      }, false);
+    } catch(err){
+      console.warn("[" + MARKER + "] open panel failed", err);
+      toast("Update panel failed", "rgba(230,73,73,.96)");
+    }
+  }
+
+  function isUpdateTarget(el){
+    try {
+      if (!el || el === document || el === window) return false;
+      var node = el.closest && el.closest("button,a,div,span,[data-vlm-update],[data-action],[class],[id]");
+      if (!node) return false;
+      if (node.closest && node.closest("#vlm-update-channel-panel-root")) return false;
+      if (node.tagName && String(node.tagName).toLowerCase() === "canvas") return false;
+
+      var idc = ((node.id || "") + " " + (node.className || "") + " " + (node.getAttribute && (node.getAttribute("data-action") || ""))).toLowerCase();
+      var txt = (node.innerText || node.textContent || "").trim().toLowerCase();
+
+      if (idc.indexOf("vlm-update") >= 0 || idc.indexOf("update") >= 0) return true;
+      if (txt === "update" || txt === "updates" || txt === "check update" || txt === "sync update") return true;
+      if (txt.indexOf("viciouslom update") >= 0) return true;
+    } catch(_){}
+    return false;
+  }
+
+  document.addEventListener("click", function(ev){
+    try {
+      if (isUpdateTarget(ev.target)) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        openPanel();
+      }
+    } catch(_){}
+  }, true);
+
+  window.VLM_openUpdateChannelPanel = openPanel;
+  window.VLM_promaxUpdate = openPanel;
+  window.VLM_switchProMaxChannel = goChannel;
+
+  console.log("[" + MARKER + "] installed", { env: envName() });
+})();
+
