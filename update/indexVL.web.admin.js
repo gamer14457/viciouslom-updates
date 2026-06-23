@@ -8924,3 +8924,328 @@ try{
   dbg("installed");
 }catch(e){try{console.warn("["+MARK+"_FAIL]",String(e&&e.message||e))}catch(x){}}
 })();
+
+
+
+/* VLM_PROMAX_UX_ENV_CONFIG_REFACTOR_V2_CLEANUP_ADMIN_ONLY */
+(function(){
+  "use strict";
+
+  var MARK = "VLM_PROMAX_UX_ENV_CONFIG_REFACTOR_V2_CLEANUP_ADMIN_ONLY";
+  if (window[MARK]) return;
+  window[MARK] = true;
+
+  var KEY_RE = /\b(?:LOM|VLM)-[A-Z0-9]{3,8}(?:-[A-Z0-9]{3,8}){2,5}\b/i;
+
+  function norm(s) {
+    return String(s || "").replace(/\s+/g, " ").trim();
+  }
+
+  function all(sel, root) {
+    try { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+    catch(e) { return []; }
+  }
+
+  function isVisible(el) {
+    try {
+      var r = el.getBoundingClientRect();
+      var st = getComputedStyle(el);
+      return r.width > 0 && r.height > 0 && st.display !== "none" && st.visibility !== "hidden";
+    } catch(e) {
+      return false;
+    }
+  }
+
+  function txt(el) {
+    return norm(el && el.textContent);
+  }
+
+  function nearestCard(el) {
+    var n = el;
+    for (var i = 0; i < 10 && n && n !== document.body; i++, n = n.parentElement) {
+      try {
+        var r = n.getBoundingClientRect();
+        var t = txt(n);
+        if (r.width > 180 && r.height > 35 && r.height < 420 && /border|rgba|rgb|gradient|solid/i.test(String(n.getAttribute("style") || "") + " " + getComputedStyle(n).borderColor)) {
+          return n;
+        }
+        if (/Active Key|Chave Ativa|BUY KEY|COMPRAR CHAVE|Quick Guide|Update|Canal do Mod|CANAL DO MOD/i.test(t) && r.width > 180 && r.height > 35) {
+          return n;
+        }
+      } catch(e) {}
+    }
+    return el;
+  }
+
+  function collectKeys() {
+    var arr = [];
+
+    try {
+      var u = new URL(location.href);
+      u.searchParams.forEach(function(v, k) {
+        if (/key|license|lic|vlm|lom/i.test(k + " " + v)) arr.push(v);
+      });
+    } catch(e) {}
+
+    try {
+      if (window.PROMAX_CONFIG) arr.push(JSON.stringify(window.PROMAX_CONFIG));
+    } catch(e) {}
+
+    [window.localStorage, window.sessionStorage].forEach(function(store) {
+      if (!store) return;
+
+      try {
+        ["VLM_PROMAX_ACTIVE_KEY_DISPLAY","VLM_ACTIVE_KEY","VLM_LICENSE_KEY","VLM_KEY","LOM_KEY","activeKey","licenseKey","key","vlm_key"].forEach(function(k) {
+          var v = store.getItem(k);
+          if (v) arr.push(v);
+        });
+      } catch(e) {}
+
+      try {
+        for (var i = 0; i < store.length; i++) {
+          var sk = store.key(i);
+          var sv = store.getItem(sk);
+          if (sv && /key|license|vlm|lom/i.test(sk + " " + sv)) arr.push(sv);
+        }
+      } catch(e) {}
+    });
+
+    try { arr.push(document.cookie || ""); } catch(e) {}
+
+    for (var i = 0; i < arr.length; i++) {
+      var raw = String(arr[i] || "");
+      try { raw = decodeURIComponent(raw); } catch(e) {}
+      var m = raw.match(KEY_RE);
+      if (m && m[0]) {
+        var k = m[0].toUpperCase();
+        if (!/VLM-TEST-DUMMY|VLM-PROMAX|VLM-UX|VLM-PROMAX-UX/i.test(k)) return k;
+      }
+    }
+
+    return "";
+  }
+
+  function removeDuplicateKeyNotDetected() {
+    var nodes = all("div,span,p,label,strong,b,button").filter(function(el) {
+      var t = txt(el);
+      return /^(Key not detected|No key found|Not detected|NOT DETECTED)$/i.test(t);
+    });
+
+    var kept = false;
+
+    nodes.forEach(function(el) {
+      try {
+        var card = nearestCard(el);
+
+        if (!kept) {
+          kept = true;
+          el.setAttribute("data-vlm-key-status-primary", "1");
+          return;
+        }
+
+        if (card && card !== el) {
+          card.setAttribute("data-vlm-duplicate-key-hidden", "1");
+          card.style.setProperty("display", "none", "important");
+          card.style.setProperty("visibility", "hidden", "important");
+        } else {
+          el.style.setProperty("display", "none", "important");
+          el.style.setProperty("visibility", "hidden", "important");
+        }
+      } catch(e) {}
+    });
+  }
+
+  function ensureSingleActiveKey() {
+    var labels = all("div,span,p,label,strong,b,h1,h2,h3,h4").filter(function(el) {
+      return /^(Active\s*Key|Chave\s*Ativa)$/i.test(txt(el));
+    });
+
+    var key = collectKeys();
+
+    if (!labels.length) {
+      removeDuplicateKeyNotDetected();
+      return;
+    }
+
+    labels.forEach(function(label, idx) {
+      try {
+        var card = nearestCard(label);
+
+        if (idx > 0) {
+          card.style.setProperty("display", "none", "important");
+          return;
+        }
+
+        var old = all("[data-vlm-active-key-v2]", card);
+        old.slice(1).forEach(function(x){ try { x.remove(); } catch(e) {} });
+
+        var box = old[0];
+        if (!box) {
+          box = document.createElement("div");
+          box.setAttribute("data-vlm-active-key-v2", "1");
+          label.insertAdjacentElement("afterend", box);
+        }
+
+        box.textContent = key || "Key not detected";
+        box.style.cssText = [
+          "margin:10px auto 0",
+          "width:min(88%,540px)",
+          "min-height:36px",
+          "display:flex",
+          "align-items:center",
+          "justify-content:center",
+          "border-radius:14px",
+          "background:rgba(5,12,32,.90)",
+          "border:1px solid rgba(79,216,137,.28)",
+          "color:" + (key ? "#43d17a" : "#8792a8"),
+          "font-family:monospace",
+          "font-weight:800",
+          "font-size:clamp(12px,3vw,17px)",
+          "letter-spacing:" + (key ? ".09em" : ".02em"),
+          "white-space:nowrap",
+          "overflow:hidden",
+          "text-overflow:ellipsis",
+          "padding:8px 11px",
+          "box-sizing:border-box"
+        ].join(";");
+
+        if (key) {
+          try {
+            localStorage.setItem("VLM_PROMAX_ACTIVE_KEY_DISPLAY", key);
+            sessionStorage.setItem("VLM_PROMAX_ACTIVE_KEY_DISPLAY", key);
+          } catch(e) {}
+        }
+      } catch(e) {}
+    });
+
+    removeDuplicateKeyNotDetected();
+  }
+
+  function compactBuyKey() {
+    all("button,a,div,span").forEach(function(el) {
+      try {
+        var t = txt(el);
+        if (!/^(BUY\s*KEY|COMPRAR\s*CHAVE)$/i.test(t)) return;
+
+        var btn = el.closest("button,a") || el;
+        btn.setAttribute("data-vlm-buy-key-compact-v2", "1");
+        btn.style.setProperty("display", "inline-flex", "important");
+        btn.style.setProperty("align-items", "center", "important");
+        btn.style.setProperty("justify-content", "center", "important");
+        btn.style.setProperty("width", "auto", "important");
+        btn.style.setProperty("max-width", "190px", "important");
+        btn.style.setProperty("min-width", "116px", "important");
+        btn.style.setProperty("min-height", "32px", "important");
+        btn.style.setProperty("padding", "7px 12px", "important");
+        btn.style.setProperty("font-size", "12px", "important");
+        btn.style.setProperty("line-height", "1", "important");
+        btn.style.setProperty("border-radius", "11px", "important");
+        btn.style.setProperty("background", "linear-gradient(180deg,#ffd84d,#ffae1a)", "important");
+        btn.style.setProperty("color", "#160d00", "important");
+        btn.style.setProperty("border", "1px solid rgba(255,232,128,.95)", "important");
+        btn.style.setProperty("box-shadow", "0 0 10px rgba(255,178,25,.30), inset 0 1px 0 rgba(255,255,255,.32)", "important");
+        btn.style.setProperty("font-weight", "900", "important");
+        btn.style.setProperty("letter-spacing", ".025em", "important");
+        btn.style.setProperty("text-transform", "uppercase", "important");
+        btn.style.setProperty("box-sizing", "border-box", "important");
+        btn.style.setProperty("white-space", "nowrap", "important");
+      } catch(e) {}
+    });
+  }
+
+  function hideLegacyChannelBlock() {
+    all("div,section,article").forEach(function(el) {
+      try {
+        var t = txt(el);
+        if (/CANAL\s+DO\s+MOD|Canal\s+do\s+Mod|RECARREGAR\s+PAYLOAD|Reload\s+Payload/i.test(t)) {
+          var card = nearestCard(el);
+          card.setAttribute("data-vlm-legacy-channel-hidden", "1");
+          card.style.setProperty("display", "none", "important");
+          card.style.setProperty("visibility", "hidden", "important");
+          card.style.setProperty("pointer-events", "none", "important");
+        }
+      } catch(e) {}
+    });
+  }
+
+  function closeModalFrom(el) {
+    var n = el;
+
+    for (var i = 0; i < 16 && n && n !== document.body; i++, n = n.parentElement) {
+      try {
+        var t = txt(n);
+        var cls = String(n.className || "");
+        var id = String(n.id || "");
+        var st = getComputedStyle(n);
+
+        var modalLike =
+          /modal|dialog|overlay|quick|guide|update|vlm|promax/i.test(cls + " " + id) ||
+          (/Quick Guide|Update|Already up to date|Channel|License|Viciouslom/i.test(t) && (st.position === "fixed" || st.position === "absolute" || n.getAttribute("data-vlm-modal")));
+
+        if (modalLike && n !== document.body && n !== document.documentElement) {
+          n.setAttribute("data-vlm-closed-v2", "1");
+          n.style.setProperty("display", "none", "important");
+          n.style.setProperty("visibility", "hidden", "important");
+          n.style.setProperty("pointer-events", "none", "important");
+
+          setTimeout(function(target) {
+            try {
+              if (target && target.parentNode && /Quick Guide|Update|Already up to date/i.test(txt(target))) {
+                target.parentNode.removeChild(target);
+              }
+            } catch(e) {}
+          }, 120, n);
+
+          return true;
+        }
+      } catch(e) {}
+    }
+
+    return false;
+  }
+
+  function installCloseHandler() {
+    if (window.__vlmCloseHandlerV2Cleanup) return;
+    window.__vlmCloseHandlerV2Cleanup = true;
+
+    document.addEventListener("click", function(ev) {
+      try {
+        var el = ev.target && ev.target.closest ? ev.target.closest("button,a,div,span") : null;
+        if (!el) return;
+
+        var t = norm(el.textContent || el.getAttribute("aria-label") || el.title || "");
+        var isClose = /^(×|X|Close|Fechar)$/i.test(t) || /close|fechar/i.test(el.getAttribute("aria-label") || "");
+
+        if (!isClose) return;
+
+        if (closeModalFrom(el)) {
+          ev.preventDefault();
+          ev.stopPropagation();
+          if (ev.stopImmediatePropagation) ev.stopImmediatePropagation();
+          setTimeout(applyCleanup, 160);
+          return false;
+        }
+      } catch(e) {}
+    }, true);
+  }
+
+  function applyCleanup() {
+    compactBuyKey();
+    ensureSingleActiveKey();
+    hideLegacyChannelBlock();
+    installCloseHandler();
+  }
+
+  applyCleanup();
+
+  var ticks = 0;
+  var timer = setInterval(function() {
+    applyCleanup();
+    ticks++;
+    if (ticks > 120) clearInterval(timer);
+  }, 1000);
+
+  console.warn("[" + MARK + "] installed");
+})();
+/* /VLM_PROMAX_UX_ENV_CONFIG_REFACTOR_V2_CLEANUP_ADMIN_ONLY */
+
