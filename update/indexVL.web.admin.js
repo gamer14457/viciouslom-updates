@@ -8924,3 +8924,212 @@ try{
   dbg("installed");
 }catch(e){try{console.warn("["+MARK+"_FAIL]",String(e&&e.message||e))}catch(x){}}
 })();
+
+
+
+/* VLM_PROMAX_UX_ENV_CONFIG_REFACTOR_V1_KEY_BUY_CLOSE_FIX_V1 */
+(function(){
+  "use strict";
+
+  var MARK = "VLM_PROMAX_UX_ENV_CONFIG_REFACTOR_V1_KEY_BUY_CLOSE_FIX_V1";
+  if (window[MARK]) return;
+  window[MARK] = true;
+
+  var KEY_RE = /\b(?:LOM|VLM)-[A-Z0-9]{3,8}(?:-[A-Z0-9]{3,8}){2,5}\b/i;
+
+  function norm(s){ return String(s || "").replace(/\s+/g," ").trim(); }
+  function qsa(sel, root){ try { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); } catch(e){ return []; } }
+
+  function collectKeyCandidates(){
+    var out = [];
+    try {
+      var u = new URL(location.href);
+      u.searchParams.forEach(function(v,k){
+        if (/key|license|lic|vlm|lom/i.test(k + " " + v)) out.push(v);
+      });
+    } catch(e){}
+
+    try { if (window.PROMAX_CONFIG) out.push(JSON.stringify(window.PROMAX_CONFIG)); } catch(e){}
+
+    [window.localStorage, window.sessionStorage].forEach(function(store){
+      if (!store) return;
+      try {
+        ["VLM_PROMAX_ACTIVE_KEY_DISPLAY","VLM_ACTIVE_KEY","VLM_LICENSE_KEY","VLM_KEY","LOM_KEY","activeKey","licenseKey","key"].forEach(function(k){
+          var v = store.getItem(k);
+          if (v) out.push(v);
+        });
+      } catch(e){}
+      try {
+        for (var i=0;i<store.length;i++){
+          var sk = store.key(i);
+          var sv = store.getItem(sk);
+          if (sv && /key|license|vlm|lom/i.test(sk + " " + sv)) out.push(sv);
+        }
+      } catch(e){}
+    });
+
+    try { out.push(document.cookie || ""); } catch(e){}
+    try { if (document.body && document.body.innerText) out.push(document.body.innerText.slice(0,250000)); } catch(e){}
+    return out;
+  }
+
+  function getCurrentKey(){
+    var list = collectKeyCandidates();
+    for (var i=0;i<list.length;i++){
+      var raw = String(list[i] || "");
+      try { raw = decodeURIComponent(raw); } catch(e){}
+      var m = raw.match(KEY_RE);
+      if (m && m[0]) {
+        var k = m[0].toUpperCase();
+        if (!/VLM-TEST-DUMMY|VLM-PROMAX|VLM-UX/i.test(k)) return k;
+      }
+    }
+    return "";
+  }
+
+  function findTextElements(re){
+    return qsa("button,a,div,span,p,label,strong,b,h1,h2,h3,h4").filter(function(el){
+      var t = norm(el.textContent);
+      return t && re.test(t);
+    });
+  }
+
+  function styleBuyKey(){
+    findTextElements(/^(BUY\s*KEY|COMPRAR\s*CHAVE)$/i).forEach(function(el){
+      var target = el.closest("button,a") || el;
+      target.setAttribute("data-vlm-buy-key-compact","1");
+      target.style.setProperty("display","inline-flex","important");
+      target.style.setProperty("align-items","center","important");
+      target.style.setProperty("justify-content","center","important");
+      target.style.setProperty("width","auto","important");
+      target.style.setProperty("max-width","190px","important");
+      target.style.setProperty("min-width","120px","important");
+      target.style.setProperty("min-height","32px","important");
+      target.style.setProperty("padding","7px 12px","important");
+      target.style.setProperty("font-size","12px","important");
+      target.style.setProperty("line-height","1.05","important");
+      target.style.setProperty("border-radius","11px","important");
+      target.style.setProperty("background","linear-gradient(180deg,#ffd84d,#ffae1a)","important");
+      target.style.setProperty("color","#160d00","important");
+      target.style.setProperty("border","1px solid rgba(255,232,128,.95)","important");
+      target.style.setProperty("box-shadow","0 0 10px rgba(255,178,25,.30), inset 0 1px 0 rgba(255,255,255,.32)","important");
+      target.style.setProperty("font-weight","900","important");
+      target.style.setProperty("letter-spacing",".025em","important");
+      target.style.setProperty("text-transform","uppercase","important");
+      target.style.setProperty("box-sizing","border-box","important");
+      target.style.setProperty("white-space","nowrap","important");
+    });
+  }
+
+  function ensureActiveKey(){
+    var key = getCurrentKey();
+    var labels = findTextElements(/^(Active\s*Key|Chave\s*Ativa)$/i);
+    if (!labels.length) return;
+
+    labels.forEach(function(label){
+      var parent = label.parentElement || document.body;
+      var box = parent.querySelector("[data-vlm-active-key-fixed='1']");
+      if (!box) {
+        box = document.createElement("div");
+        box.setAttribute("data-vlm-active-key-fixed","1");
+        label.insertAdjacentElement("afterend", box);
+      }
+
+      box.textContent = key || "Key not detected";
+      box.style.cssText = [
+        "margin:10px auto 0",
+        "width:min(88%,560px)",
+        "min-height:38px",
+        "display:flex",
+        "align-items:center",
+        "justify-content:center",
+        "border-radius:14px",
+        "background:rgba(5,12,32,.88)",
+        "border:1px solid rgba(79,216,137,.25)",
+        "color:" + (key ? "#43d17a" : "#8792a8"),
+        "font-family:monospace",
+        "font-weight:800",
+        "font-size:clamp(12px,3vw,17px)",
+        "letter-spacing:" + (key ? ".10em" : ".03em"),
+        "white-space:nowrap",
+        "overflow:hidden",
+        "text-overflow:ellipsis",
+        "padding:9px 12px",
+        "box-sizing:border-box"
+      ].join(";");
+
+      try {
+        if (key) {
+          localStorage.setItem("VLM_PROMAX_ACTIVE_KEY_DISPLAY", key);
+          sessionStorage.setItem("VLM_PROMAX_ACTIVE_KEY_DISPLAY", key);
+        }
+      } catch(e){}
+    });
+  }
+
+  function looksClose(el){
+    var t = norm(el.textContent || el.getAttribute("aria-label") || el.title || "");
+    return /^(×|X|Close|Fechar)$/i.test(t) || /close|fechar/i.test(el.getAttribute("aria-label") || "");
+  }
+
+  function closeSomething(el){
+    var n = el;
+    for (var i=0;i<14 && n;i++,n=n.parentElement){
+      if (n === document.body || n === document.documentElement) break;
+
+      var txt = norm(n.textContent);
+      var idc = String((n.id || "") + " " + (n.className || ""));
+      var st = getComputedStyle(n);
+
+      var modalLike =
+        /modal|dialog|overlay|guide|update|promax|vlm/i.test(idc) ||
+        (/Quick Guide|Update|License|ProMax|Viciouslom/i.test(txt) && (st.position === "fixed" || st.position === "absolute"));
+
+      if (modalLike) {
+        n.setAttribute("data-vlm-force-closed","1");
+        n.style.setProperty("display","none","important");
+        n.style.setProperty("visibility","hidden","important");
+        n.style.setProperty("pointer-events","none","important");
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function installCloseFix(){
+    if (window.__vlmCloseFixV1Installed) return;
+    window.__vlmCloseFixV1Installed = true;
+
+    document.addEventListener("click", function(ev){
+      var el = ev.target && ev.target.closest ? ev.target.closest("button,a,div,span") : null;
+      if (!el || !looksClose(el)) return;
+
+      ev.preventDefault();
+      ev.stopPropagation();
+      if (ev.stopImmediatePropagation) ev.stopImmediatePropagation();
+
+      closeSomething(el);
+      setTimeout(applyAll,120);
+      return false;
+    }, true);
+  }
+
+  function applyAll(){
+    styleBuyKey();
+    ensureActiveKey();
+    installCloseFix();
+  }
+
+  applyAll();
+
+  var ticks = 0;
+  var timer = setInterval(function(){
+    applyAll();
+    ticks++;
+    if (ticks > 180) clearInterval(timer);
+  },1000);
+
+  console.warn("[" + MARK + "] installed");
+})();
+/* /VLM_PROMAX_UX_ENV_CONFIG_REFACTOR_V1_KEY_BUY_CLOSE_FIX_V1 */
+
