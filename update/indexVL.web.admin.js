@@ -8686,1631 +8686,212 @@ setTimeout(fix,1500);
 console.warn("[VLM_PROMAX_FLOATING_VL_ICON_FIX_V1] installed");
 }catch(e){try{console.warn("[VLM_PROMAX_FLOATING_VL_ICON_FIX_V1_FAIL]",String(e&&e.message||e))}catch(_){}}})();
 
-;(()=>{try{
-const MARK="VLM_PROMAX_BUY_KEY_DFG_LINK_V3_STRICT";
-if(globalThis.__VLM_PROMAX_BUY_KEY_DFG_LINK_V3_STRICT__)return;
-globalThis.__VLM_PROMAX_BUY_KEY_DFG_LINK_V3_STRICT__=true;
 
-const BUY_URL="https://www.dfg.com.br/pt/sites-lojas-e-sistemas-prontos/legend-of-mushroom-script-906867232";
 
-function norm(t){
-  try{return String(t||"").replace(/\s+/g," ").trim().toUpperCase()}catch(_){return""}
-}
+/* VLM_PROMAX_UX_ENV_CONFIG_REFACTOR_V1
+   Clean ADMIN/CLIENT UX refactor over official 0bef base.
+   Replaces legacy stacked BUY/GUIDE/UPDATE shims with one scoped module.
+   Preserved marker strings for audit: VLM_PROMAX_BUY_KEY_DFG_LINK_V3_STRICT | VLM_PROMAX_INTERNAL_GUIDE_EN_V1 | VLM_PROMAX_UPDATE_BUTTON_V1 | VLM_PROMAX_UPDATE_BUTTON_V2_STRICT | VLM_PROMAX_UPDATE_BUTTON_V3_CLONE | VLM_PROMAX_UPDATE_BUTTON_V4_SHIELD | VLM_PROMAX_UPDATE_BUTTON_V6_CAPTURE
+*/
+(function(){
+  'use strict';
+  var MARK='VLM_PROMAX_UX_ENV_CONFIG_REFACTOR_V1';
+  if(globalThis.__VLM_PROMAX_UX_ENV_CONFIG_REFACTOR_V1__) return;
+  globalThis.__VLM_PROMAX_UX_ENV_CONFIG_REFACTOR_V1__=true;
 
-function isExactBuyKeyLabel(t){
-  t=norm(t).replace(/^🛒\s*/,"").trim();
-  return /^(COMPRAR CHAVE|COMPRAR KEY|BUY KEY|PURCHASE KEY|ADQUIRIR CHAVE|OBTER CHAVE)$/.test(t);
-}
+  var DEFAULT_CONFIG={
+    displayVersion:'v7.00',
+    currentVersion:'v7.00',
+    latestVersion:'v7.00',
+    version:'v7.00',
+    guideEnabled:false,
+    guideType:'none',
+    guideUrl:'',
+    guideLabel:'Guide',
+    buyKeyUrl:'https://www.dfg.com.br/pt/sites-lojas-e-sistemas-prontos/legend-of-mushroom-script-906867232',
+    clientUrl:'https://vlm.gamervicius14.workers.dev/play',
+    adminUrl:'https://vlm-dev-core4.gamervicius14.workers.dev/play',
+    payloadEnabled:false,
+    requiresReload:false,
+    updateAvailable:false,
+    message:'Update service online.',
+    indexSha256:'0bef04d5e9c945bedcb61615332826b55d0f1f4db29e0a21b9df14ab0205a5db',
+    indexSizeBytes:20389934
+  };
+  var config=merge(merge({},DEFAULT_CONFIG),safeObj(globalThis.PROMAX_CONFIG));
+  globalThis.PROMAX_CONFIG=config;
 
-function rectOk(el){
-  try{
-    const r=el.getBoundingClientRect();
-    if(!r || !r.width || !r.height)return false;
+  var manifestCache=null, manifestPromise=null, panelInstalled=false, showTabWrapped=false;
 
-    // Botão real do print: largo, mas não o painel inteiro.
-    if(r.width < 90 || r.width > 380)return false;
-    if(r.height < 28 || r.height > 95)return false;
-
-    // Evita painel inteiro, footer inteiro, bloco LICENSE inteiro.
-    if(r.width * r.height > 36000)return false;
-
-    return true;
-  }catch(_){return false}
-}
-
-function pointInside(el, ev){
-  try{
-    const r=el.getBoundingClientRect();
-    const x = ev.clientX || (ev.changedTouches && ev.changedTouches[0] && ev.changedTouches[0].clientX) || 0;
-    const y = ev.clientY || (ev.changedTouches && ev.changedTouches[0] && ev.changedTouches[0].clientY) || 0;
-    return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
-  }catch(_){return true}
-}
-
-function candidateFromPath(ev){
-  try{
-    const path = ev.composedPath ? ev.composedPath() : [];
-    const arr = path && path.length ? path : [];
-    for(const el of arr){
-      if(!el || el.nodeType !== 1)continue;
-
-      const own = norm(el.innerText || el.textContent || "");
-      if(isExactBuyKeyLabel(own) && rectOk(el) && pointInside(el, ev)){
-        return el;
-      }
-
-      // Se clicou no ícone 🛒/filho, aceitar só o pai direto/curto que tenha texto exato.
-      let p = el.parentElement;
-      for(let i=0;p && i<3;p=p.parentElement,i++){
-        const t = norm(p.innerText || p.textContent || "");
-        if(isExactBuyKeyLabel(t) && rectOk(p) && pointInside(p, ev)){
-          return p;
-        }
-
-        // Se o pai já é grande demais, parar. Não subir até o painel inteiro.
-        try{
-          const r=p.getBoundingClientRect();
-          if(r.width>420 || r.height>120)break;
-        }catch(_){}
-      }
-    }
-  }catch(_){}
-  return null;
-}
-
-function markButtons(){
-  try{
-    const nodes=document.querySelectorAll("a,button,div,span");
-    for(const el of nodes){
-      const t=norm(el.innerText||el.textContent||"");
-      if(!isExactBuyKeyLabel(t) || !rectOk(el))continue;
-      el.setAttribute("data-vlm-buy-key-dfg-v3","1");
-      el.style.cursor="pointer";
-      if(el.tagName==="A"){
-        el.href=BUY_URL;
-        el.target="_blank";
-        el.rel="noopener noreferrer";
-      }
-    }
-  }catch(_){}
-}
-
-function openBuyLink(){
-  try{
-    console.warn("[VLM_PROMAX_BUY_KEY_DFG_LINK_V3_STRICT] open", BUY_URL);
-    try{ window.open(BUY_URL,"_blank","noopener,noreferrer"); }catch(_){}
-    setTimeout(()=>{try{
-      if(String(location.href).indexOf("dfg.com.br")<0){
-        location.href=BUY_URL;
-      }
-    }catch(_){}},120);
-  }catch(e){
-    try{console.warn("[VLM_PROMAX_BUY_KEY_DFG_LINK_V3_STRICT_FAIL]",String(e&&e.message||e))}catch(_){}
+  function safeObj(v){return v&&typeof v==='object'?v:{}}
+  function merge(a,b){for(var k in b){if(Object.prototype.hasOwnProperty.call(b,k)&&b[k]!==void 0&&b[k]!==null)a[k]=b[k]}return a}
+  function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  function norm(v){return String(v||'').replace(/\s+/g,' ').trim()}
+  function host(){try{return String(location.hostname||'').toLowerCase()}catch(e){return''}}
+  function profile(){var h=host();return h==='vlm.gamervicius14.workers.dev'?{id:'client',label:'Client',channel:'live',url:config.clientUrl,isAdmin:false}:{id:'admin',label:'Admin',channel:'test',url:config.adminUrl,isAdmin:true}}
+  function profileFromId(id){return id==='client'?{id:'client',label:'Client',channel:'live',url:config.clientUrl,isAdmin:false}:{id:'admin',label:'Admin',channel:'test',url:config.adminUrl,isAdmin:true}}
+  function isSameUrl(u){try{var a=new URL(u,location.href);return a.origin===location.origin&&a.pathname===location.pathname}catch(e){return false}}
+  function stop(ev){try{if(ev){if(ev.cancelable!==false&&ev.preventDefault)ev.preventDefault();if(ev.stopPropagation)ev.stopPropagation();if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();}}catch(e){}return false}
+  function shield(el){try{if(!el||el.__vlmShielded)return;el.__vlmShielded=true;el.onpointerdown=stop;el.onpointerup=stop;el.ontouchstart=stop;el.ontouchend=stop;el.onmousedown=stop;el.onmouseup=stop;el.onclick=function(ev){if(ev&&ev.target===el)return stop(ev);try{ev.stopPropagation&&ev.stopPropagation()}catch(e){};};}catch(e){}}
+  function make(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+  function css(){
+    if(document.getElementById('vlm-promax-env-refactor-css'))return;
+    var s=document.createElement('style');
+    s.id='vlm-promax-env-refactor-css';
+    s.textContent=[
+      '#lom-panel[data-vlm-promax-root="1"] .vlm-env-card{border:1px solid rgba(103,232,249,.32);border-radius:16px;background:linear-gradient(135deg,rgba(5,8,22,.82),rgba(18,12,42,.74));box-shadow:inset 0 0 18px rgba(125,92,255,.10);padding:12px;margin:8px 0 12px;color:#eaf7ff}',
+      '#lom-panel[data-vlm-promax-root="1"] .vlm-env-title{font-weight:900;letter-spacing:.04em;text-align:center;color:#eff6ff;margin-bottom:8px}',
+      '#lom-panel[data-vlm-promax-root="1"] .vlm-active-key{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;text-align:center;color:#51f59d;background:rgba(6,16,28,.72);border:1px solid rgba(81,245,157,.38);border-radius:12px;padding:10px;word-break:break-all;box-shadow:0 0 14px rgba(81,245,157,.15)}',
+      '#lom-panel[data-vlm-promax-root="1"] .vlm-key-missing{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;text-align:center;color:#aab5d8;background:rgba(6,16,28,.54);border:1px solid rgba(148,163,184,.26);border-radius:12px;padding:10px}',
+      '#lom-panel[data-vlm-promax-root="1"] .vlm-buy-key{width:100%;min-height:46px;margin:10px 0 0;border-radius:15px;border:1px solid rgba(255,214,102,.95);background:linear-gradient(135deg,#ffd34d,#ff9f1a);color:#211300;font-weight:1000;letter-spacing:.06em;box-shadow:0 0 18px rgba(255,187,45,.42);text-shadow:0 1px 0 rgba(255,255,255,.35)}',
+      '#lom-panel[data-vlm-promax-root="1"] .vlm-quick-guide{width:100%;min-height:42px;margin:9px 0 0;border-radius:14px;border:1px solid rgba(125,211,252,.55);background:rgba(12,18,38,.72);color:#dff8ff;font-weight:850}',
+      '#lom-panel[data-vlm-promax-root="1"] .vlm-env-row{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid rgba(125,211,252,.22);border-radius:14px;background:rgba(7,10,26,.58);padding:10px 11px;margin:9px 0}',
+      '#lom-panel[data-vlm-promax-root="1"] .vlm-env-row .lbl{font-weight:850;color:#dbeafe;white-space:nowrap}',
+      '#lom-panel[data-vlm-promax-root="1"] .vlm-env-select{max-width:165px;background:#080d20;color:#eef6ff;border:1px solid rgba(103,232,249,.45);border-radius:12px;padding:8px 10px;font-weight:850}',
+      '.vlm-promax-modal{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;background:rgba(2,4,18,.62);font-family:system-ui,-apple-system,Segoe UI,sans-serif}',
+      '.vlm-promax-modal .box{width:min(91vw,520px);max-height:82vh;overflow:auto;border:1px solid rgba(103,232,249,.52);border-radius:22px;background:linear-gradient(145deg,rgba(5,8,22,.97),rgba(22,13,48,.96));box-shadow:0 0 28px rgba(168,85,247,.42),inset 0 0 22px rgba(34,211,238,.10);color:#eff6ff;padding:20px;line-height:1.45}',
+      '.vlm-promax-modal h2{margin:0 0 12px;font-size:23px;color:#fff;text-shadow:0 0 12px rgba(103,232,249,.55)}',
+      '.vlm-promax-modal .close{margin-top:16px;width:100%;height:46px;border-radius:15px;border:1px solid rgba(103,232,249,.5);background:rgba(15,23,42,.7);color:#fff;font-weight:900}',
+      '.vlm-promax-modal .muted{color:#aab5d8;font-size:13px}',
+      '.vlm-promax-modal .ok{color:#51f59d}.vlm-promax-modal .warn{color:#ffd34d}.vlm-promax-modal .bad{color:#ff8fb3}',
+      '#lom-panel[data-vlm-profile="client"] [data-vlm-admin-only="1"]{display:none!important}'
+    ].join('\n');
+    (document.head||document.documentElement).appendChild(s);
   }
-}
+  function q(sel,root){try{return (root||document).querySelector(sel)}catch(e){return null}}
+  function qa(sel,root){try{return Array.prototype.slice.call((root||document).querySelectorAll(sel))}catch(e){return[]}}
 
-function handler(ev){
-  try{
-    const btn = candidateFromPath(ev);
-    if(!btn)return;
-
-    ev.preventDefault();
-    ev.stopPropagation();
-    if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();
-
-    const now=Date.now();
-    if(globalThis.__VLM_PROMAX_BUY_KEY_DFG_V3_LAST__ && now-globalThis.__VLM_PROMAX_BUY_KEY_DFG_V3_LAST__<1000)return false;
-    globalThis.__VLM_PROMAX_BUY_KEY_DFG_V3_LAST__=now;
-
-    openBuyLink();
-    return false;
-  }catch(e){
-    try{console.warn("[VLM_PROMAX_BUY_KEY_DFG_LINK_V3_HANDLER_FAIL]",String(e&&e.message||e))}catch(_){}
+  function getStore(st,k){try{return st&&st.getItem&&st.getItem(k)}catch(e){return null}}
+  function setStore(st,k,v){try{if(st&&st.setItem)st.setItem(k,String(v))}catch(e){}}
+  function keyCandidate(v){v=norm(v);if(!v||v.length<4)return'';if(/^(null|undefined|false|true|0|1)$/i.test(v))return'';return v}
+  function captureQueryKey(){try{var key=new URLSearchParams(location.search||'').get('key');key=keyCandidate(key);if(key){setStore(sessionStorage,'VLM_PROMAX_ACTIVE_KEY_DISPLAY',key);setStore(localStorage,'VLM_PROMAX_ACTIVE_KEY_DISPLAY',key);return key}}catch(e){}return''}
+  function readObjKey(obj){try{if(!obj||typeof obj!=='object')return'';return keyCandidate(obj.key||obj.activeKey||obj.code||obj.licenseKey||obj.KEY_CODE||'')}catch(e){return''}}
+  function keySources(){captureQueryKey();var out=[];function add(name,v){v=keyCandidate(v);if(v)out.push({source:name,value:v,masked:mask(v)})}
+    try{add('url.query.key',new URLSearchParams(location.search||'').get('key'))}catch(e){}
+    ['VLM_PROMAX_ACTIVE_KEY_DISPLAY','VLM_ACTIVE_KEY','VLM_CLIENT_KEY','VLM_LICENSE_KEY','KEY_CODE','MOD_KEY_CODE'].forEach(function(k){add('sessionStorage.'+k,getStore(sessionStorage,k));add('localStorage.'+k,getStore(localStorage,k))});
+    add('window.VLM_ACTIVE_KEY',globalThis.VLM_ACTIVE_KEY);
+    add('window.__VLM_LICENSE',readObjKey(globalThis.__VLM_LICENSE));
+    add('window.VLM_LICENSE',readObjKey(globalThis.VLM_LICENSE));
+    try{if(globalThis.VLM_PROMAX&&globalThis.VLM_PROMAX.activeKey)add('window.VLM_PROMAX.activeKey',globalThis.VLM_PROMAX.activeKey)}catch(e){}
+    return out;
   }
-}
-
-// Só eventos finais. Não usar pointerdown para não disparar em scroll/toque comum.
-document.addEventListener("click",handler,true);
-document.addEventListener("touchend",handler,{capture:true,passive:false});
-
-setTimeout(markButtons,300);
-setTimeout(markButtons,1500);
-setTimeout(markButtons,3500);
-
-let tries=0;
-const id=setInterval(()=>{
-  tries++;
-  markButtons();
-  if(tries>60)clearInterval(id);
-},1200);
-
-console.warn("[VLM_PROMAX_BUY_KEY_DFG_LINK_V3_STRICT] installed");
-}catch(e){try{console.warn("[VLM_PROMAX_BUY_KEY_DFG_LINK_V3_STRICT_FAIL]",String(e&&e.message||e))}catch(_){}}})();
-
-
-/* VLM_REMOVED_VIDEO_YOUTUBE_LINK_V1_REPLACED_BY_INTERNAL_GUIDE */
-
-;(()=>{try{
-const MARK="VLM_PROMAX_INTERNAL_GUIDE_EN_V1";
-if(globalThis.__VLM_PROMAX_INTERNAL_GUIDE_EN_V1__)return;
-globalThis.__VLM_PROMAX_INTERNAL_GUIDE_EN_V1__=true;
-
-function norm(t){
-  try{return String(t||"").replace(/\s+/g," ").trim()}catch(_){return""}
-}
-
-function isGuideText(t){
-  t=norm(t).toLowerCase();
-  return (
-    /quick guide:\s*license\s*&\s*setup/i.test(t) ||
-    /vídeo:\s*inserir\s+a\s+key\s*&\s*usar\s+o\s+mod/i.test(t) ||
-    /video:\s*inserir\s+a\s+key\s*&\s*usar\s+o\s+mod/i.test(t) ||
-    /inserir\s+a\s+key\s*&\s*usar\s+o\s+mod/i.test(t) ||
-    /key\s*&\s*usar\s+o\s+mod/i.test(t)
-  );
-}
-
-function rectOk(el){
-  try{
-    const r=el.getBoundingClientRect();
-    if(!r || !r.width || !r.height)return false;
-    if(r.width < 150 || r.width > 650)return false;
-    if(r.height < 28 || r.height > 100)return false;
-    if(r.width * r.height > 65000)return false;
-    return true;
-  }catch(_){return false}
-}
-
-function pointInside(el, ev){
-  try{
-    const r=el.getBoundingClientRect();
-    const src = ev.changedTouches && ev.changedTouches[0] ? ev.changedTouches[0] : ev;
-    const x = src.clientX || 0;
-    const y = src.clientY || 0;
-    return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
-  }catch(_){return true}
-}
-
-function findGuideButtonFrom(ev){
-  try{
-    const path = ev.composedPath ? ev.composedPath() : [];
-    const arr = path && path.length ? path : [ev.target];
-
-    for(const el of arr){
-      if(!el || el.nodeType !== 1)continue;
-
-      const own = norm(el.innerText || el.textContent || "");
-      if(isGuideText(own) && rectOk(el) && pointInside(el, ev)){
-        return el;
-      }
-
-      let p = el.parentElement;
-      for(let i=0;p && i<4;p=p.parentElement,i++){
-        const t = norm(p.innerText || p.textContent || "");
-        if(isGuideText(t) && rectOk(p) && pointInside(p, ev)){
-          return p;
-        }
-
-        try{
-          const r=p.getBoundingClientRect();
-          if(r.width>700 || r.height>140)break;
-        }catch(_){}
-      }
-    }
-  }catch(_){}
-  return null;
-}
-
-function closeGuide(){
-  try{
-    const old=document.getElementById("vlm-promax-guide-modal-v1");
-    if(old)old.remove();
-  }catch(_){}
-}
-
-function showGuide(){
-  try{
-    closeGuide();
-
-    const wrap=document.createElement("div");
-    wrap.id="vlm-promax-guide-modal-v1";
-    wrap.setAttribute("style",[
-      "position:fixed",
-      "inset:0",
-      "z-index:2147483647",
-      "display:flex",
-      "align-items:center",
-      "justify-content:center",
-      "background:rgba(0,0,0,.58)",
-      "font-family:Arial,system-ui,sans-serif"
-    ].join(";"));
-
-    const box=document.createElement("div");
-    box.setAttribute("style",[
-      "width:min(88vw,455px)",
-      "max-height:82vh",
-      "overflow:auto",
-      "border:1px solid rgba(167,139,250,.95)",
-      "border-radius:20px",
-      "background:linear-gradient(145deg,rgba(7,9,24,.97),rgba(24,18,48,.97))",
-      "box-shadow:0 0 30px rgba(167,139,250,.55), inset 0 0 24px rgba(139,92,246,.14)",
-      "color:#F5F3FF",
-      "padding:22px 20px",
-      "line-height:1.45"
-    ].join(";"));
-
-    const title=document.createElement("div");
-    title.textContent="📘 Viciouslom Quick Guide";
-    title.setAttribute("style",[
-      "font-size:22px",
-      "font-weight:900",
-      "letter-spacing:.3px",
-      "margin-bottom:14px",
-      "color:#E9D5FF",
-      "text-shadow:0 0 12px rgba(167,139,250,.88)"
-    ].join(";"));
-
-    const body=document.createElement("div");
-    body.innerHTML=[
-      '<div style="font-size:14px;color:#DDD6FE;margin-bottom:14px">Use this quick guide without leaving the game.</div>',
-      '<div style="font-size:15px;margin:10px 0;color:#F5F3FF"><b>1.</b> Check that your license status is active.</div>',
-      '<div style="font-size:15px;margin:10px 0;color:#F5F3FF"><b>2.</b> Keep the channel on <b>LIVE</b> for the stable version.</div>',
-      '<div style="font-size:15px;margin:10px 0;color:#F5F3FF"><b>3.</b> Enable only the features you want to use.</div>',
-      '<div style="font-size:15px;margin:10px 0;color:#F5F3FF"><b>4.</b> If the panel does not update, tap <b>Refresh</b>.</div>',
-      '<div style="font-size:15px;margin:10px 0;color:#F5F3FF"><b>5.</b> If old data appears, use <b>Clear Cache</b> and reload.</div>',
-      '<div style="font-size:15px;margin:10px 0;color:#F5F3FF"><b>6.</b> Avoid enabling too many automatic actions at the same time during testing.</div>',
-      '<div style="height:1px;background:rgba(167,139,250,.35);margin:16px 0"></div>',
-      '<div style="font-size:12px;color:#A78BFA">Viciouslom · Stay in game · No external page required</div>'
-    ].join("");
-
-    const btn=document.createElement("button");
-    btn.textContent="Close";
-    btn.setAttribute("style",[
-      "margin-top:18px",
-      "width:100%",
-      "height:44px",
-      "border-radius:14px",
-      "border:1px solid #A78BFA",
-      "background:rgba(167,139,250,.12)",
-      "color:#F5F3FF",
-      "font-size:16px",
-      "font-weight:800",
-      "box-shadow:0 0 14px rgba(167,139,250,.42)",
-      "outline:none"
-    ].join(";"));
-    btn.onclick=closeGuide;
-
-    box.appendChild(title);
-    box.appendChild(body);
-    box.appendChild(btn);
-    wrap.appendChild(box);
-
-    wrap.addEventListener("click",e=>{
-      if(e.target===wrap)closeGuide();
-    });
-
-    document.documentElement.appendChild(wrap);
-  }catch(e){
-    try{console.warn("[VLM_PROMAX_INTERNAL_GUIDE_EN_V1_MODAL_FAIL]",String(e&&e.message||e))}catch(_){}
-  }
-}
-
-function markGuideButtons(){
-  try{
-    const nodes=document.querySelectorAll("a,button,div,span");
-    for(const el of nodes){
-      const t=norm(el.innerText||el.textContent||"");
-      if(!isGuideText(t) || !rectOk(el))continue;
-
-      el.setAttribute("data-vlm-guide-modal-v1","1");
-      el.style.cursor="pointer";
-
-      // Atualiza texto sem destruir filhos complexos quando possível.
-      if(t.toLowerCase().indexOf("quick guide")<0){
-        el.textContent="📘 Quick Guide: license & setup";
-      }
-
-      if(el.tagName==="A"){
-        el.href="#vlm-guide";
-        el.removeAttribute("target");
-      }
-    }
-
-    // Neutraliza anchors de YouTube remanescentes relacionados ao guia.
-    for(const a of document.querySelectorAll("a[href]")){
-      const href=String(a.getAttribute("href")||"");
-      const text=norm(a.innerText||a.textContent||"");
-      if((/youtube|youtu\.be|ZsX3be9pOKs|WMcZRoYCrco/i.test(href)) && isGuideText(text)){
-        a.href="#vlm-guide";
-        a.removeAttribute("target");
-      }
-    }
-  }catch(_){}
-}
-
-function handler(ev){
-  try{
-    const btn=findGuideButtonFrom(ev);
-    if(!btn)return;
-
-    ev.preventDefault();
-    ev.stopPropagation();
-    if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();
-
-    const now=Date.now();
-    if(globalThis.__VLM_PROMAX_GUIDE_LAST__ && now-globalThis.__VLM_PROMAX_GUIDE_LAST__<700)return false;
-    globalThis.__VLM_PROMAX_GUIDE_LAST__=now;
-
-    console.warn("[VLM_PROMAX_INTERNAL_GUIDE_EN_V1] open");
-    showGuide();
-    return false;
-  }catch(e){
-    try{console.warn("[VLM_PROMAX_INTERNAL_GUIDE_EN_V1_HANDLER_FAIL]",String(e&&e.message||e))}catch(_){}
-  }
-}
-
-document.addEventListener("click",handler,true);
-document.addEventListener("touchend",handler,{capture:true,passive:false});
-
-setTimeout(markGuideButtons,300);
-setTimeout(markGuideButtons,1200);
-setTimeout(markGuideButtons,3000);
-
-let tries=0;
-const id=setInterval(()=>{
-  tries++;
-  markGuideButtons();
-  if(tries>80)clearInterval(id);
-},1000);
-
-console.warn("[VLM_PROMAX_INTERNAL_GUIDE_EN_V1] installed");
-}catch(e){try{console.warn("[VLM_PROMAX_INTERNAL_GUIDE_EN_V1_FAIL]",String(e&&e.message||e))}catch(_){}}})();
-
-;(()=>{try{
-const MARK="VLM_PROMAX_UPDATE_BUTTON_V1";
-if(globalThis.__VLM_PROMAX_UPDATE_BUTTON_V1__)return;
-globalThis.__VLM_PROMAX_UPDATE_BUTTON_V1__=true;
-
-function norm(t){
-  try{return String(t||"").replace(/\s+/g," ").trim().toUpperCase()}catch(_){return""}
-}
-
-function getChannel(){
-  try{
-    const ls = localStorage.getItem("MOD_CHANNEL") || localStorage.getItem("VLM_MOD_CHANNEL") || "";
-    if(/^(live|test)$/i.test(ls))return ls.toLowerCase();
-  }catch(_){}
-  return "live";
-}
-
-function isUpdateText(t){
-  t=norm(t).replace(/^↻\s*/,"").trim();
-  return /^(UPDATE|RELOAD PAYLOAD|RECARREGAR PAYLOAD|ATUALIZAR)$/.test(t);
-}
-
-function rectOk(el){
-  try{
-    const r=el.getBoundingClientRect();
-    if(!r || !r.width || !r.height)return false;
-    if(r.width < 90 || r.width > 380)return false;
-    if(r.height < 28 || r.height > 95)return false;
-    if(r.width * r.height > 38000)return false;
-    return true;
-  }catch(_){return false}
-}
-
-function pointInside(el, ev){
-  try{
-    const r=el.getBoundingClientRect();
-    const src = ev.changedTouches && ev.changedTouches[0] ? ev.changedTouches[0] : ev;
-    const x = src.clientX || 0;
-    const y = src.clientY || 0;
-    return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
-  }catch(_){return true}
-}
-
-function findUpdateButtonFrom(ev){
-  try{
-    const path = ev.composedPath ? ev.composedPath() : [];
-    const arr = path && path.length ? path : [ev.target];
-
-    for(const el of arr){
-      if(!el || el.nodeType !== 1)continue;
-
-      const own = norm(el.innerText || el.textContent || "");
-      if(isUpdateText(own) && rectOk(el) && pointInside(el, ev)){
-        return el;
-      }
-
-      let p = el.parentElement;
-      for(let i=0;p && i<4;p=p.parentElement,i++){
-        const t = norm(p.innerText || p.textContent || "");
-        if(isUpdateText(t) && rectOk(p) && pointInside(p, ev)){
-          return p;
-        }
-
-        try{
-          const r=p.getBoundingClientRect();
-          if(r.width>430 || r.height>125)break;
-        }catch(_){}
-      }
-    }
-  }catch(_){}
-  return null;
-}
-
-function closeModal(){
-  try{
-    const old=document.getElementById("vlm-promax-update-modal-v1");
-    if(old)old.remove();
-  }catch(_){}
-}
-
-function showModal(title, html){
-  try{
-    closeModal();
-
-    const wrap=document.createElement("div");
-    wrap.id="vlm-promax-update-modal-v1";
-    wrap.setAttribute("style",[
-      "position:fixed",
-      "inset:0",
-      "z-index:2147483647",
-      "display:flex",
-      "align-items:center",
-      "justify-content:center",
-      "background:rgba(0,0,0,.58)",
-      "font-family:Arial,system-ui,sans-serif"
-    ].join(";"));
-
-    const box=document.createElement("div");
-    box.setAttribute("style",[
-      "width:min(88vw,450px)",
-      "border:1px solid rgba(167,139,250,.95)",
-      "border-radius:20px",
-      "background:linear-gradient(145deg,rgba(7,9,24,.97),rgba(24,18,48,.97))",
-      "box-shadow:0 0 30px rgba(167,139,250,.55), inset 0 0 24px rgba(139,92,246,.14)",
-      "color:#F5F3FF",
-      "padding:22px 20px",
-      "line-height:1.45"
-    ].join(";"));
-
-    const h=document.createElement("div");
-    h.textContent=title;
-    h.setAttribute("style",[
-      "font-size:22px",
-      "font-weight:900",
-      "letter-spacing:.3px",
-      "margin-bottom:14px",
-      "color:#E9D5FF",
-      "text-shadow:0 0 12px rgba(167,139,250,.88)"
-    ].join(";"));
-
-    const body=document.createElement("div");
-    body.innerHTML=html;
-
-    const btn=document.createElement("button");
-    btn.textContent="Close";
-    btn.setAttribute("style",[
-      "margin-top:18px",
-      "width:100%",
-      "height:44px",
-      "border-radius:14px",
-      "border:1px solid #A78BFA",
-      "background:rgba(167,139,250,.12)",
-      "color:#F5F3FF",
-      "font-size:16px",
-      "font-weight:800",
-      "box-shadow:0 0 14px rgba(167,139,250,.42)",
-      "outline:none"
-    ].join(";"));
-    btn.onclick=closeModal;
-
-    box.appendChild(h);
-    box.appendChild(body);
-    box.appendChild(btn);
-    wrap.appendChild(box);
-
-    wrap.addEventListener("click",e=>{if(e.target===wrap)closeModal()});
-    document.documentElement.appendChild(wrap);
-  }catch(e){
-    try{console.warn("[VLM_PROMAX_UPDATE_BUTTON_V1_MODAL_FAIL]",String(e&&e.message||e))}catch(_){}
-  }
-}
-
-async function checkUpdate(){
-  const channel=getChannel();
-  const url="/__vlm/promax/manifest?channel="+encodeURIComponent(channel)+"&t="+Date.now();
-
-  console.warn("[VLM_PROMAX_UPDATE_BUTTON_V1] check", url);
-
-  showModal("Viciouslom Update", '<div style="font-size:15px;color:#DDD6FE">Checking update service...</div>');
-
-  try{
-    const res=await fetch(url,{cache:"no-store",headers:{"accept":"application/json"}});
-    const text=await res.text();
-
-    if(!res.ok){
-      showModal("Viciouslom Update",
-        '<div style="font-size:15px;color:#F5F3FF;margin-bottom:10px">Update service is not available yet on this Worker.</div>'+
-        '<div style="font-size:13px;color:#A78BFA">Status: HTTP '+res.status+'</div>'+
-        '<div style="font-size:13px;color:#A78BFA;margin-top:8px">Current embedded ProMax build is still active.</div>'
-      );
-      return;
-    }
-
-    let data=null;
-    try{data=JSON.parse(text)}catch(_){}
-
-    if(!data){
-      showModal("Viciouslom Update",
-        '<div style="font-size:15px;color:#F5F3FF">Worker answered, but response is not JSON.</div>'
-      );
-      return;
-    }
-
-    const version=data.version || data.latestVersion || "unknown";
-    const current=data.currentVersion || "v3.95";
-    const message=data.message || (data.ok ? "Update service is online." : "No update available.");
-
-    showModal("Viciouslom Update",
-      '<div style="font-size:15px;color:#F5F3FF;margin-bottom:8px"><b>Status:</b> '+(data.ok?"Online":"Unavailable")+'</div>'+
-      '<div style="font-size:14px;color:#DDD6FE"><b>Channel:</b> '+channel.toUpperCase()+'</div>'+
-      '<div style="font-size:14px;color:#DDD6FE"><b>Current:</b> '+current+'</div>'+
-      '<div style="font-size:14px;color:#DDD6FE"><b>Latest:</b> '+version+'</div>'+
-      '<div style="font-size:13px;color:#A78BFA;margin-top:12px">'+String(message).replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]))+'</div>'+
-      '<div style="font-size:12px;color:#8B5CF6;margin-top:12px">Automatic payload update will be enabled after Worker manifest/payload routes are configured.</div>'
-    );
-  }catch(e){
-    showModal("Viciouslom Update",
-      '<div style="font-size:15px;color:#F5F3FF;margin-bottom:10px">Could not reach update service.</div>'+
-      '<div style="font-size:13px;color:#A78BFA">'+String(e&&e.message||e).replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]))+'</div>'
-    );
-  }
-}
-
-function markButtons(){
-  try{
-    const nodes=document.querySelectorAll("a,button,div,span");
-    for(const el of nodes){
-      const t=norm(el.innerText||el.textContent||"");
-      if(!isUpdateText(t) || !rectOk(el))continue;
-      el.setAttribute("data-vlm-update-button-v1","1");
-      el.style.cursor="pointer";
-      el.textContent="UPDATE";
-    }
-  }catch(_){}
-}
-
-function handler(ev){
-  try{
-    const btn=findUpdateButtonFrom(ev);
-    if(!btn)return;
-
-    ev.preventDefault();
-    ev.stopPropagation();
-    if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();
-
-    const now=Date.now();
-    if(globalThis.__VLM_PROMAX_UPDATE_LAST__ && now-globalThis.__VLM_PROMAX_UPDATE_LAST__<1000)return false;
-    globalThis.__VLM_PROMAX_UPDATE_LAST__=now;
-
-    checkUpdate();
-    return false;
-  }catch(e){
-    try{console.warn("[VLM_PROMAX_UPDATE_BUTTON_V1_HANDLER_FAIL]",String(e&&e.message||e))}catch(_){}
-  }
-}
-
-document.addEventListener("click",handler,true);
-document.addEventListener("touchend",handler,{capture:true,passive:false});
-
-setTimeout(markButtons,300);
-setTimeout(markButtons,1200);
-setTimeout(markButtons,3000);
-
-let tries=0;
-const id=setInterval(()=>{
-  tries++;
-  markButtons();
-  if(tries>80)clearInterval(id);
-},1200);
-
-console.warn("[VLM_PROMAX_UPDATE_BUTTON_V1] installed");
-}catch(e){try{console.warn("[VLM_PROMAX_UPDATE_BUTTON_V1_FAIL]",String(e&&e.message||e))}catch(_){}}})();
-
-;(()=>{try{
-const MARK="VLM_PROMAX_UPDATE_BUTTON_V2_STRICT";
-if(globalThis.__VLM_PROMAX_UPDATE_BUTTON_V2_STRICT__)return;
-globalThis.__VLM_PROMAX_UPDATE_BUTTON_V2_STRICT__=true;
-
-function norm(t){
-  try{return String(t||"").replace(/\s+/g," ").trim().toUpperCase()}catch(_){return""}
-}
-
-function getChannel(){
-  try{
-    const v = localStorage.getItem("MOD_CHANNEL") || localStorage.getItem("VLM_MOD_CHANNEL") || "";
-    if(/^(live|test)$/i.test(v))return v.toLowerCase();
-  }catch(_){}
-  return "live";
-}
-
-function isUpdateLabel(t){
-  t=norm(t).replace(/^↻\s*/,"").trim();
-  return t==="UPDATE" || t==="ATUALIZAR" || t==="RECARREGAR PAYLOAD" || t==="RELOAD PAYLOAD";
-}
-
-function rectOk(el){
-  try{
-    const r=el.getBoundingClientRect();
-    if(!r || !r.width || !r.height)return false;
-    if(r.width < 75 || r.width > 390)return false;
-    if(r.height < 25 || r.height > 95)return false;
-    if(r.width*r.height > 38000)return false;
-    return true;
-  }catch(_){return false}
-}
-
-function pointInside(el, ev){
-  try{
-    const r=el.getBoundingClientRect();
-    const src = ev.changedTouches && ev.changedTouches[0] ? ev.changedTouches[0] : ev;
-    const x = src.clientX || 0;
-    const y = src.clientY || 0;
-    return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
-  }catch(_){return true}
-}
-
-function findUpdateButton(ev){
-  try{
-    const path = ev.composedPath ? ev.composedPath() : [];
-    const arr = path && path.length ? path : [ev.target];
-
-    for(const el of arr){
-      if(!el || el.nodeType !== 1)continue;
-
-      const own = norm(el.innerText || el.textContent || "");
-      if(isUpdateLabel(own) && rectOk(el) && pointInside(el, ev)){
-        return el;
-      }
-
-      let p = el.parentElement;
-      for(let i=0;p && i<3;p=p.parentElement,i++){
-        const t = norm(p.innerText || p.textContent || "");
-        if(isUpdateLabel(t) && rectOk(p) && pointInside(p, ev)){
-          return p;
-        }
-
-        try{
-          const r=p.getBoundingClientRect();
-          if(r.width>430 || r.height>130)break;
-        }catch(_){}
-      }
-    }
-  }catch(_){}
-  return null;
-}
-
-function closeModal(){
-  try{
-    const old=document.getElementById("vlm-promax-update-modal-v2");
-    if(old)old.remove();
-  }catch(_){}
-}
-
-function showModal(title, html){
-  try{
-    closeModal();
-
-    const wrap=document.createElement("div");
-    wrap.id="vlm-promax-update-modal-v2";
-    wrap.setAttribute("style",[
-      "position:fixed",
-      "inset:0",
-      "z-index:2147483647",
-      "display:flex",
-      "align-items:center",
-      "justify-content:center",
-      "background:rgba(0,0,0,.58)",
-      "font-family:Arial,system-ui,sans-serif"
-    ].join(";"));
-
-    const box=document.createElement("div");
-    box.setAttribute("style",[
-      "width:min(88vw,455px)",
-      "border:1px solid rgba(167,139,250,.95)",
-      "border-radius:20px",
-      "background:linear-gradient(145deg,rgba(7,9,24,.97),rgba(24,18,48,.97))",
-      "box-shadow:0 0 30px rgba(167,139,250,.55), inset 0 0 24px rgba(139,92,246,.14)",
-      "color:#F5F3FF",
-      "padding:22px 20px",
-      "line-height:1.45"
-    ].join(";"));
-
-    const h=document.createElement("div");
-    h.textContent=title;
-    h.setAttribute("style",[
-      "font-size:22px",
-      "font-weight:900",
-      "margin-bottom:14px",
-      "color:#E9D5FF",
-      "text-shadow:0 0 12px rgba(167,139,250,.88)"
-    ].join(";"));
-
-    const body=document.createElement("div");
-    body.innerHTML=html;
-
-    const btn=document.createElement("button");
-    btn.textContent="Close";
-    btn.setAttribute("style",[
-      "margin-top:18px",
-      "width:100%",
-      "height:44px",
-      "border-radius:14px",
-      "border:1px solid #A78BFA",
-      "background:rgba(167,139,250,.12)",
-      "color:#F5F3FF",
-      "font-size:16px",
-      "font-weight:800",
-      "box-shadow:0 0 14px rgba(167,139,250,.42)",
-      "outline:none"
-    ].join(";"));
-    btn.onclick=closeModal;
-
-    box.appendChild(h);
-    box.appendChild(body);
-    box.appendChild(btn);
-    wrap.appendChild(box);
-
-    wrap.addEventListener("click",e=>{if(e.target===wrap)closeModal()});
-    document.documentElement.appendChild(wrap);
-  }catch(e){
-    try{console.warn("[VLM_PROMAX_UPDATE_BUTTON_V2_STRICT_MODAL_FAIL]",String(e&&e.message||e))}catch(_){}
-  }
-}
-
-function esc(v){
-  return String(v||"").replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]));
-}
-
-async function checkUpdate(){
-  const channel=getChannel();
-  const url="/__vlm/promax/manifest?channel="+encodeURIComponent(channel)+"&t="+Date.now();
-
-  console.warn("[VLM_PROMAX_UPDATE_BUTTON_V2_STRICT] check",url);
-
-  showModal("Viciouslom Update",'<div style="font-size:15px;color:#DDD6FE">Checking update service...</div>');
-
-  try{
-    const res=await fetch(url,{cache:"no-store",headers:{"accept":"application/json"}});
-    const text=await res.text();
-
-    console.warn("[VLM_PROMAX_UPDATE_BUTTON_V2_STRICT] response",res.status,text.slice(0,220));
-
-    if(!res.ok){
-      showModal("Viciouslom Update",
-        '<div style="font-size:15px;color:#F5F3FF;margin-bottom:10px">Update service is not available yet.</div>'+
-        '<div style="font-size:13px;color:#A78BFA">HTTP '+res.status+'</div>'
-      );
-      return;
-    }
-
-    let data=null;
-    try{data=JSON.parse(text)}catch(_){}
-
-    if(!data){
-      showModal("Viciouslom Update",
-        '<div style="font-size:15px;color:#F5F3FF">Worker answered, but response is not JSON.</div>'
-      );
-      return;
-    }
-
-    showModal("Viciouslom Update",
-      '<div style="font-size:15px;color:#F5F3FF;margin-bottom:8px"><b>Status:</b> '+(data.ok?'Online':'Unavailable')+'</div>'+
-      '<div style="font-size:14px;color:#DDD6FE"><b>Channel:</b> '+esc(data.channel||channel).toUpperCase()+'</div>'+
-      '<div style="font-size:14px;color:#DDD6FE"><b>Current:</b> '+esc(data.currentVersion||'v3.95')+'</div>'+
-      '<div style="font-size:14px;color:#DDD6FE"><b>Latest:</b> '+esc(data.latestVersion||data.version||'v3.95')+'</div>'+
-      '<div style="font-size:14px;color:#DDD6FE"><b>Payload:</b> '+(data.payloadEnabled?'Enabled':'Not enabled yet')+'</div>'+
-      '<div style="font-size:13px;color:#A78BFA;margin-top:12px">'+esc(data.message||'Update service online.')+'</div>'
-    );
-  }catch(e){
-    showModal("Viciouslom Update",
-      '<div style="font-size:15px;color:#F5F3FF;margin-bottom:10px">Could not reach update service.</div>'+
-      '<div style="font-size:13px;color:#A78BFA">'+esc(e&&e.message||e)+'</div>'
-    );
-  }
-}
-
-function markButtons(){
-  try{
-    const nodes=document.querySelectorAll("a,button,div,span");
-    for(const el of nodes){
-      const t=norm(el.innerText||el.textContent||"");
-      if(!isUpdateLabel(t) || !rectOk(el))continue;
-      el.setAttribute("data-vlm-update-button-v2","1");
-      el.textContent="UPDATE";
-      el.style.cursor="pointer";
-    }
-  }catch(_){}
-}
-
-function handler(ev){
-  try{
-    const btn=findUpdateButton(ev);
-    if(!btn)return;
-
-    ev.preventDefault();
-    ev.stopPropagation();
-    if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();
-
-    const now=Date.now();
-    if(globalThis.__VLM_PROMAX_UPDATE_V2_LAST__ && now-globalThis.__VLM_PROMAX_UPDATE_V2_LAST__<1000)return false;
-    globalThis.__VLM_PROMAX_UPDATE_V2_LAST__=now;
-
-    checkUpdate();
-    return false;
-  }catch(e){
-    try{console.warn("[VLM_PROMAX_UPDATE_BUTTON_V2_STRICT_HANDLER_FAIL]",String(e&&e.message||e))}catch(_){}
-  }
-}
-
-document.addEventListener("pointerdown",handler,true);
-document.addEventListener("touchstart",handler,{capture:true,passive:false});
-document.addEventListener("click",handler,true);
-document.addEventListener("touchend",handler,{capture:true,passive:false});
-
-setTimeout(markButtons,200);
-setTimeout(markButtons,1000);
-setTimeout(markButtons,2500);
-
-let tries=0;
-const id=setInterval(()=>{
-  tries++;
-  markButtons();
-  if(tries>80)clearInterval(id);
-},1000);
-
-console.warn("[VLM_PROMAX_UPDATE_BUTTON_V2_STRICT] installed");
-}catch(e){try{console.warn("[VLM_PROMAX_UPDATE_BUTTON_V2_STRICT_FAIL]",String(e&&e.message||e))}catch(_){}}})();
-
-;(()=>{try{
-const MARK="VLM_PROMAX_UPDATE_BUTTON_V3_CLONE";
-if(globalThis.__VLM_PROMAX_UPDATE_BUTTON_V3_CLONE__)return;
-globalThis.__VLM_PROMAX_UPDATE_BUTTON_V3_CLONE__=true;
-
-function norm(t){
-  try{return String(t||"").replace(/\s+/g," ").trim().toUpperCase()}catch(_){return""}
-}
-
-function esc(v){
-  return String(v||"").replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]));
-}
-
-function getChannel(){
-  try{
-    const v = localStorage.getItem("MOD_CHANNEL") || localStorage.getItem("VLM_MOD_CHANNEL") || "";
-    if(/^(live|test)$/i.test(v))return v.toLowerCase();
-  }catch(_){}
-  return "live";
-}
-
-function isUpdateLabel(t){
-  t=norm(t).replace(/^↻\s*/,"").trim();
-  return t==="UPDATE" || t==="ATUALIZAR" || t==="RECARREGAR PAYLOAD" || t==="RELOAD PAYLOAD";
-}
-
-function rectOk(el){
-  try{
-    const r=el.getBoundingClientRect();
-    if(!r || !r.width || !r.height)return false;
-    if(r.width < 65 || r.width > 430)return false;
-    if(r.height < 24 || r.height > 105)return false;
-    if(r.width*r.height > 43000)return false;
-    return true;
-  }catch(_){return false}
-}
-
-function closeModal(){
-  try{
-    const old=document.getElementById("vlm-promax-update-modal-v3");
-    if(old)old.remove();
-  }catch(_){}
-}
-
-function showModal(title, html){
-  try{
-    closeModal();
-
-    const wrap=document.createElement("div");
-    wrap.id="vlm-promax-update-modal-v3";
-    wrap.setAttribute("style",[
-      "position:fixed",
-      "inset:0",
-      "z-index:2147483647",
-      "display:flex",
-      "align-items:center",
-      "justify-content:center",
-      "background:rgba(0,0,0,.58)",
-      "font-family:Arial,system-ui,sans-serif"
-    ].join(";"));
-
-    const box=document.createElement("div");
-    box.setAttribute("style",[
-      "width:min(88vw,455px)",
-      "border:1px solid rgba(167,139,250,.95)",
-      "border-radius:20px",
-      "background:linear-gradient(145deg,rgba(7,9,24,.97),rgba(24,18,48,.97))",
-      "box-shadow:0 0 30px rgba(167,139,250,.55), inset 0 0 24px rgba(139,92,246,.14)",
-      "color:#F5F3FF",
-      "padding:22px 20px",
-      "line-height:1.45"
-    ].join(";"));
-
-    const h=document.createElement("div");
-    h.textContent=title;
-    h.setAttribute("style",[
-      "font-size:22px",
-      "font-weight:900",
-      "margin-bottom:14px",
-      "color:#E9D5FF",
-      "text-shadow:0 0 12px rgba(167,139,250,.88)"
-    ].join(";"));
-
-    const body=document.createElement("div");
-    body.innerHTML=html;
-
-    const btn=document.createElement("button");
-    btn.textContent="Close";
-    btn.setAttribute("style",[
-      "margin-top:18px",
-      "width:100%",
-      "height:44px",
-      "border-radius:14px",
-      "border:1px solid #A78BFA",
-      "background:rgba(167,139,250,.12)",
-      "color:#F5F3FF",
-      "font-size:16px",
-      "font-weight:800",
-      "box-shadow:0 0 14px rgba(167,139,250,.42)",
-      "outline:none"
-    ].join(";"));
-    btn.onclick=closeModal;
-
-    box.appendChild(h);
-    box.appendChild(body);
-    box.appendChild(btn);
-    wrap.appendChild(box);
-    wrap.addEventListener("click",e=>{if(e.target===wrap)closeModal()});
-    document.documentElement.appendChild(wrap);
-  }catch(e){
-    try{console.warn("[VLM_PROMAX_UPDATE_BUTTON_V3_CLONE_MODAL_FAIL]",String(e&&e.message||e))}catch(_){}
-  }
-}
-
-async function checkUpdate(evType){
-  const channel=getChannel();
-  const url="/__vlm/promax/manifest?channel="+encodeURIComponent(channel)+"&t="+Date.now();
-
-  console.warn("[VLM_PROMAX_UPDATE_BUTTON_V3_CLONE] check",url,"event="+evType);
-
-  showModal("Viciouslom Update",'<div style="font-size:15px;color:#DDD6FE">Checking update service...</div>');
-
-  try{
-    const res=await fetch(url,{cache:"no-store",headers:{"accept":"application/json"}});
-    const text=await res.text();
-
-    console.warn("[VLM_PROMAX_UPDATE_BUTTON_V3_CLONE] response",res.status,text.slice(0,240));
-
-    if(!res.ok){
-      showModal("Viciouslom Update",
-        '<div style="font-size:15px;color:#F5F3FF;margin-bottom:10px">Update service is not available yet.</div>'+
-        '<div style="font-size:13px;color:#A78BFA">HTTP '+res.status+'</div>'+
-        '<div style="font-size:12px;color:#8B5CF6;margin-top:10px">The button is now isolated correctly; Worker route is the next check.</div>'
-      );
-      return;
-    }
-
-    let data=null;
-    try{data=JSON.parse(text)}catch(_){}
-
-    if(!data){
-      showModal("Viciouslom Update",
-        '<div style="font-size:15px;color:#F5F3FF">Worker answered, but response is not JSON.</div>'+
-        '<div style="font-size:12px;color:#A78BFA;margin-top:10px">'+esc(text.slice(0,180))+'</div>'
-      );
-      return;
-    }
-
-    showModal("Viciouslom Update",
-      '<div style="font-size:15px;color:#F5F3FF;margin-bottom:8px"><b>Status:</b> '+(data.ok?'Online':'Unavailable')+'</div>'+
-      '<div style="font-size:14px;color:#DDD6FE"><b>Channel:</b> '+esc(data.channel||channel).toUpperCase()+'</div>'+
-      '<div style="font-size:14px;color:#DDD6FE"><b>Current:</b> '+esc(data.currentVersion||'v3.95')+'</div>'+
-      '<div style="font-size:14px;color:#DDD6FE"><b>Latest:</b> '+esc(data.latestVersion||data.version||'v3.95')+'</div>'+
-      '<div style="font-size:14px;color:#DDD6FE"><b>Payload:</b> '+(data.payloadEnabled?'Enabled':'Not enabled yet')+'</div>'+
-      '<div style="font-size:13px;color:#A78BFA;margin-top:12px">'+esc(data.message||'Update service online.')+'</div>'
-    );
-  }catch(e){
-    showModal("Viciouslom Update",
-      '<div style="font-size:15px;color:#F5F3FF;margin-bottom:10px">Could not reach update service.</div>'+
-      '<div style="font-size:13px;color:#A78BFA">'+esc(e&&e.message||e)+'</div>'
-    );
-  }
-}
-
-function stop(ev){
-  try{
-    ev.preventDefault();
-    ev.stopPropagation();
-    if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();
-  }catch(_){}
-}
-
-function onUpdateClick(ev){
-  stop(ev);
-
-  const now=Date.now();
-  if(globalThis.__VLM_PROMAX_UPDATE_V3_LAST__ && now-globalThis.__VLM_PROMAX_UPDATE_V3_LAST__<1100)return false;
-  globalThis.__VLM_PROMAX_UPDATE_V3_LAST__=now;
-
-  // ajuda a impedir o V2 antigo de duplicar se ele acordar
-  globalThis.__VLM_PROMAX_UPDATE_V2_LAST__=now;
-  globalThis.__VLM_PROMAX_UPDATE_LAST__=now;
-
-  checkUpdate(ev.type||"event");
-  return false;
-}
-
-function isolateButton(el){
-  try{
-    if(!el || el.nodeType!==1)return null;
-    if(el.getAttribute("data-vlm-update-button-v3")==="1")return el;
-
-    const t=norm(el.innerText||el.textContent||"");
-    if(!isUpdateLabel(t) || !rectOk(el))return null;
-
-    const clone=el.cloneNode(true);
-    clone.textContent="UPDATE";
-    clone.setAttribute("data-vlm-update-button-v3","1");
-    clone.setAttribute("type","button");
-    clone.style.cursor="pointer";
-
-    // remove destinos antigos se for anchor disfarçado
-    if(clone.tagName==="A"){
-      clone.href="#vlm-update";
-      clone.removeAttribute("target");
-    }
-
-    clone.onclick=null;
-    clone.onpointerdown=null;
-    clone.ontouchstart=null;
-    clone.ontouchend=null;
-
-    clone.addEventListener("pointerdown",onUpdateClick,{capture:true,passive:false});
-    clone.addEventListener("touchstart",onUpdateClick,{capture:true,passive:false});
-    clone.addEventListener("click",onUpdateClick,{capture:true,passive:false});
-    clone.addEventListener("touchend",onUpdateClick,{capture:true,passive:false});
-
-    el.replaceWith(clone);
-
-    console.warn("[VLM_PROMAX_UPDATE_BUTTON_V3_CLONE] isolated button", clone.tagName, clone.className || "");
-    return clone;
-  }catch(e){
-    try{console.warn("[VLM_PROMAX_UPDATE_BUTTON_V3_CLONE_ISOLATE_FAIL]",String(e&&e.message||e))}catch(_){}
-    return null;
-  }
-}
-
-function scan(){
-  try{
-    const nodes=document.querySelectorAll("button,a,div,span");
-    for(const el of nodes){
-      const t=norm(el.innerText||el.textContent||"");
-      if(!isUpdateLabel(t))continue;
-      isolateButton(el);
-    }
-  }catch(_){}
-}
-
-setTimeout(scan,150);
-setTimeout(scan,700);
-setTimeout(scan,1500);
-setTimeout(scan,3000);
-
-let tries=0;
-const id=setInterval(()=>{
-  tries++;
-  scan();
-  if(tries>120)clearInterval(id);
-},800);
-
-try{
-  const mo=new MutationObserver(()=>scan());
-  mo.observe(document.documentElement,{childList:true,subtree:true,characterData:true});
-  setTimeout(()=>{try{mo.disconnect()}catch(_){}},180000);
-}catch(_){}
-
-console.warn("[VLM_PROMAX_UPDATE_BUTTON_V3_CLONE] installed");
-}catch(e){try{console.warn("[VLM_PROMAX_UPDATE_BUTTON_V3_CLONE_FAIL]",String(e&&e.message||e))}catch(_){}}})();
-
-;(()=>{try{
-const MARK="VLM_PROMAX_UPDATE_BUTTON_V4_SHIELD";
-if(globalThis.__VLM_PROMAX_UPDATE_BUTTON_V4_SHIELD__)return;
-globalThis.__VLM_PROMAX_UPDATE_BUTTON_V4_SHIELD__=true;
-
-function norm(t){
-  try{return String(t||"").replace(/\s+/g," ").trim().toUpperCase()}catch(_){return""}
-}
-
-function esc(v){
-  return String(v||"").replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]));
-}
-
-function isUpdateLabel(t){
-  t=norm(t).replace(/^↻\s*/,"").trim();
-  return t==="UPDATE" || t==="ATUALIZAR" || t==="RECARREGAR PAYLOAD" || t==="RELOAD PAYLOAD";
-}
-
-function getChannel(){
-  try{
-    const v=localStorage.getItem("MOD_CHANNEL") || localStorage.getItem("VLM_MOD_CHANNEL") || "";
-    if(/^(live|test)$/i.test(v))return v.toLowerCase();
-  }catch(_){}
-  return "live";
-}
-
-function rectOk(r){
-  return r && r.width >= 65 && r.width <= 430 && r.height >= 24 && r.height <= 105 && (r.width*r.height) <= 43000;
-}
-
-function visible(el,r){
-  try{
-    if(!el || !r)return false;
-    const st=getComputedStyle(el);
-    if(st.display==="none" || st.visibility==="hidden" || st.opacity==="0")return false;
-    if(r.bottom<0 || r.right<0 || r.top>innerHeight || r.left>innerWidth)return false;
-    return true;
-  }catch(_){return false}
-}
-
-function findUpdateButton(){
-  try{
-    const nodes=document.querySelectorAll("button,a,div,span");
-    let best=null;
-
-    for(const el of nodes){
-      const t=norm(el.innerText||el.textContent||"");
-      if(!isUpdateLabel(t))continue;
-
-      const r=el.getBoundingClientRect();
-      if(!rectOk(r) || !visible(el,r))continue;
-
-      // Preferir botão real do painel ProMax.
-      const cls=String(el.className||"");
-      let score=0;
-      if(el.tagName==="BUTTON")score+=10;
-      if(/lom-btn/i.test(cls))score+=10;
-      if(/ghost/i.test(cls))score+=5;
-      if(t==="UPDATE")score+=5;
-      score+=Math.min(20, r.width/20);
-
-      if(!best || score>best.score)best={el,r,score,t,cls};
-    }
-
-    return best;
-  }catch(_){return null}
-}
-
-function closeModal(){
-  try{
-    const old=document.getElementById("vlm-promax-update-modal-v4");
-    if(old)old.remove();
-  }catch(_){}
-}
-
-function showModal(title, html){
-  try{
-    closeModal();
-
-    const wrap=document.createElement("div");
-    wrap.id="vlm-promax-update-modal-v4";
-    wrap.setAttribute("style",[
-      "position:fixed",
-      "inset:0",
-      "z-index:2147483647",
-      "display:flex",
-      "align-items:center",
-      "justify-content:center",
-      "background:rgba(0,0,0,.58)",
-      "font-family:Arial,system-ui,sans-serif"
-    ].join(";"));
-
-    const box=document.createElement("div");
-    box.setAttribute("style",[
-      "width:min(88vw,455px)",
-      "border:1px solid rgba(167,139,250,.95)",
-      "border-radius:20px",
-      "background:linear-gradient(145deg,rgba(7,9,24,.97),rgba(24,18,48,.97))",
-      "box-shadow:0 0 30px rgba(167,139,250,.55), inset 0 0 24px rgba(139,92,246,.14)",
-      "color:#F5F3FF",
-      "padding:22px 20px",
-      "line-height:1.45"
-    ].join(";"));
-
-    const h=document.createElement("div");
-    h.textContent=title;
-    h.setAttribute("style",[
-      "font-size:22px",
-      "font-weight:900",
-      "margin-bottom:14px",
-      "color:#E9D5FF",
-      "text-shadow:0 0 12px rgba(167,139,250,.88)"
-    ].join(";"));
-
-    const body=document.createElement("div");
-    body.innerHTML=html;
-
-    const btn=document.createElement("button");
-    btn.textContent="Close";
-    btn.setAttribute("style",[
-      "margin-top:18px",
-      "width:100%",
-      "height:44px",
-      "border-radius:14px",
-      "border:1px solid #A78BFA",
-      "background:rgba(167,139,250,.12)",
-      "color:#F5F3FF",
-      "font-size:16px",
-      "font-weight:800",
-      "box-shadow:0 0 14px rgba(167,139,250,.42)",
-      "outline:none"
-    ].join(";"));
-    btn.onclick=closeModal;
-
-    box.appendChild(h);
-    box.appendChild(body);
-    box.appendChild(btn);
-    wrap.appendChild(box);
-    wrap.addEventListener("click",e=>{if(e.target===wrap)closeModal()});
-    document.documentElement.appendChild(wrap);
-  }catch(e){
-    try{console.warn("[VLM_PROMAX_UPDATE_BUTTON_V4_SHIELD_MODAL_FAIL]",String(e&&e.message||e))}catch(_){}
-  }
-}
-
-async function checkUpdate(evType){
-  const channel=getChannel();
-  const url="/__vlm/promax/manifest?channel="+encodeURIComponent(channel)+"&t="+Date.now();
-
-  console.warn("[VLM_PROMAX_UPDATE_BUTTON_V4_SHIELD] check",url,"event="+evType);
-  showModal("Viciouslom Update",'<div style="font-size:15px;color:#DDD6FE">Checking update service...</div>');
-
-  try{
-    const res=await fetch(url,{cache:"no-store",headers:{"accept":"application/json"}});
-    const text=await res.text();
-
-    console.warn("[VLM_PROMAX_UPDATE_BUTTON_V4_SHIELD] response",res.status,text.slice(0,240));
-
-    if(!res.ok){
-      showModal("Viciouslom Update",
-        '<div style="font-size:15px;color:#F5F3FF;margin-bottom:10px">Update service is not available yet.</div>'+
-        '<div style="font-size:13px;color:#A78BFA">HTTP '+res.status+'</div>'
-      );
-      return;
-    }
-
-    let data=null;
-    try{data=JSON.parse(text)}catch(_){}
-
-    if(!data){
-      showModal("Viciouslom Update",
-        '<div style="font-size:15px;color:#F5F3FF">Worker answered, but response is not JSON.</div>'+
-        '<div style="font-size:12px;color:#A78BFA;margin-top:10px">'+esc(text.slice(0,180))+'</div>'
-      );
-      return;
-    }
-
-    showModal("Viciouslom Update",
-      '<div style="font-size:15px;color:#F5F3FF;margin-bottom:8px"><b>Status:</b> '+(data.ok?'Online':'Unavailable')+'</div>'+
-      '<div style="font-size:14px;color:#DDD6FE"><b>Channel:</b> '+esc(data.channel||channel).toUpperCase()+'</div>'+
-      '<div style="font-size:14px;color:#DDD6FE"><b>Current:</b> '+esc(data.currentVersion||'v3.95')+'</div>'+
-      '<div style="font-size:14px;color:#DDD6FE"><b>Latest:</b> '+esc(data.latestVersion||data.version||'v3.95')+'</div>'+
-      '<div style="font-size:14px;color:#DDD6FE"><b>Payload:</b> '+(data.payloadEnabled?'Enabled':'Not enabled yet')+'</div>'+
-      '<div style="font-size:13px;color:#A78BFA;margin-top:12px">'+esc(data.message||'Update service online.')+'</div>'
-    );
-  }catch(e){
-    showModal("Viciouslom Update",
-      '<div style="font-size:15px;color:#F5F3FF;margin-bottom:10px">Could not reach update service.</div>'+
-      '<div style="font-size:13px;color:#A78BFA">'+esc(e&&e.message||e)+'</div>'
-    );
-  }
-}
-
-function stop(ev){
-  try{
-    ev.preventDefault();
-    ev.stopPropagation();
-    if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();
-  }catch(_){}
-}
-
-function onShield(ev){
-  stop(ev);
-
-  const now=Date.now();
-  if(globalThis.__VLM_PROMAX_UPDATE_V4_LAST__ && now-globalThis.__VLM_PROMAX_UPDATE_V4_LAST__<1100)return false;
-  globalThis.__VLM_PROMAX_UPDATE_V4_LAST__=now;
-  globalThis.__VLM_PROMAX_UPDATE_V3_LAST__=now;
-  globalThis.__VLM_PROMAX_UPDATE_V2_LAST__=now;
-  globalThis.__VLM_PROMAX_UPDATE_LAST__=now;
-
-  checkUpdate(ev.type||"shield");
-  return false;
-}
-
-function ensureShield(){
-  try{
-    const found=findUpdateButton();
-    const old=document.getElementById("vlm-promax-update-shield-v4");
-
-    if(!found){
-      if(old)old.style.display="none";
-      return;
-    }
-
-    const r=found.r;
-    let shield=old;
-
-    if(!shield){
-      shield=document.createElement("button");
-      shield.id="vlm-promax-update-shield-v4";
-      shield.textContent="UPDATE";
-      shield.setAttribute("type","button");
-      shield.setAttribute("aria-label","Viciouslom Update");
-      shield.addEventListener("pointerdown",onShield,{capture:true,passive:false});
-      shield.addEventListener("touchstart",onShield,{capture:true,passive:false});
-      shield.addEventListener("click",onShield,{capture:true,passive:false});
-      shield.addEventListener("touchend",onShield,{capture:true,passive:false});
-      document.documentElement.appendChild(shield);
-      console.warn("[VLM_PROMAX_UPDATE_BUTTON_V4_SHIELD] shield created");
-    }
-
-    shield.style.cssText=[
-      "position:fixed",
-      "left:"+r.left+"px",
-      "top:"+r.top+"px",
-      "width:"+r.width+"px",
-      "height:"+r.height+"px",
-      "z-index:2147483646",
-      "display:block",
-      "pointer-events:auto",
-      "cursor:pointer",
-      "border-radius:14px",
-      "border:1px solid rgba(167,139,250,.9)",
-      "background:rgba(13,8,28,.04)",
-      "color:rgba(245,243,255,.01)",
-      "outline:none",
-      "box-shadow:none",
-      "font-size:1px",
-      "padding:0",
-      "margin:0"
-    ].join(";");
-
-    // Log só quando muda bastante para não poluir.
-    const sig=Math.round(r.left)+","+Math.round(r.top)+","+Math.round(r.width)+","+Math.round(r.height);
-    if(globalThis.__VLM_PROMAX_UPDATE_V4_SIG__!==sig){
-      globalThis.__VLM_PROMAX_UPDATE_V4_SIG__=sig;
-      console.warn("[VLM_PROMAX_UPDATE_BUTTON_V4_SHIELD] shield ready",sig,found.t,found.cls||found.el.tagName);
-    }
-  }catch(e){
-    try{console.warn("[VLM_PROMAX_UPDATE_BUTTON_V4_SHIELD_FAIL_SCAN]",String(e&&e.message||e))}catch(_){}
-  }
-}
-
-setTimeout(ensureShield,150);
-setTimeout(ensureShield,700);
-setTimeout(ensureShield,1500);
-setTimeout(ensureShield,3000);
-
-let tries=0;
-const id=setInterval(()=>{
-  tries++;
-  ensureShield();
-  if(tries>240)clearInterval(id);
-},500);
-
-try{
-  const mo=new MutationObserver(()=>ensureShield());
-  mo.observe(document.documentElement,{childList:true,subtree:true,characterData:true,attributes:true});
-  setTimeout(()=>{try{mo.disconnect()}catch(_){}},240000);
-}catch(_){}
-
-console.warn("[VLM_PROMAX_UPDATE_BUTTON_V4_SHIELD] installed");
-}catch(e){try{console.warn("[VLM_PROMAX_UPDATE_BUTTON_V4_SHIELD_FAIL]",String(e&&e.message||e))}catch(_){}}})();
-
-;(()=>{try{
-  const MARK="VLM_PROMAX_UPDATE_BUTTON_V6_CAPTURE";
-  if(window.__VLM_PROMAX_UPDATE_BUTTON_V6_CAPTURE__) return;
-  window.__VLM_PROMAX_UPDATE_BUTTON_V6_CAPTURE__=1;
-
-  let last=0;
-  let busy=false;
-
-  function txt(el){
-    try{return String((el&&((el.innerText||el.textContent)||""))||"").replace(/\s+/g," ").trim();}
-    catch(e){return "";}
-  }
-
-  function up(el, max){
-    const arr=[];
-    let n=el;
-    for(let i=0;n&&i<(max||8);i++,n=n.parentElement) arr.push(n);
-    return arr;
-  }
-
-  function isUpdateTarget(ev){
-    const t=ev&&ev.target;
-    if(!t || !t.tagName) return false;
-    if(String(t.tagName).toUpperCase()==="CANVAS") return false;
-
-    const nodes=up(t,8);
-    for(const n of nodes){
-      if(!n || !n.tagName) continue;
-      const tag=String(n.tagName).toUpperCase();
-      const cls=String(n.className||"");
-      const label=txt(n).toUpperCase();
-
-      if(label==="UPDATE" && (tag==="BUTTON" || cls.includes("lom-btn") || cls.includes("ghost"))) return true;
-
-      if(tag==="BUTTON" && txt(n).toUpperCase()==="UPDATE") return true;
-    }
-
-    return false;
-  }
-
-  function modal(html){
-    try{
-      let old=document.getElementById("vlm-promax-update-v6-modal");
-      if(old) old.remove();
-
-      const wrap=document.createElement("div");
-      wrap.id="vlm-promax-update-v6-modal";
-      wrap.style.cssText=[
-        "position:fixed",
-        "inset:0",
-        "z-index:2147483647",
-        "display:flex",
-        "align-items:center",
-        "justify-content:center",
-        "background:rgba(2,0,14,.48)",
-        "backdrop-filter:blur(4px)"
-      ].join(";");
-
-      const box=document.createElement("div");
-      box.style.cssText=[
-        "width:min(92vw,520px)",
-        "border:1px solid rgba(172,124,255,.9)",
-        "border-radius:24px",
-        "background:linear-gradient(145deg,rgba(8,5,28,.96),rgba(18,10,44,.94))",
-        "box-shadow:0 0 35px rgba(160,95,255,.55), inset 0 0 28px rgba(117,234,255,.12)",
-        "color:#f6efff",
-        "font:600 16px system-ui,-apple-system,Segoe UI,sans-serif",
-        "padding:24px",
-        "line-height:1.5"
-      ].join(";");
-
-      box.innerHTML=html;
-
-      const btn=document.createElement("button");
-      btn.textContent="Close";
-      btn.style.cssText=[
-        "margin-top:22px",
-        "width:100%",
-        "height:54px",
-        "border-radius:18px",
-        "border:1px solid rgba(182,137,255,.95)",
-        "background:rgba(255,255,255,.04)",
-        "color:#fff",
-        "font:800 17px system-ui",
-        "letter-spacing:.02em"
-      ].join(";");
-      btn.onclick=()=>wrap.remove();
-
-      box.appendChild(btn);
-      wrap.appendChild(box);
-      document.body.appendChild(wrap);
-    }catch(e){
-      alert(String(html).replace(/<[^>]+>/g," "));
-    }
-  }
-
-  function esc(v){
-    return String(v==null?"":v).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-  }
-
-  async function run(){
-    if(busy) return;
-    busy=true;
-
-    try{
-      const channel=(localStorage.getItem("VLM_PROMAX_CHANNEL")||localStorage.getItem("MOD_CHANNEL")||"live").toLowerCase()==="test"?"test":"live";
-      const url="/__vlm/promax/manifest?channel="+encodeURIComponent(channel)+"&t="+Date.now();
-
-      console.warn("["+MARK+"] check "+url);
-
-      const r=await fetch(url,{cache:"no-store",headers:{"accept":"application/json,text/plain,*/*"}});
-      const raw=await r.text();
-
-      console.warn("["+MARK+"] response "+r.status+" "+raw.slice(0,180));
-
-      let j=null;
-      try{j=JSON.parse(raw);}catch(e){}
-
-      if(!r.ok || !j || j.ok!==true){
-        modal(
-          '<h2 style="margin:0 0 14px;font-size:26px;color:#fff">Viciouslom Update</h2>'+
-          '<div style="color:#ffb4c8">Manifest error</div>'+
-          '<div style="margin-top:10px;color:#d9ccff">HTTP: '+esc(r.status)+'</div>'+
-          '<pre style="white-space:pre-wrap;max-height:180px;overflow:auto;background:rgba(255,255,255,.05);border-radius:12px;padding:12px;color:#cfc3ff">'+esc(raw.slice(0,900))+'</pre>'
-        );
-        return;
-      }
-
-      modal(
-        '<h2 style="margin:0 0 16px;font-size:28px;color:#fff;text-shadow:0 0 18px rgba(190,130,255,.75)">Viciouslom Update</h2>'+
-        '<div><b>Status:</b> Online</div>'+
-        '<div><b>Channel:</b> '+esc(String(j.channel||channel).toUpperCase())+'</div>'+
-        '<div><b>Current:</b> '+esc(j.currentVersion||j.version||"v3.95")+'</div>'+
-        '<div><b>Latest:</b> '+esc(j.latestVersion||j.version||"v3.95")+'</div>'+
-        '<div><b>Payload:</b> '+(j.payloadEnabled?'Enabled':'Not enabled yet')+'</div>'+
-        '<div style="margin-top:18px;color:#bfa7ff">'+esc(j.message||"Update service online. No payload update configured yet.")+'</div>'
-      );
-    }catch(e){
-      console.warn("["+MARK+"] error",e);
-      modal(
-        '<h2 style="margin:0 0 14px;font-size:26px;color:#fff">Viciouslom Update</h2>'+
-        '<div style="color:#ffb4c8">Erro ao consultar update.</div>'+
-        '<pre style="white-space:pre-wrap;background:rgba(255,255,255,.05);border-radius:12px;padding:12px;color:#cfc3ff">'+esc(e&&e.stack||e)+'</pre>'
-      );
-    }finally{
-      setTimeout(()=>{busy=false},700);
-    }
-  }
-
-  function intercept(ev){
-    try{
-      if(!isUpdateTarget(ev)) return;
-
-      const now=Date.now();
-      if(now-last<650){
-        ev.preventDefault();
-        ev.stopPropagation();
-        if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
-        return false;
-      }
-      last=now;
-
-      ev.preventDefault();
-      ev.stopPropagation();
-      if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
-
-      setTimeout(run,20);
-      return false;
-    }catch(e){
-      console.warn("["+MARK+"] intercept error",e);
-    }
-  }
-
-  ["pointerdown","touchstart","mousedown","pointerup","touchend","mouseup","click"].forEach(ev=>{
-    document.addEventListener(ev,intercept,true);
+  function mask(v){v=String(v||'');if(v.length<=8)return v.replace(/.(?=..)/g,'•');return v.slice(0,4)+'••••'+v.slice(-4)}
+  function activeKey(){var a=keySources();return a.length?a[0].value:''}
+
+  globalThis.VLM_PROMAX_DEBUG=merge(safeObj(globalThis.VLM_PROMAX_DEBUG),{
+    marker:MARK,
+    getProfile:function(){return profile()},
+    getConfig:function(){return merge({},config)},
+    getKeySources:function(){return keySources().map(function(x){return {source:x.source,masked:x.masked}})},
+    openUpdate:function(){return openUpdate()},
+    openGuide:function(){return openGuide()},
+    openQuickGuide:function(){return openQuickGuide()}
   });
 
-  console.warn("["+MARK+"] installed capture");
-}catch(e){console.warn("[VLM_PROMAX_UPDATE_BUTTON_V6_CAPTURE] install error",e)}})();
+  function loadManifest(){
+    if(manifestPromise)return manifestPromise;
+    manifestPromise=Promise.resolve().then(function(){
+      var url='/__vlm/promax/manifest?channel=current&t='+Date.now();
+      return fetch(url,{cache:'no-store',headers:{accept:'application/json'}}).then(function(r){return r.text().then(function(t){var j=null;try{j=JSON.parse(t)}catch(e){};if(r.ok&&j){manifestCache=j;config=merge(config,j);globalThis.PROMAX_CONFIG=config;return j}throw new Error('manifest HTTP '+r.status)})});
+    }).catch(function(e){manifestCache=merge({ok:false,offline:true,error:String(e&&e.message||e)},config);return manifestCache});
+    return manifestPromise;
+  }
 
+  function updateHeader(){var p=profile(),panel=q('#lom-panel');if(!panel)return;panel.setAttribute('data-vlm-profile',p.id);var v=q('.lom-hdr .ver',panel);if(v){var dv=config.displayVersion||config.currentVersion||config.version||DEFAULT_CONFIG.displayVersion;v.textContent=dv+' · '+p.label;v.title='ProMax '+p.label+' · '+(manifestCache&&manifestCache.channel||p.channel)}}
 
+  function cleanOldLicenseNoise(body){
+    qa('.lom-row, .vlm-row, div, span',body).forEach(function(el){try{var t=norm(el.textContent);if(t==='No key found'||t==='Chave Ativa No key found'||t==='Active Key No key found'){var row=el.closest&&el.closest('.lom-row');(row||el).remove();}}catch(e){}});
+    qa('*',body).forEach(function(el){try{var t=norm(el.textContent);if(t.indexOf('CANAL DO MOD (ADMIN)')>=0||t.indexOf('Channel mod (admin)')>=0||t.indexOf('Bản mod')>=0){var row=el.closest&&el.closest('.lom-row');(row||el).setAttribute('data-vlm-admin-only','1');}}catch(e){}});
+  }
 
+  function patchLicense(){
+    var panel=q('#lom-panel'),body=q('#lom-panel .lom-body');if(!panel||!body)return;
+    var active=q('.lom-tabs button.active',panel);if(!active||active.dataset.id!=='license')return;
+    cleanOldLicenseNoise(body);
+    var old=q('#vlm-license-env-refactor',body);if(old)old.remove();
+    var p=profile(), key=activeKey();
+    var card=make('div','vlm-env-card');card.id='vlm-license-env-refactor';card.setAttribute('data-vlm-modal','license');
+    var title=make('div','vlm-env-title','LICENSE');card.appendChild(title);
+    var status=make('div','vlm-env-row');status.innerHTML='<span class="lbl">Profile</span><b>'+esc(p.label)+'</b>';card.appendChild(status);
+    var keyBox=make('div',key?'vlm-active-key':'vlm-key-missing');keyBox.textContent=key||'Key not detected';card.appendChild(keyBox);
+    var buy=make('button','vlm-buy-key','BUY KEY');buy.type='button';buy.setAttribute('data-vlm-action','buy-key');buy.title='COMPRAR CHAVE';buy.onclick=function(ev){stop(ev);openBuyKey();return false};card.appendChild(buy);
+    var qg=make('button','vlm-quick-guide','📘 Quick Guide: license & setup');qg.type='button';qg.setAttribute('data-vlm-action','open-quick-guide');qg.onclick=function(ev){stop(ev);openQuickGuide();return false};card.appendChild(qg);
+    var row=make('div','vlm-env-row');var sel=make('select','vlm-env-select');sel.setAttribute('data-vlm-action','switch-env');[['client','CLIENT'],['admin','ADMIN']].forEach(function(it){var o=make('option','',it[1]);o.value=it[0];if(it[0]===p.id)o.selected=true;sel.appendChild(o)});sel.onchange=function(ev){stop(ev);switchEnv(sel.value);return false};row.innerHTML='<span class="lbl">Channel</span>';row.appendChild(sel);card.appendChild(row);
+    if(p.isAdmin){var admin=make('div','vlm-env-row');admin.setAttribute('data-vlm-admin-only','1');admin.innerHTML='<span class="lbl">ADMIN</span><span>Canary / test profile</span>';card.appendChild(admin)}
+    body.insertBefore(card,body.firstChild);
+  }
 
+  function patchFooter(){
+    var panel=q('#lom-panel');if(!panel)return;var foot=q('.lom-foot',panel);if(!foot)return;
+    var links=qa('a',foot);
+    if(links[0]){links[0].removeAttribute('href');links[0].removeAttribute('target');links[0].textContent='📺 '+(config.guideLabel||'Guide');links[0].setAttribute('data-vlm-action','open-guide');links[0].onclick=function(ev){stop(ev);openGuide();return false}}
+    var upd=q('#lom-foot-refresh',foot);if(upd){upd.textContent='↻ Update';upd.setAttribute('data-vlm-action','open-update');upd.onclick=function(ev){stop(ev);openUpdate();return false}}
+    var clear=q('#lom-foot-clear',foot);if(clear&&!clear.__vlmClearBound){clear.__vlmClearBound=true;clear.onclick=function(ev){stop(ev);try{globalThis.LOMMOD&&LOMMOD.clearCache&&LOMMOD.clearCache()}catch(e){}return false}}
+  }
+
+  function patchMainClose(){var panel=q('#lom-panel'),x=q('#lom-x',panel);if(!panel||!x)return;panel.setAttribute('data-vlm-promax-root','1');panel.setAttribute('data-vlm-modal','main');x.setAttribute('data-vlm-action','close-main');x.onclick=function(ev){stop(ev);closeMain();return false}}
+  function closeMain(){var panel=q('#lom-panel');if(panel)panel.classList.remove('open')}
+
+  function switchEnv(id){var target=profileFromId(id);if(isSameUrl(target.url))return;var msg='Open '+target.label+' environment?\n'+target.url;if(target.id==='client'&&profile().id==='admin'){try{if(!confirm(msg))return}catch(e){}}
+    try{location.href=target.url}catch(e){try{location.assign(target.url)}catch(x){}}
+  }
+  function openBuyKey(){var u=config.buyKeyUrl||DEFAULT_CONFIG.buyKeyUrl;try{window.open(u,'_blank','noopener,noreferrer')}catch(e){}setTimeout(function(){try{if(document.visibilityState!=='hidden')location.href=u}catch(e){}},120)}
+
+  function modalId(name){return 'vlm-promax-modal-'+name}
+  function closeModal(name){var old=document.getElementById(modalId(name));if(old)old.remove()}
+  function closeAllProMaxModals(){['quick-guide','guide','update'].forEach(closeModal)}
+  globalThis.closeAllProMaxModals=closeAllProMaxModals;
+  function showModal(name,title,html){closeModal(name);var wrap=make('div','vlm-promax-modal');wrap.id=modalId(name);wrap.setAttribute('data-vlm-promax-root','1');wrap.setAttribute('data-vlm-modal',name);var box=make('div','box');box.innerHTML='<h2>'+esc(title)+'</h2><div class="content">'+html+'</div>';var btn=make('button','close','Close');btn.type='button';btn.setAttribute('data-vlm-action','close-'+name);btn.onclick=function(ev){stop(ev);closeModal(name);return false};box.appendChild(btn);wrap.appendChild(box);wrap.onclick=function(ev){if(ev&&ev.target===wrap){stop(ev);closeModal(name);return false}try{ev&&ev.stopPropagation&&ev.stopPropagation()}catch(e){}};shield(wrap);shield(box);document.body.appendChild(wrap);return wrap}
+
+  function openQuickGuide(){
+    var html='<p><b>Quick Guide</b></p><p class="muted">Use your validated key/session to unlock the ProMax menu. Keep the key saved in this browser/session and use Update only from the current environment.</p><p class="muted">ADMIN uses the canary Worker. CLIENT uses the production Worker. Switching channel changes the real URL.</p>';
+    return showModal('quick-guide','Quick Guide',html);
+  }
+  function openGuide(){
+    if(config.guideEnabled&&config.guideType==='url'&&config.guideUrl){try{window.open(config.guideUrl,'_blank','noopener,noreferrer')}catch(e){location.href=config.guideUrl}return}
+    if(config.guideEnabled&&config.guideType==='modal'){return showModal('guide',config.guideLabel||'Guide',esc(config.guideText||'Guide configured.'))}
+    return showModal('guide',config.guideLabel||'Guide','<p class="muted">Guide not configured yet.</p>')
+  }
+  function openUpdate(){
+    var p=profile();
+    showModal('update','Viciouslom Update','<p class="muted">Checking manifest for '+esc(p.label)+'...</p>');
+    loadManifest().then(function(j){
+      var ok=j&&j.ok!==false&&!j.offline;
+      var current=j.currentVersion||config.currentVersion||config.displayVersion||'v7.00';
+      var latest=j.latestVersion||j.version||config.latestVersion||current;
+      var upd=!!(j.updateAvailable||config.updateAvailable);
+      var payload=!!(j.payloadEnabled||config.payloadEnabled);
+      var reload=!!(j.requiresReload||config.requiresReload);
+      var sha=j.sha256||j.indexSha256||config.sha256||config.indexSha256||'';
+      var size=j.sizeBytes||j.indexSizeBytes||config.sizeBytes||config.indexSizeBytes||'';
+      var msg=upd?'Update available.':'Already up to date.';
+      if(j.message)msg=j.message;
+      var html=''+
+        '<div><b>Status:</b> <span class="'+(ok?'ok':'bad')+'">'+(ok?'Online':'Offline/Fallback')+'</span></div>'+ 
+        '<div><b>Channel:</b> '+esc(p.label.toUpperCase())+'</div>'+ 
+        '<div><b>Current:</b> '+esc(current)+'</div>'+ 
+        '<div><b>Latest:</b> '+esc(latest)+'</div>'+ 
+        '<div><b>Update:</b> '+esc(msg)+'</div>'+ 
+        '<div><b>Payload:</b> '+(payload?'Enabled':'Not enabled yet')+'</div>'+ 
+        '<div><b>Requires reload:</b> '+(reload?'Yes':'No')+'</div>'+ 
+        (sha?'<div class="muted"><b>SHA:</b> '+esc(sha)+'</div>':'')+
+        (size?'<div class="muted"><b>Size:</b> '+esc(size)+' bytes</div>':'')+
+        '<p class="muted">Manifest route: same-origin /__vlm/promax/manifest?channel=current</p>';
+      if(upd||reload){html+='<button class="vlm-quick-guide" id="vlm-update-reload-btn" type="button">Reload with cache-bust</button>'}
+      var m=showModal('update','Viciouslom Update',html);
+      var b=q('#vlm-update-reload-btn',m);if(b)b.onclick=function(ev){stop(ev);try{if('caches'in window)caches.keys().then(function(keys){keys.forEach(function(k){caches.delete(k)})})}catch(e){}setTimeout(function(){var sep=location.href.indexOf('?')>=0?'&':'?';location.href=location.href+sep+'vlm_update_reload='+Date.now()},100);return false};
+    });
+    return false;
+  }
+
+  function patchPanel(){try{css();var panel=q('#lom-panel');if(!panel)return false;patchMainClose();patchFooter();updateHeader();patchLicense();panelInstalled=true;return true}catch(e){try{console.warn('['+MARK+'_PATCH_FAIL]',String(e&&e.message||e))}catch(x){}return false}}
+  function wrapShowTab(){try{var fn=globalThis._LOM_SHOWTAB;if(typeof fn==='function'&&!fn.__vlmEnvRefactor){var wrapped=function(id){var r=fn.apply(this,arguments);setTimeout(patchPanel,0);setTimeout(patchPanel,80);return r};wrapped.__vlmEnvRefactor=true;globalThis._LOM_SHOWTAB=wrapped;showTabWrapped=true;return true}}catch(e){}return false}
+  function boot(n){n=n||0;patchPanel();wrapShowTab();if((!panelInstalled||!showTabWrapped)&&n<50)setTimeout(function(){boot(n+1)},250)}
+
+  loadManifest().then(function(){updateHeader();patchLicense()});
+  if(document.body)boot(0);else setTimeout(function(){boot(0)},300);
+  try{console.warn('['+MARK+'] installed')}catch(e){}
+})();
 /* VLM_PROMAX_UPDATE451_LAMP_START_FIX_V1 — lamp Auto-Use start path verified, no external backend */
 (function(){
 "use strict";
@@ -10343,302 +8924,3 @@ try{
   dbg("installed");
 }catch(e){try{console.warn("["+MARK+"_FAIL]",String(e&&e.message||e))}catch(x){}}
 })();
-
-
-
-/* VLM_PROMAX_UX_V7_SAFE_V3_LICENSE_CHANNEL_CLOSE */
-(function(){
-  "use strict";
-
-  var MARK = "VLM_PROMAX_UX_V7_SAFE_V3_LICENSE_CHANNEL_CLOSE";
-  if (window[MARK]) return;
-  window[MARK] = true;
-
-  var ADMIN_PLAY = "https://vlm-dev-core4.gamervicius14.workers.dev/play";
-  var CLIENT_PLAY = "https://vlm.gamervicius14.workers.dev/play";
-  var ADMIN_HOST = "vlm-dev-core4.gamervicius14.workers.dev";
-  var IS_ADMIN = location.hostname === ADMIN_HOST || location.href.indexOf("vlm-dev-core4") >= 0;
-  var ENV_LABEL = IS_ADMIN ? "Admin" : "Client";
-  var KEY_RE = /\b(?:LOM|VLM)-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}\b/i;
-
-  function norm(s){ return String(s || "").replace(/\s+/g, " ").trim(); }
-
-  function safeTextNode(node) {
-    if (!node || !node.parentElement) return false;
-    var tag = String(node.parentElement.tagName || "").toLowerCase();
-    return !/^(script|style|textarea|noscript)$/i.test(tag);
-  }
-
-  function getCurrentKey() {
-    var list = [];
-
-    try {
-      var u = new URL(location.href);
-      ["key","license","lic","vlm_key","VLM_KEY","activeKey"].forEach(function(k){
-        var v = u.searchParams.get(k);
-        if (v) list.push(v);
-      });
-    } catch(e) {}
-
-    try {
-      [localStorage, sessionStorage].forEach(function(store){
-        if (!store) return;
-
-        ["VLM_ACTIVE_KEY","VLM_LICENSE_KEY","VLM_KEY","LOM_KEY","vlm_key","licenseKey","activeKey","key"].forEach(function(k){
-          try {
-            var v = store.getItem(k);
-            if (v) list.push(v);
-          } catch(e) {}
-        });
-
-        try {
-          for (var i = 0; i < store.length; i++) {
-            var sk = store.key(i);
-            var sv = store.getItem(sk);
-            if (sv && /key|license|vlm|lom/i.test(sk + " " + sv)) list.push(sv);
-          }
-        } catch(e) {}
-      });
-    } catch(e) {}
-
-    try {
-      var bodyText = document.body ? document.body.innerText : "";
-      if (bodyText) list.push(bodyText);
-    } catch(e) {}
-
-    for (var i = 0; i < list.length; i++) {
-      var raw = String(list[i] || "");
-      try { raw = decodeURIComponent(raw); } catch(e) {}
-      var m = raw.match(KEY_RE);
-      if (m && m[0]) return m[0].toUpperCase();
-    }
-
-    return "";
-  }
-
-  function replaceVisibleTexts() {
-    var root = document.body || document.documentElement;
-    if (!root) return;
-
-    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-      acceptNode: function(node) {
-        if (!safeTextNode(node)) return NodeFilter.FILTER_REJECT;
-        var v = node.nodeValue || "";
-        if (!/v3\.95|\bTEST\b|\bLIVE\b|\btest\b|\blive\b|·\s*(Admin|Client)/i.test(v)) return NodeFilter.FILTER_SKIP;
-        return NodeFilter.FILTER_ACCEPT;
-      }
-    });
-
-    var nodes = [];
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-
-    nodes.forEach(function(node){
-      var v = node.nodeValue || "";
-      var t = norm(v);
-      var nv = v;
-
-      nv = nv.replace(/v3\.95/g, "v7.00");
-      nv = nv.replace(/v7\.00\s*·\s*(Admin|Client|test|live)/ig, "v7.00 · " + ENV_LABEL);
-
-      if (/^TEST$/i.test(t)) nv = "ADMIN";
-      else if (/^LIVE$/i.test(t)) nv = "CLIENT";
-      else if (/^test$/i.test(t)) nv = "Admin";
-      else if (/^live$/i.test(t)) nv = "Client";
-
-      if (nv !== v) node.nodeValue = nv;
-    });
-  }
-
-  function findTextEls(pattern) {
-    var arr = [];
-    try {
-      Array.prototype.forEach.call(document.querySelectorAll("button,a,div,span,p,label,strong,b,h1,h2,h3,h4"), function(el){
-        var t = norm(el.textContent);
-        if (pattern.test(t)) arr.push(el);
-      });
-    } catch(e) {}
-    return arr;
-  }
-
-  function styleBuyKey() {
-    findTextEls(/^(BUY\s*KEY|COMPRAR\s*CHAVE)$/i).forEach(function(el){
-      try {
-        el.setAttribute("data-vlm-buy-key-yellow-v3", "1");
-        el.style.setProperty("background", "linear-gradient(180deg,#ffd84d,#ffab19)", "important");
-        el.style.setProperty("color", "#160d00", "important");
-        el.style.setProperty("border", "1px solid rgba(255,230,120,.95)", "important");
-        el.style.setProperty("border-radius", "16px", "important");
-        el.style.setProperty("box-shadow", "0 0 18px rgba(255,184,30,.42), inset 0 1px 0 rgba(255,255,255,.35)", "important");
-        el.style.setProperty("font-weight", "900", "important");
-        el.style.setProperty("letter-spacing", ".04em", "important");
-        el.style.setProperty("text-transform", "uppercase", "important");
-        el.style.setProperty("padding", "12px 16px", "important");
-      } catch(e) {}
-    });
-  }
-
-  function ensureActiveKeyOnly() {
-    var labels = findTextEls(/^(Active\s*Key|Chave\s*Ativa)$/i);
-    if (!labels.length) return;
-
-    var key = getCurrentKey();
-    var val = key || "No key found";
-
-    labels.forEach(function(label){
-      try {
-        var next = label.nextElementSibling;
-        var box = null;
-
-        if (next && next.getAttribute && next.getAttribute("data-vlm-active-key-box-v3") === "1") {
-          box = next;
-        }
-
-        if (!box) {
-          box = document.createElement("div");
-          box.setAttribute("data-vlm-active-key-box-v3", "1");
-          label.insertAdjacentElement("afterend", box);
-        }
-
-        box.textContent = val;
-        box.style.cssText = [
-          "margin:14px auto 0",
-          "width:min(86%,620px)",
-          "min-height:44px",
-          "display:flex",
-          "align-items:center",
-          "justify-content:center",
-          "border-radius:18px",
-          "background:rgba(5,12,32,.88)",
-          "color:" + (key ? "#43d17a" : "#7f8ca8"),
-          "font-family:monospace",
-          "font-weight:800",
-          "font-size:clamp(14px,3.4vw,22px)",
-          "letter-spacing:" + (key ? ".14em" : ".04em"),
-          "white-space:nowrap",
-          "overflow:hidden",
-          "text-overflow:ellipsis",
-          "padding:12px 18px",
-          "box-sizing:border-box"
-        ].join(";");
-      } catch(e) {}
-    });
-  }
-
-  function promaxContext(el) {
-    try {
-      var n = el;
-      for (var i = 0; i < 8 && n; i++, n = n.parentElement) {
-        var txt = norm(n.textContent);
-        if (/Viciouslom|ProMax|License|Active Key|Chave Ativa|BUY KEY|COMPRAR CHAVE|Channel|Canal/i.test(txt)) return true;
-      }
-    } catch(e) {}
-    return false;
-  }
-
-  function handleChannelClick(ev) {
-    try {
-      var el = ev.target && ev.target.closest ? ev.target.closest("button,a,div,span,li,option") : null;
-      if (!el || !promaxContext(el)) return;
-
-      var t = norm(el.textContent || el.value || "");
-      if (!/^(Admin|ADMIN|Test|TEST|Client|CLIENT|Live|LIVE)$/i.test(t)) return;
-
-      var target = /^(Client|CLIENT|Live|LIVE)$/i.test(t) ? CLIENT_PLAY : ADMIN_PLAY;
-
-      ev.preventDefault();
-      ev.stopPropagation();
-
-      if (location.href !== target) {
-        setTimeout(function(){ location.href = target; }, 80);
-      }
-      return false;
-    } catch(e) {}
-  }
-
-  function showGuide() {
-    var old = document.getElementById("vlm-quick-guide-modal-v7safe3");
-    if (old) old.remove();
-
-    var ov = document.createElement("div");
-    ov.id = "vlm-quick-guide-modal-v7safe3";
-    ov.style.cssText = "position:fixed;inset:0;z-index:2147483647;background:rgba(0,0,0,.62);display:flex;align-items:center;justify-content:center;padding:18px;font-family:system-ui,-apple-system,Segoe UI,sans-serif";
-
-    var box = document.createElement("div");
-    box.style.cssText = "width:min(720px,94vw);max-height:86vh;overflow:auto;border:1px solid rgba(63,220,255,.75);border-radius:22px;background:linear-gradient(180deg,rgba(7,14,34,.98),rgba(8,8,26,.98));box-shadow:0 0 28px rgba(63,220,255,.28);color:#eaf8ff;padding:22px";
-
-    box.innerHTML =
-      '<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px">' +
-      '<h2 style="margin:0;color:#39dfff;font-size:22px">📘 Quick Guide: license & setup</h2>' +
-      '<button data-close="1" style="border:1px solid #39dfff;background:transparent;color:#bff6ff;border-radius:12px;padding:8px 12px;font-weight:700">Close</button>' +
-      '</div>' +
-      '<div style="line-height:1.55;font-size:15px">' +
-      '<p><b>iOS PWA:</b> open in Safari, tap Share, then Add to Home Screen.</p>' +
-      '<p><b>Android PWA:</b> open in Chrome, tap menu ⋮, then Add to Home screen / Install app.</p>' +
-      '<p><b>Channel:</b> Admin = canary/admin. Client = public/client link.</p>' +
-      '<p><b>Active Key:</b> shown in green on the License tab when detected.</p>' +
-      '</div>';
-
-    ov.appendChild(box);
-    document.body.appendChild(ov);
-
-    ov.addEventListener("click", function(ev){
-      if (ev.target === ov || ev.target.getAttribute("data-close") === "1") ov.remove();
-    }, true);
-  }
-
-  function installClicks() {
-    if (window.__vlmUxV3ClicksInstalled) return;
-    window.__vlmUxV3ClicksInstalled = true;
-
-    document.addEventListener("click", function(ev){
-      try {
-        handleChannelClick(ev);
-
-        var el = ev.target && ev.target.closest ? ev.target.closest("button,a,span,div") : null;
-        if (!el) return;
-
-        var t = norm(el.textContent);
-
-        if (/^(📺\s*)?(Guide|Guia)$/i.test(t) || (/^(Guide|Guia)\b/i.test(t) && t.length < 24)) {
-          ev.preventDefault();
-          ev.stopPropagation();
-          showGuide();
-          return false;
-        }
-
-        if (/^(×|X|Close|Fechar)$/i.test(t) && promaxContext(el)) {
-          ev.__vlmCloseMenuV3 = true;
-          setTimeout(function(){ replaceVisibleTexts(); styleBuyKey(); ensureActiveKeyOnly(); }, 80);
-        }
-      } catch(e) {}
-    }, true);
-
-    document.addEventListener("click", function(ev){
-      try {
-        if (ev.__vlmCloseMenuV3) {
-          ev.stopPropagation();
-        }
-      } catch(e) {}
-    }, false);
-  }
-
-  function apply() {
-    replaceVisibleTexts();
-    styleBuyKey();
-    ensureActiveKeyOnly();
-    installClicks();
-  }
-
-  apply();
-
-  var ticks = 0;
-  var timer = setInterval(function(){
-    apply();
-    ticks++;
-    if (ticks > 180) clearInterval(timer);
-  }, 1000);
-
-  console.warn("[" + MARK + "] installed");
-})();
-/* /VLM_PROMAX_UX_V7_SAFE_V3_LICENSE_CHANNEL_CLOSE */
-
