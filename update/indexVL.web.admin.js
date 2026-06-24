@@ -10631,3 +10631,305 @@ function _0x36248b(){getRuntimeSingleton("SeasonDataCache","SeasonDataCache")["t
   console.log("[" + MARKER + "] installed", { env: envName() });
 })();
 
+
+
+
+/* ============================================================
+ * VLM_LICENSE_VALIDITY_DISPLAY_FIX_V1
+ * Corrige fallback incorreto: não tratar prazo ausente como Permanente.
+ * Lê expiração de respostas /__vlm/license/verify|activate e localStorage.
+ * Não altera validação. Não libera key. Apenas corrige exibição da validade.
+ * ============================================================ */
+(function(){
+  "use strict";
+  if (window.__VLM_LICENSE_VALIDITY_DISPLAY_FIX_V1__) return;
+  window.__VLM_LICENSE_VALIDITY_DISPLAY_FIX_V1__ = true;
+
+  var MARK = "VLM_LICENSE_VALIDITY_DISPLAY_FIX_V1";
+  var LS_EXP_KEYS = [
+    "KEY_EXPIRES",
+    "VLM_KEY_EXPIRES",
+    "VLM_LICENSE_EXPIRES",
+    "VLM_LICENSE_EXPIRES_AT",
+    "VLM_SESSION_EXPIRES",
+    "VLM_SESSION_EXPIRES_AT",
+    "expires_at",
+    "expiresAt",
+    "valid_until",
+    "validUntil"
+  ];
+
+  function nowSec(){
+    return Math.floor(Date.now() / 1000);
+  }
+
+  function parseDateValue(v){
+    try {
+      if (v === null || v === undefined || v === "") return 0;
+
+      if (typeof v === "number") {
+        if (!isFinite(v) || v <= 0) return 0;
+        if (v > 100000000000) return Math.floor(v / 1000);
+        return Math.floor(v);
+      }
+
+      if (typeof v === "string") {
+        var t = v.trim();
+        if (!t || t === "0" || /^null$/i.test(t) || /^undefined$/i.test(t)) return 0;
+
+        if (/^\d+$/.test(t)) {
+          var n = Number(t);
+          if (!isFinite(n) || n <= 0) return 0;
+          if (n > 100000000000) return Math.floor(n / 1000);
+          return Math.floor(n);
+        }
+
+        var ms = Date.parse(t);
+        if (isFinite(ms) && ms > 0) return Math.floor(ms / 1000);
+      }
+    } catch(e){}
+    return 0;
+  }
+
+  function findExpiryDeep(obj, depth){
+    if (!obj || depth > 6) return 0;
+
+    if (typeof obj !== "object") return 0;
+
+    var names = [
+      "expires_at","expiresAt","expire_at","expireAt",
+      "expires","expiry","expiry_at","expiryAt",
+      "valid_until","validUntil","valid_to","validTo",
+      "ends_at","endsAt","end_at","endAt",
+      "deadline","deadline_at","deadlineAt",
+      "expire_ts","expires_ts","expiresTs",
+      "expires_unix","expiresUnix",
+      "valid_until_unix","validUntilUnix"
+    ];
+
+    for (var i=0;i<names.length;i++){
+      if (Object.prototype.hasOwnProperty.call(obj, names[i])) {
+        var v = parseDateValue(obj[names[i]]);
+        if (v > 0) return v;
+      }
+    }
+
+    for (var k in obj){
+      if (!Object.prototype.hasOwnProperty.call(obj,k)) continue;
+      var vv = obj[k];
+      if (vv && typeof vv === "object") {
+        var found = findExpiryDeep(vv, depth + 1);
+        if (found > 0) return found;
+      }
+    }
+    return 0;
+  }
+
+  function hasExplicitPermanent(obj, depth){
+    if (!obj || typeof obj !== "object" || depth > 5) return false;
+
+    var direct = [
+      "permanent","isPermanent","lifetime","isLifetime",
+      "forever","no_expiry","noExpiry","neverExpires"
+    ];
+
+    for (var i=0;i<direct.length;i++){
+      if (obj[direct[i]] === true) return true;
+      if (typeof obj[direct[i]] === "string" && /^(1|true|yes|sim)$/i.test(obj[direct[i]])) return true;
+    }
+
+    var modes = [
+      obj.mode, obj.expiry_mode, obj.expiryMode, obj.validity,
+      obj.duration, obj.plan, obj.type
+    ];
+
+    for (var j=0;j<modes.length;j++){
+      if (typeof modes[j] === "string" && /permanent|lifetime|forever|never|sem prazo|vital/i.test(modes[j])) {
+        return true;
+      }
+    }
+
+    for (var k in obj){
+      if (!Object.prototype.hasOwnProperty.call(obj,k)) continue;
+      if (obj[k] && typeof obj[k] === "object" && hasExplicitPermanent(obj[k], depth + 1)) return true;
+    }
+    return false;
+  }
+
+  function persistExpiryFromResponse(data){
+    try {
+      if (!data || typeof data !== "object") return;
+
+      var exp = findExpiryDeep(data, 0);
+      if (exp > 0) {
+        localStorage.setItem("KEY_EXPIRES", String(exp));
+        localStorage.setItem("VLM_KEY_EXPIRES", String(exp));
+        localStorage.setItem("VLM_LICENSE_EXPIRES_AT", String(exp));
+        localStorage.setItem("VLM_LICENSE_LAST_EXPIRY_SOURCE", "api_response");
+        return;
+      }
+
+      if (hasExplicitPermanent(data, 0)) {
+        localStorage.setItem("VLM_LICENSE_EXPLICIT_PERMANENT", "1");
+        localStorage.setItem("VLM_LICENSE_LAST_EXPIRY_SOURCE", "api_explicit_permanent");
+      } else {
+        localStorage.removeItem("VLM_LICENSE_EXPLICIT_PERMANENT");
+      }
+    } catch(e){}
+  }
+
+  function scanLocalStorageForExpiry(){
+    try {
+      for (var i=0;i<LS_EXP_KEYS.length;i++){
+        var raw = localStorage.getItem(LS_EXP_KEYS[i]);
+        var exp = parseDateValue(raw);
+        if (exp > 0) return exp;
+      }
+
+      for (var j=0;j<localStorage.length;j++){
+        var key = localStorage.key(j);
+        if (!key) continue;
+        if (!/VLM|LOM|KEY|LICENSE|SESSION|AUTH/i.test(key)) continue;
+
+        var val = localStorage.getItem(key);
+        if (!val || val.length < 2) continue;
+
+        if (val[0] === "{" || val[0] === "[") {
+          try {
+            var obj = JSON.parse(val);
+            var found = findExpiryDeep(obj, 0);
+            if (found > 0) return found;
+            if (hasExplicitPermanent(obj, 0)) localStorage.setItem("VLM_LICENSE_EXPLICIT_PERMANENT", "1");
+          } catch(e){}
+        }
+      }
+    } catch(e){}
+    return 0;
+  }
+
+  function formatRemaining(exp){
+    var left = exp - nowSec();
+    if (left <= 0) return "Expirada";
+
+    var d = Math.floor(left / 86400);
+    var h = Math.floor((left % 86400) / 3600);
+    var m = Math.floor((left % 3600) / 60);
+
+    if (d > 0) return d + "d " + h + "h restantes";
+    if (h > 0) return h + "h " + m + "min restantes";
+    return Math.max(1, m) + "min restantes";
+  }
+
+  function validityText(){
+    var exp = scanLocalStorageForExpiry();
+    if (exp > 0) return formatRemaining(exp);
+
+    try {
+      if (localStorage.getItem("VLM_LICENSE_EXPLICIT_PERMANENT") === "1") {
+        return "Permanente";
+      }
+    } catch(e){}
+
+    return "Validade não informada";
+  }
+
+  function setTextNode(el, txt){
+    if (!el) return;
+    try { el.textContent = txt; } catch(e){}
+  }
+
+  function patchByKnownIds(txt){
+    var ids = [
+      "lom-lic-exp",
+      "vlm-license-exp",
+      "vlm-license-validity",
+      "vlm-validade",
+      "vlm-validity",
+      "license-validity",
+      "license-expiry"
+    ];
+
+    for (var i=0;i<ids.length;i++){
+      var el = document.getElementById(ids[i]);
+      if (el) {
+        setTextNode(el, txt);
+        el.style.color = txt === "Expirada" ? "#ff5c7a" : (txt === "Validade não informada" ? "#ffd166" : "#70e08a");
+      }
+    }
+  }
+
+  function patchTextFallback(txt){
+    try {
+      var root = document.querySelector("#lom-panel, #vlm-panel, [data-vlm-panel], .vlm-panel, .lom-panel") || document.body;
+      if (!root) return;
+
+      var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+        acceptNode: function(n){
+          var v = (n.nodeValue || "").trim();
+          if (!v) return NodeFilter.FILTER_REJECT;
+          if (/^(Permanente|Permanent|Vĩnh viễn)$/i.test(v)) return NodeFilter.FILTER_ACCEPT;
+          if (/^\d+d\s+\d+h restantes$/i.test(v)) return NodeFilter.FILTER_ACCEPT;
+          if (/^\d+h\s+\d+min restantes$/i.test(v)) return NodeFilter.FILTER_ACCEPT;
+          if (/^\d+min restantes$/i.test(v)) return NodeFilter.FILTER_ACCEPT;
+          if (/^Validade não informada$/i.test(v)) return NodeFilter.FILTER_ACCEPT;
+          return NodeFilter.FILTER_REJECT;
+        }
+      });
+
+      var nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+
+      nodes.forEach(function(n){
+        n.nodeValue = txt;
+        try {
+          var p = n.parentElement;
+          if (p) p.style.color = txt === "Expirada" ? "#ff5c7a" : (txt === "Validade não informada" ? "#ffd166" : "#70e08a");
+        } catch(e){}
+      });
+    } catch(e){}
+  }
+
+  function refreshValidityDisplay(){
+    try {
+      var txt = validityText();
+      patchByKnownIds(txt);
+      patchTextFallback(txt);
+    } catch(e){}
+  }
+
+  try {
+    var oldFetch = window.fetch;
+    if (typeof oldFetch === "function" && !oldFetch.__vlmValidityFixWrapped) {
+      var wrapped = function(input, init){
+        return oldFetch.apply(this, arguments).then(function(resp){
+          try {
+            var url = String(input && input.url ? input.url : input);
+            if (/\/__vlm\/license\/(verify|activate)|\/verify|\/activate/i.test(url)) {
+              resp.clone().json().then(function(j){
+                persistExpiryFromResponse(j);
+                setTimeout(refreshValidityDisplay, 100);
+                setTimeout(refreshValidityDisplay, 1000);
+              }).catch(function(){});
+            }
+          } catch(e){}
+          return resp;
+        });
+      };
+      wrapped.__vlmValidityFixWrapped = true;
+      window.fetch = wrapped;
+    }
+  } catch(e){}
+
+  try {
+    var obs = new MutationObserver(function(){ refreshValidityDisplay(); });
+    obs.observe(document.documentElement || document.body, {subtree:true, childList:true, characterData:true});
+  } catch(e){}
+
+  setInterval(refreshValidityDisplay, 2000);
+  setTimeout(refreshValidityDisplay, 500);
+  setTimeout(refreshValidityDisplay, 2000);
+  setTimeout(refreshValidityDisplay, 5000);
+
+  try { console.log("[" + MARK + "] installed"); } catch(e){}
+})();
+
