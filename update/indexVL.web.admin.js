@@ -10660,3 +10660,141 @@ function _0x36248b(){getRuntimeSingleton("SeasonDataCache","SeasonDataCache")["t
 /* VLM_OLD_LICENSE_LAYERS_REMOVED_FOR_PAYLOAD_UI_REFACTOR_V8 */
 
 /* VLM_ADMIN_PAYLOAD_UI_LICENSE_REFACTOR_V8_APPLIED */
+
+
+/* VLM_ADMIN_V82_HOLO_MESH_VISUAL_ONLY_START */
+(function(){
+  try{
+    if (document.getElementById("vlm-admin-v82-holo-mesh-style")) return;
+
+    var css = `
+#lom-panel{
+  border:1px solid rgba(184,124,255,.92)!important;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.06) inset,
+    0 0 22px rgba(167,92,255,.42),
+    0 0 58px rgba(0,229,255,.18),
+    0 22px 70px rgba(0,0,0,.72)!important;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(120,240,255,.18), transparent 34%),
+    radial-gradient(circle at 82% 18%, rgba(255,92,210,.18), transparent 32%),
+    radial-gradient(circle at 50% 115%, rgba(155,92,255,.18), transparent 42%),
+    linear-gradient(145deg, rgba(10,13,30,.94), rgba(8,9,24,.91) 45%, rgba(13,8,28,.94))!important;
+  backdrop-filter: blur(16px) saturate(150%)!important;
+  -webkit-backdrop-filter: blur(16px) saturate(150%)!important;
+  isolation:isolate!important;
+}
+
+#lom-panel:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  z-index:0;
+  opacity:.58;
+  background-image:
+    linear-gradient(115deg, rgba(255,255,255,.00) 0%, rgba(255,255,255,.18) 18%, rgba(127,247,255,.10) 31%, rgba(255,86,205,.12) 46%, rgba(255,255,255,.00) 67%),
+    linear-gradient(rgba(168,112,255,.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(104,231,255,.11) 1px, transparent 1px),
+    radial-gradient(circle at 30% 25%, rgba(183,86,255,.20), transparent 28%),
+    radial-gradient(circle at 75% 70%, rgba(0,255,231,.12), transparent 31%);
+  background-size: 190% 190%, 28px 28px, 28px 28px, 100% 100%, 100% 100%;
+  animation: vlmHoloMeshFlow 7s linear infinite;
+  mix-blend-mode: screen;
+}
+
+#lom-panel:after{
+  content:"";
+  position:absolute;
+  inset:1px;
+  border-radius:inherit;
+  pointer-events:none;
+  z-index:1;
+  background:
+    linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent),
+    linear-gradient(180deg, rgba(255,255,255,.08), transparent 28%, rgba(176,90,255,.08));
+  opacity:.38;
+  animation: vlmHoloSheen 4.8s ease-in-out infinite;
+}
+
+#lom-panel > *{
+  position:relative;
+  z-index:2;
+}
+
+#lom-panel .lom-hdr{
+  background:
+    linear-gradient(135deg, rgba(130,83,255,.20), rgba(0,229,255,.08), rgba(255,73,191,.13))!important;
+  border-bottom:1px solid rgba(184,124,255,.55)!important;
+  box-shadow:0 0 24px rgba(164,90,255,.25)!important;
+}
+
+#lom-panel .logo,
+#lom-fab{
+  background:
+    radial-gradient(circle at 35% 25%, rgba(255,255,255,.34), transparent 28%),
+    linear-gradient(135deg, rgba(112,70,255,.92), rgba(28,235,255,.42), rgba(255,62,202,.72))!important;
+  border:1px solid rgba(220,190,255,.95)!important;
+  box-shadow:
+    0 0 16px rgba(180,112,255,.85),
+    0 0 34px rgba(0,229,255,.32),
+    inset 0 0 18px rgba(255,255,255,.10)!important;
+}
+
+#lom-panel .lom-tabs button,
+#lom-panel .lom-btn,
+#lom-panel button{
+  text-shadow:0 0 10px rgba(224,196,255,.55)!important;
+}
+
+#lom-panel .lom-tabs button{
+  border-bottom:2px solid rgba(174,112,255,.72)!important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.05), rgba(120,80,255,.04))!important;
+}
+
+#lom-panel .lom-tabs button.active,
+#lom-panel .lom-tabs button:hover{
+  color:#f4e9ff!important;
+  background:
+    linear-gradient(135deg, rgba(138,88,255,.34), rgba(0,229,255,.12), rgba(255,64,190,.18))!important;
+  box-shadow:
+    0 0 20px rgba(168,100,255,.45),
+    inset 0 -2px 0 rgba(255,220,60,.95)!important;
+}
+
+#lom-panel input,
+#lom-panel select,
+#lom-panel textarea{
+  background:rgba(8,10,24,.78)!important;
+  border:1px solid rgba(180,120,255,.82)!important;
+  box-shadow:0 0 16px rgba(160,92,255,.22), inset 0 0 16px rgba(0,0,0,.35)!important;
+}
+
+#lom-panel .lom-foot{
+  border-top:1px solid rgba(176,112,255,.45)!important;
+  background:linear-gradient(90deg, rgba(110,70,255,.12), rgba(0,220,255,.05), rgba(255,65,180,.08))!important;
+}
+
+@keyframes vlmHoloMeshFlow{
+  0%{background-position:0% 0%,0 0,0 0,0 0,0 0}
+  100%{background-position:190% 190%,28px 28px,-28px 28px,0 0,0 0}
+}
+
+@keyframes vlmHoloSheen{
+  0%,100%{opacity:.22; transform:translateX(-4%)}
+  50%{opacity:.48; transform:translateX(4%)}
+}
+`;
+
+    var st = document.createElement("style");
+    st.id = "vlm-admin-v82-holo-mesh-style";
+    st.textContent = css;
+    document.head.appendChild(st);
+
+    try{ console.warn("[VLM_ADMIN_V82_HOLO_MESH_VISUAL_ONLY] installed"); }catch(e){}
+  }catch(e){}
+})();
+/* VLM_ADMIN_V82_HOLO_MESH_VISUAL_ONLY_END */
+
