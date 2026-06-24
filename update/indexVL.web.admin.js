@@ -10976,3 +10976,202 @@ function _0x36248b(){getRuntimeSingleton("SeasonDataCache","SeasonDataCache")["t
   log("installed");
 })(typeof window!=="undefined"?window:globalThis);
 
+
+/* ============================================================
+ * VLM_MENU_LICENSE_ROLEID_STICKY_V3
+ * Fix: captura roleId tardio e impede que "Aguardando roleId"
+ * sobrescreva uma validade real já encontrada.
+ * ============================================================ */
+(function(){
+  'use strict';
+  var g = typeof globalThis !== 'undefined' ? globalThis : window;
+  if (g.VLM_MENU_LICENSE_ROLEID_STICKY_V3) return;
+  g.VLM_MENU_LICENSE_ROLEID_STICKY_V3 = true;
+  var MARK = 'VLM_MENU_LICENSE_ROLEID_STICKY_V3';
+  function log(){ try { console.log.apply(console, ['['+MARK+']'].concat([].slice.call(arguments))); } catch(e){} }
+  function lsGet(k){ try { return localStorage.getItem(k) || sessionStorage.getItem(k) || ''; } catch(e){ return ''; } }
+  function lsSet(k,v){ try { localStorage.setItem(k,String(v)); sessionStorage.setItem(k,String(v)); } catch(e){} }
+  function normRole(v){
+    if (v === null || v === undefined) return '';
+    var s = String(v).trim();
+    if (!s || s === '0' || /^null|undefined$/i.test(s)) return '';
+    var m = s.match(/\d{9,18}/);
+    return m && m[0] !== '0' ? m[0] : '';
+  }
+  function saveRole(id, src){
+    id = normRole(id);
+    if (!id) return '';
+    var keys = ['VLM_ROLE_ID','ROLE_ID','roleId','role_id','per_id','PER_ID','LOM_ROLE_ID','lastRoleId','chooseRoleId'];
+    for (var i=0;i<keys.length;i++) lsSet(keys[i], id);
+    lsSet('VLM_ROLE_ID_SOURCE', src || MARK);
+    if (g.__VLM_LICENSE) { try { g.__VLM_LICENSE.roleId = id; } catch(e){} }
+    return id;
+  }
+  function parseRoleFromText(raw, src){
+    if (!raw) return '';
+    var txt = String(raw);
+    var variants = [txt];
+    try { variants.push(decodeURIComponent(txt)); } catch(e){}
+    try { variants.push(decodeURIComponent(decodeURIComponent(txt))); } catch(e){}
+    for (var i=0;i<variants.length;i++){
+      var s = variants[i];
+      var pats = [
+        /["']?role[_-]?id["']?\s*[:=]\s*["']?(\d{9,18})/i,
+        /["']?roleId["']?\s*[:=]\s*["']?(\d{9,18})/i,
+        /["']?roleid["']?\s*[:=]\s*["']?(\d{9,18})/i,
+        /%22roleId%22%3A%22(\d{9,18})/i,
+        /%22roleid%22%3A%22(\d{9,18})/i
+      ];
+      for (var j=0;j<pats.length;j++){
+        var m = s.match(pats[j]);
+        if (m && normRole(m[1])) return saveRole(m[1], src || 'parse');
+      }
+    }
+    return '';
+  }
+  function getRole(){
+    var keys = ['VLM_ROLE_ID','ROLE_ID','roleId','role_id','per_id','PER_ID','LOM_ROLE_ID','lastRoleId','chooseRoleId'];
+    for (var i=0;i<keys.length;i++){ var r = normRole(lsGet(keys[i])); if (r) return saveRole(r,'storage:'+keys[i]); }
+    try { var L = g.__VLM_LICENSE || g.VLM_LICENSE || {}; var r1 = normRole(L.roleId || L.role_id || L.per_id); if (r1) return saveRole(r1,'global-license'); } catch(e){}
+    try {
+      var paths = ['RoleDataCache','roleDataCache','LoginDataCache','loginDataCache','RoleModel','roleModel'];
+      for (var p=0;p<paths.length;p++){
+        var o = g[paths[p]];
+        if (!o) continue;
+        var vals = [o.roleId,o.role_id,o.roleID,o.per_id,o.id];
+        for (var vi=0;vi<vals.length;vi++){ var rr=normRole(vals[vi]); if(rr) return saveRole(rr,'global:'+paths[p]); }
+        var fns = ['GetRoleId','getRoleId','GetRoleID','getRoleID','GetRoleInfo','getRoleInfo'];
+        for (var fi=0;fi<fns.length;fi++){
+          if (typeof o[fns[fi]] === 'function') {
+            try {
+              var ret = o[fns[fi]]();
+              var r2 = normRole(ret && typeof ret === 'object' ? (ret.roleId||ret.role_id||ret.per_id||ret.id) : ret);
+              if (r2) return saveRole(r2,'fn:'+paths[p]+'.'+fns[fi]);
+            } catch(e){}
+          }
+        }
+      }
+    } catch(e){}
+    return '';
+  }
+  function scanPerformance(){
+    try {
+      var list = (performance && performance.getEntriesByType) ? performance.getEntriesByType('resource') : [];
+      for (var i=list.length-1;i>=0 && i>list.length-80;i--){
+        var u = list[i] && list[i].name;
+        if (!u || !/role/i.test(u)) continue;
+        var r = parseRoleFromText(u,'performance');
+        if (r) return r;
+      }
+    } catch(e){}
+    return '';
+  }
+  function patchNetworkHooks(){
+    try {
+      if (g.__VLM_ROLE_STICKY_FETCH_PATCHED__) return;
+      g.__VLM_ROLE_STICKY_FETCH_PATCHED__ = true;
+      var oldFetch = g.fetch;
+      if (typeof oldFetch === 'function') {
+        g.fetch = function(input, init){
+          try { parseRoleFromText((input && input.url) || input || '', 'fetch-url'); } catch(e){}
+          try { if (init && init.body) parseRoleFromText(init.body, 'fetch-body'); } catch(e){}
+          var pr = oldFetch.apply(this, arguments);
+          try { pr.then(function(res){ try { res.clone().text().then(function(t){ parseRoleFromText(t,'fetch-response'); }).catch(function(){}); } catch(e){} }); } catch(e){}
+          return pr;
+        };
+      }
+      var X = g.XMLHttpRequest;
+      if (X && X.prototype) {
+        var open = X.prototype.open, send = X.prototype.send;
+        X.prototype.open = function(method,url){ try { this.__vlm_url = url; parseRoleFromText(url,'xhr-url'); } catch(e){} return open.apply(this, arguments); };
+        X.prototype.send = function(body){
+          try { parseRoleFromText(this.__vlm_url || '', 'xhr-url-send'); if (body) parseRoleFromText(body,'xhr-body'); } catch(e){}
+          try { this.addEventListener('loadend', function(){ try { parseRoleFromText(this.responseText || '', 'xhr-response'); } catch(e){} }); } catch(e){}
+          return send.apply(this, arguments);
+        };
+      }
+      try {
+        var desc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');
+        if (desc && desc.set && desc.get && !HTMLImageElement.prototype.__vlmRoleSrcPatched) {
+          Object.defineProperty(HTMLImageElement.prototype, 'src', {
+            configurable: true,
+            enumerable: desc.enumerable,
+            get: desc.get,
+            set: function(v){ try { parseRoleFromText(v,'img-src'); } catch(e){} return desc.set.call(this, v); }
+          });
+          HTMLImageElement.prototype.__vlmRoleSrcPatched = true;
+        }
+      } catch(e){}
+    } catch(e){}
+  }
+  function activeKey(){
+    var keys = ['VLM_LICENSE_KEY','KEY_ACTIVE','MOD_KEY','VLM_PROMAX_ACTIVE_KEY_DISPLAY','MOD_KEY_CODE','KEY_CODE','VLM_ACTIVE_KEY','VLM_KEY','LAST_VALID_KEY','vlm_active_key','vlm_key'];
+    for (var i=0;i<keys.length;i++){
+      var v = lsGet(keys[i]);
+      var m = String(v||'').match(/(?:key=)?(VLM[A-Z0-9-]{6,})/i);
+      if (m) return m[1].toUpperCase();
+    }
+    try { var inp = document.querySelector('#lom-panel input, input'); if (inp && inp.value) { var m2=String(inp.value).match(/(?:key=)?(VLM[A-Z0-9-]{6,})/i); if(m2) return m2[1].toUpperCase(); } } catch(e){}
+    return '';
+  }
+  function expTs(){
+    var keys=['VLM_LICENSE_EXPIRES_AT','VLM_KEY_EXPIRES','KEY_EXPIRES','MOD_KEY_EXPIRES','validUntil','expiresAt'];
+    for (var i=0;i<keys.length;i++){
+      var v=lsGet(keys[i]);
+      if (!v) continue;
+      var n = /^\d+$/.test(String(v)) ? Number(v) : Math.floor(Date.parse(v)/1000);
+      if (n && isFinite(n)) { if (n>100000000000) n=Math.floor(n/1000); if (n>0) return n; }
+    }
+    return 0;
+  }
+  function fmt(ts){
+    var left = Math.max(0, ts - Math.floor(Date.now()/1000));
+    var d = Math.floor(left/86400), h = Math.floor((left%86400)/3600), m = Math.floor((left%3600)/60);
+    if (d>0) return 'Restante '+d+' dia'+(d>1?'s':'')+' '+h+' hrs';
+    if (h>0) return 'Restante '+h+' hrs '+m+' min';
+    return 'Restante '+Math.max(1,m)+' min';
+  }
+  function setExpDom(txt, color){
+    try {
+      var root = document.getElementById('lom-panel') || document.body;
+      if (!root) return;
+      var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+      var nodes = [];
+      while (walker.nextNode()) {
+        var t = String(walker.currentNode.nodeValue || '').trim();
+        if (/Aguardando roleId|Validade não informada|Consultando validade|Restante \d+|Permanente/i.test(t)) nodes.push(walker.currentNode);
+      }
+      if (!nodes.length) return;
+      var preferred = null;
+      for (var i=0;i<nodes.length;i++){
+        var p = nodes[i].parentElement;
+        if (p && /Aguardando roleId|Validade não informada|Restante|Permanente/i.test(nodes[i].nodeValue||'')) { preferred = nodes[i]; break; }
+      }
+      var n = preferred || nodes[0];
+      n.nodeValue = txt;
+      try { n.parentElement.style.color = color || '#e8ecf4'; } catch(e){}
+    } catch(e){}
+  }
+  var lastVerify = 0;
+  function maybeSync(){
+    var r = getRole() || scanPerformance();
+    var ts = expTs();
+    if (ts > 0) setExpDom(fmt(ts), '#e8ecf4');
+    else if (!r) setExpDom('Aguardando entrada no jogo', '#ffc24b');
+    if (r && activeKey() && Date.now() - lastVerify > 2500) {
+      lastVerify = Date.now();
+      try { if (typeof g.VLM_LICENSE_GATE_BRIDGE_SYNC_V2 === 'function') g.VLM_LICENSE_GATE_BRIDGE_SYNC_V2(); } catch(e){}
+    }
+  }
+  patchNetworkHooks();
+  var tick = 0;
+  var timer = setInterval(function(){
+    tick++;
+    maybeSync();
+    if (tick > 90) clearInterval(timer);
+  }, 1000);
+  window.addEventListener('load', function(){ setTimeout(maybeSync, 1000); setTimeout(maybeSync, 4000); }, false);
+  setTimeout(maybeSync, 300);
+  setTimeout(maybeSync, 2500);
+  log('installed');
+})();
