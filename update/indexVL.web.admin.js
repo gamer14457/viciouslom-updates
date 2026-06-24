@@ -10899,6 +10899,7 @@ function _0x36248b(){getRuntimeSingleton("SeasonDataCache","SeasonDataCache")["t
   }
   function findKey(){var k=keyFromDom()||keyFromStorage(); if(k)setActiveKey(k); return k;}
   async function findRoleId(){
+    try{var did=(g.VLM_LICENSE_GET_DEVICE_BINDING_ID_V4&&g.VLM_LICENSE_GET_DEVICE_BINDING_ID_V4())||"";if(did)return String(did).trim();}catch(e){}
     var ks=["VLM_ROLE_ID","ROLE_ID","roleId","role_id","per_id","PER_ID","chooseRoleId","lastRoleId","LOM_ROLE_ID"];
     for(var i=0;i<ks.length;i++)try{var v=localStorage.getItem(ks[i])||sessionStorage.getItem(ks[i]);if(v&&String(v)!=="0")return String(v).trim();}catch(e){}
     try{
@@ -10932,9 +10933,12 @@ function _0x36248b(){getRuntimeSingleton("SeasonDataCache","SeasonDataCache")["t
   }
   async function callApi(ep,key,roleId){
     var url=(location&&location.origin?location.origin:"")+ep;
-    var res=await fetch(url,{method:"POST",headers:{"content-type":"application/json","x-vlm-key":key,"x-vlm-role-id":roleId},body:JSON.stringify({key:key,roleId:roleId,per_id:roleId,apkVersion:"web-admin",source:MARK}),cache:"no-store"});
+    var deviceId=roleId; try{deviceId=(g.VLM_LICENSE_GET_DEVICE_BINDING_ID_V4&&g.VLM_LICENSE_GET_DEVICE_BINDING_ID_V4())||roleId;}catch(e){}
+    var realRoleId=""; try{realRoleId=(g.VLM_LICENSE_GET_REAL_ROLEID_V4&&g.VLM_LICENSE_GET_REAL_ROLEID_V4())||"";}catch(e){}
+    var body={key:key,roleId:deviceId,per_id:deviceId,deviceId:deviceId,bindingId:deviceId,realRoleId:realRoleId,gameRoleId:realRoleId,apkVersion:"web-admin",source:MARK,identityMode:"deviceId"};
+    var res=await fetch(url,{method:"POST",headers:{"content-type":"application/json","x-vlm-key":key,"x-vlm-role-id":deviceId,"x-vlm-device-id":deviceId,"x-vlm-binding-id":deviceId},body:JSON.stringify(body),cache:"no-store"});
     var j=await res.json().catch(function(){return null;});
-    log(ep,res.status,j&&j.status,j&&j.plan,j&&j.expiresAt||j&&j.validUntil);
+    log(ep,res.status,j&&j.status,j&&j.plan,j&&j.expiresAt||j&&j.validUntil, "deviceId", deviceId, "role", realRoleId);
     return j;
   }
   async function bridgeSync(reason){
@@ -10944,7 +10948,8 @@ function _0x36248b(){getRuntimeSingleton("SeasonDataCache","SeasonDataCache")["t
       var key=findKey();
       var roleId=await findRoleId();
       if(!key){setExp("Informe uma key", "#ffc24b"); BUSY=false; return;}
-      if(!roleId){setExp("Aguardando roleId", "#ffc24b"); BUSY=false; return;}
+      if(!roleId){try{roleId=(g.VLM_LICENSE_GET_DEVICE_BINDING_ID_V4&&g.VLM_LICENSE_GET_DEVICE_BINDING_ID_V4())||"";}catch(e){}}
+      if(!roleId){setExp("Aguardando deviceId", "#ffc24b"); BUSY=false; return;}
       setActiveKey(key);setExp("Consultando validade...","#7cf6ff");
       var eps=["/__vlm/key/verify","/__vlm/license/verify","/__vlm/key/activate","/__vlm/license/activate","/__vlm/key/verify"];
       var best=null;
@@ -11175,3 +11180,165 @@ function _0x36248b(){getRuntimeSingleton("SeasonDataCache","SeasonDataCache")["t
   setTimeout(maybeSync, 2500);
   log('installed');
 })();
+
+
+/* ============================================================
+ * VLM_LICENSE_DEVICE_ID_BINDING_V4
+ * Validação principal por deviceId/bindingId, roleId apenas auxiliar.
+ * - Não depende do roleId do jogo para liberar/mostrar validade.
+ * - Evita loop visual de "Consultando validade".
+ * - Mantém validade real já recebida na tela.
+ * ============================================================ */
+(function(){
+  "use strict";
+  var g = typeof globalThis !== "undefined" ? globalThis : window;
+  if (g.VLM_LICENSE_DEVICE_ID_BINDING_V4) return;
+  g.VLM_LICENSE_DEVICE_ID_BINDING_V4 = true;
+  var MARK = "VLM_LICENSE_DEVICE_ID_BINDING_V4";
+  var LAST_CALL = 0;
+  var BUSY = false;
+  var LAST_GOOD_TS = 0;
+  function log(){ try { console.log.apply(console, ["["+MARK+"]"].concat([].slice.call(arguments))); } catch(e){} }
+  function get(k){ try { return localStorage.getItem(k) || sessionStorage.getItem(k) || ""; } catch(e){ return ""; } }
+  function set(k,v){ try { localStorage.setItem(k,String(v)); sessionStorage.setItem(k,String(v)); } catch(e){} }
+  function normKey(v){ var m=String(v||"").match(/(?:key\s*=\s*)?(VLM[-A-Z0-9]{6,})/i); return m ? m[1].toUpperCase().replace(/^KEY=/i,"") : ""; }
+  function stableHash(s){ var h=2166136261; for(var i=0;i<String(s).length;i++){ h^=String(s).charCodeAt(i); h+=(h<<1)+(h<<4)+(h<<7)+(h<<8)+(h<<24); } return (h>>>0).toString(36).toUpperCase(); }
+  function parseDeviceFromText(raw, src){
+    if(!raw) return "";
+    var variants=[String(raw)];
+    try{variants.push(decodeURIComponent(String(raw)));}catch(e){}
+    try{variants.push(decodeURIComponent(decodeURIComponent(String(raw))));}catch(e){}
+    var pats=[
+      /["']?deviceId["']?\s*[:=]\s*["']?([A-Za-z0-9_\-.]{12,80})/i,
+      /["']?device_id["']?\s*[:=]\s*["']?([A-Za-z0-9_\-.]{12,80})/i,
+      /deviceId=([A-Za-z0-9_\-.]{12,80})/i,
+      /device_id=([A-Za-z0-9_\-.]{12,80})/i,
+      /(H\d{8,}[A-Za-z0-9_\-.]{6,80})/
+    ];
+    for(var i=0;i<variants.length;i++){
+      var s=variants[i];
+      for(var j=0;j<pats.length;j++){
+        var m=s.match(pats[j]);
+        if(m&&m[1]&&!/^undefined|null|0$/i.test(m[1])) return saveDevice(m[1], src||"parse");
+      }
+    }
+    return "";
+  }
+  function saveDevice(id, src){
+    id=String(id||"").trim();
+    if(!id || id.length<8 || /^0|null|undefined$/i.test(id)) return "";
+    var ks=["VLM_DEVICE_ID","VLM_BINDING_ID","VLM_LICENSE_DEVICE_ID","VLM_WEB_DEVICE_ID","DEVICE_ID","deviceId","device_id","bindingId","per_id_device"];
+    for(var i=0;i<ks.length;i++) set(ks[i], id);
+    set("VLM_DEVICE_ID_SOURCE", src||MARK);
+    // Compatibilidade: o bridge antigo chama isso de roleId, mas o valor é o binding principal por aparelho.
+    set("VLM_LICENSE_BINDING_MODE", "deviceId");
+    set("VLM_LICENSE_PRIMARY_ID", id);
+    set("VLM_ROLE_ID", id);
+    set("ROLE_ID", id);
+    set("roleId", id);
+    set("role_id", id);
+    set("per_id", id);
+    try { g.__VLM_LICENSE = g.__VLM_LICENSE || {}; g.__VLM_LICENSE.deviceId=id; g.__VLM_LICENSE.bindingId=id; g.__VLM_LICENSE.roleId=id; } catch(e){}
+    return id;
+  }
+  function getRealRole(){
+    var ks=["VLM_GAME_ROLE_ID","VLM_REAL_ROLE_ID","LOM_ROLE_ID_REAL","chooseRoleId","lastRoleId"];
+    for(var i=0;i<ks.length;i++){ var v=get(ks[i]); var m=String(v||"").match(/\d{9,18}/); if(m) return m[0]; }
+    // Se roleId local parece numérico e não é nosso deviceId, preserva como auxiliar.
+    var v2=get("VLM_ROLE_ID"); var m2=String(v2||"").match(/^\d{9,18}$/); if(m2) return m2[0];
+    return "";
+  }
+  function getDevice(){
+    var ks=["VLM_DEVICE_ID","VLM_BINDING_ID","VLM_LICENSE_DEVICE_ID","VLM_WEB_DEVICE_ID","DEVICE_ID","deviceId","device_id","bindingId","per_id_device"];
+    for(var i=0;i<ks.length;i++){ var v=get(ks[i]); if(v && String(v).length>=8 && !/^0|null|undefined$/i.test(String(v))) return saveDevice(v,"storage:"+ks[i]); }
+    try {
+      for(var j=0;j<localStorage.length;j++){
+        var k=localStorage.key(j); var val=localStorage.getItem(k)||"";
+        var d=parseDeviceFromText(k+"="+val,"localStorage:"+k); if(d) return d;
+      }
+    } catch(e){}
+    try {
+      var list=(performance&&performance.getEntriesByType)?performance.getEntriesByType("resource"):[];
+      for(var p=list.length-1;p>=0 && p>list.length-120;p--){ var u=list[p]&&list[p].name; var d2=parseDeviceFromText(u,"performance"); if(d2) return d2; }
+    } catch(e){}
+    var seed = [navigator.userAgent, screen.width, screen.height, screen.colorDepth, navigator.language, location.host].join("|");
+    var made = "VLMDEV-" + stableHash(seed) + "-" + stableHash(seed + "|" + (navigator.platform||""));
+    return saveDevice(made,"generated");
+  }
+  g.VLM_LICENSE_GET_DEVICE_BINDING_ID_V4=getDevice;
+  g.VLM_LICENSE_GET_REAL_ROLEID_V4=getRealRole;
+  function keyFromStorage(){
+    var ks=["VLM_LICENSE_KEY","KEY_ACTIVE","MOD_KEY","VLM_PROMAX_ACTIVE_KEY_DISPLAY","MOD_KEY_CODE","KEY_CODE","VLM_ACTIVE_KEY","VLM_KEY","LAST_VALID_KEY","vlm_active_key","vlm_key"];
+    for(var i=0;i<ks.length;i++){ var k=normKey(get(ks[i])); if(k) return k; }
+    return "";
+  }
+  function keyFromDom(){
+    try { var els=document.querySelectorAll("input,textarea,[contenteditable='true']"); for(var i=0;i<els.length;i++){ var k=normKey(els[i].value||els[i].textContent||els[i].innerText); if(k) return k; } } catch(e){}
+    try { var root=document.querySelector("#lom-panel,.lom-panel,[data-vlm-panel]")||document.body; var m=String(root&&root.innerText||"").match(/(?:key\s*=\s*)?(VLM[-A-Z0-9]{6,})/i); if(m) return normKey(m[0]); } catch(e){}
+    return "";
+  }
+  function saveKey(k){ if(!k)return; var ks=["VLM_LICENSE_KEY","KEY_ACTIVE","MOD_KEY","VLM_ACTIVE_KEY","LAST_VALID_KEY"]; for(var i=0;i<ks.length;i++) set(ks[i],k); }
+  function findKey(){ var k=keyFromDom()||keyFromStorage(); if(k) saveKey(k); return k; }
+  function parseTs(v){ if(!v)return 0; if(typeof v==="number")return v>100000000000?Math.floor(v/1000):Math.floor(v); var s=String(v).trim(); if(/^\d+$/.test(s)){var n=Number(s); return n>100000000000?Math.floor(n/1000):Math.floor(n);} var ms=Date.parse(s); return isFinite(ms)?Math.floor(ms/1000):0; }
+  function findExpiry(o){ if(!o||typeof o!=="object")return 0; var names=["expiresAt","expires_at","validUntil","valid_until","expires","expiry","endAt","end_at"]; for(var i=0;i<names.length;i++){ var ts=parseTs(o[names[i]]); if(ts>0)return ts; } if(o.data&&typeof o.data==="object")return findExpiry(o.data); if(o.license&&typeof o.license==="object")return findExpiry(o.license); return 0; }
+  function isPermanent(o){ if(!o||typeof o!=="object")return false; if(o.permanent===true||o.isPermanent===true||o.lifetime===true)return true; var s=String(o.plan||o.mode||o.type||o.expiry_mode||"").toLowerCase(); return /vital|permanent|lifetime/.test(s); }
+  function fmt(ts){ var left=Math.max(0,ts-Math.floor(Date.now()/1000)); var d=Math.floor(left/86400),h=Math.floor((left%86400)/3600),m=Math.floor((left%3600)/60); if(d>0)return "Restante "+d+" dia"+(d>1?"s":"")+" "+h+" hrs"; if(h>0)return "Restante "+h+" hrs "+m+" min"; return "Restante "+Math.max(1,m)+" min"; }
+  function setText(txt,color){
+    try{
+      var root=document.getElementById("lom-panel")||document.querySelector(".lom-panel,[data-vlm-panel]")||document.body;
+      var walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null); var arr=[];
+      while(walker.nextNode()){ var t=String(walker.currentNode.nodeValue||"").trim(); if(/Consultando validade|Aguardando roleId|Aguardando deviceId|Aguardando entrada|Validade não informada|Restante \d+|Permanente/i.test(t))arr.push(walker.currentNode); }
+      var n=arr[0]; if(n){n.nodeValue=txt; try{n.parentElement.style.color=color||"#e8ecf4";}catch(e){}}
+    }catch(e){}
+  }
+  function setActive(k){ try{ var root=document.getElementById("lom-panel")||document.body; var txt="✅ Ativa: "+k.slice(0,8)+"..."+k.slice(-5); var walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null); var n; while(walker.nextNode()){ var t=String(walker.currentNode.nodeValue||"").trim(); if(/Nenhuma chave ativa|Ativa:\s*VLM/i.test(t)){n=walker.currentNode;break;} } if(n)n.nodeValue=txt; }catch(e){} }
+  function storeExp(ts){ set("KEY_EXPIRES",ts); set("VLM_KEY_EXPIRES",ts); set("VLM_LICENSE_EXPIRES_AT",ts); set("VLM_LICENSE_EXPLICIT_PERMANENT","0"); LAST_GOOD_TS=ts; }
+  function loadExp(){ var ks=["VLM_LICENSE_EXPIRES_AT","VLM_KEY_EXPIRES","KEY_EXPIRES"]; for(var i=0;i<ks.length;i++){ var ts=parseTs(get(ks[i])); if(ts>0)return ts; } return LAST_GOOD_TS||0; }
+  function applyResponse(j,k){
+    try{set("VLM_LICENSE_LAST_JSON",JSON.stringify(j||{}));}catch(e){}
+    if(k)saveKey(k);
+    var exp=findExpiry(j); if(exp>0){storeExp(exp); setText(fmt(exp),"#e8ecf4"); if(k)setActive(k); return true;}
+    if(isPermanent(j)){set("VLM_LICENSE_EXPLICIT_PERMANENT","1"); setText("Permanente","#2ecc71"); if(k)setActive(k); return true;}
+    return false;
+  }
+  async function api(ep,k,manual){
+    var d=getDevice(), rr=getRealRole();
+    var body={key:k,deviceId:d,bindingId:d,roleId:d,per_id:d,realRoleId:rr,gameRoleId:rr,identityMode:"deviceId",apkVersion:"web-admin",source:MARK,manual:!!manual};
+    var res=await fetch((location.origin||"")+ep,{method:"POST",headers:{"content-type":"application/json","x-vlm-key":k,"x-vlm-device-id":d,"x-vlm-binding-id":d,"x-vlm-role-id":d},body:JSON.stringify(body),cache:"no-store"});
+    var j=await res.json().catch(function(){return null;});
+    log(ep,res.status,j&&j.status,j&&j.plan,j&&j.expiresAt||j&&j.validUntil,"device",d,"role",rr);
+    return j;
+  }
+  async function sync(reason, manual){
+    if(BUSY)return;
+    var k=findKey(), d=getDevice();
+    var exp=loadExp();
+    if(exp>0){setText(fmt(exp),"#e8ecf4"); if(k)setActive(k);}
+    if(!k){return;}
+    if(!d){setText("Aguardando deviceId","#ffc24b"); return;}
+    var now=Date.now();
+    if(!manual && exp>Math.floor(Date.now()/1000)+60 && now-LAST_CALL<60000)return;
+    if(!manual && now-LAST_CALL<25000)return;
+    LAST_CALL=now; BUSY=true;
+    try{
+      if(manual || !exp) setText("Consultando validade...","#7cf6ff");
+      var eps=["/__vlm/key/verify","/__vlm/license/verify","/__vlm/key/activate","/__vlm/license/activate"];
+      var ok=false;
+      for(var i=0;i<eps.length;i++){ var j=await api(eps[i],k,manual).catch(function(e){log("api fail",eps[i],e&&e.message);return null;}); if(j&&j.ok&&applyResponse(j,k)){ok=true;break;} }
+      if(!ok){ var keep=loadExp(); if(keep>0)setText(fmt(keep),"#e8ecf4"); else setText("Validade não informada","#ffc24b"); }
+    } finally { BUSY=false; }
+  }
+  g.VLM_LICENSE_DEVICE_ID_BINDING_SYNC_V4=sync;
+  try{
+    var oldFetch=g.fetch;
+    if(typeof oldFetch==="function"&&!oldFetch.__vlmDeviceV4){ var nf=function(input,init){ try{parseDeviceFromText((input&&input.url)||input||"","fetch-url"); if(init&&init.body)parseDeviceFromText(init.body,"fetch-body");}catch(e){} var p=oldFetch.apply(this,arguments); try{p.then(function(r){try{r.clone().text().then(function(t){parseDeviceFromText(t,"fetch-response");}).catch(function(){});}catch(e){}});}catch(e){} return p;}; nf.__vlmDeviceV4=true; g.fetch=nf; }
+  }catch(e){}
+  document.addEventListener("input",function(ev){try{var k=normKey(ev.target&&(ev.target.value||ev.target.textContent)); if(k){saveKey(k); setTimeout(function(){sync("input",true);},200);}}catch(e){}},true);
+  document.addEventListener("change",function(ev){try{var k=normKey(ev.target&&(ev.target.value||ev.target.textContent)); if(k){saveKey(k); setTimeout(function(){sync("change",true);},200);}}catch(e){}},true);
+  document.addEventListener("click",function(ev){try{var text=String((ev.target&&((ev.target.innerText||ev.target.textContent||ev.target.value)||""))||""); if(/ativar|validar|atualizar|recarregar|start premium|license/i.test(text)||findKey())setTimeout(function(){sync("click",true);},250);}catch(e){}},true);
+  setInterval(function(){try{var exp=loadExp(); if(exp>0)setText(fmt(exp),"#e8ecf4"); else if(findKey())sync("interval",false);}catch(e){}},5000);
+  setTimeout(function(){sync("boot",false);},1200);
+  setTimeout(function(){sync("boot2",false);},5500);
+  log("installed", getDevice());
+})(typeof window!=="undefined"?window:globalThis);
+
