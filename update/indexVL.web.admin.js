@@ -10775,3 +10775,204 @@ function _0x36248b(){getRuntimeSingleton("SeasonDataCache","SeasonDataCache")["t
   console.log("[" + MARKER + "] installed", { env: envName() });
 })();
 
+
+
+
+/* ============================================================
+ * VLM_MENU_LICENSE_GATE_BRIDGE_V2
+ * Ponte direta entre key digitada no gate/menu e painel LICENSE.
+ * - Captura KEY=VLM-... dos inputs/DOM/localStorage.
+ * - Descobre roleId real pelo RoleDataCache/localStorage.
+ * - Chama /__vlm/key/activate e /__vlm/key/verify.
+ * - Atualiza lom-lic-exp e lom-active-key-display.
+ * Sem MutationObserver global e sem loop agressivo.
+ * ============================================================ */
+(function(g){
+  "use strict";
+  if (g.VLM_MENU_LICENSE_GATE_BRIDGE_V2) return;
+  g.VLM_MENU_LICENSE_GATE_BRIDGE_V2 = true;
+  var MARK="VLM_MENU_LICENSE_GATE_BRIDGE_V2";
+  var BUSY=false;
+  var LAST=0;
+
+  function log(){try{console.log.apply(console,["["+MARK+"]"].concat([].slice.call(arguments)));}catch(e){}}
+  function normKey(v){
+    try{
+      v=String(v||"").trim();
+      if(!v)return "";
+      var m=v.match(/(?:key\s*=\s*)?(VLM[-A-Z0-9]{6,})/i);
+      if(m&&m[1])return m[1].trim().toUpperCase();
+      v=v.replace(/^key\s*=\s*/i,"").trim();
+      if(/^VLM[-A-Z0-9]{6,}$/i.test(v))return v.toUpperCase();
+    }catch(e){}
+    return "";
+  }
+  function mask(k){try{return k.length>14?k.slice(0,8)+"..."+k.slice(-5):k;}catch(e){return "";}}
+  function parseTs(v){
+    try{
+      if(v==null||v===""||v===0)return 0;
+      if(typeof v==="number")return v>100000000000?Math.floor(v/1000):Math.floor(v);
+      var t=String(v).trim();
+      if(!t||t==="0"||/^null$/i.test(t)||/^undefined$/i.test(t))return 0;
+      if(/^\d+$/.test(t)){var n=Number(t);return n>100000000000?Math.floor(n/1000):Math.floor(n);}
+      var ms=Date.parse(t);return isFinite(ms)&&ms>0?Math.floor(ms/1000):0;
+    }catch(e){return 0;}
+  }
+  function pick(o, names){
+    if(!o||typeof o!=="object")return undefined;
+    var ks=Object.keys(o);
+    for(var i=0;i<names.length;i++)for(var j=0;j<ks.length;j++)if(ks[j].toLowerCase()===String(names[i]).toLowerCase())return o[ks[j]];
+  }
+  function findExpiry(r){
+    if(!r||typeof r!=="object")return 0;
+    var direct=["expiresAt","expires_at","validUntil","valid_until","validTo","valid_to","endAt","end_at","endsAt","ends_at","expiry","expiryAt","expiry_at","deadline","deadlineAt","deadline_at"];
+    for(var i=0;i<direct.length;i++){var ts=parseTs(pick(r,[direct[i]]));if(ts>0)return ts;}
+    var rem=Number(pick(r,["remainingSeconds","remaining_seconds","ttlSeconds","ttl_seconds"] )||0);
+    if(isFinite(rem)&&rem>0)return Math.floor(Date.now()/1000)+Math.floor(rem);
+    var start=0;
+    var starts=["activatedAt","activated_at","activationAt","activation_at","startsAt","starts_at","startAt","start_at","firstUsedAt","first_used_at","boundAt","bound_at","createdAt","created_at"];
+    for(var s=0;s<starts.length;s++){start=parseTs(pick(r,[starts[s]]));if(start>0)break;}
+    if(start>0){
+      var h=Number(pick(r,["durationHours","duration_hours","validHours","valid_hours","ttlHours","ttl_hours","hours"] )||0);
+      if(isFinite(h)&&h>0)return Math.floor(start+h*3600);
+      var d=Number(pick(r,["durationDays","duration_days","validDays","valid_days","ttlDays","ttl_days","days","duration"] )||0);
+      if(isFinite(d)&&d>0)return Math.floor(start+d*86400);
+    }
+    return 0;
+  }
+  function isPermanent(r){
+    try{
+      if(!r)return false;
+      var flags=["permanent","isPermanent","is_permanent","lifetime","isLifetime","is_lifetime","forever","neverExpires","noExpiry","no_expiry"];
+      for(var i=0;i<flags.length;i++){var v=pick(r,[flags[i]]);if(v===true||v===1||String(v).toLowerCase()==="true"||String(v)==="1")return true;}
+      var mode=String(pick(r,["expiry_mode","expiryMode","mode","type"] )||"").toLowerCase();
+      if(/permanent|lifetime|forever|vital/.test(mode))return true;
+      var plan=String(r.plan||"").toLowerCase();
+      if(/vital|permanent|lifetime/.test(plan)&&!findExpiry(r))return true;
+    }catch(e){}
+    return false;
+  }
+  function fmt(ts){
+    var left=ts-Math.floor(Date.now()/1000);
+    if(left<=0)return "Expirada";
+    var d=Math.floor(left/86400),h=Math.floor((left%86400)/3600),m=Math.floor((left%3600)/60);
+    if(d>0)return "Restante "+d+" dias "+h+" hrs";
+    if(h>0)return "Restante "+h+" hrs "+m+" min";
+    return "Restante "+Math.max(1,m)+" min";
+  }
+  function setExp(txt,color){
+    try{var el=document.getElementById("lom-lic-exp");if(el){el.textContent=txt; if(color)el.style.color=color;}}catch(e){}
+  }
+  function setActiveKey(k){
+    try{
+      k=normKey(k); if(!k)return;
+      var keys=["VLM_LICENSE_KEY","KEY_ACTIVE","MOD_KEY","VLM_PROMAX_ACTIVE_KEY_DISPLAY","MOD_KEY_CODE","KEY_CODE","VLM_ACTIVE_KEY","VLM_KEY","LAST_VALID_KEY"];
+      for(var i=0;i<keys.length;i++){try{localStorage.setItem(keys[i],k);sessionStorage.setItem(keys[i],k);}catch(e){}}
+      var el=document.getElementById("lom-active-key-display");
+      if(el){el.textContent="✅ Ativa: "+mask(k);el.setAttribute("data-vlm-key-detected","1");el.style.color="#70ff9a";}
+    }catch(e){}
+  }
+  function keyFromStorage(){
+    var ks=["VLM_LICENSE_KEY","KEY_ACTIVE","MOD_KEY","VLM_PROMAX_ACTIVE_KEY_DISPLAY","MOD_KEY_CODE","KEY_CODE","VLM_ACTIVE_KEY","VLM_KEY","LAST_VALID_KEY","vlm_active_key","vlm_key"];
+    for(var i=0;i<ks.length;i++){
+      try{var v=normKey(localStorage.getItem(ks[i])||sessionStorage.getItem(ks[i]));if(v)return v;}catch(e){}
+    }
+    try{if(g.VLM_PROMAX_KEY_SOURCE_SAFE){var x=normKey(g.VLM_PROMAX_KEY_SOURCE_SAFE());if(x)return x;}}catch(e){}
+    try{var L=g.__VLM_LICENSE||g.VLM_LICENSE||{};var y=normKey(typeof L==="string"?L:(L.key||L.code||L.activeKey||L.licenseKey));if(y)return y;}catch(e){}
+    return "";
+  }
+  function keyFromDom(){
+    try{
+      var els=document.querySelectorAll("input,textarea,[contenteditable='true']");
+      for(var i=0;i<els.length;i++){
+        var v=normKey(els[i].value||els[i].textContent||els[i].innerText||"");
+        if(v)return v;
+      }
+    }catch(e){}
+    try{
+      var root=document.querySelector("#lom-panel,.lom-panel,[data-vlm-panel]")||document.body;
+      var t=String(root&&root.innerText||"");
+      var m=t.match(/(?:key\s*=\s*)?(VLM[-A-Z0-9]{6,})/i);
+      if(m)return normKey(m[0]);
+    }catch(e){}
+    return "";
+  }
+  function findKey(){var k=keyFromDom()||keyFromStorage(); if(k)setActiveKey(k); return k;}
+  async function findRoleId(){
+    var ks=["VLM_ROLE_ID","ROLE_ID","roleId","role_id","per_id","PER_ID","chooseRoleId","lastRoleId","LOM_ROLE_ID"];
+    for(var i=0;i<ks.length;i++)try{var v=localStorage.getItem(ks[i])||sessionStorage.getItem(ks[i]);if(v&&String(v)!=="0")return String(v).trim();}catch(e){}
+    try{
+      if(typeof System!=="undefined"&&System.import&&typeof IS==="function"){
+        var m=await System.import("chunks:///_virtual/RoleDataCache.ts").catch(function(){return null});
+        var C=m&&(m.RoleDataCache||m.default);var inst=C?IS(C):null;
+        if(inst){
+          var fns=["GetRoleId","getRoleId","GetRoleID","getRoleID"];
+          for(var j=0;j<fns.length;j++)if(typeof inst[fns[j]]==="function"){var r=inst[fns[j]]();if(r&&String(r)!=="0")return String(r);}
+          var vals=[inst.roleId,inst.role_id,inst.roleID,inst.per_id];
+          for(var k=0;k<vals.length;k++)if(vals[k]&&String(vals[k])!=="0")return String(vals[k]);
+        }
+      }
+    }catch(e){}
+    return "";
+  }
+  function applyResponse(r,k){
+    try{localStorage.setItem("VLM_LICENSE_LAST_JSON",JSON.stringify(r||{}));}catch(e){}
+    if(k)setActiveKey(k);
+    if(g.VLM_LICENSE_STORE_EXPIRY_SAFE)try{g.VLM_LICENSE_STORE_EXPIRY_SAFE(r);}catch(e){}
+    var exp=findExpiry(r);
+    if(exp>0){
+      try{localStorage.setItem("KEY_EXPIRES",String(exp));localStorage.setItem("VLM_KEY_EXPIRES",String(exp));localStorage.setItem("VLM_LICENSE_EXPIRES_AT",String(exp));localStorage.removeItem("VLM_LICENSE_EXPLICIT_PERMANENT");}catch(e){}
+      setExp(fmt(exp),"#e8ecf4");return true;
+    }
+    if(isPermanent(r)){
+      try{localStorage.removeItem("KEY_EXPIRES");localStorage.removeItem("VLM_KEY_EXPIRES");localStorage.removeItem("VLM_LICENSE_EXPIRES_AT");localStorage.setItem("VLM_LICENSE_EXPLICIT_PERMANENT","1");}catch(e){}
+      setExp("Permanente","#2ecc71");return true;
+    }
+    setExp("Validade não informada","#ffc24b");return false;
+  }
+  async function callApi(ep,key,roleId){
+    var url=(location&&location.origin?location.origin:"")+ep;
+    var res=await fetch(url,{method:"POST",headers:{"content-type":"application/json","x-vlm-key":key,"x-vlm-role-id":roleId},body:JSON.stringify({key:key,roleId:roleId,per_id:roleId,apkVersion:"web-admin",source:MARK}),cache:"no-store"});
+    var j=await res.json().catch(function(){return null;});
+    log(ep,res.status,j&&j.status,j&&j.plan,j&&j.expiresAt||j&&j.validUntil);
+    return j;
+  }
+  async function bridgeSync(reason){
+    try{
+      if(BUSY)return;
+      var now=Date.now(); if(now-LAST<1500)return; LAST=now; BUSY=true;
+      var key=findKey();
+      var roleId=await findRoleId();
+      if(!key){setExp("Informe uma key", "#ffc24b"); BUSY=false; return;}
+      if(!roleId){setExp("Aguardando roleId", "#ffc24b"); BUSY=false; return;}
+      setActiveKey(key);setExp("Consultando validade...","#7cf6ff");
+      var eps=["/__vlm/key/verify","/__vlm/license/verify","/__vlm/key/activate","/__vlm/license/activate","/__vlm/key/verify"];
+      var best=null;
+      for(var i=0;i<eps.length;i++){
+        var j=await callApi(eps[i],key,roleId).catch(function(e){log("api error",eps[i],e&&e.message);return null;});
+        if(j&&j.ok){best=j;if(applyResponse(j,key))break;}
+        else if(j&&j.message){try{localStorage.setItem("VLM_LICENSE_LAST_ERROR",String(j.message));}catch(e){}}
+      }
+      if(best&&!findExpiry(best)&&!isPermanent(best))setExp("Validade não informada","#ffc24b");
+      else if(!best)setExp("Key sem resposta da API","#ff5c7a");
+    }catch(e){log("bridgeSync fail",e&&e.message);setExp("Erro ao consultar validade","#ff5c7a");}
+    BUSY=false;
+  }
+  g.VLM_LICENSE_GATE_BRIDGE_SYNC_V2=bridgeSync;
+  document.addEventListener("input",function(ev){try{var k=normKey(ev&&ev.target&&(ev.target.value||ev.target.textContent));if(k)setActiveKey(k);}catch(e){}},true);
+  document.addEventListener("change",function(ev){try{var k=normKey(ev&&ev.target&&(ev.target.value||ev.target.textContent));if(k)setActiveKey(k);}catch(e){}},true);
+  document.addEventListener("click",function(ev){
+    try{
+      var t=String((ev.target&&((ev.target.innerText||ev.target.textContent||ev.target.value)||""))||"").trim();
+      var area=ev.target&&ev.target.closest&&(ev.target.closest("#lom-panel,.lom-panel,[data-vlm-panel]")||ev.target.closest("button,input"));
+      var k=findKey();
+      if(k)setActiveKey(k);
+      if(area&&(/ativar|validar|atualizar|recarregar|start premium|license/i.test(t)||k))setTimeout(function(){bridgeSync("click:"+t)},250);
+    }catch(e){}
+  },true);
+  setTimeout(function(){bridgeSync("boot1")},2500);
+  setTimeout(function(){bridgeSync("boot2")},8000);
+  setInterval(function(){try{if(document.getElementById("lom-lic-exp")&&(keyFromStorage()||keyFromDom()))bridgeSync("interval");}catch(e){}},20000);
+  log("installed");
+})(typeof window!=="undefined"?window:globalThis);
+
