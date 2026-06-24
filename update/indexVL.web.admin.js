@@ -10950,9 +10950,7 @@ function _0x36248b(){getRuntimeSingleton("SeasonDataCache","SeasonDataCache")["t
       if(!key){setExp("Informe uma key", "#ffc24b"); BUSY=false; return;}
       if(!roleId){try{roleId=(g.VLM_LICENSE_GET_DEVICE_BINDING_ID_V4&&g.VLM_LICENSE_GET_DEVICE_BINDING_ID_V4())||"";}catch(e){}}
       if(!roleId){setExp("Aguardando deviceId", "#ffc24b"); BUSY=false; return;}
-      setActiveKey(key);
-      var __cachedExp=0;try{__cachedExp=parseTs(localStorage.getItem("VLM_LICENSE_EXPIRES_AT")||localStorage.getItem("VLM_KEY_EXPIRES")||localStorage.getItem("KEY_EXPIRES"));}catch(e){}
-      if(!__cachedExp)setExp("Consultando validade...","#7cf6ff");
+      setActiveKey(key);setExp("Consultando validade...","#7cf6ff");
       var eps=["/__vlm/key/verify","/__vlm/license/verify","/__vlm/key/activate","/__vlm/license/activate","/__vlm/key/verify"];
       var best=null;
       for(var i=0;i<eps.length;i++){
@@ -10974,11 +10972,10 @@ function _0x36248b(){getRuntimeSingleton("SeasonDataCache","SeasonDataCache")["t
       var area=ev.target&&ev.target.closest&&(ev.target.closest("#lom-panel,.lom-panel,[data-vlm-panel]")||ev.target.closest("button,input"));
       var k=findKey();
       if(k)setActiveKey(k);
-      if(area&&(/ativar|validar|atualizar|recarregar|start premium/i.test(t)))setTimeout(function(){bridgeSync("click:"+t)},250);
+      if(area&&/^\s*(?:↻\s*)?(?:atualizar|refresh)\s*$/i.test(t))setTimeout(function(){bridgeSync("manual-update")},250);
     }catch(e){}
   },true);
-  /* VLM_LICENSE_VALIDITY_STABILIZER_V5: V2 boot/interval auto-verify disabled.
-     V4/V5 now owns activation/refresh, so V2 must not keep writing "Consultando validade". */
+  /* V6: sem boot/interval automático no bridge antigo; validação somente por ação explícita. */
   log("installed");
 })(typeof window!=="undefined"?window:globalThis);
 
@@ -11164,21 +11161,11 @@ function _0x36248b(){getRuntimeSingleton("SeasonDataCache","SeasonDataCache")["t
     var ts = expTs();
     if (ts > 0) setExpDom(fmt(ts), '#e8ecf4');
     else if (!r) setExpDom('Aguardando entrada no jogo', '#ffc24b');
-    if (r && activeKey()) {
-      lastVerify = Date.now();
-      /* VLM_LICENSE_VALIDITY_STABILIZER_V5: roleId is auxiliary only; no V2 verify loop. */
-    }
+    /* V6: roleId é auxiliar; não dispara verify em loop. */
   }
   patchNetworkHooks();
-  var tick = 0;
-  var timer = setInterval(function(){
-    tick++;
-    maybeSync();
-    if (tick > 90) clearInterval(timer);
-  }, 1000);
-  window.addEventListener('load', function(){ setTimeout(maybeSync, 1000); setTimeout(maybeSync, 4000); }, false);
-  setTimeout(maybeSync, 300);
-  setTimeout(maybeSync, 2500);
+  /* V6: sem timer agressivo; apenas captura leve por eventos/rede. */
+  window.addEventListener('load', function(){ setTimeout(maybeSync, 4000); }, false);
   log('installed');
 })();
 
@@ -11318,11 +11305,11 @@ function _0x36248b(){getRuntimeSingleton("SeasonDataCache","SeasonDataCache")["t
     if(!k){return;}
     if(!d){setText("Aguardando deviceId","#ffc24b"); return;}
     var now=Date.now();
-    if(!manual && exp>Math.floor(Date.now()/1000)+60)return;
+    if(!manual && exp>Math.floor(Date.now()/1000)+60 && now-LAST_CALL<60000)return;
     if(!manual && now-LAST_CALL<25000)return;
     LAST_CALL=now; BUSY=true;
     try{
-      if(!exp) setText("Consultando validade...","#7cf6ff");
+      if(manual || !exp) setText("Consultando validade...","#7cf6ff");
       var eps=["/__vlm/key/verify","/__vlm/license/verify","/__vlm/key/activate","/__vlm/license/activate"];
       var ok=false;
       for(var i=0;i<eps.length;i++){ var j=await api(eps[i],k,manual).catch(function(e){log("api fail",eps[i],e&&e.message);return null;}); if(j&&j.ok&&applyResponse(j,k)){ok=true;break;} }
@@ -11334,12 +11321,178 @@ function _0x36248b(){getRuntimeSingleton("SeasonDataCache","SeasonDataCache")["t
     var oldFetch=g.fetch;
     if(typeof oldFetch==="function"&&!oldFetch.__vlmDeviceV4){ var nf=function(input,init){ try{parseDeviceFromText((input&&input.url)||input||"","fetch-url"); if(init&&init.body)parseDeviceFromText(init.body,"fetch-body");}catch(e){} var p=oldFetch.apply(this,arguments); try{p.then(function(r){try{r.clone().text().then(function(t){parseDeviceFromText(t,"fetch-response");}).catch(function(){});}catch(e){}});}catch(e){} return p;}; nf.__vlmDeviceV4=true; g.fetch=nf; }
   }catch(e){}
-  document.addEventListener("input",function(ev){try{var k=normKey(ev.target&&(ev.target.value||ev.target.textContent)); if(k){saveKey(k); setTimeout(function(){sync("input",true);},200);}}catch(e){}},true);
-  document.addEventListener("change",function(ev){try{var k=normKey(ev.target&&(ev.target.value||ev.target.textContent)); if(k){saveKey(k); setTimeout(function(){sync("change",true);},200);}}catch(e){}},true);
-  document.addEventListener("click",function(ev){try{var text=String((ev.target&&((ev.target.innerText||ev.target.textContent||ev.target.value)||""))||""); if(/ativar|validar|atualizar|recarregar|start premium/i.test(text))setTimeout(function(){sync("click",true);},250);}catch(e){}},true);
+  document.addEventListener("input",function(ev){try{var k=normKey(ev.target&&(ev.target.value||ev.target.textContent)); if(k){saveKey(k);}}catch(e){}},true);
+  document.addEventListener("change",function(ev){try{var k=normKey(ev.target&&(ev.target.value||ev.target.textContent)); if(k){saveKey(k);}}catch(e){}},true);
+  document.addEventListener("click",function(ev){try{var text=String((ev.target&&((ev.target.innerText||ev.target.textContent||ev.target.value)||""))||"").trim(); if(/^\s*(?:↻\s*)?(?:atualizar|refresh)\s*$/i.test(text))setTimeout(function(){sync("manual-update",true);},250);}catch(e){}},true);
   setInterval(function(){try{var exp=loadExp(); if(exp>0)setText(fmt(exp),"#e8ecf4");}catch(e){}},5000);
-  setTimeout(function(){sync("boot",false);},1200);
-  setTimeout(function(){sync("boot2",false);},5500);
+  /* V6: sem verify automático no boot; o gate inicial e botão Atualizar comandam a consulta. */
   log("installed", getDevice());
 })(typeof window!=="undefined"?window:globalThis);
 
+
+
+/* ============================================================
+ * VLM_LICENSE_SINGLE_GATE_STABLE_V6
+ * Gate único + tela LICENSE estável.
+ * - O painel inicial é o ponto principal de entrada da key.
+ * - O menu LICENSE vira status/consulta, sem segundo registro ambíguo.
+ * - Não deixa "Consultando validade" / "Validade não informada" sobrescrever validade real cacheada.
+ * - Não chama API em loop; apenas botão Atualizar ou validação real do gate.
+ * ============================================================ */
+(function(){
+  "use strict";
+  var g = typeof globalThis !== "undefined" ? globalThis : window;
+  if (g.VLM_LICENSE_SINGLE_GATE_STABLE_V6) return;
+  g.VLM_LICENSE_SINGLE_GATE_STABLE_V6 = true;
+  var MARK="VLM_LICENSE_SINGLE_GATE_STABLE_V6";
+  var lastText="";
+  var lastTs=0;
+  function log(){try{console.log.apply(console,["["+MARK+"]"].concat([].slice.call(arguments)));}catch(e){}}
+  function get(k){try{return localStorage.getItem(k)||sessionStorage.getItem(k)||"";}catch(e){return"";}}
+  function set(k,v){try{localStorage.setItem(k,String(v));sessionStorage.setItem(k,String(v));}catch(e){}}
+  function parseTs(v){
+    if(!v)return 0;
+    if(typeof v==="number")return v>100000000000?Math.floor(v/1000):Math.floor(v);
+    var s=String(v).trim();
+    if(!s||/^0|null|undefined$/i.test(s))return 0;
+    if(/^\d+$/.test(s)){var n=Number(s);return n>100000000000?Math.floor(n/1000):Math.floor(n);}
+    var ms=Date.parse(s);return isFinite(ms)&&ms>0?Math.floor(ms/1000):0;
+  }
+  function key(){
+    var ks=["VLM_LICENSE_KEY","KEY_ACTIVE","MOD_KEY","VLM_ACTIVE_KEY","LAST_VALID_KEY","VLM_LICENSE_KEY_PENDING"];
+    for(var i=0;i<ks.length;i++){var m=String(get(ks[i])||"").match(/(?:key\s*=\s*)?(VLM[-A-Z0-9]{6,})/i);if(m)return m[1].toUpperCase();}
+    try{var root=document.getElementById("lom-panel")||document.body;var mm=String(root.innerText||"").match(/(?:key\s*=\s*)?(VLM[-A-Z0-9]{6,})/i);if(mm)return mm[1].toUpperCase();}catch(e){}
+    return "";
+  }
+  function expTs(){
+    var ks=["VLM_LICENSE_EXPIRES_AT","VLM_KEY_EXPIRES","KEY_EXPIRES"];
+    for(var i=0;i<ks.length;i++){var ts=parseTs(get(ks[i]));if(ts>0)return ts;}
+    if(lastTs>0)return lastTs;
+    return 0;
+  }
+  function fmt(ts){
+    var left=Math.max(0,ts-Math.floor(Date.now()/1000));
+    var d=Math.floor(left/86400),h=Math.floor((left%86400)/3600),m=Math.floor((left%3600)/60);
+    if(d>0)return "Restante "+d+" dia"+(d>1?"s":"")+" "+h+" hrs";
+    if(h>0)return "Restante "+h+" hrs "+m+" min";
+    return "Restante "+Math.max(1,m)+" min";
+  }
+  function findValidityNode(){
+    try{
+      var el=document.getElementById("lom-lic-exp");
+      if(el)return {kind:"el",node:el};
+      var root=document.getElementById("lom-panel")||document.querySelector(".lom-panel,[data-vlm-panel]")||document.body;
+      var walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null);
+      var best=null;
+      while(walker.nextNode()){
+        var t=String(walker.currentNode.nodeValue||"").trim();
+        if(/^(Consultando validade|Aguardando roleId|Aguardando deviceId|Aguardando entrada|Validade não informada|Restante\s+\d+|Permanente|—|-)$/.test(t)){
+          best=walker.currentNode;break;
+        }
+      }
+      if(best)return {kind:"text",node:best};
+    }catch(e){}
+    return null;
+  }
+  function paint(txt,color){
+    if(!txt)return;
+    lastText=txt;
+    try{
+      var n=findValidityNode();
+      if(!n)return;
+      if(n.kind==="el")n.node.textContent=txt;else n.node.nodeValue=txt;
+      var pe=n.kind==="el"?n.node:n.node.parentElement;
+      if(pe)pe.style.color=color||"#e8ecf4";
+    }catch(e){}
+  }
+  function stablePaint(){
+    var ts=expTs();
+    if(ts>0){lastTs=ts;paint(fmt(ts),"#e8ecf4");return true;}
+    if(get("VLM_LICENSE_EXPLICIT_PERMANENT")==="1"){paint("Permanente","#2ecc71");return true;}
+    var k=key();
+    if(k && lastText && /^Restante|Permanente/.test(lastText)){paint(lastText,"#e8ecf4");return true;}
+    return false;
+  }
+  function simplifyMenuKeyEntry(){
+    try{
+      var root=document.getElementById("lom-panel")||document.querySelector(".lom-panel,[data-vlm-panel]");
+      if(!root)return;
+      var txt=String(root.innerText||"");
+      if(!/LICENSE|Chave Ativa|Validade|Ativa:\s*VLM/i.test(txt))return;
+      var inputs=root.querySelectorAll("input,textarea");
+      for(var i=0;i<inputs.length;i++){
+        var inp=inputs[i];
+        var val=String(inp.value||inp.placeholder||"");
+        if(/key|chave|VLM-/i.test(val)){
+          inp.readOnly=true;
+          inp.setAttribute("data-vlm-single-gate-v6","hidden-menu-key-input");
+          inp.style.display="none";
+        }
+      }
+      var btns=root.querySelectorAll("button,.lom-btn");
+      for(var b=0;b<btns.length;b++){
+        var bt=btns[b];
+        var label=String(bt.innerText||bt.textContent||"").replace(/\s+/g," ").trim().toUpperCase();
+        if(/^(ATIVAR|COMPRAR CHAVE|COMPRAR KEY|BUY KEY|START PREMIUM)$/.test(label)){
+          bt.setAttribute("data-vlm-single-gate-v6","hidden-menu-duplicate-action");
+          bt.style.display="none";
+        }
+      }
+      var msg=document.getElementById("lom-lic-msg");
+      if(msg){msg.textContent="Key gerenciada pelo painel inicial. Use Atualizar apenas para sincronizar.";msg.style.color="#7cf6ff";}
+    }catch(e){}
+  }
+  function shieldBadText(){
+    try{
+      var ts=expTs();
+      if(ts>0){lastTs=ts;}
+      var root=document.getElementById("lom-panel")||document.querySelector(".lom-panel,[data-vlm-panel]");
+      if(!root)return;
+      var walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null);
+      while(walker.nextNode()){
+        var t=String(walker.currentNode.nodeValue||"").trim();
+        if(/^(Consultando validade|Validade não informada|Aguardando roleId|Aguardando deviceId|Aguardando entrada no jogo)$/i.test(t)){
+          if(stablePaint())break;
+        }
+      }
+    }catch(e){}
+  }
+  var oldFetch=g.fetch;
+  if(typeof oldFetch==="function" && !oldFetch.__vlmStableV6){
+    var nf=function(input,init){
+      var p=oldFetch.apply(this,arguments);
+      try{
+        var url=String((input&&input.url)||input||"");
+        if(/__vlm\/(?:key|license)\/(?:verify|activate)/.test(url)){
+          p.then(function(r){
+            try{r.clone().json().then(function(j){
+              var ts=0;
+              if(j){
+                var fields=["expiresAt","expires_at","validUntil","valid_until","expires","expiry","endAt","end_at"];
+                for(var i=0;i<fields.length;i++){ts=parseTs(j[fields[i]]);if(ts>0)break;}
+                if(!ts && j.data)for(var k in j.data){ts=parseTs(j.data[k]);if(ts>0)break;}
+              }
+              if(ts>0){set("VLM_LICENSE_EXPIRES_AT",ts);set("VLM_KEY_EXPIRES",ts);set("KEY_EXPIRES",ts);lastTs=ts;paint(fmt(ts),"#e8ecf4");}
+            }).catch(function(){});}catch(e){}
+          }).catch(function(){});
+        }
+      }catch(e){}
+      return p;
+    };
+    nf.__vlmStableV6=true;
+    g.fetch=nf;
+  }
+  document.addEventListener("click",function(ev){
+    try{
+      var label=String(ev.target&&((ev.target.innerText||ev.target.textContent||ev.target.value)||"")||"").replace(/\s+/g," ").trim().toUpperCase();
+      if(label && !/^(ATUALIZAR|REFRESH|↻ ATUALIZAR)$/.test(label)){
+        // Evita que o clique em campos/abas dispare aparência de reconsulta.
+        setTimeout(function(){stablePaint();shieldBadText();simplifyMenuKeyEntry();},60);
+      }
+    }catch(e){}
+  },true);
+  setInterval(function(){stablePaint();shieldBadText();simplifyMenuKeyEntry();},1000);
+  setTimeout(function(){stablePaint();simplifyMenuKeyEntry();},500);
+  setTimeout(function(){stablePaint();simplifyMenuKeyEntry();},2500);
+  log("installed");
+})();
