@@ -10798,3 +10798,325 @@ function _0x36248b(){getRuntimeSingleton("SeasonDataCache","SeasonDataCache")["t
 })();
 /* VLM_ADMIN_V82_HOLO_MESH_VISUAL_ONLY_END */
 
+
+
+/* VLM_LANG_TEXT_ONLY_KEEP_EMOJIS_V2_START */
+(function(){
+  try{
+    if (window.__VLM_LANG_TEXT_ONLY_KEEP_EMOJIS_V2__) return;
+    window.__VLM_LANG_TEXT_ONLY_KEEP_EMOJIS_V2__ = true;
+
+    function vlmLang(){
+      try{
+        var raw = String(
+          localStorage.getItem("MOD_LANG") ||
+          localStorage.getItem("LOM_LANG") ||
+          localStorage.getItem("curlan") ||
+          document.documentElement.lang ||
+          navigator.language ||
+          "en"
+        ).toLowerCase();
+        if (raw.indexOf("vi") === 0) return "vi";
+        if (raw.indexOf("pt") === 0) return "pt";
+        return "en";
+      }catch(e){ return "en"; }
+    }
+
+    var EN = {
+      "Hướng dẫn":"Guide",
+      "Xóa cache":"Clear Cache",
+      "Cập nhật":"Update",
+      "Cài về máy":"Install App",
+      "CÀI VỀ MÁY":"INSTALL APP",
+      "Tải lại payload":"Reload Payload",
+      "Đóng":"Close",
+      "Bản mod":"Mod Version",
+      "Trạng thái":"Status",
+      "Đã kích hoạt":"Active",
+      "Chưa kích hoạt":"Inactive",
+      "Đã out hạn":"Expired",
+      "Key sai định dạng":"Invalid key format",
+      "Key inválida":"Invalid key",
+      "Máy này đã dùng free rồi — mua key để tiếp tục":"This device already used its free trial — buy a key to continue",
+      "Key đang dùng ở máy khác":"Key in use on another device",
+      "Key đã hết hạn — mua key để tiếp tục":"Key expired — buy a key to continue",
+      "Key đã bị khóa":"Key is banned",
+      "Key không tồn tại":"Key not found",
+      "Lỗi mạng, thử lại":"Network error, try again",
+      "Thiếu mã thiết bị, tải lại trang":"Missing device id, reload the page",
+      "Chưa nhập key":"Enter a key",
+      "Mạng này đã nhận quá nhiều lượt free hôm nay":"This network claimed too many free trials today",
+      "Quá nhiều lượt free, thử lại sau":"Too many free claims, try later",
+      "đang xác minh":"Verifying",
+      "đang tải":"loading",
+      "Nhảy sau":"jump in",
+      "nhảy sau":"jump in",
+      "Đang nhảy sang server":"Jumping to server",
+      "Đã hủy nhảy server":"Cancelled server jump",
+      "Server mới":"New server",
+      "chạm để hủy":"tap to cancel",
+      "nhận":"claim",
+      "Nhận":"Claim",
+      "Đã nhận":"Claimed",
+      "quà":"rewards",
+      "Quà":"Rewards",
+      "rương":"chest",
+      "bang":"guild",
+      "loại":"type",
+      "lượt":"attempts",
+      "giờ":"h",
+      "phút":"min",
+      "Hội":"Guild",
+      "bang hội":"guild",
+      "Bang hội":"Guild",
+      "Xe":"Car",
+      "xe":"car",
+      "Liên SV":"Cross-server",
+      "LIÊN SV":"Cross-server",
+      "đỗ":"park",
+      "Đỗ":"Park",
+      "ô":"slot",
+      "Tự động":"Auto",
+      "Bắt đầu":"Start",
+      "Theo chỉ số":"By stats",
+      "Theo lực chiến":"By power",
+      "Bộ lọc":"Filter",
+      "Tự Mặc":"Auto-Equip",
+      "Tự bán đồ rác":"Auto-sell junk",
+      "Farm Vàng Lite":"Gold Farm Lite",
+      "Tốc độ battle":"Battle speed",
+      "Mức an toàn":"Safety level",
+      "Áp Tiêu":"Escort",
+      "Thám Hiểm":"Explore",
+      "Giữ lại pet gắn sao":"Keep starred pets",
+      "Nhắm dòng/màu":"Target line/quality",
+      "Chọn kỹ năng muốn ra":"Pick skills to roll",
+      "phối":"fuse",
+      "ghép":"merge",
+      "cần":"need",
+      "hoặc":"or",
+      "để":"to",
+      "tổng":"total",
+      "Cổ Vật":"Relic",
+      "Độ Bền":"Durability",
+      "về căn cứ":"back to base",
+      "Mở rộng lãnh thổ":"Expanding territory",
+      "Đánh đất địch yếu":"Attack weak enemy",
+      "Đâm Cổ Vật":"Relic ram",
+      "No FREE pets left để lấp ổ — pet left lại on cooldown/pairing in progress":"No free pets are available to fill the nest — remaining pets are on cooldown or pairing",
+      "Remove some stars — hoặc turn off 'Keep starred pets' — để có pet phối.":"Remove some stars or turn off 'Keep starred pets' to allow pairing.",
+      "free pets but DIFFERENT types — cần ≥2 pet SAME TYPE new ghép được.":"free pets, but different types — need at least 2 pets of the same type to pair.",
+      "Run này đã có":"This run already has",
+      "Bấm":"Press",
+      "để enter trận giữ run":"to enter and keep the run",
+      "Không sincronizou":"Not synchronized",
+      "Não sincronizou":"Not synchronized",
+      "Fonte única: a key é validada no gate/painel inicial; este painel apenas mostra a validade e faz atualização manual.":"Single source: the key is validated by the access gate. This panel only shows validity and allows manual refresh.",
+      "Limpar sessão":"Clear session",
+      "Sessão local ativa":"Local session active",
+      "Dang quet Lien SV":"Scanning Cross-server",
+      "Dang doc":"Reading",
+      "xem dong":"see line",
+      "mau vang":"yellow",
+      "hoac go":"or type",
+      "gửi":"send",
+      "bảng":"tables",
+      "tạm stop":"temporarily stops",
+      "dọn di vật":"clean relics",
+      "nã":"used"
+    };
+
+    var PT = {
+      "Hướng dẫn":"Guia",
+      "Xóa cache":"Limpar Cache",
+      "Cập nhật":"Atualizar",
+      "Cài về máy":"Instalar App",
+      "CÀI VỀ MÁY":"INSTALAR APP",
+      "Tải lại payload":"Recarregar Payload",
+      "Đóng":"Fechar",
+      "Bản mod":"Versão",
+      "Trạng thái":"Status",
+      "Đã kích hoạt":"Ativa",
+      "Chưa kích hoạt":"Inativa",
+      "Đã out hạn":"Expirada",
+      "Key sai định dạng":"Formato de key inválido",
+      "Key inválida":"Key inválida",
+      "Máy này đã dùng free rồi — mua key để tiếp tục":"Este dispositivo já usou o teste grátis — compre uma key para continuar",
+      "Key đang dùng ở máy khác":"Key em uso em outro dispositivo",
+      "Key đã hết hạn — mua key để tiếp tục":"Key expirada — compre uma key para continuar",
+      "Key đã bị khóa":"Key bloqueada",
+      "Key không tồn tại":"Key não encontrada",
+      "Lỗi mạng, thử lại":"Erro de rede, tente novamente",
+      "Thiếu mã thiết bị, tải lại trang":"ID do dispositivo ausente, recarregue a página",
+      "Chưa nhập key":"Digite uma key",
+      "Mạng này đã nhận quá nhiều lượt free hôm nay":"Esta rede já recebeu muitos testes grátis hoje",
+      "Quá nhiều lượt free, thử lại sau":"Muitas tentativas grátis, tente depois",
+      "đang xác minh":"Verificando",
+      "đang tải":"carregando",
+      "Nhảy sau":"entra em",
+      "nhảy sau":"entra em",
+      "Đang nhảy sang server":"Entrando no servidor",
+      "Đã hủy nhảy server":"Entrada no servidor cancelada",
+      "Server mới":"Novo servidor",
+      "chạm để hủy":"toque para cancelar",
+      "nhận":"coletar",
+      "Nhận":"Coletar",
+      "Đã nhận":"Coletado",
+      "quà":"recompensas",
+      "Quà":"Recompensas",
+      "rương":"baú",
+      "bang":"guilda",
+      "loại":"tipo",
+      "lượt":"tentativas",
+      "giờ":"h",
+      "phút":"min",
+      "Hội":"Guilda",
+      "bang hội":"guilda",
+      "Bang hội":"Guilda",
+      "Xe":"Carro",
+      "xe":"carro",
+      "Liên SV":"Inter-servidor",
+      "LIÊN SV":"Inter-servidor",
+      "đỗ":"estacionar",
+      "Đỗ":"Estacionar",
+      "ô":"vaga",
+      "Tự động":"Automático",
+      "Bắt đầu":"Iniciar",
+      "Theo chỉ số":"Por atributo",
+      "Theo lực chiến":"Por poder",
+      "Bộ lọc":"Filtro",
+      "Tự Mặc":"Auto-equipar",
+      "Tự bán đồ rác":"Vender lixo automaticamente",
+      "Farm Vàng Lite":"Farm Ouro Lite",
+      "Tốc độ battle":"Velocidade da batalha",
+      "Mức an toàn":"Nível de segurança",
+      "Áp Tiêu":"Escolta",
+      "Thám Hiểm":"Exploração",
+      "Giữ lại pet gắn sao":"Manter pets com estrela",
+      "Nhắm dòng/màu":"Mirar linha/qualidade",
+      "Chọn kỹ năng muốn ra":"Escolher habilidades desejadas",
+      "phối":"fundir",
+      "ghép":"juntar",
+      "cần":"precisa",
+      "hoặc":"ou",
+      "để":"para",
+      "tổng":"total",
+      "Cổ Vật":"Relíquia",
+      "Độ Bền":"Durabilidade",
+      "về căn cứ":"voltar para a base",
+      "Mở rộng lãnh thổ":"Expandindo território",
+      "Đánh đất địch yếu":"Atacar inimigo fraco",
+      "Đâm Cổ Vật":"Investir na relíquia",
+      "No FREE pets left để lấp ổ — pet left lại on cooldown/pairing in progress":"Sem pets livres para preencher o ninho — os pets restantes estão em cooldown ou pareamento",
+      "Remove some stars — hoặc turn off 'Keep starred pets' — để có pet phối.":"Remova algumas estrelas ou desligue 'Manter pets com estrela' para permitir pareamento.",
+      "free pets but DIFFERENT types — cần ≥2 pet SAME TYPE new ghép được.":"pets livres, mas de tipos diferentes — precisa de pelo menos 2 pets do mesmo tipo para parear.",
+      "Run này đã có":"Esta rodada já tem",
+      "Bấm":"Toque em",
+      "để enter trận giữ run":"para entrar e manter a rodada",
+      "Fonte única: a key é validada no gate/painel inicial; este painel apenas mostra a validade e faz atualização manual.":"Fonte única: a key é validada no acesso inicial. Este painel só mostra a validade e permite atualização manual.",
+      "Limpar sessão":"Limpar sessão",
+      "Sessão local ativa":"Sessão local ativa",
+      "Dang quet Lien SV":"Verificando Inter-servidor",
+      "Dang doc":"Lendo",
+      "xem dong":"veja a linha",
+      "mau vang":"amarela",
+      "hoac go":"ou digite",
+      "gửi":"enviar",
+      "bảng":"tabelas",
+      "tạm stop":"pausa temporária",
+      "dọn di vật":"limpar relíquias",
+      "nã":"usou",
+
+      "abexit":"abrir",
+      "seguexitr":"segurar",
+      "seguexitnça":"segurança",
+      "Miexitr":"Mirar",
+      "Pexitta":"Prata",
+      "Ultexitpassa":"Ultrapassa",
+      "Estexitda":"Estrada",
+      "tiexit":"tira",
+      "extexit":"extra",
+      "paexit":"para",
+      "agoexit":"agora"
+    };
+
+    function map(){
+      var l = vlmLang();
+      if (l === "vi") return null;
+      return l === "pt" ? PT : EN;
+    }
+
+    function replaceTextOnly(txt){
+      var m = map();
+      if (!m || !txt || !txt.trim()) return txt;
+
+      var out = txt;
+
+      Object.keys(m).sort(function(a,b){return b.length-a.length}).forEach(function(k){
+        if (!k) return;
+        if (out.indexOf(k) >= 0) out = out.split(k).join(m[k]);
+      });
+
+      return out;
+    }
+
+    function cleanNode(node){
+      try{
+        if (!node) return;
+
+        if (node.nodeType === 3) {
+          var old = node.nodeValue || "";
+          var neu = replaceTextOnly(old);
+          if (neu !== old) node.nodeValue = neu;
+          return;
+        }
+
+        if (node.nodeType !== 1) return;
+
+        ["title","placeholder","aria-label"].forEach(function(attr){
+          try{
+            if (node.hasAttribute && node.hasAttribute(attr)) {
+              var old = node.getAttribute(attr);
+              var neu = replaceTextOnly(old);
+              if (neu !== old) node.setAttribute(attr, neu);
+            }
+          }catch(e){}
+        });
+
+        for (var c=node.firstChild; c; c=c.nextSibling) cleanNode(c);
+      }catch(e){}
+    }
+
+    function run(){
+      try{
+        if (vlmLang() === "vi") return;
+
+        var roots = [];
+        ["lom-panel","lom-toast","lom-fab"].forEach(function(id){
+          var el = document.getElementById(id);
+          if (el) roots.push(el);
+        });
+
+        try{
+          document.querySelectorAll('[id^="lk-"]').forEach(function(el){
+            if (el && el.parentNode && roots.indexOf(el.parentNode) < 0) roots.push(el.parentNode);
+          });
+        }catch(e){}
+
+        roots.forEach(cleanNode);
+      }catch(e){}
+    }
+
+    document.addEventListener("click", function(){ setTimeout(run,80); setTimeout(run,400); }, true);
+    document.addEventListener("input", function(){ setTimeout(run,80); }, true);
+
+    setInterval(run, 1200);
+    setTimeout(run, 300);
+    setTimeout(run, 1200);
+    setTimeout(run, 3000);
+
+    try{ console.warn("[VLM_LANG_TEXT_ONLY_KEEP_EMOJIS_V2] installed"); }catch(e){}
+  }catch(e){}
+})();
+/* VLM_LANG_TEXT_ONLY_KEEP_EMOJIS_V2_END */
+
