@@ -8629,6 +8629,308 @@ var VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE={"en":{"CLAIM QUÀ":"CLAIM GIFTS","COLE
   }catch(e){}
 })();
 /* VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE_END */
+/* VLM_LICENSE_PANEL_BRIDGE_FULL_V1_START */
+(function(){
+  try{
+    if(globalThis.__VLM_LICENSE_PANEL_BRIDGE_FULL_V1_INSTALLED)return;
+    globalThis.__VLM_LICENSE_PANEL_BRIDGE_FULL_V1_INSTALLED=true;
+
+    var busy=false;
+
+    function normTextV1(v){
+      return String(v==null?"":v).replace(/\s+/g," ").trim();
+    }
+
+    function normalizeKeyV1(v){
+      var k=String(v==null?"":v).trim();
+      k=k.replace(/[–—−]/g,"-");
+      k=k.replace(/^key\s*=\s*/i,"");
+      k=k.replace(/\s+/g,"");
+      k=k.toUpperCase();
+      return k;
+    }
+
+    function isProbablyKeyV1(k){
+      k=normalizeKeyV1(k);
+      if(k.length<8 || k.length>80)return false;
+      if(!/^[A-Z0-9-]+$/.test(k))return false;
+      return true;
+    }
+
+    function looksLicenseRootV1(el){
+      try{
+        if(!el || el.nodeType!==1)return false;
+        var t=normTextV1(el.textContent||"");
+        if(t.indexOf("LICENSE")>=0 && (t.indexOf("ATIVAR")>=0 || t.indexOf("ACTIVATE")>=0 || t.indexOf("Inserir key")>=0 || t.indexOf("Enter key")>=0))return true;
+        if(t.indexOf("COMPRAR KEY")>=0 || t.indexOf("BUY KEY")>=0)return true;
+        if(t.indexOf("REFRESH VALIDADE")>=0 || t.indexOf("REFRESH VALIDITY")>=0)return true;
+      }catch(e){}
+      return false;
+    }
+
+    function rootFromV1(el){
+      try{
+        var cur=el;
+        for(var i=0;i<10 && cur;i++,cur=cur.parentElement){
+          if(looksLicenseRootV1(cur))return cur;
+        }
+      }catch(e){}
+      try{
+        var all=document.querySelectorAll("div,section,main,aside");
+        var best=null,bestLen=999999;
+        for(var j=0;j<all.length;j++){
+          if(looksLicenseRootV1(all[j])){
+            var l=String(all[j].textContent||"").length;
+            if(l<bestLen){best=all[j];bestLen=l;}
+          }
+        }
+        return best;
+      }catch(e){}
+      return null;
+    }
+
+    function inputFromV1(root){
+      try{
+        if(!root)return null;
+        var list=root.querySelectorAll("input.lom-input,input");
+        for(var i=0;i<list.length;i++){
+          var inp=list[i];
+          var val=String(inp.value||inp.getAttribute("value")||"");
+          var ph=String(inp.placeholder||"");
+          if(/key/i.test(ph) || /VLM|KEY\s*=|ADMIN|DEBUG/i.test(val) || list.length===1)return inp;
+        }
+      }catch(e){}
+      return null;
+    }
+
+    function statusFromV1(root){
+      try{
+        if(!root)return null;
+        var all=root.querySelectorAll("div,span,p,label");
+        for(var i=0;i<all.length;i++){
+          var t=normTextV1(all[i].textContent||"");
+          if(/key|valid|inv[aá]lid|active|ativa|expired|expir/i.test(t) && t.length<120){
+            return all[i];
+          }
+        }
+      }catch(e){}
+      return null;
+    }
+
+    function setStatusV1(root,msg,ok){
+      try{
+        var s=statusFromV1(root);
+        if(!s && root){
+          s=document.createElement("div");
+          s.className="lom-license-bridge-status";
+          s.style.cssText="margin:10px 0;text-align:center;font-weight:800;color:#b9fbc0";
+          var inp=inputFromV1(root);
+          if(inp && inp.parentNode) inp.parentNode.insertBefore(s, inp);
+          else root.appendChild(s);
+        }
+        if(s){
+          s.textContent=String(msg||"");
+          s.style.color=ok ? "#74f7a6" : "#ff6b9c";
+          s.style.opacity="1";
+        }
+      }catch(e){}
+    }
+
+    function setBusyBtnV1(btn,on,label){
+      try{
+        if(!btn)return;
+        btn.disabled=!!on;
+        btn.style.opacity=on?"0.65":"";
+        if(label)btn.textContent=label;
+      }catch(e){}
+    }
+
+    function detectRoleIdV1(){
+      try{
+        var keys=[];
+        for(var i=0;i<localStorage.length;i++){
+          var k=localStorage.key(i);
+          var v=String(localStorage.getItem(k)||"");
+          keys.push(k+"="+v);
+        }
+        var joined=keys.join(" ");
+        var m=joined.match(/\b33\d{12,18}\b/);
+        if(m)return m[0];
+      }catch(e){}
+      try{
+        var txt=String(document.body&&document.body.textContent||"");
+        var m2=txt.match(/\b33\d{12,18}\b/);
+        if(m2)return m2[0];
+      }catch(e){}
+      return "";
+    }
+
+    function deviceIdV1(){
+      try{
+        var k=localStorage.getItem("VLM_DEVICE_ID")||localStorage.getItem("deviceId")||"";
+        if(k)return String(k);
+      }catch(e){}
+      try{
+        var d="web_"+Math.random().toString(36).slice(2)+Date.now().toString(36);
+        localStorage.setItem("VLM_LICENSE_PANEL_DEVICE_ID",d);
+        return d;
+      }catch(e){}
+      return "web_license_panel";
+    }
+
+    async function postJsonV1(url,body){
+      var r=await fetch(url,{
+        method:"POST",
+        credentials:"same-origin",
+        headers:{"content-type":"application/json"},
+        body:JSON.stringify(body||{})
+      });
+      var j=await r.json().catch(function(){return {ok:false,message:"INVALID RESPONSE",http:r.status};});
+      j.__http=r.status;
+      return j;
+    }
+
+    async function activateV1(btn){
+      if(busy)return;
+      var root=rootFromV1(btn);
+      var inp=inputFromV1(root);
+      var raw=inp?inp.value:"";
+      var key=normalizeKeyV1(raw);
+
+      if(inp && raw!==key)inp.value=key;
+
+      if(!isProbablyKeyV1(key)){
+        setStatusV1(root,"Formato de key inválido. Use a key limpa, sem KEY=.",false);
+        return;
+      }
+
+      busy=true;
+      var old=btn?btn.textContent:"";
+      setBusyBtnV1(btn,true,"VALIDANDO...");
+      setStatusV1(root,"Validando key no servidor...",true);
+
+      try{
+        var j=await postJsonV1("/vlm-web-login",{key:key,source:"license-panel-bridge-full-v1"});
+        if(j && j.ok){
+          try{
+            localStorage.setItem("VLM_LICENSE_PANEL_LAST_KEY",key);
+            localStorage.setItem("VLM_WEB_KEY",key);
+          }catch(e){}
+          setStatusV1(root,"Key ativa — recarregando sessão...",true);
+          setTimeout(function(){ location.href="/play?license_panel=ok&t="+Date.now(); },700);
+          return;
+        }
+
+        setStatusV1(root,(j&&j.message)||"Key inválida ou sem acesso.",false);
+      }catch(e){
+        setStatusV1(root,"Falha de conexão com License Bridge.",false);
+      }finally{
+        busy=false;
+        setBusyBtnV1(btn,false,old||"ATIVAR");
+      }
+    }
+
+    async function refreshV1(btn){
+      if(busy)return;
+      var root=rootFromV1(btn);
+      var inp=inputFromV1(root);
+      var key=normalizeKeyV1((inp&&inp.value)||localStorage.getItem("VLM_LICENSE_PANEL_LAST_KEY")||localStorage.getItem("VLM_WEB_KEY")||"");
+
+      if(inp && key)inp.value=key;
+
+      if(!isProbablyKeyV1(key)){
+        setStatusV1(root,"Informe uma key válida para atualizar a validade.",false);
+        return;
+      }
+
+      busy=true;
+      var old=btn?btn.textContent:"";
+      setBusyBtnV1(btn,true,"CONSULTANDO...");
+      setStatusV1(root,"Consultando validade...",true);
+
+      try{
+        var payload={
+          key:key,
+          roleId:detectRoleIdV1(),
+          deviceId:deviceIdV1(),
+          apkVersion:"license-panel-bridge-full-v1"
+        };
+
+        var j=await postJsonV1("/__vlm/key/verify",payload);
+
+        if(j && j.ok){
+          var msg="Key ativa";
+          if(j.expiresAt)msg+=" até "+j.expiresAt;
+          if(j.usedIds!=null && j.maxIds!=null)msg+=" · uso "+j.usedIds+"/"+j.maxIds;
+          setStatusV1(root,msg,true);
+          return;
+        }
+
+        setStatusV1(root,(j&&j.message)||"Não foi possível confirmar validade.",false);
+      }catch(e){
+        setStatusV1(root,"Falha ao consultar validade.",false);
+      }finally{
+        busy=false;
+        setBusyBtnV1(btn,false,old||"REFRESH VALIDADE");
+      }
+    }
+
+    function isActivateButtonV1(btn){
+      var t=normTextV1(btn&&btn.textContent||"").toUpperCase();
+      return t==="ATIVAR" || t==="ACTIVATE" || t.indexOf("ATIVAR")>=0 || t.indexOf("ACTIVATE")>=0;
+    }
+
+    function isRefreshButtonV1(btn){
+      var t=normTextV1(btn&&btn.textContent||"").toUpperCase();
+      return t.indexOf("REFRESH")>=0 || t.indexOf("VALIDADE")>=0 || t.indexOf("VALIDITY")>=0;
+    }
+
+    document.addEventListener("click",function(e){
+      try{
+        var btn=e.target && e.target.closest ? e.target.closest("button") : null;
+        if(!btn)return;
+
+        var root=rootFromV1(btn);
+        if(!root)return;
+
+        if(isActivateButtonV1(btn)){
+          e.preventDefault();
+          e.stopPropagation();
+          if(e.stopImmediatePropagation)e.stopImmediatePropagation();
+          activateV1(btn);
+          return false;
+        }
+
+        if(isRefreshButtonV1(btn)){
+          e.preventDefault();
+          e.stopPropagation();
+          if(e.stopImmediatePropagation)e.stopImmediatePropagation();
+          refreshV1(btn);
+          return false;
+        }
+      }catch(x){}
+    },true);
+
+    document.addEventListener("input",function(e){
+      try{
+        var inp=e.target;
+        if(!inp || String(inp.tagName||"").toLowerCase()!=="input")return;
+        var root=rootFromV1(inp);
+        if(!root)return;
+        var v=String(inp.value||"");
+        if(/^key\s*=/i.test(v)){
+          var clean=normalizeKeyV1(v);
+          inp.value=clean;
+          setStatusV1(root,"Prefixo KEY= removido automaticamente.",true);
+        }
+      }catch(x){}
+    },true);
+
+    try{globalThis.VLM_LICENSE_PANEL_BRIDGE_FULL_V1={activate:activateV1,refresh:refreshV1,normalize:normalizeKeyV1};}catch(e){}
+  }catch(e){}
+})();
+/* VLM_LICENSE_PANEL_BRIDGE_FULL_V1_END */
+
 
 
 
