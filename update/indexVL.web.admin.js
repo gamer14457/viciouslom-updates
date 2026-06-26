@@ -9208,6 +9208,397 @@ var VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE={"en":{"CLAIM QUÀ":"CLAIM GIFTS","COLE
   }catch(e){}
 })();
 /* VLM_LICENSE_PANEL_LIFETIME_FIX_V3_END */
+/* VLM_LICENSE_VITALICIO_BADGE_V4_START */
+(function(){
+  try{
+    if(globalThis.__VLM_LICENSE_VITALICIO_BADGE_V4_INSTALLED)return;
+    globalThis.__VLM_LICENSE_VITALICIO_BADGE_V4_INSTALLED=true;
+
+    var busy=false;
+    var crownMsg="👑 VITALÍCIO 👑";
+    var vipMsg="👑 VIP VITALÍCIO 👑";
+
+    function txt(v){return String(v==null?"":v).replace(/\s+/g," ").trim();}
+    function lower(v){return txt(v).toLowerCase();}
+
+    function normalizeKey(v){
+      var k=String(v==null?"":v).trim();
+      k=k.replace(/[–—−]/g,"-");
+      k=k.replace(/^key\s*=\s*/i,"");
+      k=k.replace(/\s+/g,"");
+      return k.toUpperCase();
+    }
+
+    function okKey(k){
+      k=normalizeKey(k);
+      return /^[A-Z0-9-]{8,80}$/.test(k) && k.indexOf("...")<0;
+    }
+
+    function findRoot(el){
+      try{
+        var cur=el;
+        for(var i=0;i<14 && cur;i++,cur=cur.parentElement){
+          var t=txt(cur.textContent||"");
+          if(t.indexOf("LICENSE")>=0 && (
+            t.indexOf("Validade")>=0 ||
+            t.indexOf("Validity")>=0 ||
+            t.indexOf("Key ativa")>=0 ||
+            t.indexOf("Activated")>=0 ||
+            t.indexOf("ATIVAR")>=0
+          ))return cur;
+        }
+      }catch(e){}
+
+      try{
+        var exp=document.getElementById("lom-lic-exp");
+        if(exp){
+          var c=exp;
+          for(var j=0;j<12 && c;j++,c=c.parentElement){
+            var tt=txt(c.textContent||"");
+            if(tt.indexOf("LICENSE")>=0 || tt.indexOf("Key ativa")>=0 || tt.indexOf("Activated")>=0)return c;
+          }
+        }
+      }catch(e){}
+
+      return document.body;
+    }
+
+    function expEl(root){
+      return document.getElementById("lom-lic-exp") || (root&&root.querySelector ? root.querySelector("#lom-lic-exp") : null);
+    }
+
+    function keyEl(root){
+      return document.getElementById("lom-lic-key") || (root&&root.querySelector ? root.querySelector("#lom-lic-key") : null);
+    }
+
+    function inputEl(root){
+      try{
+        var list=(root||document).querySelectorAll("input.lom-input,input");
+        for(var i=0;i<list.length;i++){
+          var v=String(list[i].value||"");
+          var ph=String(list[i].placeholder||"");
+          if(/key/i.test(ph) || /VLM|KEY\s*=|ADMIN|DEBUG/i.test(v) || list.length===1)return list[i];
+        }
+      }catch(e){}
+      return null;
+    }
+
+    function getStoredKey(root){
+      try{
+        var inp=inputEl(root);
+        if(inp && inp.value){
+          var k=normalizeKey(inp.value);
+          if(okKey(k)){
+            localStorage.setItem("VLM_LICENSE_PANEL_LAST_KEY",k);
+            localStorage.setItem("VLM_WEB_KEY",k);
+            return k;
+          }
+        }
+      }catch(e){}
+
+      try{
+        var keys=["VLM_LICENSE_PANEL_LAST_KEY","VLM_WEB_KEY","VLM_LAST_KEY","MOD_KEY","VLM_ACTIVE_KEY"];
+        for(var i=0;i<keys.length;i++){
+          var v=localStorage.getItem(keys[i])||sessionStorage.getItem(keys[i])||"";
+          var k=normalizeKey(v);
+          if(okKey(k))return k;
+        }
+      }catch(e){}
+
+      return "";
+    }
+
+    function findRoleInText(v){
+      var m=String(v||"").match(/\b33\d{12,18}\b/);
+      return m?m[0]:"";
+    }
+
+    function detectRoleId(){
+      try{
+        var saved=localStorage.getItem("VLM_LICENSE_PANEL_LAST_ROLEID")||"";
+        if(findRoleInText(saved))return findRoleInText(saved);
+      }catch(e){}
+
+      try{
+        var direct=["VLM_ROLE_ID","VLM_ROLEID","VLM_ACTIVE_ROLE_ID","VLM_LAST_ROLE_ID","roleId","role_id","ROLE_ID","RoleId","playerRoleId","currentRoleId"];
+        for(var i=0;i<direct.length;i++){
+          var v=localStorage.getItem(direct[i])||sessionStorage.getItem(direct[i])||"";
+          var r=findRoleInText(v);
+          if(r)return r;
+        }
+
+        for(var j=0;j<localStorage.length;j++){
+          var lk=localStorage.key(j);
+          var lv=localStorage.getItem(lk);
+          var r2=findRoleInText(String(lk||"")+"="+String(lv||""));
+          if(r2)return r2;
+        }
+
+        for(var q=0;q<sessionStorage.length;q++){
+          var sk=sessionStorage.key(q);
+          var sv=sessionStorage.getItem(sk);
+          var r3=findRoleInText(String(sk||"")+"="+String(sv||""));
+          if(r3)return r3;
+        }
+      }catch(e){}
+
+      try{
+        return findRoleInText(document.body&&document.body.textContent||"");
+      }catch(e){}
+
+      return "";
+    }
+
+    function deviceId(){
+      try{
+        var d=localStorage.getItem("VLM_LICENSE_PANEL_DEVICE_ID")||localStorage.getItem("VLM_DEVICE_ID")||localStorage.getItem("deviceId")||"";
+        if(d)return String(d);
+        d="web_license_"+Math.random().toString(36).slice(2)+Date.now().toString(36);
+        localStorage.setItem("VLM_LICENSE_PANEL_DEVICE_ID",d);
+        return d;
+      }catch(e){}
+      return "web_license_vitalicio_v4";
+    }
+
+    function statusLooksActive(root){
+      try{
+        var t=lower(root&&root.textContent||document.body.textContent||"");
+        return /activated|active|ativa|ativo|paid|key ativa|acesso ativo/.test(t);
+      }catch(e){}
+      return false;
+    }
+
+    function hasDateText(v){
+      var t=txt(v);
+      if(!t)return false;
+      if(/refresh|atualizar|validade|validity|vital/i.test(t))return false;
+      return /\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}|\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}|expira|expires/i.test(t);
+    }
+
+    function setCrown(root,source){
+      try{
+        root=root||findRoot(document.body);
+
+        var exp=expEl(root);
+        if(exp){
+          exp.textContent=crownMsg;
+          exp.style.color="#ffd86b";
+          exp.style.fontWeight="900";
+          exp.style.textShadow="0 0 10px rgba(255,216,107,.55)";
+          exp.setAttribute("data-vlm-vitalicio","1");
+          exp.setAttribute("title","ViciousLom Lifetime VIP");
+        }
+
+        var k=keyEl(root);
+        if(k){
+          k.style.color="#74f7a6";
+          k.style.fontWeight="800";
+        }
+
+        var rows=(root||document).querySelectorAll(".lom-row,.col,div,span");
+        for(var i=0;i<rows.length;i++){
+          var el=rows[i];
+          if(el===exp)continue;
+          var t=txt(el.textContent||"");
+          if(t.length>120)continue;
+
+          if(/^Refresh validade$|^Atualizar validade$|^Refresh validity$|^REFRESH VALIDADE$/i.test(t)){
+            el.textContent=crownMsg;
+            el.style.color="#ffd86b";
+            el.style.fontWeight="900";
+            el.style.textShadow="0 0 10px rgba(255,216,107,.55)";
+          }
+
+          if(/^Status\s*✓?\s*Activated\s*\(Paid\)$/i.test(t) || /^Status\s*✓?\s*Ativo/i.test(t)){
+            el.style.color="#74f7a6";
+          }
+        }
+
+        var old=(root||document).querySelector(".vlm-vitalicio-badge-v4");
+        if(!old && exp && exp.parentNode){
+          var badge=document.createElement("div");
+          badge.className="vlm-vitalicio-badge-v4";
+          badge.textContent=vipMsg;
+          badge.style.cssText="margin-top:7px;text-align:center;font-weight:1000;letter-spacing:.5px;color:#ffd86b;text-shadow:0 0 12px rgba(255,216,107,.70);font-size:13px";
+          exp.parentNode.appendChild(badge);
+        }
+
+        try{
+          localStorage.setItem("VLM_LICENSE_PANEL_LAST_LIFETIME_OK","1");
+          localStorage.setItem("VLM_LICENSE_PANEL_LAST_LIFETIME_SOURCE",source||"v4");
+        }catch(e){}
+      }catch(e){}
+    }
+
+    function extract(o,names){
+      try{
+        var pools=[o,o&&o.data,o&&o.license,o&&o.result,o&&o.session,o&&o.payload,o&&o.keyInfo,o&&o.info];
+        for(var p=0;p<pools.length;p++){
+          var x=pools[p];
+          if(!x || typeof x!=="object")continue;
+          for(var i=0;i<names.length;i++){
+            var k=names[i];
+            if(Object.prototype.hasOwnProperty.call(x,k) && x[k]!=null && String(x[k])!=="")return x[k];
+          }
+        }
+      }catch(e){}
+      return "";
+    }
+
+    function isLifetimeResp(j){
+      try{
+        if(!j || typeof j!=="object")return false;
+
+        var direct=extract(j,["lifetime","isLifetime","is_lifetime","permanent","isPermanent","is_permanent"]);
+        if(direct===true || String(direct).toLowerCase()==="true" || String(direct)==="1")return true;
+
+        var all=lower(JSON.stringify(j));
+        if(/vital|vitalícia|vitalicio|lifetime|permanent|permanente|never|sem expirar|nao expira|não expira/.test(all))return true;
+
+        var exp=extract(j,["expiresAt","expires_at","expireAt","expire_at","expiry","validUntil","valid_until","endAt","end_at"]);
+        var st=lower(extract(j,["status","state","message","msg"]));
+        var ok=j.ok===true || /active|ativo|ativa|acesso ativo|key ativada|ok/.test(st);
+
+        if(ok && (exp==="" || exp==null || String(exp)==="0" || String(exp)==="-1" || /2099|9999/.test(String(exp))))return true;
+      }catch(e){}
+      return false;
+    }
+
+    async function postJson(url,body){
+      var r=await fetch(url,{
+        method:"POST",
+        credentials:"same-origin",
+        headers:{"content-type":"application/json"},
+        body:JSON.stringify(body||{})
+      });
+      var j=await r.json().catch(function(){return {ok:false,http:r.status,message:"Resposta inválida"};});
+      j.__http=r.status;
+      return j;
+    }
+
+    async function verifyAndPaint(root){
+      root=root||findRoot(document.body);
+
+      var exp=expEl(root);
+      if(statusLooksActive(root) && exp && !hasDateText(exp.textContent||"")){
+        setCrown(root,"active-dom-no-date");
+      }
+
+      var key=getStoredKey(root);
+      var roleId=detectRoleId();
+
+      if(!okKey(key) || !roleId)return;
+
+      try{
+        var ver=await postJson("/__vlm/key/verify",{
+          key:key,
+          roleId:roleId,
+          deviceId:deviceId(),
+          apkVersion:"license-vitalicio-badge-v4",
+          source:"license-vitalicio-badge-v4-verify"
+        });
+
+        if(isLifetimeResp(ver)){
+          setCrown(root,"verify-lifetime");
+          return;
+        }
+
+        if(ver && ver.status==="not_bound"){
+          var act=await postJson("/__vlm/key/activate",{
+            key:key,
+            roleId:roleId,
+            deviceId:deviceId(),
+            apkVersion:"license-vitalicio-badge-v4",
+            source:"license-vitalicio-badge-v4-activate"
+          });
+          if(isLifetimeResp(act) || isLifetimeResp(ver))setCrown(root,"activate-lifetime");
+        }
+      }catch(e){}
+    }
+
+    function isValidityClick(el){
+      try{
+        if(!el)return false;
+        if(el.id==="lom-lic-exp")return true;
+
+        var c=el.closest && el.closest("#lom-lic-exp,.lom-row,.col,button");
+        if(!c)return false;
+
+        var t=lower(c.textContent||"");
+        return /validade|validity|refresh|atualizar/.test(t);
+      }catch(e){}
+      return false;
+    }
+
+    document.addEventListener("input",function(e){
+      try{
+        var inp=e.target;
+        if(!inp || String(inp.tagName||"").toLowerCase()!=="input")return;
+
+        var k=normalizeKey(inp.value||"");
+        if(/^key\s*=/i.test(String(inp.value||""))){
+          inp.value=k;
+        }
+
+        if(okKey(k)){
+          localStorage.setItem("VLM_LICENSE_PANEL_LAST_KEY",k);
+          localStorage.setItem("VLM_WEB_KEY",k);
+        }
+      }catch(x){}
+    },true);
+
+    document.addEventListener("click",function(e){
+      try{
+        var root=findRoot(e.target);
+        if(!root)return;
+
+        if(isValidityClick(e.target)){
+          setTimeout(function(){verifyAndPaint(root);},80);
+          setTimeout(function(){verifyAndPaint(root);},500);
+          setTimeout(function(){setCrown(root,"validity-click");},1200);
+        }
+
+        var btn=e.target && e.target.closest ? e.target.closest("button") : null;
+        if(btn){
+          var t=lower(btn.textContent||"");
+          if(/ativar|activate|validade|validity|refresh|atualizar/.test(t)){
+            setTimeout(function(){verifyAndPaint(root);},500);
+            setTimeout(function(){verifyAndPaint(root);},1500);
+            setTimeout(function(){verifyAndPaint(root);},2800);
+          }
+        }
+      }catch(x){}
+    },true);
+
+    function sweep(){
+      try{
+        var root=findRoot(document.body);
+        if(!root)return;
+        var exp=expEl(root);
+        var k=keyEl(root);
+        if(exp && k && statusLooksActive(root) && !hasDateText(exp.textContent||"")){
+          setCrown(root,"sweep-active-no-date");
+        }
+      }catch(e){}
+    }
+
+    setInterval(sweep,900);
+    setTimeout(sweep,500);
+    setTimeout(sweep,1500);
+    setTimeout(sweep,3000);
+
+    try{
+      globalThis.VLM_LICENSE_VITALICIO_BADGE_V4={
+        sweep:sweep,
+        setCrown:setCrown,
+        verifyAndPaint:verifyAndPaint,
+        normalize:normalizeKey
+      };
+    }catch(e){}
+  }catch(e){}
+})();
+/* VLM_LICENSE_VITALICIO_BADGE_V4_END */
+
 
 
 
