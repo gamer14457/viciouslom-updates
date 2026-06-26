@@ -8432,14 +8432,33 @@ var VLM_LANG_VISIBLE_DOM_BATCH_V3={"en":{"CLAIM QUÀ":"CLAIM GIFTS","COLETAR":"C
   }catch(e){}
 })();
 /* VLM_LANG_VISIBLE_DOM_BATCH_V3_END */
-/* VLM_LANG_MENU_VISIBLE_GLOBAL_V4_START */
-var VLM_LANG_MENU_VISIBLE_GLOBAL_V4={"en":{"CLAIM QUÀ":"CLAIM GIFTS","COLETAR":"CLAIM GIFTS","CLAIM QUA":"CLAIM GIFTS","MELHORAR":"UPGRADE","OFERTAS":"SALES","NTILENG TRẠI":"FARM","FAZENDA":"FARM","NTILENG TRAI":"FARM","GUILD HỘI":"GUILD","GUILDA":"GUILD","GUILD HOI":"GUILD","PARK XE":"PARKING","ESTACIONAMENTO":"PARKING","CASAMENTO":"MARRIAGE","ROLL LAMP":"ROLL LAMP","ROLL DA LÂMPADA":"ROLL LAMP","COMBAT":"COMBAT","COMBATE":"COMBAT","CROSS-WAR":"CROSS-WAR","GUERRA CROSS":"CROSS-WAR","NAVAL":"NAVAL","EVENT":"EVENT","EVENTO":"EVENT","LICENSE":"LICENSE","LICENÇA":"LICENSE","PET":"PET","BOSS":"BOSS","Auto Đuổi Steal":"Auto Chase Thieves","Auto Expulsar Ladrões":"Auto Chase Thieves","Nhờ Trợ Giúp (chat guild)":"Request Help (guild chat)","Pedir Ajuda (chat da guilda)":"Request Help (guild chat)","Auto đánh đuổi trộm trên ruộng của bạn. Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi. Mỗi times đuổi sẽ HIỆN trận đánh.":"Automatically chases thieves from your field. The server uses real POWER — if the thief is stronger, it cannot be chased away. Each chase shows a battle.","Expulsa ladrões da sua plantação automaticamente. O servidor usa o PODER real — se o ladrão for mais forte, não será possível expulsar. Cada expulsão mostra uma batalha.":"Automatically chases thieves from your field. The server uses real POWER — if the thief is stronger, it cannot be chased away. Each chase shows a battle.","Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp (1 times/trộm). CẦN có guild.":"When you cannot win, it automatically asks the guild for help (1 time per thief). Requires a guild.","Quando não conseguir vencer, pede ajuda automaticamente no chat da guilda (1 vez por ladrão). Precisa ter guilda.":"When you cannot win, it automatically asks the guild for help (1 time per thief). Requires a guild.","Auto đánh đuổi trộm trên ruộng của bạn.":"Automatically chases thieves from your field.","Expulsa ladrões da sua plantação automaticamente.":"Automatically chases thieves from your field.","Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi.":"The server uses real POWER — if the thief is stronger, it cannot be chased away.","O servidor usa o PODER real — se o ladrão for mais forte, não será possível expulsar.":"The server uses real POWER — if the thief is stronger, it cannot be chased away.","Mỗi times đuổi sẽ HIỆN trận đánh.":"Each chase shows a battle.","Cada expulsão mostra uma batalha.":"Each chase shows a battle.","Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp":"When you cannot win, it automatically asks the guild for help","Quando não conseguir vencer, pede ajuda automaticamente no chat da guilda":"When you cannot win, it automatically asks the guild for help","(1 times/trộm). CẦN có guild.":"(1 time per thief). Requires a guild.","(1 vez por ladrão). Precisa ter guilda.":"(1 time per thief). Requires a guild.","khtileng":"cannot","não consegue":"cannot","stronger":"stronger","mais forte":"stronger","times/trộm":"time per thief","vez por ladrão":"time per thief","trộm":"thief","ladrão":"thief","ruộng":"field","plantação":"field","đánh đuổi":"chase away","expulsar":"chase away","Guia":"Guide","Limpar Cache":"Clear Cache","Atualizar":"Refresh","Instalar App":"Install App"},"pt":{"CLAIM QUÀ":"COLETAR","CLAIM GIFTS":"COLETAR","CLAIM QUA":"COLETAR","MELHORAR":"MELHORAR","UPGRADE":"MELHORAR","OFERTAS":"OFERTAS","SALES":"OFERTAS","NTILENG TRẠI":"FAZENDA","FARM":"FAZENDA","NTILENG TRAI":"FAZENDA","GUILD HỘI":"GUILDA","GUILD":"GUILDA","GUILD HOI":"GUILDA","PARK XE":"ESTACIONAMENTO","PARKING":"ESTACIONAMENTO","CASAMENTO":"CASAMENTO","MARRIAGE":"CASAMENTO","ROLL LAMP":"ROLL DA LÂMPADA","COMBAT":"COMBATE","CROSS-WAR":"GUERRA CROSS","NAVAL":"NAVAL","EVENT":"EVENTO","LICENSE":"LICENÇA","PET":"PET","BOSS":"BOSS","Auto Đuổi Steal":"Auto Expulsar Ladrões","Auto Chase Thieves":"Auto Expulsar Ladrões","Nhờ Trợ Giúp (chat guild)":"Pedir Ajuda (chat da guilda)","Request Help (guild chat)":"Pedir Ajuda (chat da guilda)","Auto đánh đuổi trộm trên ruộng của bạn. Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi. Mỗi times đuổi sẽ HIỆN trận đánh.":"Expulsa ladrões da sua plantação automaticamente. O servidor usa o PODER real — se o ladrão for mais forte, não será possível expulsar. Cada expulsão mostra uma batalha.","Automatically chases thieves from your field. The server uses real POWER — if the thief is stronger, it cannot be chased away. Each chase shows a battle.":"Expulsa ladrões da sua plantação automaticamente. O servidor usa o PODER real — se o ladrão for mais forte, não será possível expulsar. Cada expulsão mostra uma batalha.","Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp (1 times/trộm). CẦN có guild.":"Quando não conseguir vencer, pede ajuda automaticamente no chat da guilda (1 vez por ladrão). Precisa ter guilda.","When you cannot win, it automatically asks the guild for help (1 time per thief). Requires a guild.":"Quando não conseguir vencer, pede ajuda automaticamente no chat da guilda (1 vez por ladrão). Precisa ter guilda.","Auto đánh đuổi trộm trên ruộng của bạn.":"Expulsa ladrões da sua plantação automaticamente.","Automatically chases thieves from your field.":"Expulsa ladrões da sua plantação automaticamente.","Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi.":"O servidor usa o PODER real — se o ladrão for mais forte, não será possível expulsar.","The server uses real POWER — if the thief is stronger, it cannot be chased away.":"O servidor usa o PODER real — se o ladrão for mais forte, não será possível expulsar.","Mỗi times đuổi sẽ HIỆN trận đánh.":"Cada expulsão mostra uma batalha.","Each chase shows a battle.":"Cada expulsão mostra uma batalha.","Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp":"Quando não conseguir vencer, pede ajuda automaticamente no chat da guilda","When you cannot win, it automatically asks the guild for help":"Quando não conseguir vencer, pede ajuda automaticamente no chat da guilda","(1 times/trộm). CẦN có guild.":"(1 vez por ladrão). Precisa ter guilda.","(1 time per thief). Requires a guild.":"(1 vez por ladrão). Precisa ter guilda.","khtileng":"não consegue","cannot":"não consegue","stronger":"mais forte","times/trộm":"vez por ladrão","time per thief":"vez por ladrão","trộm":"ladrão","thief":"ladrão","ruộng":"plantação","field":"plantação","đánh đuổi":"expulsar","chase away":"expulsar","Guia":"Guia","Guide":"Guia","Limpar Cache":"Limpar Cache","Clear Cache":"Limpar Cache","Atualizar":"Atualizar","Refresh":"Atualizar","Instalar App":"Instalar App","Install App":"Instalar App"},"vi":{"CLAIM QUÀ":"CLAIM QUÀ","CLAIM GIFTS":"CLAIM QUA","COLETAR":"CLAIM QUA","CLAIM QUA":"CLAIM QUA","MELHORAR":"MELHORAR","UPGRADE":"MELHORAR","OFERTAS":"OFERTAS","SALES":"OFERTAS","NTILENG TRẠI":"NTILENG TRẠI","FARM":"NTILENG TRAI","FAZENDA":"NTILENG TRAI","NTILENG TRAI":"NTILENG TRAI","GUILD HỘI":"GUILD HỘI","GUILD":"GUILD HOI","GUILDA":"GUILD HOI","GUILD HOI":"GUILD HOI","PARK XE":"PARK XE","PARKING":"PARK XE","ESTACIONAMENTO":"PARK XE","CASAMENTO":"CASAMENTO","MARRIAGE":"CASAMENTO","ROLL LAMP":"ROLL LAMP","ROLL DA LÂMPADA":"ROLL LAMP","COMBAT":"COMBAT","COMBATE":"COMBAT","CROSS-WAR":"CROSS-WAR","GUERRA CROSS":"CROSS-WAR","NAVAL":"NAVAL","EVENT":"EVENT","EVENTO":"EVENT","LICENSE":"LICENSE","LICENÇA":"LICENSE","PET":"PET","BOSS":"BOSS","Auto Đuổi Steal":"Auto Đuổi Steal","Auto Chase Thieves":"Auto Đuổi Steal","Auto Expulsar Ladrões":"Auto Đuổi Steal","Nhờ Trợ Giúp (chat guild)":"Nhờ Trợ Giúp (chat guild)","Request Help (guild chat)":"Nhờ Trợ Giúp (chat guild)","Pedir Ajuda (chat da guilda)":"Nhờ Trợ Giúp (chat guild)","Auto đánh đuổi trộm trên ruộng của bạn. Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi. Mỗi times đuổi sẽ HIỆN trận đánh.":"Auto đánh đuổi trộm trên ruộng của bạn. Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi. Mỗi times đuổi sẽ HIỆN trận đánh.","Automatically chases thieves from your field. The server uses real POWER — if the thief is stronger, it cannot be chased away. Each chase shows a battle.":"Auto đánh đuổi trộm trên ruộng của bạn. Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi. Mỗi times đuổi sẽ HIỆN trận đánh.","Expulsa ladrões da sua plantação automaticamente. O servidor usa o PODER real — se o ladrão for mais forte, não será possível expulsar. Cada expulsão mostra uma batalha.":"Auto đánh đuổi trộm trên ruộng của bạn. Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi. Mỗi times đuổi sẽ HIỆN trận đánh.","Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp (1 times/trộm). CẦN có guild.":"Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp (1 times/trộm). CẦN có guild.","When you cannot win, it automatically asks the guild for help (1 time per thief). Requires a guild.":"Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp (1 times/trộm). CẦN có guild.","Quando não conseguir vencer, pede ajuda automaticamente no chat da guilda (1 vez por ladrão). Precisa ter guilda.":"Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp (1 times/trộm). CẦN có guild.","Auto đánh đuổi trộm trên ruộng của bạn.":"Auto đánh đuổi trộm trên ruộng của bạn.","Automatically chases thieves from your field.":"Auto đánh đuổi trộm trên ruộng của bạn.","Expulsa ladrões da sua plantação automaticamente.":"Auto đánh đuổi trộm trên ruộng của bạn.","Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi.":"Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi.","The server uses real POWER — if the thief is stronger, it cannot be chased away.":"Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi.","O servidor usa o PODER real — se o ladrão for mais forte, não será possível expulsar.":"Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi.","Mỗi times đuổi sẽ HIỆN trận đánh.":"Mỗi times đuổi sẽ HIỆN trận đánh.","Each chase shows a battle.":"Mỗi times đuổi sẽ HIỆN trận đánh.","Cada expulsão mostra uma batalha.":"Mỗi times đuổi sẽ HIỆN trận đánh.","Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp":"Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp","When you cannot win, it automatically asks the guild for help":"Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp","Quando não conseguir vencer, pede ajuda automaticamente no chat da guilda":"Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp","(1 times/trộm). CẦN có guild.":"(1 times/trộm). CẦN có guild.","(1 time per thief). Requires a guild.":"(1 times/trộm). CẦN có guild.","(1 vez por ladrão). Precisa ter guilda.":"(1 times/trộm). CẦN có guild.","khtileng":"khtileng","cannot":"khtileng","não consegue":"khtileng","stronger":"stronger","mais forte":"stronger","times/trộm":"times/trộm","time per thief":"times/trộm","vez por ladrão":"times/trộm","trộm":"trộm","thief":"trộm","ladrão":"trộm","ruộng":"ruộng","field":"ruộng","plantação":"ruộng","đánh đuổi":"đánh đuổi","chase away":"đánh đuổi","expulsar":"đánh đuổi","Guia":"Guia","Guide":"Guia","Limpar Cache":"Limpar Cache","Clear Cache":"Limpar Cache","Atualizar":"Atualizar","Refresh":"Atualizar","Instalar App":"Instalar App","Install App":"Instalar App"}};
+/* VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE_START */
+var VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE={"en":{"CLAIM QUÀ":"CLAIM GIFTS","COLETAR":"CLAIM GIFTS","CLAIM QUA":"CLAIM GIFTS","MELHORAR":"UPGRADE","OFERTAS":"SALES","NTILENG TRẠI":"FARM","FAZENDA":"FARM","NTILENG TRAI":"FARM","GUILD HỘI":"GUILD","GUILDA":"GUILD","GUILD HOI":"GUILD","PARK XE":"PARKING","ESTACIONAMENTO":"PARKING","CASAMENTO":"MARRIAGE","ROLL LAMP":"ROLL LAMP","ROLL DA LÂMPADA":"ROLL LAMP","COMBAT":"COMBAT","COMBATE":"COMBAT","CROSS-WAR":"CROSS-WAR","GUERRA CROSS":"CROSS-WAR","NAVAL":"NAVAL","EVENT":"EVENT","EVENTO":"EVENT","LICENSE":"LICENSE","LICENÇA":"LICENSE","PET":"PET","BOSS":"BOSS","Auto Đuổi Steal":"Auto Chase Thieves","Auto Expulsar Ladrões":"Auto Chase Thieves","Nhờ Trợ Giúp (chat guild)":"Request Help (guild chat)","Pedir Ajuda (chat da guilda)":"Request Help (guild chat)","Auto đánh đuổi trộm trên ruộng của bạn. Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi. Mỗi times đuổi sẽ HIỆN trận đánh.":"Automatically chases thieves from your field. The server uses real POWER — if the thief is stronger, it cannot be chased away. Each chase shows a battle.","Expulsa ladrões da sua plantação automaticamente. O servidor usa o PODER real — se o ladrão for mais forte, não será possível expulsar. Cada expulsão mostra uma batalha.":"Automatically chases thieves from your field. The server uses real POWER — if the thief is stronger, it cannot be chased away. Each chase shows a battle.","Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp (1 times/trộm). CẦN có guild.":"When you cannot win, it automatically asks the guild for help (1 time per thief). Requires a guild.","Quando não conseguir vencer, pede ajuda automaticamente no chat da guilda (1 vez por ladrão). Precisa ter guilda.":"When you cannot win, it automatically asks the guild for help (1 time per thief). Requires a guild.","Auto đánh đuổi trộm trên ruộng của bạn.":"Automatically chases thieves from your field.","Expulsa ladrões da sua plantação automaticamente.":"Automatically chases thieves from your field.","Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi.":"The server uses real POWER — if the thief is stronger, it cannot be chased away.","O servidor usa o PODER real — se o ladrão for mais forte, não será possível expulsar.":"The server uses real POWER — if the thief is stronger, it cannot be chased away.","Mỗi times đuổi sẽ HIỆN trận đánh.":"Each chase shows a battle.","Cada expulsão mostra uma batalha.":"Each chase shows a battle.","Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp":"When you cannot win, it automatically asks the guild for help","Quando não conseguir vencer, pede ajuda automaticamente no chat da guilda":"When you cannot win, it automatically asks the guild for help","(1 times/trộm). CẦN có guild.":"(1 time per thief). Requires a guild.","(1 vez por ladrão). Precisa ter guilda.":"(1 time per thief). Requires a guild.","khtileng":"cannot","não consegue":"cannot","stronger":"stronger","mais forte":"stronger","times/trộm":"time per thief","vez por ladrão":"time per thief","trộm":"thief","ladrão":"thief","ruộng":"field","plantação":"field","đánh đuổi":"chase away","expulsar":"chase away","Guia":"Guide","Limpar Cache":"Clear Cache","Atualizar":"Refresh","Instalar App":"Install App"},"pt":{"CLAIM QUÀ":"COLETAR","CLAIM GIFTS":"COLETAR","CLAIM QUA":"COLETAR","MELHORAR":"MELHORAR","UPGRADE":"MELHORAR","OFERTAS":"OFERTAS","SALES":"OFERTAS","NTILENG TRẠI":"FAZENDA","FARM":"FAZENDA","NTILENG TRAI":"FAZENDA","GUILD HỘI":"GUILDA","GUILD":"GUILDA","GUILD HOI":"GUILDA","PARK XE":"ESTACIONAMENTO","PARKING":"ESTACIONAMENTO","CASAMENTO":"CASAMENTO","MARRIAGE":"CASAMENTO","ROLL LAMP":"ROLL DA LÂMPADA","COMBAT":"COMBATE","CROSS-WAR":"GUERRA CROSS","NAVAL":"NAVAL","EVENT":"EVENTO","LICENSE":"LICENÇA","PET":"PET","BOSS":"BOSS","Auto Đuổi Steal":"Auto Expulsar Ladrões","Auto Chase Thieves":"Auto Expulsar Ladrões","Nhờ Trợ Giúp (chat guild)":"Pedir Ajuda (chat da guilda)","Request Help (guild chat)":"Pedir Ajuda (chat da guilda)","Auto đánh đuổi trộm trên ruộng của bạn. Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi. Mỗi times đuổi sẽ HIỆN trận đánh.":"Expulsa ladrões da sua plantação automaticamente. O servidor usa o PODER real — se o ladrão for mais forte, não será possível expulsar. Cada expulsão mostra uma batalha.","Automatically chases thieves from your field. The server uses real POWER — if the thief is stronger, it cannot be chased away. Each chase shows a battle.":"Expulsa ladrões da sua plantação automaticamente. O servidor usa o PODER real — se o ladrão for mais forte, não será possível expulsar. Cada expulsão mostra uma batalha.","Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp (1 times/trộm). CẦN có guild.":"Quando não conseguir vencer, pede ajuda automaticamente no chat da guilda (1 vez por ladrão). Precisa ter guilda.","When you cannot win, it automatically asks the guild for help (1 time per thief). Requires a guild.":"Quando não conseguir vencer, pede ajuda automaticamente no chat da guilda (1 vez por ladrão). Precisa ter guilda.","Auto đánh đuổi trộm trên ruộng của bạn.":"Expulsa ladrões da sua plantação automaticamente.","Automatically chases thieves from your field.":"Expulsa ladrões da sua plantação automaticamente.","Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi.":"O servidor usa o PODER real — se o ladrão for mais forte, não será possível expulsar.","The server uses real POWER — if the thief is stronger, it cannot be chased away.":"O servidor usa o PODER real — se o ladrão for mais forte, não será possível expulsar.","Mỗi times đuổi sẽ HIỆN trận đánh.":"Cada expulsão mostra uma batalha.","Each chase shows a battle.":"Cada expulsão mostra uma batalha.","Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp":"Quando não conseguir vencer, pede ajuda automaticamente no chat da guilda","When you cannot win, it automatically asks the guild for help":"Quando não conseguir vencer, pede ajuda automaticamente no chat da guilda","(1 times/trộm). CẦN có guild.":"(1 vez por ladrão). Precisa ter guilda.","(1 time per thief). Requires a guild.":"(1 vez por ladrão). Precisa ter guilda.","khtileng":"não consegue","cannot":"não consegue","stronger":"mais forte","times/trộm":"vez por ladrão","time per thief":"vez por ladrão","trộm":"ladrão","thief":"ladrão","ruộng":"plantação","field":"plantação","đánh đuổi":"expulsar","chase away":"expulsar","Guia":"Guia","Guide":"Guia","Limpar Cache":"Limpar Cache","Clear Cache":"Limpar Cache","Atualizar":"Atualizar","Refresh":"Atualizar","Instalar App":"Instalar App","Install App":"Instalar App"},"vi":{"CLAIM QUÀ":"CLAIM QUÀ","CLAIM GIFTS":"CLAIM QUA","COLETAR":"CLAIM QUA","CLAIM QUA":"CLAIM QUA","MELHORAR":"MELHORAR","UPGRADE":"MELHORAR","OFERTAS":"OFERTAS","SALES":"OFERTAS","NTILENG TRẠI":"NTILENG TRẠI","FARM":"NTILENG TRAI","FAZENDA":"NTILENG TRAI","NTILENG TRAI":"NTILENG TRAI","GUILD HỘI":"GUILD HỘI","GUILD":"GUILD HOI","GUILDA":"GUILD HOI","GUILD HOI":"GUILD HOI","PARK XE":"PARK XE","PARKING":"PARK XE","ESTACIONAMENTO":"PARK XE","CASAMENTO":"CASAMENTO","MARRIAGE":"CASAMENTO","ROLL LAMP":"ROLL LAMP","ROLL DA LÂMPADA":"ROLL LAMP","COMBAT":"COMBAT","COMBATE":"COMBAT","CROSS-WAR":"CROSS-WAR","GUERRA CROSS":"CROSS-WAR","NAVAL":"NAVAL","EVENT":"EVENT","EVENTO":"EVENT","LICENSE":"LICENSE","LICENÇA":"LICENSE","PET":"PET","BOSS":"BOSS","Auto Đuổi Steal":"Auto Đuổi Steal","Auto Chase Thieves":"Auto Đuổi Steal","Auto Expulsar Ladrões":"Auto Đuổi Steal","Nhờ Trợ Giúp (chat guild)":"Nhờ Trợ Giúp (chat guild)","Request Help (guild chat)":"Nhờ Trợ Giúp (chat guild)","Pedir Ajuda (chat da guilda)":"Nhờ Trợ Giúp (chat guild)","Auto đánh đuổi trộm trên ruộng của bạn. Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi. Mỗi times đuổi sẽ HIỆN trận đánh.":"Auto đánh đuổi trộm trên ruộng của bạn. Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi. Mỗi times đuổi sẽ HIỆN trận đánh.","Automatically chases thieves from your field. The server uses real POWER — if the thief is stronger, it cannot be chased away. Each chase shows a battle.":"Auto đánh đuổi trộm trên ruộng của bạn. Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi. Mỗi times đuổi sẽ HIỆN trận đánh.","Expulsa ladrões da sua plantação automaticamente. O servidor usa o PODER real — se o ladrão for mais forte, não será possível expulsar. Cada expulsão mostra uma batalha.":"Auto đánh đuổi trộm trên ruộng của bạn. Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi. Mỗi times đuổi sẽ HIỆN trận đánh.","Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp (1 times/trộm). CẦN có guild.":"Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp (1 times/trộm). CẦN có guild.","When you cannot win, it automatically asks the guild for help (1 time per thief). Requires a guild.":"Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp (1 times/trộm). CẦN có guild.","Quando não conseguir vencer, pede ajuda automaticamente no chat da guilda (1 vez por ladrão). Precisa ter guilda.":"Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp (1 times/trộm). CẦN có guild.","Auto đánh đuổi trộm trên ruộng của bạn.":"Auto đánh đuổi trộm trên ruộng của bạn.","Automatically chases thieves from your field.":"Auto đánh đuổi trộm trên ruộng của bạn.","Expulsa ladrões da sua plantação automaticamente.":"Auto đánh đuổi trộm trên ruộng của bạn.","Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi.":"Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi.","The server uses real POWER — if the thief is stronger, it cannot be chased away.":"Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi.","O servidor usa o PODER real — se o ladrão for mais forte, não será possível expulsar.":"Server xử theo LỰC thật — trộm stronger thì đuổi khtileng nổi.","Mỗi times đuổi sẽ HIỆN trận đánh.":"Mỗi times đuổi sẽ HIỆN trận đánh.","Each chase shows a battle.":"Mỗi times đuổi sẽ HIỆN trận đánh.","Cada expulsão mostra uma batalha.":"Mỗi times đuổi sẽ HIỆN trận đánh.","Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp":"Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp","When you cannot win, it automatically asks the guild for help":"Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp","Quando não conseguir vencer, pede ajuda automaticamente no chat da guilda":"Khi đánh khtileng lại thì tự đăng nhờ guild đánh giúp","(1 times/trộm). CẦN có guild.":"(1 times/trộm). CẦN có guild.","(1 time per thief). Requires a guild.":"(1 times/trộm). CẦN có guild.","(1 vez por ladrão). Precisa ter guilda.":"(1 times/trộm). CẦN có guild.","khtileng":"khtileng","cannot":"khtileng","não consegue":"khtileng","stronger":"stronger","mais forte":"stronger","times/trộm":"times/trộm","time per thief":"times/trộm","vez por ladrão":"times/trộm","trộm":"trộm","thief":"trộm","ladrão":"trộm","ruộng":"ruộng","field":"ruộng","plantação":"ruộng","đánh đuổi":"đánh đuổi","chase away":"đánh đuổi","expulsar":"đánh đuổi","Guia":"Guia","Guide":"Guia","Limpar Cache":"Limpar Cache","Clear Cache":"Limpar Cache","Atualizar":"Atualizar","Refresh":"Atualizar","Instalar App":"Instalar App","Install App":"Instalar App"}};
 (function(){
   try{
-    if(globalThis.__VLM_LANG_MENU_VISIBLE_GLOBAL_V4_INSTALLED)return;
-    globalThis.__VLM_LANG_MENU_VISIBLE_GLOBAL_V4_INSTALLED=true;
+    if(globalThis.__VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE_INSTALLED)return;
+    globalThis.__VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE_INSTALLED=true;
 
-    function vlmLangV4(){
+    var selectLockUntil=0;
+    var lastApplyAt=0;
+    var applyTimer=0;
+
+    function nowV4S(){return Date.now?Date.now():(new Date()).getTime();}
+
+    function lockSelectV4S(ms){
+      try{selectLockUntil=Math.max(selectLockUntil,nowV4S()+(ms||1200));}catch(e){}
+    }
+
+    function isSelectLockedV4S(){
+      try{
+        if(nowV4S()<selectLockUntil)return true;
+        var a=document.activeElement;
+        if(a && String(a.tagName||"").toLowerCase()==="select")return true;
+      }catch(e){}
+      return false;
+    }
+
+    function langV4S(){
       try{
         var l=String(localStorage.getItem("MOD_LANG")||localStorage.getItem("curlan")||"en").toLowerCase();
         if(l.indexOf("pt")===0)return "pt";
@@ -8448,17 +8467,17 @@ var VLM_LANG_MENU_VISIBLE_GLOBAL_V4={"en":{"CLAIM QUÀ":"CLAIM GIFTS","COLETAR":
       }catch(e){return "en";}
     }
 
-    function normV4(v){
+    function normV4S(v){
       return String(v==null?"":v).replace(/\s+/g," ").trim();
     }
 
-    function trV4(v){
+    function trV4S(v){
       try{
         var raw=String(v==null?"":v);
-        var n=normV4(raw);
-        if(!n || n.length>500)return raw;
+        var n=normV4S(raw);
+        if(!n || n.length>420)return raw;
 
-        var d=VLM_LANG_MENU_VISIBLE_GLOBAL_V4[vlmLangV4()]||{};
+        var d=VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE[langV4S()]||{};
 
         if(Object.prototype.hasOwnProperty.call(d,raw))return d[raw];
         if(Object.prototype.hasOwnProperty.call(d,n))return d[n];
@@ -8467,153 +8486,151 @@ var VLM_LANG_MENU_VISIBLE_GLOBAL_V4={"en":{"CLAIM QUÀ":"CLAIM GIFTS","COLETAR":
         var keys=Object.keys(d).sort(function(a,b){return b.length-a.length;});
         for(var i=0;i<keys.length;i++){
           var k=keys[i];
-          if(!k || k.length<3)continue;
-          if(out.indexOf(k)>=0){
-            out=out.split(k).join(d[k]);
-          }
+          if(!k || k.length<5)continue;
+          if(out.indexOf(k)>=0)out=out.split(k).join(d[k]);
         }
         return out;
       }catch(e){}
       return v;
     }
 
-    function maybeMenuRootV4(el){
+    function rootScoreV4S(el){
       try{
-        if(!el || el.nodeType!==1)return false;
-        var txt=String(el.textContent||"");
-        if(txt.indexOf("Viciouslom")>=0)return true;
-        if(txt.indexOf("ViciousLom")>=0)return true;
-        if(txt.indexOf("COMBAT")>=0 && txt.indexOf("LICENSE")>=0)return true;
-        if(txt.indexOf("ROLL LAMP")>=0 && txt.indexOf("PET")>=0)return true;
-      }catch(e){}
-      return false;
+        var t=String(el&&el.textContent||"");
+        var score=0;
+        if(t.indexOf("Viciouslom")>=0||t.indexOf("ViciousLom")>=0)score+=6;
+        if(t.indexOf("COMBAT")>=0)score+=2;
+        if(t.indexOf("LICENSE")>=0)score+=2;
+        if(t.indexOf("ROLL LAMP")>=0)score+=2;
+        if(t.indexOf("PET")>=0)score+=1;
+        if(t.indexOf("NTILENG")>=0||t.indexOf("GUILD HỘI")>=0||t.indexOf("CLAIM QUÀ")>=0)score+=3;
+        if(t.length>9000)score-=4;
+        return score;
+      }catch(e){return 0;}
     }
 
-    function findMenuRootsV4(){
-      var arr=[];
+    function findRootsV4S(){
+      var out=[];
       try{
         var all=document.querySelectorAll("div,section,main,aside");
         for(var i=0;i<all.length;i++){
-          var el=all[i];
-          if(maybeMenuRootV4(el)){
-            arr.push(el);
-          }
+          if(rootScoreV4S(all[i])>=5)out.push(all[i]);
         }
-        arr.sort(function(a,b){
+        out.sort(function(a,b){
           return String(a.textContent||"").length-String(b.textContent||"").length;
         });
-        if(arr.length>4)arr=arr.slice(0,4);
+        if(out.length>3)out=out.slice(0,3);
       }catch(e){}
-      return arr;
+      return out;
     }
 
-    function patchTextNodeV4(n){
+    function patchTextV4S(n){
       try{
-        if(!n || n.nodeType!==3)return;
+        if(!n||n.nodeType!==3)return;
         var old=n.nodeValue;
-        var neu=trV4(old);
+        var neu=trV4S(old);
         if(neu!==old)n.nodeValue=neu;
       }catch(e){}
     }
 
-    function patchElementV4(el){
+    function patchElV4S(el){
       try{
-        if(!el || el.nodeType!==1)return;
+        if(!el||el.nodeType!==1)return;
 
         var tag=String(el.tagName||"").toLowerCase();
+        if(tag==="script"||tag==="style"||tag==="canvas"||tag==="select"||tag==="option")return;
 
-        if(tag==="script" || tag==="style" || tag==="canvas")return;
-
-        if(tag==="input" || tag==="textarea"){
-          if(el.placeholder)el.placeholder=trV4(el.placeholder);
-          if(el.value && el.value.length<180)el.value=trV4(el.value);
+        if(tag==="input"||tag==="textarea"){
+          if(el.placeholder)el.placeholder=trV4S(el.placeholder);
           return;
         }
 
-        if(tag==="option"){
-          if(el.textContent)el.textContent=trV4(el.textContent);
-          return;
-        }
-
-        if(el.title)el.title=trV4(el.title);
-        if(el.getAttribute && el.getAttribute("aria-label")){
-          el.setAttribute("aria-label",trV4(el.getAttribute("aria-label")));
+        if(el.title)el.title=trV4S(el.title);
+        if(el.getAttribute&&el.getAttribute("aria-label")){
+          el.setAttribute("aria-label",trV4S(el.getAttribute("aria-label")));
         }
 
         var nodes=el.childNodes;
-        if(nodes && nodes.length){
-          for(var i=0;i<nodes.length;i++){
-            if(nodes[i].nodeType===3)patchTextNodeV4(nodes[i]);
-          }
-        }else if(el.textContent && el.textContent.length<260){
-          var old=el.textContent;
-          var neu=trV4(old);
-          if(neu!==old)el.textContent=neu;
+        if(nodes&&nodes.length){
+          for(var i=0;i<nodes.length;i++)if(nodes[i].nodeType===3)patchTextV4S(nodes[i]);
         }
       }catch(e){}
     }
 
-    function applyV4(){
+    function applyV4S(){
       try{
-        var roots=findMenuRootsV4();
+        if(isSelectLockedV4S())return;
 
-        if(!roots.length){
-          var bodyTxt=String(document.body&&document.body.textContent||"");
-          if(bodyTxt.indexOf("CLAIM QUÀ")>=0 || bodyTxt.indexOf("NTILENG")>=0 || bodyTxt.indexOf("GUILD HỘI")>=0){
-            roots=[document.body];
-          }
-        }
+        var n=nowV4S();
+        if(n-lastApplyAt<450)return;
+        lastApplyAt=n;
 
+        var roots=findRootsV4S();
         for(var r=0;r<roots.length;r++){
           var root=roots[r];
-          patchElementV4(root);
 
-          var all=root.querySelectorAll?root.querySelectorAll("button,select,option,label,span,div,a,p,h1,h2,h3,input,textarea,strong,em,b,i"):null;
+          patchElV4S(root);
+
+          var all=root.querySelectorAll?root.querySelectorAll("button,label,span,div,a,p,h1,h2,h3,input,textarea,strong,em,b,i"):null;
           if(all){
-            for(var j=0;j<all.length;j++)patchElementV4(all[j]);
+            for(var j=0;j<all.length;j++)patchElV4S(all[j]);
           }
 
           try{
             var walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null);
-            var n;
-            while((n=walker.nextNode()))patchTextNodeV4(n);
+            var node;
+            var limit=0;
+            while((node=walker.nextNode())&&limit++<500)patchTextV4S(node);
           }catch(e){}
         }
       }catch(e){}
     }
 
-    var timerV4=0;
-    function scheduleV4(delay){
+    function scheduleV4S(delay){
       try{
-        clearTimeout(timerV4);
-        timerV4=setTimeout(applyV4,delay||60);
+        clearTimeout(applyTimer);
+        applyTimer=setTimeout(applyV4S,delay||180);
       }catch(e){}
     }
 
-    try{globalThis.VLM_APPLY_VISIBLE_LANG_V4=applyV4;}catch(e){}
+    try{globalThis.VLM_APPLY_VISIBLE_LANG_V4_SAFE=applyV4S;}catch(e){}
 
-    document.addEventListener("click",function(){scheduleV4(80);setTimeout(applyV4,350);},true);
-    document.addEventListener("change",function(){scheduleV4(60);setTimeout(applyV4,240);setTimeout(applyV4,700);},true);
+    document.addEventListener("pointerdown",function(e){
+      try{if(e.target&&String(e.target.tagName||"").toLowerCase()==="select")lockSelectV4S(1800);}catch(x){}
+    },true);
 
-    try{
-      var mo=new MutationObserver(function(muts){
-        var hit=false;
-        for(var i=0;i<muts.length;i++){
-          if(muts[i].addedNodes && muts[i].addedNodes.length){hit=true;break;}
-          if(muts[i].type==="characterData"){hit=true;break;}
+    document.addEventListener("touchstart",function(e){
+      try{if(e.target&&String(e.target.tagName||"").toLowerCase()==="select")lockSelectV4S(1800);}catch(x){}
+    },true);
+
+    document.addEventListener("click",function(e){
+      try{
+        var t=e.target;
+        if(t&&String(t.tagName||"").toLowerCase()==="select"){lockSelectV4S(1800);return;}
+        scheduleV4S(260);
+      }catch(x){}
+    },true);
+
+    document.addEventListener("change",function(e){
+      try{
+        var t=e.target;
+        if(t&&String(t.tagName||"").toLowerCase()==="select"){
+          lockSelectV4S(500);
+          setTimeout(applyV4S,900);
+          setTimeout(applyV4S,1600);
+          return;
         }
-        if(hit)scheduleV4(80);
-      });
-      mo.observe(document.documentElement||document.body,{childList:true,subtree:true,characterData:true});
-    }catch(e){}
+        scheduleV4S(350);
+      }catch(x){}
+    },true);
 
-    setTimeout(applyV4,0);
-    setTimeout(applyV4,250);
-    setTimeout(applyV4,900);
-    setTimeout(applyV4,1800);
+    setTimeout(applyV4S,500);
+    setTimeout(applyV4S,1500);
   }catch(e){}
 })();
-/* VLM_LANG_MENU_VISIBLE_GLOBAL_V4_END */
+/* VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE_END */
+
+
 
 
 
