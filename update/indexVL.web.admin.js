@@ -8629,15 +8629,18 @@ var VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE={"en":{"CLAIM QUÀ":"CLAIM GIFTS","COLE
   }catch(e){}
 })();
 /* VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE_END */
-/* VLM_LICENSE_PANEL_BRIDGE_FULL_V2_BIND_ROLEID_START */
+/* VLM_LICENSE_PANEL_LIFETIME_FIX_V3_START */
 (function(){
   try{
-    if(globalThis.__VLM_LICENSE_PANEL_BRIDGE_FULL_V2_BIND_ROLEID_INSTALLED)return;
-    globalThis.__VLM_LICENSE_PANEL_BRIDGE_FULL_V2_BIND_ROLEID_INSTALLED=true;
+    if(globalThis.__VLM_LICENSE_PANEL_LIFETIME_FIX_V3_INSTALLED)return;
+    globalThis.__VLM_LICENSE_PANEL_LIFETIME_FIX_V3_INSTALLED=true;
 
     var busy=false;
+    var lastGoodMessage="";
 
-    function txt(v){return String(v==null?"":v).replace(/\s+/g," ").trim();}
+    function txt(v){
+      return String(v==null?"":v).replace(/\s+/g," ").trim();
+    }
 
     function normalizeKey(v){
       var k=String(v==null?"":v).trim();
@@ -8652,12 +8655,166 @@ var VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE={"en":{"CLAIM QUÀ":"CLAIM GIFTS","COLE
       return /^[A-Z0-9-]{8,80}$/.test(k);
     }
 
+    function lower(v){
+      return txt(v).toLowerCase();
+    }
+
+    function getFirst(obj,names){
+      try{
+        if(!obj || typeof obj!=="object")return "";
+        var pools=[obj,obj.data,obj.license,obj.result,obj.session,obj.payload,obj.keyInfo,obj.info];
+        for(var p=0;p<pools.length;p++){
+          var o=pools[p];
+          if(!o || typeof o!=="object")continue;
+          for(var i=0;i<names.length;i++){
+            var k=names[i];
+            if(Object.prototype.hasOwnProperty.call(o,k) && o[k]!=null && String(o[k])!==""){
+              return o[k];
+            }
+          }
+        }
+      }catch(e){}
+      return "";
+    }
+
+    function getPlan(j){
+      return getFirst(j,[
+        "plan","planName","plan_name","licensePlan","license_plan","type","licenseType",
+        "license_type","mode","expiryMode","expiry_mode","validity","duration","durationLabel"
+      ]);
+    }
+
+    function getExpiry(j){
+      return getFirst(j,[
+        "expiresAt","expires_at","expireAt","expire_at","expiry","expiryAt","expiry_at",
+        "validUntil","valid_until","validTo","valid_to","endAt","end_at","endsAt","ends_at",
+        "expiration","expirationAt","expiration_at"
+      ]);
+    }
+
+    function getUsed(j){
+      return getFirst(j,["usedIds","used_ids","used","usage","currentUses","current_uses"]);
+    }
+
+    function getMax(j){
+      return getFirst(j,["maxIds","max_ids","max","limit","maxUses","max_uses"]);
+    }
+
+    function getStatus(j){
+      return lower(getFirst(j,["status","state","message","msg"]));
+    }
+
+    function hasLifetimeText(v){
+      var t=lower(v);
+      return /vital|vital[ií]cia|lifetime|life\s*time|permanent|permanente|never|sem expirar|não expira|nao expira|indeterminado|ilimitado|ilimitada/.test(t);
+    }
+
+    function expLooksLifetime(exp){
+      if(exp==null)return true;
+      var raw=String(exp).trim();
+      if(raw==="" || raw==="0" || raw==="-1" || raw.toLowerCase()==="null" || raw.toLowerCase()==="never")return true;
+      if(hasLifetimeText(raw))return true;
+      if(/2099|9999/.test(raw))return true;
+
+      var n=Number(raw);
+      if(isFinite(n)){
+        if(n<=0)return true;
+        if(n>4102444800 && n<99999999999)return true;       // epoch seconds >= 2100
+        if(n>4102444800000)return true;                    // epoch ms >= 2100
+      }
+      return false;
+    }
+
+    function isLifetime(j){
+      try{
+        if(!j || typeof j!=="object")return false;
+
+        var explicit=getFirst(j,["lifetime","isLifetime","is_lifetime","permanent","isPermanent","is_permanent"]);
+        if(explicit===true)return true;
+        if(String(explicit).toLowerCase()==="true" || String(explicit)==="1")return true;
+
+        var plan=getPlan(j);
+        var exp=getExpiry(j);
+        var status=getStatus(j);
+        var message=getFirst(j,["message","msg","statusText","status_text"]);
+
+        if(hasLifetimeText(plan) || hasLifetimeText(status) || hasLifetimeText(message))return true;
+
+        if((j.ok || status==="active" || /ativo|ativa|acesso ativo|key ativada/.test(status)) && expLooksLifetime(exp)){
+          return true;
+        }
+      }catch(e){}
+      return false;
+    }
+
+    function isSuccess(j){
+      try{
+        if(!j || typeof j!=="object")return false;
+        if(j.ok===true)return true;
+        var st=getStatus(j);
+        return /active|ativo|ativa|acesso ativo|key ativada|ativada|success|ok/.test(st);
+      }catch(e){}
+      return false;
+    }
+
+    function formatExpiry(exp){
+      try{
+        if(exp==null || String(exp).trim()==="")return "";
+        var raw=String(exp).trim();
+        if(expLooksLifetime(raw))return "Vitalícia";
+
+        var n=Number(raw);
+        if(isFinite(n)){
+          var d;
+          if(n>1000000000000)d=new Date(n);
+          else if(n>1000000000)d=new Date(n*1000);
+          if(d && !isNaN(d.getTime())){
+            return d.toLocaleString("pt-BR");
+          }
+        }
+        return raw;
+      }catch(e){}
+      return "";
+    }
+
+    function usageMessage(j){
+      try{
+        var u=getUsed(j), m=getMax(j);
+        if(u!=="" && m!=="")return " · uso "+u+"/"+m;
+      }catch(e){}
+      return "";
+    }
+
+    function activeMessage(j){
+      try{
+        var plan=getPlan(j);
+        var exp=getExpiry(j);
+        var used=usageMessage(j);
+
+        if(isLifetime(j)){
+          return "Key ativa · Vitalícia" + used;
+        }
+
+        var expLabel=formatExpiry(exp);
+        if(expLabel){
+          return "Key ativa" + (plan ? " · "+plan : "") + " · expira " + expLabel + used;
+        }
+
+        return "Key ativa" + (plan ? " · "+plan : "") + used;
+      }catch(e){}
+      return "Key ativa";
+    }
+
     function findLicenseRoot(el){
       try{
         var cur=el;
-        for(var i=0;i<12 && cur;i++,cur=cur.parentElement){
+        for(var i=0;i<14 && cur;i++,cur=cur.parentElement){
           var t=txt(cur.textContent||"");
-          if(t.indexOf("LICENSE")>=0 && (t.indexOf("ATIVAR")>=0 || t.indexOf("ACTIVATE")>=0 || t.indexOf("Inserir key")>=0 || t.indexOf("Enter key")>=0))return cur;
+          if(t.indexOf("LICENSE")>=0 && (
+            t.indexOf("ATIVAR")>=0 || t.indexOf("ACTIVATE")>=0 ||
+            t.indexOf("Inserir key")>=0 || t.indexOf("Enter key")>=0 ||
+            t.indexOf("Key inválida")>=0 || t.indexOf("KEY")>=0
+          ))return cur;
         }
       }catch(e){}
 
@@ -8666,7 +8823,11 @@ var VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE={"en":{"CLAIM QUÀ":"CLAIM GIFTS","COLE
         var best=null,bestLen=999999;
         for(var j=0;j<all.length;j++){
           var t=txt(all[j].textContent||"");
-          if(t.indexOf("LICENSE")>=0 && (t.indexOf("ATIVAR")>=0 || t.indexOf("ACTIVATE")>=0 || t.indexOf("Inserir key")>=0 || t.indexOf("Enter key")>=0)){
+          if(t.indexOf("LICENSE")>=0 && (
+            t.indexOf("ATIVAR")>=0 || t.indexOf("ACTIVATE")>=0 ||
+            t.indexOf("Inserir key")>=0 || t.indexOf("Enter key")>=0 ||
+            t.indexOf("Key inválida")>=0
+          )){
             var l=t.length;
             if(l<bestLen){best=all[j];bestLen=l;}
           }
@@ -8689,35 +8850,62 @@ var VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE={"en":{"CLAIM QUÀ":"CLAIM GIFTS","COLE
       return null;
     }
 
-    function findStatus(root){
+    function ensureStatus(root){
       try{
         if(!root)return null;
-        var list=root.querySelectorAll(".lom-license-bridge-status-v2,div,span,p,label");
-        for(var i=0;i<list.length;i++){
-          var t=txt(list[i].textContent||"");
-          if(t.length<160 && /key|valid|inv[aá]lid|active|ativa|acesso|expir|vincul|role/i.test(t))return list[i];
-        }
+        var s=root.querySelector(".lom-license-lifetime-status-v3");
+        if(s)return s;
+
+        s=document.createElement("div");
+        s.className="lom-license-lifetime-status-v3";
+        s.style.cssText="margin:10px 0;padding:8px 10px;border:1px solid rgba(116,247,166,.35);border-radius:10px;background:rgba(0,0,0,.22);text-align:center;font-weight:900;font-size:13px;line-height:1.28;color:#74f7a6;box-shadow:0 0 14px rgba(116,247,166,.14)";
+
+        var inp=findInput(root);
+        if(inp && inp.parentNode)inp.parentNode.insertBefore(s,inp);
+        else root.appendChild(s);
+        return s;
       }catch(e){}
       return null;
     }
 
-    function setStatus(root,msg,ok){
+    function replaceLegacyInvalid(root,msg,ok){
       try{
-        var s=findStatus(root);
-        if(!s && root){
-          s=document.createElement("div");
-          s.className="lom-license-bridge-status-v2";
-          s.style.cssText="margin:10px 0;text-align:center;font-weight:800;font-size:13px;line-height:1.25;color:#74f7a6";
-          var inp=findInput(root);
-          if(inp && inp.parentNode)inp.parentNode.insertBefore(s,inp);
-          else root.appendChild(s);
-        }
-        if(s){
-          s.textContent=String(msg||"");
-          s.style.color=ok ? "#74f7a6" : "#ff6b9c";
-          s.style.opacity="1";
+        if(!root)return;
+        var list=root.querySelectorAll("div,span,p,label,strong,b");
+        for(var i=0;i<list.length;i++){
+          var el=list[i];
+          if(el.classList && el.classList.contains("lom-license-lifetime-status-v3"))continue;
+          var t=txt(el.textContent||"");
+          if(t.length>180)continue;
+          if(/key inv|inv[aá]lida|invalid key|key nao encontrada|key não encontrada|nao vinculada|não vinculada|expirou|expired/i.test(t)){
+            el.textContent=msg;
+            el.style.color=ok ? "#74f7a6" : "#ff6b9c";
+            el.style.fontWeight="900";
+          }
         }
       }catch(e){}
+    }
+
+    function setStatus(root,msg,ok){
+      try{
+        msg=String(msg||"");
+        if(ok)lastGoodMessage=msg;
+        var s=ensureStatus(root);
+        if(s){
+          s.textContent=msg;
+          s.style.color=ok ? "#74f7a6" : "#ff6b9c";
+          s.style.borderColor=ok ? "rgba(116,247,166,.45)" : "rgba(255,107,156,.45)";
+        }
+        replaceLegacyInvalid(root,msg,ok);
+      }catch(e){}
+    }
+
+    function stickyStatus(root,msg,ok){
+      setStatus(root,msg,ok);
+      setTimeout(function(){setStatus(root,msg,ok);},250);
+      setTimeout(function(){setStatus(root,msg,ok);},700);
+      setTimeout(function(){setStatus(root,msg,ok);},1400);
+      setTimeout(function(){setStatus(root,msg,ok);},2400);
     }
 
     function setBtn(btn,on,label){
@@ -8736,32 +8924,35 @@ var VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE={"en":{"CLAIM QUÀ":"CLAIM GIFTS","COLE
 
     function detectRoleId(){
       try{
+        var saved=localStorage.getItem("VLM_LICENSE_PANEL_LAST_ROLEID")||"";
+        if(findRoleInText(saved))return findRoleInText(saved);
+      }catch(e){}
+
+      try{
         var direct=[
           "VLM_ROLE_ID","VLM_ROLEID","VLM_ACTIVE_ROLE_ID","VLM_LAST_ROLE_ID",
-          "roleId","role_id","ROLE_ID","RoleId","playerRoleId","currentRoleId"
+          "roleId","role_id","ROLE_ID","RoleId","playerRoleId","currentRoleId",
+          "uid","role","player"
         ];
 
         for(var i=0;i<direct.length;i++){
-          try{
-            var v=localStorage.getItem(direct[i])||sessionStorage.getItem(direct[i])||"";
-            var r=findRoleInText(v);
-            if(r)return r;
-          }catch(e){}
+          var v="";
+          try{v=localStorage.getItem(direct[i])||sessionStorage.getItem(direct[i])||"";}catch(e){}
+          var r=findRoleInText(v);
+          if(r)return r;
         }
 
         for(var j=0;j<localStorage.length;j++){
           var k=localStorage.key(j);
           var val=localStorage.getItem(k);
-          var joined=String(k||"")+"="+String(val||"");
-          var r2=findRoleInText(joined);
+          var r2=findRoleInText(String(k||"")+"="+String(val||""));
           if(r2)return r2;
         }
 
         for(var q=0;q<sessionStorage.length;q++){
           var sk=sessionStorage.key(q);
           var sv=sessionStorage.getItem(sk);
-          var joined2=String(sk||"")+"="+String(sv||"");
-          var r3=findRoleInText(joined2);
+          var r3=findRoleInText(String(sk||"")+"="+String(sv||""));
           if(r3)return r3;
         }
       }catch(e){}
@@ -8770,10 +8961,6 @@ var VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE={"en":{"CLAIM QUÀ":"CLAIM GIFTS","COLE
         var body=String(document.body&&document.body.textContent||"");
         var r4=findRoleInText(body);
         if(r4)return r4;
-      }catch(e){}
-
-      try{
-        if(localStorage.getItem("VLM_LICENSE_PANEL_LAST_ROLEID"))return localStorage.getItem("VLM_LICENSE_PANEL_LAST_ROLEID");
       }catch(e){}
 
       return "";
@@ -8787,7 +8974,7 @@ var VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE={"en":{"CLAIM QUÀ":"CLAIM GIFTS","COLE
         localStorage.setItem("VLM_LICENSE_PANEL_DEVICE_ID",d);
         return d;
       }catch(e){}
-      return "web_license_panel_v2";
+      return "web_license_panel_lifetime_v3";
     }
 
     async function postJson(url,body){
@@ -8806,20 +8993,13 @@ var VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE={"en":{"CLAIM QUÀ":"CLAIM GIFTS","COLE
       return j;
     }
 
-    function activeMessage(j){
-      var p=j&&j.plan ? String(j.plan) : "";
-      var used=(j&&j.usedIds!=null&&j.maxIds!=null) ? (" · uso "+j.usedIds+"/"+j.maxIds) : "";
-      var exp=(j&&j.expiresAt) ? (" · expira "+j.expiresAt) : " · vitalícia";
-      return "Key ativa" + (p ? " · "+p : "") + exp + used;
-    }
-
     async function verifyKey(key,roleId){
       return await postJson("/__vlm/key/verify",{
         key:key,
         roleId:roleId||"",
         deviceId:deviceId(),
-        apkVersion:"license-panel-bridge-full-v2",
-        source:"license-panel-bridge-full-v2-verify"
+        apkVersion:"license-panel-lifetime-fix-v3",
+        source:"license-panel-lifetime-fix-v3-verify"
       });
     }
 
@@ -8828,8 +9008,8 @@ var VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE={"en":{"CLAIM QUÀ":"CLAIM GIFTS","COLE
         key:key,
         roleId:roleId||"",
         deviceId:deviceId(),
-        apkVersion:"license-panel-bridge-full-v2",
-        source:"license-panel-bridge-full-v2-activate"
+        apkVersion:"license-panel-lifetime-fix-v3",
+        source:"license-panel-lifetime-fix-v3-activate"
       });
     }
 
@@ -8844,19 +9024,19 @@ var VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE={"en":{"CLAIM QUÀ":"CLAIM GIFTS","COLE
       if(inp && raw!==key)inp.value=key;
 
       if(!okKey(key)){
-        setStatus(root,"Formato de key inválido. Use a key limpa, sem KEY=.",false);
+        stickyStatus(root,"Formato de key inválido. Use a key limpa, sem KEY=.",false);
         return;
       }
 
       busy=true;
       var old=btn?btn.textContent:"";
       setBtn(btn,true,"VALIDANDO...");
-      setStatus(root,"Validando key no Key Gate...",true);
+      stickyStatus(root,"Validando key no servidor...",true);
 
       try{
-        var login=await postJson("/vlm-web-login",{key:key,source:"license-panel-bridge-full-v2"});
-        if(!login || !login.ok){
-          setStatus(root,(login&&login.message)||"Key não encontrada no Key Gate.",false);
+        var login=await postJson("/vlm-web-login",{key:key,source:"license-panel-lifetime-fix-v3"});
+        if(!isSuccess(login)){
+          stickyStatus(root,(login&&login.message)||"Key não encontrada no Key Gate.",false);
           return;
         }
 
@@ -8868,36 +9048,38 @@ var VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE={"en":{"CLAIM QUÀ":"CLAIM GIFTS","COLE
         var roleId=detectRoleId();
 
         if(!roleId){
-          setStatus(root,"Key aceita. RoleId ainda não detectado; entre no personagem e toque ATIVAR novamente.",true);
+          stickyStatus(root,"Key aceita. RoleId ainda não detectado; entre no personagem e toque ATIVAR novamente.",true);
           return;
         }
 
         try{localStorage.setItem("VLM_LICENSE_PANEL_LAST_ROLEID",roleId);}catch(e){}
 
-        setStatus(root,"Key aceita. Vinculando ao roleId "+roleId+"...",true);
+        stickyStatus(root,"Key aceita. Vinculando ao roleId "+roleId+"...",true);
 
         var act=await activateKey(key,roleId);
-
-        if(act && act.ok){
-          setStatus(root,activeMessage(act),true);
-          setTimeout(function(){location.href="/play?license_panel=active&t="+Date.now();},900);
+        if(isSuccess(act)){
+          var msg=activeMessage(act);
+          stickyStatus(root,msg,true);
+          setTimeout(function(){setStatus(root,msg,true);},3000);
           return;
         }
 
         var ver=await verifyKey(key,roleId);
-        if(ver && ver.ok){
-          setStatus(root,activeMessage(ver),true);
+        if(isSuccess(ver)){
+          var msg2=activeMessage(ver);
+          stickyStatus(root,msg2,true);
+          setTimeout(function(){setStatus(root,msg2,true);},3000);
           return;
         }
 
         if(ver && ver.status==="not_bound"){
-          setStatus(root,"Key existe, mas ainda não está vinculada. Toque ATIVAR novamente.",false);
+          stickyStatus(root,"Key existe, mas ainda não vinculou ao roleId "+roleId+". Toque ATIVAR novamente.",false);
           return;
         }
 
-        setStatus(root,(act&&act.message)||(ver&&ver.message)||"Não foi possível ativar a key.",false);
+        stickyStatus(root,(act&&act.message)||(ver&&ver.message)||"Não foi possível ativar a key.",false);
       }catch(e){
-        setStatus(root,"Falha de conexão com License Bridge.",false);
+        stickyStatus(root,"Falha de conexão com License Bridge.",false);
       }finally{
         busy=false;
         setBtn(btn,false,old||"ATIVAR");
@@ -8914,37 +9096,38 @@ var VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE={"en":{"CLAIM QUÀ":"CLAIM GIFTS","COLE
       if(inp && key)inp.value=key;
 
       if(!okKey(key)){
-        setStatus(root,"Informe uma key válida para consultar a validade.",false);
+        stickyStatus(root,"Informe uma key válida para consultar a validade.",false);
         return;
       }
 
       var roleId=detectRoleId();
       if(!roleId){
-        setStatus(root,"RoleId ainda não detectado; entre no personagem e tente novamente.",false);
+        stickyStatus(root,"RoleId ainda não detectado; entre no personagem e tente novamente.",false);
         return;
       }
 
       busy=true;
       var old=btn?btn.textContent:"";
       setBtn(btn,true,"CONSULTANDO...");
-      setStatus(root,"Consultando validade...",true);
+      stickyStatus(root,"Consultando validade...",true);
 
       try{
         var ver=await verifyKey(key,roleId);
 
-        if(ver && ver.ok){
-          setStatus(root,activeMessage(ver),true);
+        if(isSuccess(ver)){
+          var msg=activeMessage(ver);
+          stickyStatus(root,msg,true);
           return;
         }
 
         if(ver && ver.status==="not_bound"){
-          setStatus(root,"Key existe, mas não está vinculada. Toque ATIVAR para vincular ao roleId "+roleId+".",false);
+          stickyStatus(root,"Key existe, mas não está vinculada. Toque ATIVAR para vincular ao roleId "+roleId+".",false);
           return;
         }
 
-        setStatus(root,(ver&&ver.message)||"Não foi possível confirmar a validade.",false);
+        stickyStatus(root,(ver&&ver.message)||"Não foi possível confirmar a validade.",false);
       }catch(e){
-        setStatus(root,"Falha ao consultar validade.",false);
+        stickyStatus(root,"Falha ao consultar validade.",false);
       }finally{
         busy=false;
         setBtn(btn,false,old||"REFRESH VALIDADE");
@@ -8998,22 +9181,35 @@ var VLM_LANG_MENU_VISIBLE_GLOBAL_V4_SAFE={"en":{"CLAIM QUÀ":"CLAIM GIFTS","COLE
         if(/^key\s*=/i.test(v)){
           var clean=normalizeKey(v);
           inp.value=clean;
-          setStatus(root,"Prefixo KEY= removido automaticamente.",true);
+          stickyStatus(root,"Prefixo KEY= removido automaticamente.",true);
         }
       }catch(x){}
     },true);
 
+    setInterval(function(){
+      try{
+        var root=findLicenseRoot(document.body);
+        if(root && lastGoodMessage){
+          replaceLegacyInvalid(root,lastGoodMessage,true);
+        }
+      }catch(e){}
+    },1200);
+
     try{
-      globalThis.VLM_LICENSE_PANEL_BRIDGE_FULL_V2_BIND_ROLEID={
+      globalThis.VLM_LICENSE_PANEL_LIFETIME_FIX_V3={
         activate:activate,
         refresh:refresh,
         normalize:normalizeKey,
-        detectRoleId:detectRoleId
+        detectRoleId:detectRoleId,
+        isLifetime:isLifetime,
+        activeMessage:activeMessage
       };
     }catch(e){}
   }catch(e){}
 })();
-/* VLM_LICENSE_PANEL_BRIDGE_FULL_V2_BIND_ROLEID_END */
+/* VLM_LICENSE_PANEL_LIFETIME_FIX_V3_END */
+
+
 
 
 
