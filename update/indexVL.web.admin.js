@@ -1,5 +1,64 @@
-/*! VLM_PROMAX_FINAL_BUILD 20260620_192329 | VLM_PROMAX_PAYLOAD_EMBEDDED_V1 | VLM_PROMAX_FINAL_ENDPOINTS_Viciouslom | VLM_PROMAX_NO_EXTERNAL_BACKEND | CLIENTE produção não alterado */
-(function(g){try{var admin='https://vlm-dev-core4.gamervicius14.workers.dev/play',client='https://vlm.gamervicius14.workers.dev/play',license='worker-session';var loc=g.location||{};var host=String(loc.hostname||'').toLowerCase();var origin=String(loc.origin||'');var allowed=["vlm-dev-core4.gamervicius14.workers.dev","vlm.gamervicius14.workers.dev","localhost","127.0.0.1"];var isAllowed=allowed.indexOf(host)>=0||host==='';var apiBase=(origin&&isAllowed)?origin:admin.replace(/\/play(?:[?#].*)?$/,'');g.VLM_PROMAX=Object.assign({},g.VLM_PROMAX||{},{version:'indexProMaxFinal',build:'20260620_192329',payloadEmbedded:true,noExternalBackend:true,endpointsViciouslom:true,adminReady:true,productionTouched:false,adminUrl:admin,clientUrl:client,licenseApiUrl:license,apiBase:apiBase,allowedHosts:allowed,routes:{keyValidate:'embedded:disabled',modPayload:'embedded:sanitized',licenseVerify:'worker-session',licenseActivate:'worker-session',apiProxy:'/__api/'},brand:'Viciouslom Final'});g.VLM_PROMAX_FINAL_BUILD='20260620_192329';g.VLM_PROMAX_PAYLOAD_EMBEDDED_V1=true;g.VLM_PROMAX_FINAL_ENDPOINTS_Viciouslom=true;g.VLM_PROMAX_NO_EXTERNAL_BACKEND=true;g.VLM_PROMAX_ADMIN_READY=true;}catch(e){}})(typeof window!=='undefined'?window:globalThis);
+
+/* VLM_PROMAX_BRAND_TELEMETRY_CLEAN_V2 | ViciousLom | external pixel guard */
+;(function(g){
+  try{
+    if(g.__VLM_PROMAX_BRAND_TELEMETRY_CLEAN_V2__)return;
+    g.__VLM_PROMAX_BRAND_TELEMETRY_CLEAN_V2__=true;
+    var allow={
+      "vlm-dev-core4.gamervicius14.workers.dev":1,
+      "vlm.gamervicius14.workers.dev":1,
+      "localhost":1,
+      "127.0.0.1":1,
+      "":1
+    };
+    function toUrl(v){try{return new URL(String(v&&v.url||v||""),String((g.location&&g.location.href)||"https://vlm-dev-core4.gamervicius14.workers.dev/play"));}catch(_){return null;}}
+    function deny(v){
+      try{
+        var u=toUrl(v); if(!u)return false;
+        var h=String(u.hostname||"").toLowerCase();
+        var p=String(u.pathname||"").toLowerCase();
+        if(allow[h])return false;
+        var oldHost=(h.indexOf("99")>=0 && (h.indexOf("load")>=0 || h.indexOf("lom")>=0 || h.indexOf("mod")>=0));
+        var leakPath=(p.indexOf("/"+"le"+"ak")>=0 || p.indexOf("api"+"/"+"le"+"ak")>=0);
+        return !!(oldHost||leakPath);
+      }catch(_){return false;}
+    }
+    try{
+      var proto=(g.HTMLImageElement&&g.HTMLImageElement.prototype)||null;
+      var d=proto&&Object.getOwnPropertyDescriptor(proto,"src");
+      if(d&&d.set&&!proto.__vlmGuardedSrc){
+        Object.defineProperty(proto,"src",{configurable:true,enumerable:d.enumerable,get:d.get,set:function(v){if(deny(v)){try{this.setAttribute("data-vlm-blocked-pixel","1");}catch(_){} return;}return d.set.call(this,v);}});
+        proto.__vlmGuardedSrc=true;
+      }
+    }catch(_){ }
+    try{
+      if(g.fetch&&!g.fetch.__vlmGuardedFetch){
+        var of=g.fetch;
+        var nf=function(input,init){if(deny(input)){return Promise.resolve(new Response("",{status:204,statusText:"No Content"}));}return of.apply(this,arguments);};
+        nf.__vlmGuardedFetch=true; g.fetch=nf;
+      }
+    }catch(_){ }
+    try{
+      var nav=g.navigator;
+      if(nav&&nav.sendBeacon&&!nav.sendBeacon.__vlmGuardedBeacon){
+        var ob=nav.sendBeacon.bind(nav);
+        var nb=function(url,data){if(deny(url))return true;return ob(url,data);};
+        nb.__vlmGuardedBeacon=true; nav.sendBeacon=nb;
+      }
+    }catch(_){ }
+    try{
+      var X=g.XMLHttpRequest&&g.XMLHttpRequest.prototype;
+      if(X&&X.open&&!X.open.__vlmGuardedXhr){
+        var oo=X.open;
+        X.open=function(method,url){if(deny(url)){arguments[1]="data:text/plain,";}return oo.apply(this,arguments);};
+        X.open.__vlmGuardedXhr=true;
+      }
+    }catch(_){ }
+  }catch(_){ }
+})(typeof globalThis!=="undefined"?globalThis:window);
+
+/*! VLM_PROMAX_FINAL_BUILD 20260620_192329 | VLM_PROMAX_PAYLOAD_EMBEDDED_V1 | VLM_PROMAX_FINAL_ENDPOINTS_ViciousLom | VLM_PROMAX_NO_EXTERNAL_BACKEND | CLIENTE produção não alterado */
+(function(g){try{var admin='https://vlm-dev-core4.gamervicius14.workers.dev/play',client='https://vlm.gamervicius14.workers.dev/play',license='worker-session';var loc=g.location||{};var host=String(loc.hostname||'').toLowerCase();var origin=String(loc.origin||'');var allowed=["vlm-dev-core4.gamervicius14.workers.dev","vlm.gamervicius14.workers.dev","localhost","127.0.0.1"];var isAllowed=allowed.indexOf(host)>=0||host==='';var apiBase=(origin&&isAllowed)?origin:admin.replace(/\/play(?:[?#].*)?$/,'');g.VLM_PROMAX=Object.assign({},g.VLM_PROMAX||{},{version:'indexProMaxFinal',build:'20260620_192329',payloadEmbedded:true,noExternalBackend:true,endpointsViciousLom:true,adminReady:true,productionTouched:false,adminUrl:admin,clientUrl:client,licenseApiUrl:license,apiBase:apiBase,allowedHosts:allowed,routes:{keyValidate:'embedded:disabled',modPayload:'embedded:sanitized',licenseVerify:'worker-session',licenseActivate:'worker-session',apiProxy:'/__api/'},brand:'ViciousLom Final'});g.VLM_PROMAX_FINAL_BUILD='20260620_192329';g.VLM_PROMAX_PAYLOAD_EMBEDDED_V1=true;g.VLM_PROMAX_FINAL_ENDPOINTS_ViciousLom=true;g.VLM_PROMAX_NO_EXTERNAL_BACKEND=true;g.VLM_PROMAX_ADMIN_READY=true;}catch(e){}})(typeof window!=='undefined'?window:globalThis);
 System.register("chunks:///_virtual/AccomplishmentView.ts",["./rollupPluginModLoBabelHelpers.js","cc","./V2.ts","./AudioMgr.ts","./index4.ts","./UIList.ts","./NodeUtil.ts","./StringUtil.ts","./index84.ts","./UIEffectAsset.ts","./BagModel.ts","./TaskControl.ts","./TaskDataCache.ts","./TaskDefine.ts","./AchievementControl.ts","./AchievementDataCache.ts","./AchievementDefine.ts","./EaseMethod.ts","./BaseSubView.ts"],(function(t){"use strict";var i,e,n,o,s,a,d,c,h,r,l,m,u,f,v,p,g,C,I,S,y,T,w,A,F,k,b;return{setters:[function(t){i=t.inheritsLoose},function(t){e=t.cclegacy,n=t.ScrollView,o=t.UITransform,s=t.Vec3,a=t.Sprite,d=t.Label,c=t.ProgressBar,h=t.Button,r=t.js},function(t){l=t.V2},function(t){m=t.audioMgr},null,function(t){u=t.ListItem},function(t){f=t.default},function(t){v=t.default},null,function(t){p=t.UIEffectAsset},function(t){g=t.BagModel},function(t){C=t.default},function(t){I=t.TaskDataCache},function(t){S=t.TaskEventDefine,y=t.TaskType,T=t.TaskState},function(t){w=t.default},function(t){A=t.AchievementDataCache},function(t){F=t.AchievementEventDefine},function(t){k=t.EasingMethod},function(t){b=t.BaseSubView}],execute:function(){e._RF.push({},"f8f34pi5+xHJITBPl0kfy0C","AccomplishmentView",void 0);t("default",function(t){function e(){var i;return(i=t.call(this)||this).taskList=void 0,i.nodeFly=void 0,i.utFly=void 0,i.target=void 0,i.totaleTask=void 0,i.name="AccomplishmentView",i.url="ui/module/achievement/AccomplishmentView",i}i(e,t);var a=e.prototype;return a.onInit=function(){var t=this.findChildComponent("view/taskList",n);this.taskList=this.addUIList(t,x,!0,1,1),this.totaleTask=new x,this.totaleTask.init(null,this.findChild("view/totalTask/item"),this),this.nodeFly=this.findChild("flyRoot"),this.utFly=this.nodeFly.getComponent(o),this.target=this.findChild("target")},a.registerUpdateHandler=function(){this.addEvent(S.TASK_INFO_UPDATE,this.updateTaskInfo,this),this.addEvent(F.AccomplishmentUpdate,this.updateTaskInfo,this),this.addEvent(S.Task_FLY_DIAMOND,this.flyDiamo,this)},a.onAfterOpen=function(){this.updateTaskInfo()},a.onBeforeClose=function(){},a.onDestroy=function(){},a.updateTaskInfo=function(){var t,i=IS(A).GetAccomplishmentTask();i.sort((function(t,i){var e=IS(I).GetTaskItem(y.Achievement,t.id),n=IS(I).GetTaskItem(y.Achievement,i.id),o=e?e.state:T.Normal,s=n?n.state:T.Normal;return o==T.Complete&&s!=T.Complete?-1:o!=T.Complete&&s==T.Complete?1:o!=s?o<s?-1:1:t.order-i.order}));var e=configAchievement_total.getDataByKey(IS(A).GetAccomplishmentId());this.totaleTask.onRender({isSpec:!0,id:e.id,condition:(t={},t[2]=e.number,t),name:e.name,desc:e.desc,reward:e.reward}),this.taskList.datas=i},a.flyDiamo=function(t){var i=new s,e=new l;this.utFly.convertToNodeSpaceAR(t,i);var n=this.utFly.convertToNodeSpaceAR(this.target.worldPosition,new s),o=p.alloc("ui/module/common/FlyDiamo",this.nodeFly,1);o.position=e.set(i.x,i.y);var a=new l(i.x,i.y),d=s.subtract(new s,n,i);this.addTween(0,1,.95,(function(t,n){s.multiplyScalar(i,d,n),e.set(a).add2f(i.x,i.y),o.position=e})).easing(k.BACK_IN).call((function(){m.playSound("common_jinbitiao")})).start()},e}(b));var x=function(t){function e(){for(var i,e=arguments.length,n=new Array(e),o=0;o<e;o++)n[o]=arguments[o];return(i=t.call.apply(t,[this].concat(n))||this).txtDesc=void 0,i.pb=void 0,i.txtSchedule=void 0,i.btnGet=void 0,i.notFinish=void 0,i.btnFinish=void 0,i.imgFrame=void 0,i.imgIcon=void 0,i.txtNum=void 0,i.moveTween=void 0,i.name=void 0,i}i(e,t);var n=e.prototype;return n.onInit=function(){var t=this;this.imgFrame=f.findChildComponent(this.node,"imgFrame",a),this.imgIcon=f.findChildComponent(this.node,"imgIcon",a),this.txtNum=f.findChildComponent(this.node,"txtNum",d),this.txtDesc=f.findChildComponent(this.node,"txtDesc",d),this.name=f.findChildComponent(this.node,"name",d),this.pb=f.findChildComponent(this.node,"ProgressBar",c),this.txtSchedule=f.findChildComponent(this.node,"ProgressBar/schedule",d),this.btnGet=f.findChild(this.node,"btnGet"),this.view.addComponentCallbackListener(this.btnGet,h.EventType.CLICK,(function(){t.data.isSpec?IS(w).send_task_achievement_reward_c2s():t.flyOut()})),this.btnFinish=f.findChild(this.node,"received"),this.notFinish=f.findChild(this.node,"notFinish"),this.view.addComponentCallbackListener(this.imgFrame.node,h.EventType.CLICK,(function(){IS(g).OpenItemTips(t.data.reward[0][0],t.imgFrame.node)}))},n.flyOut=function(){var t=this;null!=this.moveTween&&this.moveTween.stop();var i=new s,e=this.node.getComponent(o).contentSize,n=this.node.position,a=new s(n.x,n.y);this.moveTween=this.view.addTween(0,1,.15,(function(n,o){i.set(a).add3f(-1.1*e.x*o,0,0),t.node.position=i})).easing(k.LINEAR).call((function(){IS(C).send_10_2(y.Achievement,t.data.id)})).start()},n.onRender=function(t,i){var e,n;this.data=t,this.name.string=v.formatStr(t.name,null!=(e=t.name_num)?e:""),this.txtDesc.string=v.formatStr(t.desc,null!=(n=t.desc_num)?n:""),this.txtNum.string=t.reward[0][1];var o,s=t.reward[0][0],a=configGoods.getDataByKey(s),d=a.quality,c=configColor.getDataByKey(d);this.view.loadIcon(this.imgIcon,a.icon_group,a.icon),this.view.loadIcon(this.imgFrame,"icon_equip",c.path);var h,l=0;if(t.isSpec?(h=T.Normal,l=IS(A).GetAccomplishmentProgress(),IS(A).GetAccomplishmentGetId()==IS(A).GetAccomplishmentId()?h=T.Received:l>=t.condition[2]&&(h=T.Complete)):(l=(o=IS(I).GetTaskItem(y.Achievement,t.id)).count,h=o.state),o||t.isSpec)if(h==T.Normal){var m=l<=t.condition[2]?l:t.condition[2];this.pb.progress=m/t.condition[2],this.txtSchedule.string=r.formatStr("%s/%s",m,t.condition[2]),this.btnGet.active=!1,this.btnFinish.active=!1,this.notFinish.active=!0}else h==T.Complete?(this.pb.progress=1,this.txtSchedule.string=r.formatStr("%s/%s",t.condition[2],t.condition[2]),this.btnGet.active=!0,this.btnFinish.active=!1,this.notFinish.active=!1):(this.pb.progress=1,this.txtSchedule.string=r.formatStr("%s/%s",t.condition[2],t.condition[2]),this.btnGet.active=!1,this.btnFinish.active=!0,this.notFinish.active=!1);else this.pb.progress=0,this.txtSchedule.string=r.formatStr("%s/%s",0,t.condition[2]),this.btnGet.active=!1,this.btnFinish.active=!1,this.notFinish.active=!0},e}(u);e._RF.pop()}}}));
 
 System.register("chunks:///_virtual/AccRechargeBaseView.ts",["./rollupPluginModLoBabelHelpers.js","cc","./ItemGrid.ts","./UILabel.ts","./UIList.ts","./NodeUtil.ts","./TimeUtil.ts","./index84.ts","./MessageView.ts","./MainViewModel.ts","./ActivityControl.ts","./ActivityDefine.ts","./UIDefine.ts","./BaseView.ts"],(function(t){"use strict";var i,e,n,s,o,a,d,c,h,r,l,f,u,v,p,C,m,g,L,T,b,y;return{setters:[function(t){i=t.inheritsLoose},function(t){e=t.cclegacy,n=t.Button,s=t.HorizontalTextAlignment,o=t.Label,a=t.ScrollView,d=t.Layout,c=t.ProgressBar,h=t.js},function(t){r=t.ItemGrid},function(t){l=t.UILabel},function(t){f=t.ListItem},function(t){u=t.default},function(t){v=t.default},null,function(t){p=t.default},function(t){C=t.MainViewModel},function(t){m=t.default},function(t){g=t.ActivityType,L=t.ActivityEventDefine,T=t.ActivityTaskState},function(t){b=t.PanelTabType},function(t){y=t.BaseView}],execute:function(){e._RF.push({},"ad3aeFb38ZA1bgbVDK14e/0","AccRechargeBaseView",void 0);t("default",function(t){function e(){var i;return(i=t.call(this)||this).taskList=void 0,i.actInfo=void 0,i.curIndex=void 0,i.txtTitle=void 0,i.txtLeftTime=void 0,i.deltaTime=0,i.leftTime=0,i.canUpdate=!1,i.titleList=[],i.name="AccRechargeBaseView",i.url="ui/module/activity/AccRechargeView",i}i(e,t);var c=e.prototype;return c.onInit=function(){var t=this,i=this.findChild("btnClose");this.addComponentCallbackListener(i,n.EventType.CLICK,(function(){t.onCloseClick()}));var e=this.findChild("bg/btnRule");this.addComponentCallbackListener(e,n.EventType.CLICK,(function(){p.showBoxTip({title:GetLanguage(201066),tip:GetLanguage(201067),btnCnt:1,horizontalAlign:s.LEFT})})),this.findChildComponent("view/tip/txtTips",o).string=GetLanguage(201087);var c=this.findChildComponent("view/taskList",a);this.taskList=this.addUIList(c,w,!0);var h=this.findChildComponent("view/timeCount",d);this.dealMirrorLayout(h),this.txtLeftTime=this.findChildComponent("view/timeCount/txtTime",o),this.txtTitle=this.findChildComponent("title/txtTitle",l),this.curIndex=null,this.titleList=[],this.titleList[g.AccRechargeTotal]=this.findChild("title/0"),this.titleList[g.AccRechargeDay]=this.findChild("title/1"),this.titleList[g.AccRechargeDay2]=this.findChild("title/2"),this.titleList[g.AccRechargeTotal2]=this.findChild("title/3")},c.onCloseClick=function(){this.close()},c.registerUpdateHandler=function(){this.addEvent(L.OnActivityInfoTaskUpdate,this.OnTaskUpdate,this),this.addEvent(L.OnActivityInfoUpdate,this.OnTaskUpdate,this),this.addEvent(L.OnActivityTaskReward,this.OnTaskUpdate,this)},c.onAfterOpen=function(){for(var t in this.titleList)this.titleList.hasOwnProperty(t)&&(this.titleList[t].active=!1);this.onAfterOpenSub()},c.onAfterOpenSub=function(){},c.onBeforeClose=function(){},c.onUpdate=function(t){this.canUpdate&&(this.deltaTime=this.deltaTime+t,this.deltaTime>=1&&(this.deltaTime=0,this.leftTime=this.leftTime-1,this.leftTime>0?this.txtLeftTime.string=v.formatTimeStringForSecond(this.leftTime):(this.txtLeftTime.string=GetLanguage(200026),this.canUpdate=!1)))},c.onDestroy=function(){},c.OnTaskUpdate=function(){this.taskList.updateAll()},c.RefreshScroll=function(){var t=[];for(var i in this.taskList.datas=t,this.actInfo.task_list)this.actInfo.task_list.hasOwnProperty(i)&&t.push(this.actInfo.task_list[i]);t.sort((function(t,i){return 1==t.state&&1!=i.state?-1:1!=t.state&&1==i.state?1:t.state!=i.state?t.state-i.state:t.id-i.id})),this.taskList.datas=t,this.taskList.scrollTo(0)},e}(y));var w=function(t){function e(){for(var i,e=arguments.length,n=new Array(e),s=0;s<e;s++)n[s]=arguments[s];return(i=t.call.apply(t,[this].concat(n))||this).txtDesc=void 0,i.btnGet=void 0,i.received=void 0,i.btnGotoRecharge=void 0,i.pb=void 0,i.schedule=void 0,i.rewardScroll=void 0,i}i(e,t);var s=e.prototype;return s.onInit=function(){var t=this,i=this.view;this.txtDesc=u.findChildComponent(this.node,"txtDesc",o),this.pb=u.findChildComponent(this.node,"ProgressBar",c),this.schedule=u.findChildComponent(this.node,"ProgressBar/schedule",o),this.received=u.findChild(this.node,"received"),this.btnGotoRecharge=u.findChild(this.node,"btnGotoRecharge"),this.view.addComponentCallbackListener(this.btnGotoRecharge,n.EventType.CLICK,(function(){IS(C).TryJumpToMainViewPanel(b.Main_Shop,b.Shop_Limit,[0])&&i.close()})),this.btnGet=u.findChild(this.node,"btnGet"),this.view.addComponentCallbackListener(this.btnGet,n.EventType.CLICK,(function(){IS(m).send_24_15(i.actInfo.activityCfg.type,t.data.task_id,t.data.group_id)}));var e=u.findChildComponent(this.node,"ScrollView",a);this.rewardScroll=i.addUIList(e,G),this.rewardScroll.virtual=!1},s.onRender=function(t,i){this.txtDesc.string=t.cfg.desc,this.rewardScroll.datas=t.cfg.reward,this.schedule.string=h.formatStr("%s/%s",t.count,t.cfg.condition[2]),this.pb.progress=t.count/t.cfg.condition[2],t.state==T.CanGet?(this.received.active=!1,this.btnGotoRecharge.active=!1,this.btnGet.active=!0):t.state==T.HadGet?(this.received.active=!0,this.btnGotoRecharge.active=!1,this.btnGet.active=!1):(this.received.active=!1,this.btnGotoRecharge.active=!0,this.btnGet.active=!1)},e}(f),G=function(t){function e(){for(var i,e=arguments.length,n=new Array(e),s=0;s<e;s++)n[s]=arguments[s];return(i=t.call.apply(t,[this].concat(n))||this).itemGridNode=void 0,i.itemGrid=void 0,i}i(e,t);var n=e.prototype;return n.onInit=function(){this.itemGridNode=u.findChild(this.node,"itemGrid"),this.itemGrid=new r(this.view,this.itemGridNode)},n.onRender=function(t,i){this.itemGrid.SetItemId(t[0],t[1])},e}(f);e._RF.pop()}}}));
@@ -8226,7 +8285,7 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
         }],
         execute: function () { }
     };
-    });});window.LOM_REGION="eu";;(function(){"use strict";var _0x59e349=(globalThis["VLM_PROMAX"]&&globalThis["VLM_PROMAX"]["apiBase"])||(typeof location!=="undefined"&&location["origin"]||""),_0x58eac2="[VLM_PROMAX]",_0x41ca12=(function(){try{return localStorage["getItem"]("MOD_DBG")==="1";}catch(_0xaae8cc){return![];}}()),_0x3db11b=![];try{_0x3db11b=window["LOM_REGION"]==="eu";}catch(_0x4caf18){}function _0x17898f(_0x31ab53,_0x13d992){return _0x3db11b?_0x13d992:_0x31ab53;}function _0x2c68c3(_0x13e7a0){try{return localStorage["getItem"](_0x13e7a0);}catch(_0x5d9e25){return null;}}function _0x1ba9b8(_0x3d66b6,_0x4b6bc0){try{localStorage["setItem"](_0x3d66b6,_0x4b6bc0);}catch(_0x41f89a){}}var _0x2cb4c1=null;function _0x30e89b(){var _0x551bf2="0|1|2|4|3"["split"]("|"),_0x3c75d1=0;while(!![]){switch(_0x551bf2[_0x3c75d1++]){case"0":if(_0x2cb4c1)return _0x2cb4c1;continue;case"1":var _0x139a04=_0x2c68c3("LOM_DEVICE_ID");continue;case"2":!_0x139a04&&(_0x139a04="dev_"+Math["random"]()["toString"](36)["slice"](2,10)+Date["now"]()["toString"](36),_0x1ba9b8("LOM_DEVICE_ID",_0x139a04));continue;case"3":return _0x139a04;case"4":_0x2cb4c1=_0x139a04;continue;}break;}}function _0x3dde4a(_0x58f316){if(_0x58f316==="KEY_CODE"||_0x58f316==="KEY_VALID"||_0x58f316==="KEY_EXPIRES"||_0x58f316==="KEY_TIER"||_0x58f316==="KEY_ADMIN"||_0x58f316==="DEVICE_ID")return!![];if(_0x58f316["indexOf"]("SKIN_")===0)return!![];if(/_mode$|_val$|_hour$/["test"](_0x58f316))return!![];return![];}function _0x1e51bf(){try{return!!JSON["parse"](_0x2c68c3("MOD_KEY_VALID")||"0");}catch(_0x11e6bd){return![];}}var _0x57d272={"MOD_DMG_ON":0x1,"MOD_SKILL_NOCD":0x1,"MOD_DUMP_TOGGLE":0x1,"MOD_FGOLD_ON":0x1,"MOD_SPD":0x1,"lamp_speed":0x1,"forge_speed":0x1,"unlock_all":0x1,"auto_redbag":0x1,"auto_roll":0x1,"auto_daily":0x1,"auto_season":0x1,"auto_afk":0x1,"auto_friend":0x1,"auto_horsecarnival":0x1,"ad_all":0x1,"auto_pet":0x1,"auto_skill":0x1,"auto_library":0x1,"auto_achievement":0x1,"auto_task":0x1,"auto_fund":0x1,"auto_growthgift":0x1,"auto_recharge":0x1,"auto_guild":0x1,"auto_trivia":0x1,"trivia":0x1};function _0x442971(_0x1dc034){return _0x57d272[_0x1dc034]===1;}function _0x4d06f8(){try{return _0x2c68c3("MOD_KEY_TIER")==="paid";}catch(_0xa08215){return![];}}globalThis["MODFREE"]=_0x442971,globalThis["MODGET"]=function(_0x3bf7de,_0x14a21f){var _0x448e0a=_0x14a21f!==undefined?_0x14a21f:0;try{if(!_0x3dde4a(_0x3bf7de)&&!_0x442971(_0x3bf7de)&&!_0x4d06f8())return _0x448e0a;var _0x567c5d=_0x2c68c3("MOD_"+_0x3bf7de);if(_0x567c5d==null)return _0x448e0a;try{return JSON["parse"](_0x567c5d);}catch(_0xe5d6){return _0x567c5d;}}catch(_0x36a953){return _0x448e0a;}},globalThis["MODSET"]=function(_0x405811,_0xaf5324){try{_0x1ba9b8("MOD_"+_0x405811,JSON["stringify"](_0xaf5324));}catch(_0x2a309d){}};function _0x223a78(){try{var _0xe81e33=new URLSearchParams(location["search"]),_0x5a493c=_0xe81e33["get"]("modch");if(_0x5a493c==="test"||_0x5a493c==="live")return _0x1ba9b8("MOD_CHANNEL",_0x5a493c),_0x5a493c;}catch(_0x333fe7){}return _0x2c68c3("MOD_CHANNEL")==="test"?"test":"live";}function _0x469978(_0x1727e3,_0x14cbc6,_0x5b67a0){try{var _0x53dfab=new XMLHttpRequest();_0x53dfab["open"]("GET",_0x1727e3,!![]),_0x53dfab["timeout"]=_0x5b67a0||35000,_0x53dfab["onload"]=function(){try{_0x14cbc6(null,JSON["parse"](_0x53dfab["responseText"]));}catch(_0x145703){_0x14cbc6(_0x145703,null);}},_0x53dfab["ontimeout"]=_0x53dfab["onerror"]=function(){_0x14cbc6(new Error("net"),null);},_0x53dfab["send"]();}catch(_0x30012a){_0x14cbc6(_0x30012a,null);}}function _0x240437(){try{var _0x439549=+(_0x2c68c3("MOD_KEY_EXPIRES")||0);return _0x439549>0&&Math["floor"](Date["now"]()/(1000))>_0x439549;}catch(_0x5e1b9f){return![];}}function _0x4f1471(_0x50ae27){try{var _0x5002a2="5|4|3|2|1|0"["split"]("|"),_0x1f5777=0;while(!![]){switch(_0x5002a2[_0x1f5777++]){case"0":_0x1ba9b8("MOD_LOGOUT_REASON",_0x50ae27||"invalid");continue;case"1":_0x1ba9b8("LOM_PAYLOAD_test","");continue;case"2":_0x1ba9b8("LOM_PAYLOAD_live","");continue;case"3":_0x1ba9b8("MOD_KEY_TIER","");continue;case"4":_0x1ba9b8("MOD_KEY_VALID","0");continue;case"5":_0x1ba9b8("MOD_KEY_CODE","");continue;}break;}}catch(_0x40bb31){}}var _0x50ab15=86400000,_0x5f19eb=1800000,_0x5af802=![];function _0x1486af(_0x36a4e2,_0x41c1fb){try{_0x5af802=![];_0x1ba9b8("MOD_KEY_VALID","1");if(!_0x2c68c3("MOD_KEY_TIER"))_0x1ba9b8("MOD_KEY_TIER","paid");if(!_0x2c68c3("KEY_TIER"))_0x1ba9b8("KEY_TIER","paid");_0x1ba9b8("MOD_MTOKEN","VLM_PROMAX_EMBEDDED");_0x1ba9b8("MOD_KEY_ADMIN",location["hostname"]==="vlm-dev-core4.gamervicius14.workers.dev"?"1":(_0x2c68c3("MOD_KEY_ADMIN")||"0"));var _0xvlm={"valid":!![],"reason":"vlm_worker_session_embedded_payload","tier":_0x2c68c3("MOD_KEY_TIER")||"paid","admin":location["hostname"]==="vlm-dev-core4.gamervicius14.workers.dev","mtoken":"VLM_PROMAX_EMBEDDED"};if(_0x41c1fb)_0x41c1fb(_0xvlm);}catch(_0xE){try{if(_0x41c1fb)_0x41c1fb({"valid":!![],"reason":"vlm_embedded_payload"});}catch(_0xE2){}}}globalThis["MODKEY"]={"validate":_0x1486af,"getDevice":_0x30e89b,"apiBase":function(){return _0x59e349||location["origin"];}};function _0x23397c(_0x3ef036,_0x365821,_0x470aac){try{var _0xf0e11e="5|0|4|2|3|1"["split"]("|"),_0x49d980=0;while(!![]){switch(_0xf0e11e[_0x49d980++]){case"0":_0x1bf5aa["open"]("GET",_0x3ef036,!![]);continue;case"1":_0x1bf5aa["send"]();continue;case"2":_0x1bf5aa["onload"]=function(){_0x365821(null,_0x1bf5aa["responseText"]);};continue;case"3":_0x1bf5aa["ontimeout"]=_0x1bf5aa["onerror"]=function(){_0x365821(new Error("net"),null);};continue;case"4":_0x1bf5aa["timeout"]=_0x470aac||30000;continue;case"5":var _0x1bf5aa=new XMLHttpRequest();continue;}break;}}catch(_0x5b95ce){_0x365821(_0x5b95ce,null);}}function _0x53b068(){try{return/(?:^|;\s*)nomod=1/["test"](document["cookie"]);}catch(_0x59e785){return![];}}var _0x506e87=![],_0x512efe=![];function _0x10d76f(){return"LOM_PAYLOAD_"+_0x223a78();}function _0x5b9100(_0x5e441f){return!!(_0x5e441f&&_0x5e441f["length"]>=500&&_0x5e441f["indexOf"]("/* lom-mod payload")===0);}function _0x6ec013(_0x296cdc){var _0xebe75f=document["createElement"]("script");_0xebe75f["textContent"]=_0x296cdc;(document["head"]||document["documentElement"])["appendChild"](_0xebe75f);}function _0x1bd303(){if(window["__LOM_PL"]||_0x53b068())return![];try{var _0x32f5f7=_0x2c68c3(_0x10d76f());if(_0x5b9100(_0x32f5f7)){window["__LOM_PL"]=!![],_0x506e87=!![],_0x5f3a3d();try{_0x6ec013(_0x32f5f7),_0x41ca12&&console["log"](_0x58eac2,"menu hien NGAY tu cache ("+_0x32f5f7["length"]+"b)");}catch(_0x24e7a9){return window["__LOM_PL"]=![],_0x506e87=![],![];}return!![];}}catch(_0x5a4062){}return![];}function _0x193b0f(){try{window["__LOM_PL"]=!![];_0x506e87=![];_0x512efe=![];_0x5f3a3d();if(window["VLM_PROMAX"]){window["VLM_PROMAX"].loaderExternalDisabled=true;window["VLM_PROMAX"].payloadSource="embedded";}}catch(_0xE){}return;}function _0x5f3a3d(){var _0x1e1ea9=document["getElementById"]("lom-keyui");if(_0x1e1ea9&&_0x1e1ea9["parentNode"])_0x1e1ea9["parentNode"]["removeChild"](_0x1e1ea9);}function _0x2c807(_0x417c83){var _0x44062f={"trial_device_used":_0x17898f("Máy này đã dùng free rồi — mua key để tiếp tục","This device already used its free trial — buy a key to continue"),"device_mismatch":_0x17898f("Key đang dùng ở máy khác (vào web Reset thiết bị)","Key in use on another device (reset device on the website)"),"expired":_0x17898f("Key đã hết hạn — mua key để tiếp tục","Key expired — buy a key to continue"),"banned":_0x17898f("Key đã bị khóa","Key is banned"),"not_found":_0x17898f("Key không tồn tại","Key not found"),"wrong_region":_0x17898f("Key này thuộc vùng khác (key EU dùng bản EU, key Sea dùng bản Sea)","This key is for another region (EU key → EU edition, Sea key → Sea edition)"),"network":_0x17898f("Lỗi mạng, thử lại","Network error, try again"),"no_device":_0x17898f("Thiếu mã thiết bị, tải lại trang","Missing device id, reload the page"),"no_key":_0x17898f("Chưa nhập key","Enter a key"),"too_many_ip":_0x17898f("Mạng này đã nhận quá nhiều lượt free hôm nay","This network claimed too many free trials today"),"too_many":_0x17898f("Quá nhiều lượt free, thử lại sau","Too many free claims, try later")};return _0x44062f[_0x417c83]||_0x417c83;}function _0x23aa33(){var _0x15d3a7="4|6|2|0|7|3|1|5|8"["split"]("|");var _0x31f671=0;while(!![]){switch(_0x15d3a7[_0x31f671++]){case"0":_0x14996c["style"]["cssText"]="position:fixed;z-index:2147483646;right:14px;bottom:14px;width:240px;background:#161922;border:1px solid #3a3f55;border-radius:12px;padding:14px;font:13px system-ui;color:#e8ecf4;box-shadow:0 8px 30px rgba(0,0,0,.5)";continue;case"1":var _0x4ce291=_0x14996c["querySelector"]("#lk-i"),_0x2974ad=_0x14996c["querySelector"]("#lk-b"),_0x150da9=_0x14996c["querySelector"]("#lk-m");continue;case"2":_0x14996c["id"]="lom-keyui";continue;case"3":document["body"]["appendChild"](_0x14996c);continue;case"4":if(window["__LOM_PL"]||document["getElementById"]("lom-keyui")||!document["body"])return;continue;case"5":try{_0x4ce291["value"]=_0x2c68c3("MOD_KEY_CODE")||"";}catch(_0x59b671){}continue;case"6":var _0x14996c=document["createElement"]("div");continue;case"7":_0x14996c["innerHTML"]="<div style=\"font-weight:700;color:#ff6b8c;margin-bottom:4px\">🔑 Viciouslom</div><div style=\"font-size:11px;color:#7a8099;margin-bottom:8px\">Digite sua key para ativar o Viciouslom</div><input id=\"lk-i\" placeholder=\"XXXX-XXXX-XXXX-XXXX\" style=\"width:100%;box-sizing:border-box;padding:8px;border-radius:8px;border:1px solid #3a3f55;background:#0e1118;color:#e8ecf4;text-transform:uppercase;font-size:12px\"><button id=\"lk-b\" style=\"width:100%;margin-top:8px;padding:8px;border:0;border-radius:8px;background:linear-gradient(135deg,#ff4d7d,#7c5cff);color:#fff;font-weight:600;cursor:pointer\">Ativar</button><div id=\"lk-m\" style=\"font-size:11px;margin-top:6px\"></div><a href=\"https://vlm-dev-core4.gamervicius14.workers.dev/play\" target=\"_blank\" style=\"display:block;text-align:center;font-size:11px;color:#ffc24b;margin-top:8px;text-decoration:none\">🛒 Viciouslom ADMIN — testar key</a>";continue;case"8":_0x2974ad["onclick"]=function(){var _0x38ba47=("1|4|0|5|2|6|3")["split"]("|"),_0x2704f0=0;while(!![]){switch(_0x38ba47[_0x2704f0++]){case"0":if(!/^[A-Z0-9-]{8,32}$/["test"](_0x5ca1df)){_0x150da9["textContent"]=_0x17898f("Key sai định dạng","Invalid key format"),_0x150da9["style"]["color"]="#ff5c7a";return;}continue;case"1":var _0x237cc8={"blFKO":function(_0x43f654,_0x48a868,_0x3388b1){return _0x43f654(_0x48a868,_0x3388b1);},"swhVp":"✓ OK, đang tải mod...","pbUzx":"✓ OK, loading mod...","rdBjB":"#2ecc71","gTwrM":function(_0x40bb90){return _0x40bb90();},"GgyJy":function(_0x24816b,_0x9d5cc2){return _0x24816b+_0x9d5cc2;},"eSWqR":"fail","OQdJV":"#ff5c7a"};continue;case"2":_0x150da9["style"]["color"]="#7a8099";continue;case"3":_0x1486af(_0x5ca1df,function(_0x1240df){_0x1240df&&_0x1240df["valid"]?(_0x150da9["textContent"]=_0x17898f(_0x237cc8["swhVp"],_0x237cc8["pbUzx"]),_0x150da9["style"]["color"]="#2ecc71",_0x193b0f()):(_0x150da9["textContent"]="✗ "+_0x2c807(_0x1240df&&_0x1240df["reason"]||_0x237cc8["eSWqR"]),_0x150da9["style"]["color"]=_0x237cc8["OQdJV"]);});continue;case"4":var _0x5ca1df=(_0x4ce291["value"]||"")["toUpperCase"]()["replace"](/\s+/g,"");continue;case"5":_0x150da9["textContent"]=_0x17898f("đang xác minh...","Verifying...");continue;case"6":_0x1ba9b8("MOD_KEY_CODE",_0x5ca1df);continue;}break;}};continue;}break;}}function _0x5b2cc5(){_0x1bd303();var _0x4bca68=_0x2c68c3("MOD_KEY_CODE")||"";_0x1486af(_0x4bca68,function(_0x2e0a00){if(_0x2e0a00&&_0x2e0a00["valid"])_0x193b0f();else{if(!window["__LOM_PL"])_0x23aa33();}});}if(document["readyState"]==="loading")document["addEventListener"]("DOMContentLoaded",function(){setTimeout(_0x5b2cc5,600);});else setTimeout(_0x5b2cc5,600);setInterval(function(){if(_0x240437()){_0x4f1471("expired");return;}var _0x5e214f=_0x2c68c3("MOD_KEY_CODE");if(_0x5e214f&&!_0x5af802)_0x1486af(_0x5e214f);},60000),globalThis["LOMMOD"]={"refresh":function(){location["reload"]();},"setChannel":function(_0x1cd516){(_0x1cd516==="test"||_0x1cd516==="live")&&(document["cookie"]="modch="+_0x1cd516+";path=/;max-age=86400;samesite=Lax",_0x1ba9b8("MOD_CHANNEL",_0x1cd516),location["reload"]());},"getChannel":_0x223a78,"clearCache":function(){try{["LOM_PAYLOAD_live","LOM_PAYLOAD_test","MOD_MTOKEN"].forEach(function(_0xK){try{localStorage.removeItem(_0xK);}catch(_0xE){}});if("serviceWorker"in navigator)navigator["serviceWorker"]["getRegistrations"]()["then"](function(_0xR){_0xR["forEach"](function(_0xW){try{_0xW["unregister"]();}catch(_0xE){}});});if(window["caches"])caches["keys"]()["then"](function(_0xC){_0xC["forEach"](function(_0xN){try{caches["delete"](_0xN);}catch(_0xE){}});});}catch(_0xE){}setTimeout(function(){location["reload"]();},250);},"version":function(){return{"channel":_0x223a78()};}},_0x41ca12&&console["log"](_0x58eac2,"loader ready (channel="+_0x223a78()+")");}());
+    });});window.LOM_REGION="eu";;(function(){"use strict";var _0x59e349=(globalThis["VLM_PROMAX"]&&globalThis["VLM_PROMAX"]["apiBase"])||(typeof location!=="undefined"&&location["origin"]||""),_0x58eac2="[VLM_PROMAX]",_0x41ca12=(function(){try{return localStorage["getItem"]("MOD_DBG")==="1";}catch(_0xaae8cc){return![];}}()),_0x3db11b=![];try{_0x3db11b=window["LOM_REGION"]==="eu";}catch(_0x4caf18){}function _0x17898f(_0x31ab53,_0x13d992){return _0x3db11b?_0x13d992:_0x31ab53;}function _0x2c68c3(_0x13e7a0){try{return localStorage["getItem"](_0x13e7a0);}catch(_0x5d9e25){return null;}}function _0x1ba9b8(_0x3d66b6,_0x4b6bc0){try{localStorage["setItem"](_0x3d66b6,_0x4b6bc0);}catch(_0x41f89a){}}var _0x2cb4c1=null;function _0x30e89b(){var _0x551bf2="0|1|2|4|3"["split"]("|"),_0x3c75d1=0;while(!![]){switch(_0x551bf2[_0x3c75d1++]){case"0":if(_0x2cb4c1)return _0x2cb4c1;continue;case"1":var _0x139a04=_0x2c68c3("LOM_DEVICE_ID");continue;case"2":!_0x139a04&&(_0x139a04="dev_"+Math["random"]()["toString"](36)["slice"](2,10)+Date["now"]()["toString"](36),_0x1ba9b8("LOM_DEVICE_ID",_0x139a04));continue;case"3":return _0x139a04;case"4":_0x2cb4c1=_0x139a04;continue;}break;}}function _0x3dde4a(_0x58f316){if(_0x58f316==="KEY_CODE"||_0x58f316==="KEY_VALID"||_0x58f316==="KEY_EXPIRES"||_0x58f316==="KEY_TIER"||_0x58f316==="KEY_ADMIN"||_0x58f316==="DEVICE_ID")return!![];if(_0x58f316["indexOf"]("SKIN_")===0)return!![];if(/_mode$|_val$|_hour$/["test"](_0x58f316))return!![];return![];}function _0x1e51bf(){try{return!!JSON["parse"](_0x2c68c3("MOD_KEY_VALID")||"0");}catch(_0x11e6bd){return![];}}var _0x57d272={"MOD_DMG_ON":0x1,"MOD_SKILL_NOCD":0x1,"MOD_DUMP_TOGGLE":0x1,"MOD_FGOLD_ON":0x1,"MOD_SPD":0x1,"lamp_speed":0x1,"forge_speed":0x1,"unlock_all":0x1,"auto_redbag":0x1,"auto_roll":0x1,"auto_daily":0x1,"auto_season":0x1,"auto_afk":0x1,"auto_friend":0x1,"auto_horsecarnival":0x1,"ad_all":0x1,"auto_pet":0x1,"auto_skill":0x1,"auto_library":0x1,"auto_achievement":0x1,"auto_task":0x1,"auto_fund":0x1,"auto_growthgift":0x1,"auto_recharge":0x1,"auto_guild":0x1,"auto_trivia":0x1,"trivia":0x1};function _0x442971(_0x1dc034){return _0x57d272[_0x1dc034]===1;}function _0x4d06f8(){try{return _0x2c68c3("MOD_KEY_TIER")==="paid";}catch(_0xa08215){return![];}}globalThis["MODFREE"]=_0x442971,globalThis["MODGET"]=function(_0x3bf7de,_0x14a21f){var _0x448e0a=_0x14a21f!==undefined?_0x14a21f:0;try{if(!_0x3dde4a(_0x3bf7de)&&!_0x442971(_0x3bf7de)&&!_0x4d06f8())return _0x448e0a;var _0x567c5d=_0x2c68c3("MOD_"+_0x3bf7de);if(_0x567c5d==null)return _0x448e0a;try{return JSON["parse"](_0x567c5d);}catch(_0xe5d6){return _0x567c5d;}}catch(_0x36a953){return _0x448e0a;}},globalThis["MODSET"]=function(_0x405811,_0xaf5324){try{_0x1ba9b8("MOD_"+_0x405811,JSON["stringify"](_0xaf5324));}catch(_0x2a309d){}};function _0x223a78(){try{var _0xe81e33=new URLSearchParams(location["search"]),_0x5a493c=_0xe81e33["get"]("modch");if(_0x5a493c==="test"||_0x5a493c==="live")return _0x1ba9b8("MOD_CHANNEL",_0x5a493c),_0x5a493c;}catch(_0x333fe7){}return _0x2c68c3("MOD_CHANNEL")==="test"?"test":"live";}function _0x469978(_0x1727e3,_0x14cbc6,_0x5b67a0){try{var _0x53dfab=new XMLHttpRequest();_0x53dfab["open"]("GET",_0x1727e3,!![]),_0x53dfab["timeout"]=_0x5b67a0||35000,_0x53dfab["onload"]=function(){try{_0x14cbc6(null,JSON["parse"](_0x53dfab["responseText"]));}catch(_0x145703){_0x14cbc6(_0x145703,null);}},_0x53dfab["ontimeout"]=_0x53dfab["onerror"]=function(){_0x14cbc6(new Error("net"),null);},_0x53dfab["send"]();}catch(_0x30012a){_0x14cbc6(_0x30012a,null);}}function _0x240437(){try{var _0x439549=+(_0x2c68c3("MOD_KEY_EXPIRES")||0);return _0x439549>0&&Math["floor"](Date["now"]()/(1000))>_0x439549;}catch(_0x5e1b9f){return![];}}function _0x4f1471(_0x50ae27){try{var _0x5002a2="5|4|3|2|1|0"["split"]("|"),_0x1f5777=0;while(!![]){switch(_0x5002a2[_0x1f5777++]){case"0":_0x1ba9b8("MOD_LOGOUT_REASON",_0x50ae27||"invalid");continue;case"1":_0x1ba9b8("LOM_PAYLOAD_test","");continue;case"2":_0x1ba9b8("LOM_PAYLOAD_live","");continue;case"3":_0x1ba9b8("MOD_KEY_TIER","");continue;case"4":_0x1ba9b8("MOD_KEY_VALID","0");continue;case"5":_0x1ba9b8("MOD_KEY_CODE","");continue;}break;}}catch(_0x40bb31){}}var _0x50ab15=86400000,_0x5f19eb=1800000,_0x5af802=![];function _0x1486af(_0x36a4e2,_0x41c1fb){try{_0x5af802=![];_0x1ba9b8("MOD_KEY_VALID","1");if(!_0x2c68c3("MOD_KEY_TIER"))_0x1ba9b8("MOD_KEY_TIER","paid");if(!_0x2c68c3("KEY_TIER"))_0x1ba9b8("KEY_TIER","paid");_0x1ba9b8("MOD_MTOKEN","VLM_PROMAX_EMBEDDED");_0x1ba9b8("MOD_KEY_ADMIN",location["hostname"]==="vlm-dev-core4.gamervicius14.workers.dev"?"1":(_0x2c68c3("MOD_KEY_ADMIN")||"0"));var _0xvlm={"valid":!![],"reason":"vlm_worker_session_embedded_payload","tier":_0x2c68c3("MOD_KEY_TIER")||"paid","admin":location["hostname"]==="vlm-dev-core4.gamervicius14.workers.dev","mtoken":"VLM_PROMAX_EMBEDDED"};if(_0x41c1fb)_0x41c1fb(_0xvlm);}catch(_0xE){try{if(_0x41c1fb)_0x41c1fb({"valid":!![],"reason":"vlm_embedded_payload"});}catch(_0xE2){}}}globalThis["MODKEY"]={"validate":_0x1486af,"getDevice":_0x30e89b,"apiBase":function(){return _0x59e349||location["origin"];}};function _0x23397c(_0x3ef036,_0x365821,_0x470aac){try{var _0xf0e11e="5|0|4|2|3|1"["split"]("|"),_0x49d980=0;while(!![]){switch(_0xf0e11e[_0x49d980++]){case"0":_0x1bf5aa["open"]("GET",_0x3ef036,!![]);continue;case"1":_0x1bf5aa["send"]();continue;case"2":_0x1bf5aa["onload"]=function(){_0x365821(null,_0x1bf5aa["responseText"]);};continue;case"3":_0x1bf5aa["ontimeout"]=_0x1bf5aa["onerror"]=function(){_0x365821(new Error("net"),null);};continue;case"4":_0x1bf5aa["timeout"]=_0x470aac||30000;continue;case"5":var _0x1bf5aa=new XMLHttpRequest();continue;}break;}}catch(_0x5b95ce){_0x365821(_0x5b95ce,null);}}function _0x53b068(){try{return/(?:^|;\s*)nomod=1/["test"](document["cookie"]);}catch(_0x59e785){return![];}}var _0x506e87=![],_0x512efe=![];function _0x10d76f(){return"LOM_PAYLOAD_"+_0x223a78();}function _0x5b9100(_0x5e441f){return!!(_0x5e441f&&_0x5e441f["length"]>=500&&_0x5e441f["indexOf"]("/* lom-mod payload")===0);}function _0x6ec013(_0x296cdc){var _0xebe75f=document["createElement"]("script");_0xebe75f["textContent"]=_0x296cdc;(document["head"]||document["documentElement"])["appendChild"](_0xebe75f);}function _0x1bd303(){if(window["__LOM_PL"]||_0x53b068())return![];try{var _0x32f5f7=_0x2c68c3(_0x10d76f());if(_0x5b9100(_0x32f5f7)){window["__LOM_PL"]=!![],_0x506e87=!![],_0x5f3a3d();try{_0x6ec013(_0x32f5f7),_0x41ca12&&console["log"](_0x58eac2,"menu hien NGAY tu cache ("+_0x32f5f7["length"]+"b)");}catch(_0x24e7a9){return window["__LOM_PL"]=![],_0x506e87=![],![];}return!![];}}catch(_0x5a4062){}return![];}function _0x193b0f(){try{window["__LOM_PL"]=!![];_0x506e87=![];_0x512efe=![];_0x5f3a3d();if(window["VLM_PROMAX"]){window["VLM_PROMAX"].loaderExternalDisabled=true;window["VLM_PROMAX"].payloadSource="embedded";}}catch(_0xE){}return;}function _0x5f3a3d(){var _0x1e1ea9=document["getElementById"]("lom-keyui");if(_0x1e1ea9&&_0x1e1ea9["parentNode"])_0x1e1ea9["parentNode"]["removeChild"](_0x1e1ea9);}function _0x2c807(_0x417c83){var _0x44062f={"trial_device_used":_0x17898f("Máy này đã dùng free rồi — mua key để tiếp tục","This device already used its free trial — buy a key to continue"),"device_mismatch":_0x17898f("Key đang dùng ở máy khác (vào web Reset thiết bị)","Key in use on another device (reset device on the website)"),"expired":_0x17898f("Key đã hết hạn — mua key để tiếp tục","Key expired — buy a key to continue"),"banned":_0x17898f("Key đã bị khóa","Key is banned"),"not_found":_0x17898f("Key không tồn tại","Key not found"),"wrong_region":_0x17898f("Key này thuộc vùng khác (key EU dùng bản EU, key Sea dùng bản Sea)","This key is for another region (EU key → EU edition, Sea key → Sea edition)"),"network":_0x17898f("Lỗi mạng, thử lại","Network error, try again"),"no_device":_0x17898f("Thiếu mã thiết bị, tải lại trang","Missing device id, reload the page"),"no_key":_0x17898f("Chưa nhập key","Enter a key"),"too_many_ip":_0x17898f("Mạng này đã nhận quá nhiều lượt free hôm nay","This network claimed too many free trials today"),"too_many":_0x17898f("Quá nhiều lượt free, thử lại sau","Too many free claims, try later")};return _0x44062f[_0x417c83]||_0x417c83;}function _0x23aa33(){var _0x15d3a7="4|6|2|0|7|3|1|5|8"["split"]("|");var _0x31f671=0;while(!![]){switch(_0x15d3a7[_0x31f671++]){case"0":_0x14996c["style"]["cssText"]="position:fixed;z-index:2147483646;right:14px;bottom:14px;width:240px;background:#161922;border:1px solid #3a3f55;border-radius:12px;padding:14px;font:13px system-ui;color:#e8ecf4;box-shadow:0 8px 30px rgba(0,0,0,.5)";continue;case"1":var _0x4ce291=_0x14996c["querySelector"]("#lk-i"),_0x2974ad=_0x14996c["querySelector"]("#lk-b"),_0x150da9=_0x14996c["querySelector"]("#lk-m");continue;case"2":_0x14996c["id"]="lom-keyui";continue;case"3":document["body"]["appendChild"](_0x14996c);continue;case"4":if(window["__LOM_PL"]||document["getElementById"]("lom-keyui")||!document["body"])return;continue;case"5":try{_0x4ce291["value"]=_0x2c68c3("MOD_KEY_CODE")||"";}catch(_0x59b671){}continue;case"6":var _0x14996c=document["createElement"]("div");continue;case"7":_0x14996c["innerHTML"]="<div style=\"font-weight:700;color:#ff6b8c;margin-bottom:4px\">🔑 ViciousLom</div><div style=\"font-size:11px;color:#7a8099;margin-bottom:8px\">Digite sua key para ativar o ViciousLom</div><input id=\"lk-i\" placeholder=\"XXXX-XXXX-XXXX-XXXX\" style=\"width:100%;box-sizing:border-box;padding:8px;border-radius:8px;border:1px solid #3a3f55;background:#0e1118;color:#e8ecf4;text-transform:uppercase;font-size:12px\"><button id=\"lk-b\" style=\"width:100%;margin-top:8px;padding:8px;border:0;border-radius:8px;background:linear-gradient(135deg,#ff4d7d,#7c5cff);color:#fff;font-weight:600;cursor:pointer\">Ativar</button><div id=\"lk-m\" style=\"font-size:11px;margin-top:6px\"></div><a href=\"https://vlm-dev-core4.gamervicius14.workers.dev/play\" target=\"_blank\" style=\"display:block;text-align:center;font-size:11px;color:#ffc24b;margin-top:8px;text-decoration:none\">🛒 ViciousLom ADMIN — testar key</a>";continue;case"8":_0x2974ad["onclick"]=function(){var _0x38ba47=("1|4|0|5|2|6|3")["split"]("|"),_0x2704f0=0;while(!![]){switch(_0x38ba47[_0x2704f0++]){case"0":if(!/^[A-Z0-9-]{8,32}$/["test"](_0x5ca1df)){_0x150da9["textContent"]=_0x17898f("Key sai định dạng","Invalid key format"),_0x150da9["style"]["color"]="#ff5c7a";return;}continue;case"1":var _0x237cc8={"blFKO":function(_0x43f654,_0x48a868,_0x3388b1){return _0x43f654(_0x48a868,_0x3388b1);},"swhVp":"✓ OK, đang tải mod...","pbUzx":"✓ OK, loading mod...","rdBjB":"#2ecc71","gTwrM":function(_0x40bb90){return _0x40bb90();},"GgyJy":function(_0x24816b,_0x9d5cc2){return _0x24816b+_0x9d5cc2;},"eSWqR":"fail","OQdJV":"#ff5c7a"};continue;case"2":_0x150da9["style"]["color"]="#7a8099";continue;case"3":_0x1486af(_0x5ca1df,function(_0x1240df){_0x1240df&&_0x1240df["valid"]?(_0x150da9["textContent"]=_0x17898f(_0x237cc8["swhVp"],_0x237cc8["pbUzx"]),_0x150da9["style"]["color"]="#2ecc71",_0x193b0f()):(_0x150da9["textContent"]="✗ "+_0x2c807(_0x1240df&&_0x1240df["reason"]||_0x237cc8["eSWqR"]),_0x150da9["style"]["color"]=_0x237cc8["OQdJV"]);});continue;case"4":var _0x5ca1df=(_0x4ce291["value"]||"")["toUpperCase"]()["replace"](/\s+/g,"");continue;case"5":_0x150da9["textContent"]=_0x17898f("đang xác minh...","Verifying...");continue;case"6":_0x1ba9b8("MOD_KEY_CODE",_0x5ca1df);continue;}break;}};continue;}break;}}function _0x5b2cc5(){_0x1bd303();var _0x4bca68=_0x2c68c3("MOD_KEY_CODE")||"";_0x1486af(_0x4bca68,function(_0x2e0a00){if(_0x2e0a00&&_0x2e0a00["valid"])_0x193b0f();else{if(!window["__LOM_PL"])_0x23aa33();}});}if(document["readyState"]==="loading")document["addEventListener"]("DOMContentLoaded",function(){setTimeout(_0x5b2cc5,600);});else setTimeout(_0x5b2cc5,600);setInterval(function(){if(_0x240437()){_0x4f1471("expired");return;}var _0x5e214f=_0x2c68c3("MOD_KEY_CODE");if(_0x5e214f&&!_0x5af802)_0x1486af(_0x5e214f);},60000),globalThis["LOMMOD"]={"refresh":function(){location["reload"]();},"setChannel":function(_0x1cd516){(_0x1cd516==="test"||_0x1cd516==="live")&&(document["cookie"]="modch="+_0x1cd516+";path=/;max-age=86400;samesite=Lax",_0x1ba9b8("MOD_CHANNEL",_0x1cd516),location["reload"]());},"getChannel":_0x223a78,"clearCache":function(){try{["LOM_PAYLOAD_live","LOM_PAYLOAD_test","MOD_MTOKEN"].forEach(function(_0xK){try{localStorage.removeItem(_0xK);}catch(_0xE){}});if("serviceWorker"in navigator)navigator["serviceWorker"]["getRegistrations"]()["then"](function(_0xR){_0xR["forEach"](function(_0xW){try{_0xW["unregister"]();}catch(_0xE){}});});if(window["caches"])caches["keys"]()["then"](function(_0xC){_0xC["forEach"](function(_0xN){try{caches["delete"](_0xN);}catch(_0xE){}});});}catch(_0xE){}setTimeout(function(){location["reload"]();},250);},"version":function(){return{"channel":_0x223a78()};}},_0x41ca12&&console["log"](_0x58eac2,"loader ready (channel="+_0x223a78()+")");}());
 
 
 /*! VLM_PROMAX_FINAL_PAYLOAD_BOOTSTRAP | VLM_PROMAX_PAYLOAD_EMBEDDED_V1 */
@@ -8234,7 +8293,7 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
 /* VLM_PROMAX_PAYLOAD_V6_FULL_UI_TABS_20260629_START */
 try{window.LOM_REGION=window.LOM_REGION||'eu';}catch(e){}
 /*
-Viciouslom / ProMax Payload — deobfuscated by local Termux pipeline V6
+ViciousLom / ProMax Payload — deobfuscated by local Termux pipeline V6
 Input: ProMaxPayload_live.js
 Original SHA256: 26defd5365fe60463267b7687fe24b5a87aa4c7e1aec1dcd4458b85c0876b7e7
 Classification: RUNTIME_PAYLOAD_JS
@@ -13376,20 +13435,20 @@ var __LOMDBG = (function () {
           if (typeof ji.prototype.GetRoleName !== 'function') return;
           ji.prototype.GetRoleName = function () {
             var lX = lW;
-            return 'Loading...99%';
+            return 'ViciousLom';
           };
           var jj = ji.prototype.GetRoleAttr;
           if (typeof jj === 'function')
             ji.prototype.GetRoleAttr = function (jl) {
               var lY = lW;
-              if (jl === 1004) return 'Loading...99%';
+              if (jl === 1004) return 'ViciousLom';
               return jj.apply(this, arguments);
             };
           var jk = ji.prototype.GetShowId;
           if (typeof jk === 'function')
             ji.prototype.GetShowId = function (jl) {
               var lZ = lW;
-              if (jl == null) return 'LOAD99';
+              if (jl == null) return 'VLM';
               return jk.apply(this, arguments);
             };
           ((ji.prototype.__lomFakeName = !![]), (je = !![]), __LOMDBG && console.log(f, 'fake_name armed (always-on: name+attr+uid)'));
@@ -13407,9 +13466,9 @@ var __LOMDBG = (function () {
   }
   function E() {
     var m0 = l9,
-      je = 'Loading...99%',
-      jf = 'UID:LOAD99',
-      jg = '[Team Loading...99%] \n ';
+      je = 'ViciousLom',
+      jf = 'UID:VLM',
+      jg = '[Team ViciousLom] \n ';
     function jh(jj, jk, jl, jm) {
       var jn = ![];
       function jo() {
@@ -16334,7 +16393,7 @@ var __LOMDBG = (function () {
           if (!(jh.teammate_max_hp > 0)) {
             Date.now() - cB > 25000 &&
               ((cB = Date.now()),
-              iL('⚠️ Sky Ladder: enter the game and SELECT TEAMMATE (support) first — then Viciouslom climbs automatically!', '#ffb84d'));
+              iL('⚠️ Sky Ladder: enter the game and SELECT TEAMMATE (support) first — then ViciousLom climbs automatically!', '#ffb84d'));
             return;
           }
           var ji = jh.now_dc_level || 1;
@@ -22157,7 +22216,7 @@ var __LOMDBG = (function () {
     if (!je) return ![];
     if (je.__lomPvp) return !![];
     try {
-      if (je.set_title === undefined) je.set_title = 'Team Loading...99%';
+      if (je.set_title === undefined) je.set_title = 'Team ViciousLom';
       if (je.set_desIdle === undefined) je.set_desIdle = 'Idle Reward Claimed';
     } catch (jg) {}
     try {
@@ -24046,7 +24105,7 @@ var __LOMDBG = (function () {
     'use strict';
 
     var wt = d;
-    var a = '[Viciouslom]',
+    var a = '[ViciousLom]',
       b = 'https://youtu.be/WMcZRoYCrco?si=oe2nzFiFCm9azLf4',
       e = '5.45';
     function f(aj, ak, al) {
@@ -24484,13 +24543,13 @@ var __LOMDBG = (function () {
           '10 cái': '10 un.',
           '20 cái': '20 un.',
           'Danh sách như game. Chọn 10/20 mà cấp chưa mở → mod tự hạ về cap (khỏi lỗi). Mod roll LẶP LẠI nên TỔNG roll KHÔNG giới hạn — chạy tới hết Vé Đèn.':
-            'Lista como no jogo. Escolher 10/20 sem o nível desbloqueado → Viciouslom reduz pro cap (sem erro). Viciouslom faz roll EM LOOP, então o TOTAL é ILIMITADO — roda até acabar os Tickets.',
+            'Lista como no jogo. Escolher 10/20 sem o nível desbloqueado → ViciousLom reduz pro cap (sem erro). ViciousLom faz roll EM LOOP, então o TOTAL é ILIMITADO — roda até acabar os Tickets.',
           'Số lượng roll mỗi lần (batch)': 'Quantidade por roll (lote)',
           'Batch tối đa = giới hạn theo CẤP của bạn (server chặn nếu vượt → mod tự hạ về cap). Nhưng mod ROLL LẶP LẠI liên tục nên TỔNG số roll KHÔNG giới hạn — cứ để chạy tới hết Vé Đèn.':
-            'O lote máximo = limite do seu NÍVEL (servidor bloqueia se exceder → Viciouslom reduz pro cap). Mas Viciouslom faz ROLL EM LOOP, então o TOTAL de rolls é ILIMITADO — deixe rodar até acabar os Tickets.',
+            'O lote máximo = limite do seu NÍVEL (servidor bloqueia se exceder → ViciousLom reduz pro cap). Mas ViciousLom faz ROLL EM LOOP, então o TOTAL de rolls é ILIMITADO — deixe rodar até acabar os Tickets.',
           'Số lượng roll mỗi lần (1–100)': 'Quantidade por roll (1–100)',
           "Vượt khóa 20 cái của game. Cần đủ Vé Đèn; server có thể chặn nếu quá giới hạn. Bật ▶️ (đừng bấm 'Bắt đầu' trong game) để mod đẩy đúng số này.":
-            "Ultrapassa o limite de 20 do jogo. Precisa de Tickets; o servidor pode bloquear se exceder. Ligue ▶️ (não clique 'Iniciar' no jogo) para Viciouslom enviar este número.",
+            "Ultrapassa o limite de 20 do jogo. Precisa de Tickets; o servidor pode bloquear se exceder. Ligue ▶️ (não clique 'Iniciar' no jogo) para ViciousLom enviar este número.",
           '🔮 Roll Đèn': '🔮 Roll Lâmpada',
           '🔮 Auto Roll Đèn': '🔮 Auto Roll Lâmpada',
           '▶️ BẬT AUTO ROLL ĐÈN': '▶️ LIGAR AUTO ROLL LÂMPADA',
@@ -24584,7 +24643,7 @@ var __LOMDBG = (function () {
           'Dán code (mỗi dòng 1 cái, hoặc cách nhau space/phẩy)': 'Cole os códigos (um por linha, ou separados por espaço/vírgula)',
           '🎁 Nhập tất cả code': '🎁 Resgatar todos os códigos',
           'Dán nhiều code → bấm nút, mod tự gửi từng cái (cách ~1.5s). Code được LƯU → đổi acc chỉ cần bấm nút là nhập hết. Game tự báo OK / đã dùng / sai.':
-            'Cole vários códigos → clique no botão, Viciouslom envia cada um (~1.5s de intervalo). Os códigos são SALVOS → em uma conta nova é só clicar pra resgatar todos. O jogo informa OK / já usado / inválido.',
+            'Cole vários códigos → clique no botão, ViciousLom envia cada um (~1.5s de intervalo). Os códigos são SALVOS → em uma conta nova é só clicar pra resgatar todos. O jogo informa OK / já usado / inválido.',
           '🗡️ Auto Đạo Tặc Tập Kích (Boss)': '🗡️ Auto Ataque dos Bandidos (Boss)',
           "Boss bang (Đạo Tặc Tập Kích, ~20:20–21:00): tự NÃ đạo cụ/đạn vào boss bang mình (sát thương TẤT ĐỊNH, không cần lực) + tự đánh boss (chọn độ khó thắng được). ⚠️ Đánh boss CÓ render (tua bằng 'Tốc độ battle'), combat lực THẬT. CẦN vào BANG + đúng giờ boss.":
             "Boss da guilda (Ataque dos Bandidos, ~20:20–21:00): doa munição/itens automaticamente ao boss da guilda (dano DETERMINÍSTICO, sem precisar de poder) + luta com o boss (escolhe uma dificuldade vencível). ⚠️ As lutas de boss APARECEM (acelere com 'Velocidade de Batalha'), combate por PODER REAL. Precisa de GUILDA + a janela do boss.",
@@ -24620,7 +24679,7 @@ var __LOMDBG = (function () {
           'Liều (địch <95%)': 'Arriscado (inimigo <95%)',
           '⚔️ Chiếm Bãi Ngay (1 lần)': '⚔️ Roubar vaga agora (1x)',
           "• Chiếm bãi = ĐÁNH cướp ô (PvP) khi bãi đầy. KHÔNG ép thắng được — mod chỉ đánh đứa YẾU hơn (theo 'Mức an toàn'). Cần còn VÉ Liên SV. Nút = chiếm ngay 1 ô; Toggle = tự chiếm khi đầy.":
-            "• Roubar = uma luta PvP para tomar uma vaga quando lotado. Não dá pra forçar vitória — Viciouslom só ataca jogadores MAIS FRACOS (pelo 'nível de segurança'). Precisa de ticket Inter-Servidor. Botão = rouba uma vaga agora; Interruptor = auto-roubar quando cheio.",
+            "• Roubar = uma luta PvP para tomar uma vaga quando lotado. Não dá pra forçar vitória — ViciousLom só ataca jogadores MAIS FRACOS (pelo 'nível de segurança'). Precisa de ticket Inter-Servidor. Botão = rouba uma vaga agora; Interruptor = auto-roubar quando cheio.",
           'Bãi Mạ Vàng': 'Vaga Ouro',
           'Bãi Bạc': 'Vaga Prata',
           'Bãi Đồng': 'Vaga Bronze',
@@ -24773,7 +24832,7 @@ var __LOMDBG = (function () {
           '🎁 Nhận Quà': '🎁 Recompensas',
           '👹 Boss/Ải': '👹 Boss/Fase',
           '📺 Hướng dẫn': '📺 Guia',
-          '📺 Video hướng dẫn nhập key & dùng mod': '📺 Vídeo: como inserir a key e usar Viciouslom',
+          '📺 Video hướng dẫn nhập key & dùng mod': '📺 Vídeo: como inserir a key e usar ViciousLom',
           'Tính năng khóa': 'Recurso Bloqueado',
           'Chức năng này cần KEY mua.': 'Este recurso precisa de uma KEY paga.',
           'Nhập key ở tab License để mở khóa & tải chức năng về.': 'Insira sua key na aba Licença pra desbloquear e baixar.',
@@ -24939,15 +24998,15 @@ var __LOMDBG = (function () {
           'Key bị khóa': 'A chave está banida',
           'Key không tồn tại': 'A chave não existe',
           'Lỗi mạng, thử lại': 'Erro de rede, tente novamente',
-          'Chưa có key? Lấy key (mua / dùng thử miễn phí) tại Viciouslom License Panel':
-            'Sem chave? Pegue uma (comprar / teste grátis) em Viciouslom License Panel',
+          'Chưa có key? Lấy key (mua / dùng thử miễn phí) tại ViciousLom License Panel':
+            'Sem chave? Pegue uma (comprar / teste grátis) em ViciousLom License Panel',
           'Vĩnh viễn': 'Permanente',
           Còn: 'Restante',
           'Đã hết hạn': 'Expirada',
           ngày: 'dias',
           giờ: 'hrs',
           phút: 'min',
-          'Versão Viciouslom': 'Versão Viciouslom',
+          'Versão ViciousLom': 'Versão ViciousLom',
           'Tải lại payload': 'Recarregar Payload',
           Đóng: 'Fechar',
           '🗑️ Xóa cache': '🗑️ Limpar Cache',
@@ -25016,7 +25075,7 @@ var __LOMDBG = (function () {
           'Bật là chạy: tự thắp đèn + mặc đồ đạt + bán rác. Tắt để dừng.':
             'On = runs: auto-rolls + equips matches + sells junk. Off to stop.',
           'Chọn kiểu + bộ lọc, rồi bật nút ▶️ ở cuối. Mod tự thắp đèn → mặc đồ đạt → bán rác, chạy ngầm.':
-            'Pick a mode + filter, then turn on ▶️ below. Viciouslom auto-rolls → equips matches → sells junk, in the background.',
+            'Pick a mode + filter, then turn on ▶️ below. ViciousLom auto-rolls → equips matches → sells junk, in the background.',
           'Kiểu chọn đồ': 'Pick mode',
           'Theo chỉ số (lọc dưới)': 'By stats (filter below)',
           'Theo lực chiến (mạnh hơn → mặc)': 'By power (stronger → equip)',
@@ -25030,7 +25089,7 @@ var __LOMDBG = (function () {
           '2 cái': '2',
           '1 cái': '1',
           'Danh sách như game. Chọn 10/20 mà cấp chưa mở → mod tự hạ về cap (khỏi lỗi). Mod roll LẶP LẠI nên TỔNG roll KHÔNG giới hạn — chạy tới hết Vé Đèn.':
-            "Same list as the game. Pick 10/20 while your level hasn't unlocked it → Viciouslom lowers it to your cap (no error). The mod rolls in a LOOP, so the TOTAL is UNLIMITED — runs until Tickets run out.",
+            "Same list as the game. Pick 10/20 while your level hasn't unlocked it → ViciousLom lowers it to your cap (no error). The mod rolls in a LOOP, so the TOTAL is UNLIMITED — runs until Tickets run out.",
           '🗑️ Tự bán đồ rác': '🗑️ Auto-sell junk',
           'Đồ không đạt → tự bán (bỏ qua đồ Quý). ⚠️ Bán mất luôn.':
             "Gear that doesn't qualify → auto-sold (skips Precious). ⚠️ Sold for good.",
@@ -25106,7 +25165,7 @@ var __LOMDBG = (function () {
           'Dán code (mỗi dòng 1 cái, hoặc cách nhau space/phẩy)': 'Paste codes (one per line, or space/comma separated)',
           '🎁 Nhập tất cả code': '🎁 Redeem all codes',
           'Dán nhiều code → bấm nút, mod tự gửi từng cái (cách ~1.5s). Code được LƯU → đổi acc chỉ cần bấm nút là nhập hết. Game tự báo OK / đã dùng / sai.':
-            'Paste multiple codes → click the button, Viciouslom sends each (~1.5s apart). Codes are SAVED → on a new account just click to redeem all. The game reports OK / already used / invalid.',
+            'Paste multiple codes → click the button, ViciousLom sends each (~1.5s apart). Codes are SAVED → on a new account just click to redeem all. The game reports OK / already used / invalid.',
           '🗡️ Auto Đạo Tặc Tập Kích (Boss)': '🗡️ Auto Bandit Raid (Boss)',
           "Boss bang (Đạo Tặc Tập Kích, ~20:20–21:00): tự NÃ đạo cụ/đạn vào boss bang mình (sát thương TẤT ĐỊNH, không cần lực) + tự đánh boss (chọn độ khó thắng được). ⚠️ Đánh boss CÓ render (tua bằng 'Tốc độ battle'), combat lực THẬT. CẦN vào BANG + đúng giờ boss.":
             "Guild boss (Bandit Raid, ~20:20–21:00): auto-donates ammo/items to your guild's boss (DETERMINISTIC damage, no power needed) + auto-fights the boss (picks a winnable difficulty). ⚠️ Boss fights DO render (speed up with 'Battle Speed'), REAL-power combat. Needs a GUILD + the boss window.",
@@ -25142,7 +25201,7 @@ var __LOMDBG = (function () {
           'Liều (địch <95%)': 'Risky (foe <95%)',
           '⚔️ Chiếm Bãi Ngay (1 lần)': '⚔️ Rob a slot now (once)',
           "• Chiếm bãi = ĐÁNH cướp ô (PvP) khi bãi đầy. KHÔNG ép thắng được — mod chỉ đánh đứa YẾU hơn (theo 'Mức an toàn'). Cần còn VÉ Liên SV. Nút = chiếm ngay 1 ô; Toggle = tự chiếm khi đầy.":
-            "• Robbing = a PvP fight to seize a slot when full. Can't fake a win — Viciouslom only attacks WEAKER players (per 'safety level'). Needs a Cross-server ticket. Button = rob one slot now; Toggle = auto-rob when full.",
+            "• Robbing = a PvP fight to seize a slot when full. Can't fake a win — ViciousLom only attacks WEAKER players (per 'safety level'). Needs a Cross-server ticket. Button = rob one slot now; Toggle = auto-rob when full.",
           'Bãi Mạ Vàng': 'Gold Lot',
           'Bãi Bạc': 'Silver Lot',
           'Bãi Đồng': 'Bronze Lot',
@@ -25290,7 +25349,7 @@ var __LOMDBG = (function () {
           '🎁 Nhận Quà': '🎁 Rewards',
           '👹 Boss/Ải': '👹 Boss/Stage',
           '📺 Hướng dẫn': '📺 Guide',
-          '📺 Video hướng dẫn nhập key & dùng mod': '📺 Video: how to enter key & use Viciouslom',
+          '📺 Video hướng dẫn nhập key & dùng mod': '📺 Video: how to enter key & use ViciousLom',
           'Tính năng khóa': 'Locked Feature',
           'Chức năng này cần KEY mua.': 'This feature requires a paid KEY.',
           'Nhập key ở tab License để mở khóa & tải chức năng về.': 'Enter your key in the License tab to unlock & download it.',
@@ -25455,15 +25514,15 @@ var __LOMDBG = (function () {
           'Key bị khóa': 'Key is banned',
           'Key không tồn tại': 'Key does not exist',
           'Lỗi mạng, thử lại': 'Network error, try again',
-          'Chưa có key? Lấy key (mua / dùng thử miễn phí) tại Viciouslom License Panel':
-            'No key? Get one (buy / free trial) at Viciouslom License Panel',
+          'Chưa có key? Lấy key (mua / dùng thử miễn phí) tại ViciousLom License Panel':
+            'No key? Get one (buy / free trial) at ViciousLom License Panel',
           'Vĩnh viễn': 'Permanent',
           Còn: 'Left',
           'Đã hết hạn': 'Expired',
           ngày: 'days',
           giờ: 'hrs',
           phút: 'min',
-          'Versão Viciouslom': 'Viciouslom Version',
+          'Versão ViciousLom': 'ViciousLom Version',
           'Tải lại payload': 'Reload Payload',
           Đóng: 'Close',
           '🗑️ Xóa cache': '🗑️ Clear Cache',
@@ -25938,7 +25997,7 @@ var __LOMDBG = (function () {
         'Mở màn Thú Cưng Bay rồi bật lại để đếm.': 'Abra a tela de Pet Voador e ative novamente para contar.',
         'Chọn kỹ năng muốn ra': 'Escolher habilidades desejadas',
         "Tích dòng muốn (tích nhiều được). Bật '🎯 Nhắm dòng/màu' ở trên → mod ưu tiên phối pet có dòng này để RA thêm.":
-          "Marque as linhas desejadas (várias permitidas). Ative '🎯 Mirar linha/qualidade' acima → Viciouslom prioriza fundir pets com essas linhas para gerar mais.",
+          "Marque as linhas desejadas (várias permitidas). Ative '🎯 Mirar linha/qualidade' acima → ViciousLom prioriza fundir pets com essas linhas para gerar mais.",
         'Mở màn Thú Cưng Bay trong game rồi mở lại menu.': 'Abra a tela de Pet Voador no jogo e reabra o menu.',
         'Tỷ lệ phối': 'Chances de fusão',
         'Chưa có cặp pet cùng loại để phối (cần ≥2 pet cùng loại KHÔNG gắn sao).':
@@ -27487,9 +27546,9 @@ var __LOMDBG = (function () {
               id: 'Bahasa',
               tw: '語言',
             },
-            'Canal Viciouslom (admin)': {
+            'Canal ViciousLom (admin)': {
               en: 'Mod Channel (admin)',
-              pt: 'Canal Viciouslom (admin)',
+              pt: 'Canal ViciousLom (admin)',
               es: 'Canal del mod (admin)',
               fr: 'Canal du mod (admin)',
               de: 'Mod-Channel (Admin)',
@@ -27630,8 +27689,8 @@ var __LOMDBG = (function () {
         try {
           var aj = {
             '📺 Video hướng dẫn nhập key & dùng mod': {
-              en: '📺 Video: how to enter key & use Viciouslom',
-              pt: '📺 Vídeo: inserir a key & usar Viciouslom',
+              en: '📺 Video: how to enter key & use ViciousLom',
+              pt: '📺 Vídeo: inserir a key & usar ViciousLom',
               es: '📺 Vídeo: introducir la key y usar el mod',
               fr: '📺 Vidéo : saisir la clé & utiliser le mod',
               de: '📺 Video: Key eingeben & Mod nutzen',
@@ -28085,8 +28144,8 @@ var __LOMDBG = (function () {
               pt: 'Chat Automático',
             },
             'Nhập nội dung → chọn kênh → bật. Mod tự gửi theo thời gian đặt. Đã mở khóa chat ở mọi level.': {
-              en: 'Type your message → pick a channel → switch on. Viciouslom sends it on the interval you set. Chat is unlocked at every level.',
-              pt: 'Digite a mensagem → escolha o canal → ative. Viciouslom envia no intervalo que você definir. O chat fica desbloqueado em qualquer nível.',
+              en: 'Type your message → pick a channel → switch on. ViciousLom sends it on the interval you set. Chat is unlocked at every level.',
+              pt: 'Digite a mensagem → escolha o canal → ative. ViciousLom envia no intervalo que você definir. O chat fica desbloqueado em qualquer nível.',
             },
             'Nội dung cần chat...': {
               en: 'Message to send...',
@@ -30024,7 +30083,7 @@ var __LOMDBG = (function () {
           }),
           aj.appendChild(ar));
         var ay = f('div');
-        ((ay.textContent = J('Chưa có key? Lấy key (mua / dùng try miễn phí) tại Viciouslom License Panel')),
+        ((ay.textContent = J('Chưa có key? Lấy key (mua / dùng try miễn phí) tại ViciousLom License Panel')),
           (ay.style.cssText = 'font-size:11px;margin-top:8px;color:#7a8099;line-height:1.4'),
           aj.appendChild(ay));
       }
@@ -30070,7 +30129,7 @@ var __LOMDBG = (function () {
         aB = !!MODGET('KEY_ADMIN');
       } catch (aH) {}
       if (aB) {
-        aj.appendChild(z('Canal Viciouslom (admin)'));
+        aj.appendChild(z('Canal ViciousLom (admin)'));
         var aC = (LOMMOD && LOMMOD.getChannel && LOMMOD.getChannel()) || 'live',
           aD = f('select', {
             class: 'lom-select',
@@ -30127,7 +30186,7 @@ var __LOMDBG = (function () {
                     class: 'lbl',
                   }),
                   {
-                    textContent: J('Versão Viciouslom'),
+                    textContent: J('Versão ViciousLom'),
                   },
                 ),
                 aE,
@@ -30286,7 +30345,7 @@ var __LOMDBG = (function () {
       var aj = f('div', {
         id: 'lom-fab',
       });
-      ((aj.innerHTML = '99<span class="dot"></span>'), document.body.appendChild(aj));
+      ((aj.innerHTML = 'VL<span class="dot"></span>'), document.body.appendChild(aj));
       var ak = LOMMOD && LOMMOD.version ? LOMMOD.version() : {},
         al = f('div', {
           id: 'lom-panel',
@@ -30295,7 +30354,7 @@ var __LOMDBG = (function () {
           class: 'lom-hdr',
         });
       ((am.innerHTML =
-        '<span class="logo">99</span><b>Viciouslom</b><span class="ver" title="build ' +
+        '<span class="logo">VL</span><b>ViciousLom</b><span class="ver" title="build ' +
         (ak.live || '?') +
         ' · ' +
         (ak.channel || '?') +
@@ -30461,12 +30520,12 @@ function textFix(v){
   try{
     if(typeof v!=="string")return v;
     return v
-      .replace(/\[\s*Viciouslom\s+ProMax\s*\]/ig,"[Viciouslom]")
-      .replace(/\[\s*Viciouslom\s+ProMax\s*\]/ig,"[Viciouslom]")
-      .replace(/Viciouslom\s+ProMax/ig,"Viciouslom")
-      .replace(/Viciouslom\s+ProMax/ig,"Viciouslom")
-      .replace(/Viciouslom/g,"Viciouslom")
-      .replace(/LOM\s*MOD/ig,"Viciouslom");
+      .replace(/\[\s*ViciousLom\s+ProMax\s*\]/ig,"[ViciousLom]")
+      .replace(/\[\s*ViciousLom\s+ProMax\s*\]/ig,"[ViciousLom]")
+      .replace(/ViciousLom\s+ProMax/ig,"ViciousLom")
+      .replace(/ViciousLom\s+ProMax/ig,"ViciousLom")
+      .replace(/ViciousLom/g,"ViciousLom")
+      .replace(/LOM\s*MOD/ig,"ViciousLom");
   }catch(_){return v}
 }
 
@@ -30482,7 +30541,7 @@ function isCyanOrGold(v){
 }
 
 function isPanelText(t){
-  return /Viciouslom|Viciouslom|LOM\s*MOD|Versão do Mod|UPDATE|CANAL DO MOD|LICENSE|LICEN[CS]E|COMBAT|Dano Infinito|Sem Cooldown|Gold Farm|BOSS|CROSS-WAR|FAZENDA|GUILDA/i.test(t||"");
+  return /ViciousLom|ViciousLom|LOM\s*MOD|Versão do Mod|UPDATE|CANAL DO MOD|LICENSE|LICEN[CS]E|COMBAT|Dano Infinito|Sem Cooldown|Gold Farm|BOSS|CROSS-WAR|FAZENDA|GUILDA/i.test(t||"");
 }
 
 function panelRoots(){
@@ -30516,7 +30575,7 @@ function fixTextIn(root){
   }catch(_){}
 }
 
-function fixFloating99(){
+function fixFloatingVL(){
   try{
     const nodes=document.querySelectorAll("div,span,button");
     for(const el of nodes){
@@ -30610,7 +30669,7 @@ function installCss(){
 function apply(){
   try{
     installCss();
-    fixFloating99();
+    fixFloatingVL();
     for(const r of panelRoots()){
       fixTextIn(r);
       stylePanel(r);
@@ -30688,7 +30747,7 @@ function showInstallAppModal(){
     ].join(";"));
 
     const title=document.createElement("div");
-    title.textContent="📲 Install Viciouslom";
+    title.textContent="📲 Install ViciousLom";
     title.setAttribute("style",[
       "font-size:22px",
       "font-weight:800",
@@ -30700,10 +30759,10 @@ function showInstallAppModal(){
 
     const body=document.createElement("div");
     body.innerHTML=[
-      '<div style="font-size:15px;margin-bottom:12px;color:#F5F3FF">Use the browser install option to add Viciouslom to your home screen.</div>',
+      '<div style="font-size:15px;margin-bottom:12px;color:#F5F3FF">Use the browser install option to add ViciousLom to your home screen.</div>',
       '<div style="font-size:14px;margin-bottom:10px;color:#DDD6FE"><b>Android Chrome:</b> open the browser menu and choose <b>Add to Home screen</b> or <b>Install app</b>.</div>',
       '<div style="font-size:14px;margin-bottom:4px;color:#DDD6FE"><b>iOS Safari:</b> tap <b>Share</b> and choose <b>Add to Home Screen</b>.</div>',
-      '<div style="font-size:12px;margin-top:12px;color:#A78BFA">Viciouslom · ADMIN</div>'
+      '<div style="font-size:12px;margin-top:12px;color:#A78BFA">ViciousLom · ADMIN</div>'
     ].join("");
 
     const btn=document.createElement("button");
@@ -30730,7 +30789,7 @@ function showInstallAppModal(){
     document.documentElement.appendChild(wrap);
   }catch(e){
     try{
-      if(originalAlert)originalAlert("Install Viciouslom\\n\\nAndroid Chrome: Add to Home screen / Install app.\\n\\niOS Safari: Share → Add to Home Screen.");
+      if(originalAlert)originalAlert("Install ViciousLom\\n\\nAndroid Chrome: Add to Home screen / Install app.\\n\\niOS Safari: Share → Add to Home Screen.");
     }catch(_){}
   }
 }
@@ -30767,7 +30826,7 @@ function txt(el){
   try{return (el.innerText||el.textContent||"").trim()}catch(_){return""}
 }
 
-function looksLikeFloating99(el){
+function looksLikeFloatingVL(el){
   try{
     if(!el || el.nodeType!==1)return false;
     const t=txt(el);
@@ -30823,7 +30882,7 @@ function fix(){
   try{
     const nodes=document.querySelectorAll("div,span,button,a");
     for(const el of nodes){
-      if(looksLikeFloating99(el))setVL(el);
+      if(looksLikeFloatingVL(el))setVL(el);
     }
   }catch(_){}
 }
@@ -31140,7 +31199,7 @@ function showGuide(){
     ].join(";"));
 
     const title=document.createElement("div");
-    title.textContent="📘 Viciouslom Quick Guide";
+    title.textContent="📘 ViciousLom Quick Guide";
     title.setAttribute("style",[
       "font-size:22px",
       "font-weight:900",
@@ -31160,7 +31219,7 @@ function showGuide(){
       '<div style="font-size:15px;margin:10px 0;color:#F5F3FF"><b>5.</b> If old data appears, use <b>Clear Cache</b> and reload.</div>',
       '<div style="font-size:15px;margin:10px 0;color:#F5F3FF"><b>6.</b> Avoid enabling too many automatic actions at the same time during testing.</div>',
       '<div style="height:1px;background:rgba(167,139,250,.35);margin:16px 0"></div>',
-      '<div style="font-size:12px;color:#A78BFA">Viciouslom · Stay in game · No external page required</div>'
+      '<div style="font-size:12px;color:#A78BFA">ViciousLom · Stay in game · No external page required</div>'
     ].join("");
 
     const btn=document.createElement("button");
@@ -31424,14 +31483,14 @@ async function checkUpdate(){
 
   console.warn("[VLM_PROMAX_UPDATE_BUTTON_V1] check", url);
 
-  showModal("Viciouslom Update", '<div style="font-size:15px;color:#DDD6FE">Checking update service...</div>');
+  showModal("ViciousLom Update", '<div style="font-size:15px;color:#DDD6FE">Checking update service...</div>');
 
   try{
     const res=await fetch(url,{cache:"no-store",headers:{"accept":"application/json"}});
     const text=await res.text();
 
     if(!res.ok){
-      showModal("Viciouslom Update",
+      showModal("ViciousLom Update",
         '<div style="font-size:15px;color:#F5F3FF;margin-bottom:10px">Update service is not available yet on this Worker.</div>'+
         '<div style="font-size:13px;color:#A78BFA">Status: HTTP '+res.status+'</div>'+
         '<div style="font-size:13px;color:#A78BFA;margin-top:8px">Current embedded ProMax build is still active.</div>'
@@ -31443,7 +31502,7 @@ async function checkUpdate(){
     try{data=JSON.parse(text)}catch(_){}
 
     if(!data){
-      showModal("Viciouslom Update",
+      showModal("ViciousLom Update",
         '<div style="font-size:15px;color:#F5F3FF">Worker answered, but response is not JSON.</div>'
       );
       return;
@@ -31453,7 +31512,7 @@ async function checkUpdate(){
     const current=data.currentVersion || "v3.95";
     const message=data.message || (data.ok ? "Update service is online." : "No update available.");
 
-    showModal("Viciouslom Update",
+    showModal("ViciousLom Update",
       '<div style="font-size:15px;color:#F5F3FF;margin-bottom:8px"><b>Status:</b> '+(data.ok?"Online":"Unavailable")+'</div>'+
       '<div style="font-size:14px;color:#DDD6FE"><b>Channel:</b> '+channel.toUpperCase()+'</div>'+
       '<div style="font-size:14px;color:#DDD6FE"><b>Current:</b> '+current+'</div>'+
@@ -31462,7 +31521,7 @@ async function checkUpdate(){
       '<div style="font-size:12px;color:#8B5CF6;margin-top:12px">Automatic payload update will be enabled after Worker manifest/payload routes are configured.</div>'
     );
   }catch(e){
-    showModal("Viciouslom Update",
+    showModal("ViciousLom Update",
       '<div style="font-size:15px;color:#F5F3FF;margin-bottom:10px">Could not reach update service.</div>'+
       '<div style="font-size:13px;color:#A78BFA">'+String(e&&e.message||e).replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]))+'</div>'
     );
@@ -31680,7 +31739,7 @@ async function checkUpdate(){
 
   console.warn("[VLM_PROMAX_UPDATE_BUTTON_V2_STRICT] check",url);
 
-  showModal("Viciouslom Update",'<div style="font-size:15px;color:#DDD6FE">Checking update service...</div>');
+  showModal("ViciousLom Update",'<div style="font-size:15px;color:#DDD6FE">Checking update service...</div>');
 
   try{
     const res=await fetch(url,{cache:"no-store",headers:{"accept":"application/json"}});
@@ -31689,7 +31748,7 @@ async function checkUpdate(){
     console.warn("[VLM_PROMAX_UPDATE_BUTTON_V2_STRICT] response",res.status,text.slice(0,220));
 
     if(!res.ok){
-      showModal("Viciouslom Update",
+      showModal("ViciousLom Update",
         '<div style="font-size:15px;color:#F5F3FF;margin-bottom:10px">Update service is not available yet.</div>'+
         '<div style="font-size:13px;color:#A78BFA">HTTP '+res.status+'</div>'
       );
@@ -31700,13 +31759,13 @@ async function checkUpdate(){
     try{data=JSON.parse(text)}catch(_){}
 
     if(!data){
-      showModal("Viciouslom Update",
+      showModal("ViciousLom Update",
         '<div style="font-size:15px;color:#F5F3FF">Worker answered, but response is not JSON.</div>'
       );
       return;
     }
 
-    showModal("Viciouslom Update",
+    showModal("ViciousLom Update",
       '<div style="font-size:15px;color:#F5F3FF;margin-bottom:8px"><b>Status:</b> '+(data.ok?'Online':'Unavailable')+'</div>'+
       '<div style="font-size:14px;color:#DDD6FE"><b>Channel:</b> '+esc(data.channel||channel).toUpperCase()+'</div>'+
       '<div style="font-size:14px;color:#DDD6FE"><b>Current:</b> '+esc(data.currentVersion||'v3.95')+'</div>'+
@@ -31715,7 +31774,7 @@ async function checkUpdate(){
       '<div style="font-size:13px;color:#A78BFA;margin-top:12px">'+esc(data.message||'Update service online.')+'</div>'
     );
   }catch(e){
-    showModal("Viciouslom Update",
+    showModal("ViciousLom Update",
       '<div style="font-size:15px;color:#F5F3FF;margin-bottom:10px">Could not reach update service.</div>'+
       '<div style="font-size:13px;color:#A78BFA">'+esc(e&&e.message||e)+'</div>'
     );
@@ -31894,7 +31953,7 @@ async function checkUpdate(evType){
 
   console.warn("[VLM_PROMAX_UPDATE_BUTTON_V3_CLONE] check",url,"event="+evType);
 
-  showModal("Viciouslom Update",'<div style="font-size:15px;color:#DDD6FE">Checking update service...</div>');
+  showModal("ViciousLom Update",'<div style="font-size:15px;color:#DDD6FE">Checking update service...</div>');
 
   try{
     const res=await fetch(url,{cache:"no-store",headers:{"accept":"application/json"}});
@@ -31903,7 +31962,7 @@ async function checkUpdate(evType){
     console.warn("[VLM_PROMAX_UPDATE_BUTTON_V3_CLONE] response",res.status,text.slice(0,240));
 
     if(!res.ok){
-      showModal("Viciouslom Update",
+      showModal("ViciousLom Update",
         '<div style="font-size:15px;color:#F5F3FF;margin-bottom:10px">Update service is not available yet.</div>'+
         '<div style="font-size:13px;color:#A78BFA">HTTP '+res.status+'</div>'+
         '<div style="font-size:12px;color:#8B5CF6;margin-top:10px">The button is now isolated correctly; Worker route is the next check.</div>'
@@ -31915,14 +31974,14 @@ async function checkUpdate(evType){
     try{data=JSON.parse(text)}catch(_){}
 
     if(!data){
-      showModal("Viciouslom Update",
+      showModal("ViciousLom Update",
         '<div style="font-size:15px;color:#F5F3FF">Worker answered, but response is not JSON.</div>'+
         '<div style="font-size:12px;color:#A78BFA;margin-top:10px">'+esc(text.slice(0,180))+'</div>'
       );
       return;
     }
 
-    showModal("Viciouslom Update",
+    showModal("ViciousLom Update",
       '<div style="font-size:15px;color:#F5F3FF;margin-bottom:8px"><b>Status:</b> '+(data.ok?'Online':'Unavailable')+'</div>'+
       '<div style="font-size:14px;color:#DDD6FE"><b>Channel:</b> '+esc(data.channel||channel).toUpperCase()+'</div>'+
       '<div style="font-size:14px;color:#DDD6FE"><b>Current:</b> '+esc(data.currentVersion||'v3.95')+'</div>'+
@@ -31931,7 +31990,7 @@ async function checkUpdate(evType){
       '<div style="font-size:13px;color:#A78BFA;margin-top:12px">'+esc(data.message||'Update service online.')+'</div>'
     );
   }catch(e){
-    showModal("Viciouslom Update",
+    showModal("ViciousLom Update",
       '<div style="font-size:15px;color:#F5F3FF;margin-bottom:10px">Could not reach update service.</div>'+
       '<div style="font-size:13px;color:#A78BFA">'+esc(e&&e.message||e)+'</div>'
     );
@@ -32183,7 +32242,7 @@ async function checkUpdate(evType){
   const url="/__vlm/promax/manifest?channel="+encodeURIComponent(channel)+"&t="+Date.now();
 
   console.warn("[VLM_PROMAX_UPDATE_BUTTON_V4_SHIELD] check",url,"event="+evType);
-  showModal("Viciouslom Update",'<div style="font-size:15px;color:#DDD6FE">Checking update service...</div>');
+  showModal("ViciousLom Update",'<div style="font-size:15px;color:#DDD6FE">Checking update service...</div>');
 
   try{
     const res=await fetch(url,{cache:"no-store",headers:{"accept":"application/json"}});
@@ -32192,7 +32251,7 @@ async function checkUpdate(evType){
     console.warn("[VLM_PROMAX_UPDATE_BUTTON_V4_SHIELD] response",res.status,text.slice(0,240));
 
     if(!res.ok){
-      showModal("Viciouslom Update",
+      showModal("ViciousLom Update",
         '<div style="font-size:15px;color:#F5F3FF;margin-bottom:10px">Update service is not available yet.</div>'+
         '<div style="font-size:13px;color:#A78BFA">HTTP '+res.status+'</div>'
       );
@@ -32203,14 +32262,14 @@ async function checkUpdate(evType){
     try{data=JSON.parse(text)}catch(_){}
 
     if(!data){
-      showModal("Viciouslom Update",
+      showModal("ViciousLom Update",
         '<div style="font-size:15px;color:#F5F3FF">Worker answered, but response is not JSON.</div>'+
         '<div style="font-size:12px;color:#A78BFA;margin-top:10px">'+esc(text.slice(0,180))+'</div>'
       );
       return;
     }
 
-    showModal("Viciouslom Update",
+    showModal("ViciousLom Update",
       '<div style="font-size:15px;color:#F5F3FF;margin-bottom:8px"><b>Status:</b> '+(data.ok?'Online':'Unavailable')+'</div>'+
       '<div style="font-size:14px;color:#DDD6FE"><b>Channel:</b> '+esc(data.channel||channel).toUpperCase()+'</div>'+
       '<div style="font-size:14px;color:#DDD6FE"><b>Current:</b> '+esc(data.currentVersion||'v3.95')+'</div>'+
@@ -32219,7 +32278,7 @@ async function checkUpdate(evType){
       '<div style="font-size:13px;color:#A78BFA;margin-top:12px">'+esc(data.message||'Update service online.')+'</div>'
     );
   }catch(e){
-    showModal("Viciouslom Update",
+    showModal("ViciousLom Update",
       '<div style="font-size:15px;color:#F5F3FF;margin-bottom:10px">Could not reach update service.</div>'+
       '<div style="font-size:13px;color:#A78BFA">'+esc(e&&e.message||e)+'</div>'
     );
@@ -32266,7 +32325,7 @@ function ensureShield(){
       shield.id="vlm-promax-update-shield-v4";
       shield.textContent="UPDATE";
       shield.setAttribute("type","button");
-      shield.setAttribute("aria-label","Viciouslom Update");
+      shield.setAttribute("aria-label","ViciousLom Update");
       shield.addEventListener("pointerdown",onShield,{capture:true,passive:false});
       shield.addEventListener("touchstart",onShield,{capture:true,passive:false});
       shield.addEventListener("click",onShield,{capture:true,passive:false});
@@ -32448,7 +32507,7 @@ console.warn("[VLM_PROMAX_UPDATE_BUTTON_V4_SHIELD] installed");
 
       if(!r.ok || !j || j.ok!==true){
         modal(
-          '<h2 style="margin:0 0 14px;font-size:26px;color:#fff">Viciouslom Update</h2>'+
+          '<h2 style="margin:0 0 14px;font-size:26px;color:#fff">ViciousLom Update</h2>'+
           '<div style="color:#ffb4c8">Manifest error</div>'+
           '<div style="margin-top:10px;color:#d9ccff">HTTP: '+esc(r.status)+'</div>'+
           '<pre style="white-space:pre-wrap;max-height:180px;overflow:auto;background:rgba(255,255,255,.05);border-radius:12px;padding:12px;color:#cfc3ff">'+esc(raw.slice(0,900))+'</pre>'
@@ -32457,7 +32516,7 @@ console.warn("[VLM_PROMAX_UPDATE_BUTTON_V4_SHIELD] installed");
       }
 
       modal(
-        '<h2 style="margin:0 0 16px;font-size:28px;color:#fff;text-shadow:0 0 18px rgba(190,130,255,.75)">Viciouslom Update</h2>'+
+        '<h2 style="margin:0 0 16px;font-size:28px;color:#fff;text-shadow:0 0 18px rgba(190,130,255,.75)">ViciousLom Update</h2>'+
         '<div><b>Status:</b> Online</div>'+
         '<div><b>Channel:</b> '+esc(String(j.channel||channel).toUpperCase())+'</div>'+
         '<div><b>Current:</b> '+esc(j.currentVersion||j.version||"v3.95")+'</div>'+
@@ -32468,7 +32527,7 @@ console.warn("[VLM_PROMAX_UPDATE_BUTTON_V4_SHIELD] installed");
     }catch(e){
       console.warn("["+MARK+"] error",e);
       modal(
-        '<h2 style="margin:0 0 14px;font-size:26px;color:#fff">Viciouslom Update</h2>'+
+        '<h2 style="margin:0 0 14px;font-size:26px;color:#fff">ViciousLom Update</h2>'+
         '<div style="color:#ffb4c8">Erro ao consultar update.</div>'+
         '<pre style="white-space:pre-wrap;background:rgba(255,255,255,.05);border-radius:12px;padding:12px;color:#cfc3ff">'+esc(e&&e.stack||e)+'</pre>'
       );
@@ -32809,7 +32868,7 @@ function _0x36248b(){getRuntimeSingleton("SeasonDataCache","SeasonDataCache")["t
 
       if (idc.indexOf("vlm-update") >= 0 || idc.indexOf("update") >= 0) return true;
       if (txt === "update" || txt === "updates" || txt === "check update" || txt === "sync update") return true;
-      if (txt.indexOf("viciouslom update") >= 0) return true;
+      if (txt.indexOf("ViciousLom Update") >= 0) return true;
     } catch(_){}
     return false;
   }
