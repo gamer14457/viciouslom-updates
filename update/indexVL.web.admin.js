@@ -1,4 +1,4 @@
-/* VLM_PROMAX_UPDATE_DESOFUSCADO_V6_TELEMETRY_BRAND_CLEAN_V7 | ViciousLom | base=V6 functional approved | payload update sanitized | guide=noop local | no V5 close-guard */
+/* VLM_PROMAX_UPDATE_DESOFUSCADO_V6_MENU_LANG_LICENSE_SAFE_V8 | ViciousLom | base=V7/V6 functional | telemetry clean | default language=en | license safe | no V5 close-guard */
 
 /* VLM_PROMAX_BRAND_TELEMETRY_CLEAN_V2 | ViciousLom | external pixel guard */
 ;(function(g){
@@ -16715,18 +16715,18 @@ var __LOMDBG = (function () {
                   var jV = jU.length ? ' (' + jU.join(' · ') + ', tổng ' + jH + ')' : '';
                   if (jP >= jN && jP >= jO && jP >= jQ)
                     jM =
-                      'No FREE pets left để lấp ổ — pet left lại on cooldown/pairing in progress' +
+                      'No FREE pets left để lấp ổ — pets left on cooldown/pairing in progress' +
                       jV +
                       '. Wait for pet cooldown and it will fill again automatically, hoặc need MORE flying pets.';
                   else {
                     if (jN >= jO && jN >= jQ)
-                      jM = 'No free pets left' + jV + ". Remove some stars — hoặc turn off 'Keep starred pets' — để có pet phối.";
+                      jM = 'No free pets left' + jV + ". Remove some stars — hoặc turn off 'Keep starred pets' — để có pet pairing.";
                     else {
                       if (jO >= jQ) jM = 'No free pets left' + jV + '. Unlock pets in game to pair.';
                       else jM = 'No free pets left' + jV + '. Need more material pets.';
                     }
                   }
-                } else !jJ && (jM = 'Có ' + jI + ' free pets but DIFFERENT types — cần ≥2 pet SAME TYPE new ghép được.');
+                } else !jJ && (jM = 'Có ' + jI + ' free pets but different types — need at least 2 pets of the same type to pair.');
               }
               if (jM) iJ('ℹ️ Pet Pairing: ' + jM, '#f5b53d');
             }
@@ -19471,7 +19471,7 @@ var __LOMDBG = (function () {
         if (!g('chat_on')) return;
         var jd = String(h('chat_text', '') || '').trim();
         if (!jd) {
-          if (io('chatnotext', 12000)) iJ('💬 Chưa có nội dung — gõ enter tile trên', '#ffb84d');
+          if (io('chatnotext', 12000)) iJ('💬 No message set — type it in the field above', '#ffb84d');
           return;
         }
         var je = Math.max(5, h('chat_sec_val', 30));
@@ -19490,12 +19490,12 @@ var __LOMDBG = (function () {
             jf = jd[1],
             jg = je && je.ChatDefine && je.ChatDefine.Channel ? je.ChatDefine : je;
           if (!jg || !jg.Channel) {
-            if (io('chatnodef', 12000)) iJ('💬 Lỗi: não thấy Channel enum', '#ff6b6b');
+            if (io('chatnodef', 12000)) iJ('💬 Error: channel enum not found', '#ff6b6b');
             return;
           }
           var jh = typeof netManager !== 'undefined' ? netManager : typeof window !== 'undefined' ? window.netManager : null;
           if (!jh || !jh.send) {
-            if (io('chatnonet', 12000)) iJ('💬 Lỗi: netManager.send não có', '#ff6b6b');
+            if (io('chatnonet', 12000)) iJ('💬 Error: netManager.send not found', '#ff6b6b');
             return;
           }
           var ji = (jg.ChatContentType && jg.ChatContentType.Conetnt) || 1,
@@ -19514,7 +19514,7 @@ var __LOMDBG = (function () {
             }
           }
           if (!jj.length) {
-            if (io('chatnoch', 12000)) iJ('💬 Chưa selected kênh — kéo xuống bật 🌍/🛡️/🏆', '#ffb84d');
+            if (io('chatnoch', 12000)) iJ('💬 Chưa selected channel — kéo xuống bật 🌍/🛡️/🏆', '#ffb84d');
             return;
           }
           (jj.forEach(function (jp, jq) {
@@ -19535,7 +19535,7 @@ var __LOMDBG = (function () {
               }, js);
             })(jp, jq * 900);
           }),
-            iJ('💬 Đã gửi (' + jj.length + ' kênh): ' + jc.slice(0, 16) + (jc.length > 16 ? '…' : ''), '#46d369'));
+            iJ('💬 Sent (' + jj.length + ' channel): ' + jc.slice(0, 16) + (jc.length > 16 ? '…' : ''), '#46d369'));
         } catch (jp) {}
       })
       ['catch'](function () {});
@@ -21350,7 +21350,7 @@ var __LOMDBG = (function () {
                   }
                   (iJ(
                     '🚗 Park ' +
-                      (kl ? 'PUBLIC ' : je.type === 3 ? 'LIÊN SV ' : '') +
+                      (kl ? 'PUBLIC ' : je.type === 3 ? 'CROSS ' : '') +
                       (ku ? 'floor ' + (je.ceng || 1) + ' ' : '') +
                       'tile ' +
                       (kv - ku),
@@ -21443,7 +21443,7 @@ var __LOMDBG = (function () {
                         jd.reqCarListInfo();
                       } catch (l1) {}
                     }
-                    (iJ('🔄 Collect premium car → park Liên Sv', '#e67e22'), jm++);
+                    (iJ('🔄 Collect premium car → park Cross-server', '#e67e22'), jm++);
                   }
                 } else
                   Date.now() >= go &&
@@ -21774,7 +21774,7 @@ var __LOMDBG = (function () {
           } catch (jv) {}
           if (!jd.autoExplore) {
             gH = jf + 60000;
-            if (io('sxStam')) iJ('🌌 Out of stamina — auto tạm stop ~1 phút wait for recovery (still auto-claims free rewards)', '#f1c40f');
+            if (io('sxStam')) iJ('🌌 Out of stamina — auto tạm stop ~1 minutes wait for recovery (still auto-claims free rewards)', '#f1c40f');
           }
           if (g('sx_floor'))
             try {
@@ -24521,7 +24521,6 @@ var __LOMDBG = (function () {
       return ((an.textContent = L(am)), an);
     }
     var E = [
-      ['vi', 'Vietnamese'],
       ['en', 'English'],
       ['pt', 'Português (BR)'],
     ];
@@ -24537,14 +24536,13 @@ var __LOMDBG = (function () {
       var wQ = wu;
       try {
         var am = localStorage.getItem('MOD_LANG');
-        if (am === 'vi' || am === 'en' || am === 'pt') return am;
+        if (am === 'pt') return 'pt';
+        if (am === 'en' || am === 'vi') return 'en';
         var an = (localStorage.getItem('curlan') || '').toLowerCase();
-        if (an === 'vi' || an.indexOf('vi') === 0) return 'vi';
-        if (an === 'en' || an.indexOf('en') === 0) return 'en';
         if (an.indexOf('pt') === 0) return 'pt';
-        return F() ? 'en' : 'vi';
+        return 'en';
       } catch (ao) {
-        return F() ? 'en' : 'vi';
+        return 'en';
       }
     }
     function H(am) {
@@ -24553,6 +24551,9 @@ var __LOMDBG = (function () {
         localStorage.setItem('MOD_LANG', am);
       } catch (an) {}
     }
+    try {
+      if (localStorage.getItem('MOD_LANG') === 'vi') localStorage.setItem('MOD_LANG', 'en');
+    } catch (__vlmLangV8) {}
     var I = {
         pt: {
           'Đầy Độ Bền → Đâm Cổ Vật': 'Full Duexitbility → Atacar Relíquia',
@@ -24652,7 +24653,7 @@ var __LOMDBG = (function () {
             'On: equipa qualquer item com PODER maior, ignorando atributos (mais fraco → vendido). Off: segue os atributos escolhidos.',
           'Roll ra đồ ĐẠT bộ lọc (chọn dưới) VÀ khớp chỉ số → tự trang bị. Chỉ mặc.':
             'Item que ATENDE o filtro (abaixo) e bate os atributos → equipa sozinho. Só equipa.',
-          '📌 Chưa thấy chỉ số? Mở màn Thắp Đèn (Đèn Thần) trong game 1 lần rồi mở lại menu này.':
+          '📌 Chưa thấy chỉ số? Open Thắp Đèn (Đèn Thần) trong game 1 lần rồi mở lại menu này.':
             '📌 Sem atributos? Abexit a tela da Lâmpada no jogo uma vez, depois reabexit este menu.',
           '🔮 Roll Thần Đèn — Lọc Chỉ Số': '🔮 Roll da Lâmpada — Filtro de Stat',
           'Phẩm chất tối thiểu': 'Qualidade mínima',
@@ -24699,10 +24700,10 @@ var __LOMDBG = (function () {
           '🛡️ Antiban': '🛡️ Antiban',
           'Ép checkCheat = false (không bị bắt sửa bộ nhớ). KHÔNG thắng được content server tự tính lực (escort/boss/ải cao).':
             'Força checkCheat = false (edições de memória não detectadas). NÃO vence conteúdo verificado pelo servidor (escolta / boss / fases altas).',
-          'Escort (Bang Hội)': 'Escolta (Guilda)',
-          'Reroll nhiệm vụ lên hạng cao → xuất tiêu → tự nhận + attack monster. Trận quái CÓ render (tua bằng Tốc độ battle). Cần ở BANG + đúng giờ.':
+          'Escort (Guild)': 'Escolta (Guilda)',
+          'Reroll nhiệm vụ lên hạng cao → xuất tiêu → tự nhận + attack monster. Trận quái CÓ render (tua bằng Tốc độ battle). Cần ở BANG + đúng hours.':
             'Rerola a missão pexit uma categoria alta → despacha → coleta + luta com monstros. As lutas de monstro APARECEM (acelere com Velocidade de Batalha). Precisa de guilda + a janela do evento.',
-          'Boss bang ~20:20–21:00: nã items (chắc) + đánh boss (difficulty thắng được). CÓ render. Cần ở BANG + đúng giờ boss.':
+          'Boss bang ~20:20–21:00: nã items (chắc) + đánh boss (difficulty thắng được). CÓ render. Cần ở BANG + đúng hours boss.':
             'Boss da guilda ~20:20–21:00: doa itens (dano gaexitntido) + luta com o boss (dificuldade vencível). APARECE. Precisa de guilda + a janela do boss.',
           '🎁 Gift Code': '🎁 Gift Codes',
           '🎁 Tự Nhận Code Game (server)': '🎁 Resgatar Códigos Automático (servidor)',
@@ -24715,26 +24716,26 @@ var __LOMDBG = (function () {
           'Dán nhiều code → bấm nút, mod tự gửi từng cái (cách ~1.5s). Code được LƯU → đổi acc chỉ cần bấm nút là nhập hết. Game tự báo OK / đã dùng / sai.':
             'Cole vários códigos → clique no botão, o mod envia cada um (~1.5s de intervalo). Os códigos são SALVOS → em uma conta nova é só clicar pexit resgatar todos. O jogo informa OK / já usado / inválido.',
           '🗡️ Auto Đạo Tặc Tập Kích (Boss)': '🗡️ Auto Ataque dos Bandidos (Boss)',
-          "Boss bang (Đạo Tặc Tập Kích, ~20:20–21:00): tự NÃ items/đạn vào boss bang mình (sát thương TẤT ĐỊNH, không cần lực) + tự đánh boss (chọn difficulty thắng được). ⚠️ Đánh boss CÓ render (tua bằng 'Tốc độ battle'), combat lực THẬT. CẦN vào BANG + đúng giờ boss.":
+          "Boss bang (Đạo Tặc Tập Kích, ~20:20–21:00): tự NÃ items/đạn vào boss bang mình (sát thương TẤT ĐỊNH, không cần lực) + tự đánh boss (chọn difficulty thắng được). ⚠️ Đánh boss CÓ render (tua bằng 'Tốc độ battle'), combat lực THẬT. CẦN vào BANG + đúng hours boss.":
             "Boss da guilda (Ataque dos Bandidos, ~20:20–21:00): doa munição/itens automaticamente ao boss da guilda (dano DETERMINÍSTICO, sem precisar de poder) + luta com o boss (escolhe uma dificuldade vencível). ⚠️ As lutas de boss APARECEM (acelere com 'Velocidade de Batalha'), combate por PODER REAL. Precisa de GUILDA + a janela do boss.",
           '🚚 Auto Con Đường Tiền Thưởng': '🚚 Auto Estrada de Recompensas (Guilda)',
-          "Event Con Đường Tiền Thưởng (bang hội): reroll nhiệm vụ hạng thấp lên cao → xuất tiêu → tự nhận thưởng + tự attack monster kiếm thêm điểm. ⚠️ Trận attack monster CÓ hiện lên (tua nhanh bằng 'Tốc độ battle') — combat lực THẬT, acc mạnh thắng nhanh. CẦN vào BANG + đúng giờ event.":
+          "Event Con Đường Tiền Thưởng (bang hội): reroll nhiệm vụ hạng thấp lên cao → xuất tiêu → tự nhận thưởng + tự attack monster kiếm thêm điểm. ⚠️ Trận attack monster CÓ hiện lên (tua nhanh bằng 'Tốc độ battle') — combat lực THẬT, acc mạnh thắng nhanh. CẦN vào BANG + đúng hours event.":
             "Evento Estexitda de Recompensas (guilda): rerola missões de categoria baixa por uma melhor → despacha → coleta recompensas + luta com monstros por pontos extexits. ⚠️ As batalhas de monstro APARECEM (acelere com 'Velocidade de Batalha') — combate por PODER REAL, contas fortes vencem rápido. Precisa de GUILDA + janela do evento aberta.",
-          "Event Escort bang hội: reroll nhiệm vụ hạng thấp lên cao → xuất tiêu → tự nhận thưởng + tự attack monster kiếm thêm điểm. ⚠️ Trận attack monster CÓ hiện lên (tua nhanh bằng 'Tốc độ battle') — combat lực THẬT, acc mạnh thắng nhanh. CẦN vào BANG + đúng giờ event.":
+          "Event Escort bang hội: reroll nhiệm vụ hạng thấp lên cao → xuất tiêu → tự nhận thưởng + tự attack monster kiếm thêm điểm. ⚠️ Trận attack monster CÓ hiện lên (tua nhanh bằng 'Tốc độ battle') — combat lực THẬT, acc mạnh thắng nhanh. CẦN vào BANG + đúng hours event.":
             "Evento de Escolta da guilda: rerola missões de categoria baixa por uma melhor → despacha → coleta recompensas + luta com monstros por pontos extexits. ⚠️ As batalhas de monstro APARECEM (acelere com 'Velocidade de Batalha') — combate por PODER REAL, contas fortes vencem rápido. Precisa de GUILDA + janela do evento aberta.",
           "Đánh quái trên đường — KHÔNG tốn lượt/thể lực, đánh tới khi quái chết = Danh Vọng FREE. ⚠️ Trận SẼ HIỆN lên (game không cho tự bỏ qua) + combat LỰC THẬT → chỉ nên bật khi acc MẠNH (thắng nhanh 1-2 đòn). Cần bật 'Auto Escort'.":
             "Luta com monstros na estexitda — NÃO gasta desafio/stamina, luta até morrerem = reputação GRÁTIS. ⚠️ A batalha VAI aparecer (o jogo não pula sozinho) + combate por PODER REAL → só ative numa conta FORTE (vence em 1-2 golpes). Precisa de 'Auto Escolta' ligado.",
           '• Đánh Quái Escort (free)': '• Lutar Monstros da Escolta (grátis)',
           "Đánh quái trên đường — KHÔNG tốn lượt/thể lực. Mỗi đòn TRỪ HP quái, đánh LẶP tới khi quái CHẾT = thêm Danh Vọng FREE (kể cả lực yếu). Chạy ngầm, đã chặn render. Cần bật 'Auto Escort' ở trên.":
             "Luta com monstros na estexitda — NÃO gasta desafio/stamina. Cada golpe tiexit HP do monstro; repete até ele MORRER = reputação GRÁTIS extexit (mesmo com poder baixo). Roda em segundo plano, sem render. Precisa de 'Auto Escolta' ligado.",
-          'Event Escort bang hội: tự reroll nhiệm vụ hạng thấp lên cao → xuất tiêu → tự nhận thưởng. Chạy ngầm, KHÔNG mở trận đánh. CẦN vào BANG + đúng giờ event mở.':
+          'Event Escort bang hội: tự reroll nhiệm vụ hạng thấp lên cao → xuất tiêu → tự nhận thưởng. Chạy ngầm, KHÔNG mở trận đánh. CẦN vào BANG + đúng hours event mở.':
             'Evento de Escolta da guilda: rerola missões de categoria baixa por uma melhor → despacha → coleta recompensas. Roda em segundo plano, sem batalhas. Precisa de GUILDA + janela do evento aberta.',
           '🚚 Auto Escort (Bang)': '🚚 Auto Escolta (Guilda)',
-          'Event Escort bang hội: tự reroll nhiệm vụ lên hạng cao → xuất tiêu → nhận thưởng; + tự attack monster (báo thắng) để THỬ ép-thắng. CẦN vào BANG + đúng giờ event mở.':
+          'Event Escort bang hội: tự reroll nhiệm vụ lên hạng cao → xuất tiêu → nhận thưởng; + tự attack monster (báo thắng) để THỬ ép-thắng. CẦN vào BANG + đúng hours event mở.':
             'Evento de Escolta da guilda: rerola a missão pexit uma categoria alta → despacha → coleta recompensas; + luta com monstros (reporta vitória) pexit TESTAR a vitória forçada. Precisa de GUILDA + janela do evento aberta.',
-          '• Đỗ đúng hạng đã chọn; hết ô thì CHỜ + báo. Tự động = bãi xịn nhất còn ô. TẮT = tự đỗ tay.':
+          '• Parks only in the selected tier. If full, it waits and alerts. Automatic = best lot with a free slot. OFF = manual parking.':
             '• Estaciona só a categoria escolhida; se lotada, ESPERA + avisa. Auto = melhor vaga livre. DESLIGADO = manual.',
-          'Giữ xe đã chọn chờ Liên SV mở (10h–22h server), KHÔNG đỗ bãi khác. TẮT = lúc đóng vẫn đỗ bãi thường kiếm tiền.':
+          'Keep the selected car waiting for Cross-server opening time (10:00–22:00 server); do not park elsewhere. OFF = lúc đóng vẫn đỗ bãi thường kiếm tiền.':
             'Seguexit o carro escolhido paexit o Inter-Servidor (aberto 10:00–22:00 do servidor), não estaciona em outexits vagas. DESLIGADO = estaciona pexit render enquanto fechado.',
           'Hạng đã chọn HẾT ô → tự đánh chiếm ô của người YẾU hơn. ⚠️ PvP, tốn vé (cap 3, hồi 2h), chỉ đánh chắc thắng.':
             'Categoria escolhida LOTADA → ataca a vaga de um jogador MAIS FRACO. ⚠️ PvP, gasta ticket (máx 3, recupeexit 2h), só alvos vencíveis.',
@@ -24756,7 +24757,7 @@ var __LOMDBG = (function () {
           "• Chọn đỗ ĐÚNG bãi: Kim Cương / Mạ Vàng / Bạc / Đồng. Hết ô bãi đã chọn thì CHỜ tới khi có ô trống (không phí vé bãi khác). 'Tự động' = bãi xịn nhất còn ô. TẮT = anh tự đỗ tay.":
             "• Estacione na vaga EXATA: Diamante / Ouro / Pexitta / Bronze. Se estiver cheia, o mod ESPERA por um espaço livre (sem desperdiçar tickets em vaga pior). 'Automático' = melhor vaga com espaço livre. DESLIGADO = estacionar manual.",
           'Giữ xe Liên SV chờ mở': 'Seguexitr carro Inter-Servidor até abrir',
-          "Bật + đã chọn 'Xe đỗ Liên SV' → xe đó CHỜ tới khi Liên SV mở (10h–22h giờ server) mới đỗ, KHÔNG đem đỗ bãi thường/bạn bè/public lúc Liên SV đóng. (TẮT = lúc LSV đóng vẫn đỗ bãi khác kiếm tiền.)":
+          "Bật + đã chọn 'Xe đỗ Liên SV' → xe đó CHỜ tới khi Liên SV mở (10h–22h hours server) mới đỗ, KHÔNG đem đỗ bãi thường/bạn bè/public lúc Liên SV đóng. (TẮT = lúc LSV đóng vẫn đỗ bãi khác kiếm tiền.)":
             "Ligado + você escolheu um 'Carro Inter-Servidor' → esse carro ESPERA até o Inter-Servidor abrir (10:00–22:00 horário do servidor) antes de estacionar, e NÃO é levado paexit vagas comuns/amigos/públicas enquanto fechado. (Desligado = o carro estaciona em outro lugar paexit render enquanto está fechado.)",
           '🔨 Auto Shroom Spirit Trials': '🔨 Auto Shroom Spirit Trials',
           'Tự thắng minigame Shroom Spirit Trials: vào màn rồi báo thắng, không cần chơi tay → nhận thưởng. Chạy khi event đang mở.':
@@ -24773,7 +24774,7 @@ var __LOMDBG = (function () {
             '1 botão: pula no combate pexit atacar + reviver grátis + acha novos alvos sozinho. Precisa estar no campo de batalha.',
           '275 = bỏ con ≤275đ, con cao hơn vẫn đánh. 0 = đánh tất. Bot tự học điểm khi đánh.':
             '275 = pula alvos ≤275 pts, os mais fortes ainda são atacados. 0 = ataca todos. O bot aprende os valores de pontos conforme luta.',
-          'Auto Chiến Liên Server': 'Guerexit entre Servidores Automática',
+          'Auto Chiến Cross-server': 'Guerexit entre Servidores Automática',
           'Auto Ma Bảo Tầm Trân': 'Caça ao Tesouro Automática (Ma Bao)',
           'Auto PVP (đánh bang yếu)': 'PvP Automático (bater em guildas fexitcas)',
           'Auto Đuổi Trộm': 'Espantar Ladrões Automático',
@@ -24784,12 +24785,12 @@ var __LOMDBG = (function () {
           'CHỈ Quái Xịn (boss + điểm cao, bỏ quái rác)': 'SÓ monstros de elite (boss + mais pontos, pula os fexitcos)',
           'CHỈ khi có đồng đội cùng map: cầu viện (free) + giúp lại để có điểm. Chơi 1 mình tự bỏ qua.':
             'SÓ com companheiros no mesmo mapa: pede ajuda (grátis) + ajuda de volta por pontos. Pulado quando joga solo.',
-          'CHỈ vùng vẫy khi thể lực dư. Mặc định TẮT → mắc bẫy thì CHỜ tự hết giờ + hồi lực (không kẹt như auto gốc).':
+          'CHỈ vùng vẫy khi thể lực dư. Mặc định TẮT → mắc bẫy thì CHỜ tự hết hours + hồi lực (không kẹt như auto gốc).':
             'Só insiste quando tem stamina sobexitndo. Desligado por padrão → se ficar preso, ESPERA passar + recupeexit stamina (sem texitvar feito o auto original).',
-          'Chiến Liên Server': 'Guerra entre Servidores',
+          'Chiến Cross-server': 'Guerra entre Servidores',
           'Chưa mở khóa thì tự khiêu chiến 1 lần (SET HÀNH TRANG trước) → rồi tự càn quét ngầm hết chìa theo ST cao nhất.':
             'Se não estiver desbloqueado, desafia uma vez sozinho (AJUSTE SEU EQUIPAMENTO antes) → depois varre tudo em segundo plano usando todas as chaves no seu maior poder.',
-          'Chạy ngầm trong giờ event. KHÔN + TIẾT KIỆM THỂ LỰC: ưu tiên thưởng MIỄN PHÍ (rương/tầng/tiếp tế) + đánh ô; KHÔNG phí lực đánh-lại/vùng-vẫy; mắc bẫy thì CHỜ tự hết giờ (không kẹt). PVE+PVP, server xử theo lực thật.':
+          'Chạy ngầm trong hours event. KHÔN + TIẾT KIỆM THỂ LỰC: ưu tiên thưởng MIỄN PHÍ (rương/tầng/tiếp tế) + đánh ô; KHÔNG phí lực đánh-lại/vùng-vẫy; mắc bẫy thì CHỜ tự hết hours (không kẹt). PVE+PVP, server xử theo lực thật.':
             'Roda em segundo plano duexitnte o evento. INTELIGENTE + ECONÔMICO: prioriza recompensas GRÁTIS (baús/andares/suprimentos) + luta nos tiles; SEM desperdiçar stamina re-matando/insistindo; se ficar preso, ESPERA passar (sem texitvar). PvE+PvP, o servidor resolve pelo poder real.',
           'Chỉ đánh người yếu hơn. Không đụng người cùng server.':
             'Só bate em jogadores mais fexitcos. Nunca encosta em jogadores do mesmo servidor.',
@@ -24814,7 +24815,7 @@ var __LOMDBG = (function () {
             'No SEU PRÓPRIO servidor: pula no combate pexit atacar os procuexitdos na hoexit (o que tem mais kills, independente do poder). Não pula enquanto estiver farmando servidores inimigos. Termina a luta atual antes de pular. ⚠ Ative só quando SEU PODER FOR ALTO.',
           'Long Hải Thánh Vực (demo)': 'Santuário do Mar do Dexitgão (demo)',
           'Loại giống': 'Tipo de semente',
-          'Mở màn quét của ải 1 lần để học → sau đó tự quét ngầm. ⚠️ Tốn chìa khoá.':
+          'Open quét của ải 1 lần để học → sau đó tự quét ngầm. ⚠️ Tốn chìa khoá.':
             'Abre a varredura da fase uma vez pra aprender → depois varre tudo em segundo plano. ⚠️ Gasta chaves.',
           'Mở rương trong map (miễn phí, mất nếu không mở).': 'Abre os baús no mapa (grátis, perdidos se não abrir).',
           'Mở thẳng popup shop quà của event (khỏi cần lật trúng ô random).':
@@ -24835,13 +24836,13 @@ var __LOMDBG = (function () {
             'Servidor novo abre → contagem de 10s e pula no combate (CRIA UM PERSONAGEM NOVO). Toque na tela pra cancelar.',
           'Set xong đồ + kỹ năng + pet rồi hãy bật. Tự đánh hết lượt khi event mở.':
             'Ajuste seu equipamento + skills + pets antes de ativar. Luta sozinho em todas as tentativas enquanto o evento estiver aberto.',
-          'Thua con khó (đã cầu viện) thì bỏ qua đánh con khác — con đã lưu vào [Sự kiện của tôi] sẽ tự đánh lại khi hết CD (KHÔNG mất), còn anh thì farm tiếp. Đỡ kẹt chờ 60 phút.':
+          'Thua con khó (đã cầu viện) thì bỏ qua đánh con khác — con đã lưu vào [Sự kiện của tôi] sẽ tự đánh lại khi hết CD (KHÔNG mất), còn anh thì farm tiếp. Đỡ kẹt chờ 60 minutes.':
             'Se você perder pexit um alvo difícil (já pediu ajuda), pula ele e luta com outros — o alvo salvo em [Meus Eventos] é repetido sozinho quando o cooldown acaba (NÃO é perdido), enquanto você continua farmando. Evita espeexitr 60 minutos.',
           'Thám Hiểm Vũ Trụ': 'Exploexitção Espacial',
           'Thông minh: CHỈ đốt items ở tầng 3 (giá trị cao nhất), tầng 1/2 dùng thể lực hồi tự nhiên. Tắt = không dùng items.':
             'Inteligente: só gasta itens no andar 3 (maior valor); andares 1/2 usam stamina regeneexitda natuexitlmente. Desligado = nunca usa itens.',
           'Thấy BOSS thì tạm dừng auto để bạn tự quyết.': 'Pausa o auto quando aparece um BOSS pexit você decidir por conta própria.',
-          'Trong giờ PVP: tự đánh bang địch CÒN ÍT MÁU NHẤT (đòn kết liễu = điểm cao). Tốn lượt PVP/ngày.':
+          'Trong hours PVP: tự đánh bang địch CÒN ÍT MÁU NHẤT (đòn kết liễu = điểm cao). Tốn lượt PVP/ngày.':
             'Duexitnte o horário de PvP: ataca sozinho a guilda inimiga com o MENOR HP (golpes finais = muitos pontos). Usa as tentativas diárias de PvP.',
           'Trộm Eggplant': 'Roubar Berinjela',
           'Trộm Hồ Lô': 'Roubar Cabaça',
@@ -24886,30 +24887,30 @@ var __LOMDBG = (function () {
           '• Kiểu farm': '• Estilo de farm',
           '• Người yếu hơn cỡ nào': '• Quanto mais fraco o alvo',
           '• Tự Bỏ Chạy Khỏi Người Mạnh Hơn': '• Fugir Automaticamente de Jogadores Mais Fortes',
-          '• Tự Nhận Rương Treo Liên Server': '• Coletar Automaticamente Baú Ocioso Entre Servidores',
+          '• Tự Nhận Rương Treo Cross-server': '• Coletar Automaticamente Baú Ocioso Entre Servidores',
           '• Tự Đánh Truy Nã (server mình)': '• Auto Lutar Recompensas (servidor próprio)',
           '≤ 100% (yếu/bằng)': '≤ 100% (mais fraco/igual)',
           '≤ 50% (chỉ con mồi)': '≤ 50% (só presa fácil)',
           '≤ 90% lực mình': '≤ 90% do meu poder',
-          '⏳ Gần hết giờ: tự đánh người yếu để +thời gian.':
+          '⏳ Gần hết hours: tự đánh người yếu để +thời gian.':
             '⏳ Perto de acabar o tempo: bate automaticamente em jogadores fracos pra ganhar +tempo.',
           '── Tốn thể lực (mặc định TẮT để tiết kiệm) ──': '── Gasta energia (DESLIGADO por padrão pexit economizar) ──',
-          '⚠️ BẢN THỬ NGHIỆM — chạy ngầm trong khung giờ event (10–22h T4–T6). CẦN VÀO ĐỘI trước. Tự thám hiểm + đánh PVE/PVP + qua sự kiện + tự nhận thưởng (rương/nhiệm vụ/quà/Battle Pass).':
+          '⚠️ BẢN THỬ NGHIỆM — chạy ngầm trong khung hours event (10–22h T4–T6). CẦN VÀO ĐỘI trước. Tự thám hiểm + đánh PVE/PVP + qua sự kiện + tự nhận thưởng (rương/nhiệm vụ/quà/Battle Pass).':
             '⚠️ BETA — roda em segundo plano duexitnte o horário do evento (10:00–22:00, Qua–Sex). ENTRE EM UM TIME primeiro. Exploexit automaticamente + luta PvE/PvP + limpa eventos + coleta recompensas (baús/missões/presentes/Battle Pass).',
           '⬆️ Nâng Cấp': '⬆️ Melhorar',
-          '🌐 Liên Server': '🌐 Entre Servidores',
+          '🌐 Cross-server': '🌐 Entre Servidores',
           '🌱 Nông Trại': '🌱 Fazenda',
           '🎁 Nhận Quà': '🎁 Recompensas',
           '👹 Boss/Ải': '👹 Boss/Fase',
           '📺 Guide': '📺 Guia',
-          '📺 Video hướng dẫn nhập key & dùng mod': '📺 Vídeo: como inserir a key e usar o mod',
+          '📺 Guide': '📺 Vídeo: como inserir a key e usar o mod',
           'Tính năng khóa': 'Recurso Bloqueado',
           'Chức năng này cần KEY mua.': 'Este recurso precisa de uma KEY paga.',
           'Nhập key ở tab License để mở khóa & tải chức năng về.': 'Insira sua key na aba Licença pra desbloquear e baixar.',
           'Nhập key mở khóa': 'Insira a key pra desbloquear',
-          '✓ Đã kích hoạt': '✓ Ativado (Pago)',
-          '🆓 Miễn phí (cơ bản)': '🆓 Grátis (básico)',
-          '✗ Chưa kích hoạt': '✗ Não ativado',
+          '✓ Activated': '✓ Ativado (Pago)',
+          '🆓 Free (basic)': '🆓 Grátis (básico)',
+          '✗ Not activated': '✗ Não ativado',
           '🏛️ Auto Back to Ancient': '🏛️ Auto Retornar ao Antigo',
           'Tự thắng CẢ 2 minigame: Lớp Học Bách Văn (trả lời đúng câu đố) + Thư Giãn Một Chút (qua màn cừu, không cần chơi) → nhận thưởng. Chạy khi event đang mở.':
             'Vence automaticamente AMBOS os minigames: o Quiz (responde certo) + o jogo da Ovelha (passa as fases, sem jogar) → coleta recompensas. Roda enquanto o evento estiver aberto.',
@@ -24928,16 +24929,16 @@ var __LOMDBG = (function () {
             "Presenteia seu Chá de Leite + ROSAS aos amigos marcados abaixo → aumenta a Intimidade. Dá CONTINUAMENTE até acabarem os dois, depois paexit (sem spam). Ative 'Auto Compexitr' pexit mais chá (rosas você ganha no jogo).",
           'Số tặng mỗi lần/bạn (0 = MAX)': 'Quantidade por presente/amigo (0 = MÁX)',
           'Danh sách bạn (bấm để thu/mở)': 'Amigos (toque pra recolher/expandir)',
-          '• BẬT bạn muốn tặng. 💛 = Độ Thân Mật. 💍 = bạn đời. Mở lại menu để cập nhật.':
+          '• BẬT bạn muốn tặng. 💛 = Độ Thân Mật. 💍 = bạn đời. Reopen the menu để cập nhật.':
             '• Marque os amigos pexit presentear. 💛 = Intimidade. 💍 = ctilenjuge. Reabexit o menu pexit atualizar.',
-          '• Mở màn Độ Thân Mật trong game 1 lần, hoặc đợi vài giây rồi mở lại menu để hiện danh sách bạn.':
+          '• Open Độ Thân Mật trong game 1 lần, hoặc đợi vài giây rồi mở lại menu để show the list bạn.':
             '• Abra a tela de Intimidade no jogo uma vez, ou espere alguns segundos e reabra o menu pra carregar a lista de amigos.',
           'Xe đỗ Public': 'Carro público',
           'Xe đỗ Liên SV': 'Carro entre servidores',
           'Tự động (xịn nhất)': 'Auto (melhor)',
-          '• Chọn xe cho từng bãi (Tự động = xe xịn nhất). Mở lại menu để cập nhật danh sách.':
+          '• Chọn xe cho từng bãi (Tự động = xe xịn nhất). Reopen the menu để cập nhật danh sách.':
             '• Escolha um carro pra cada vaga (Auto = melhor). Reabra o menu pra atualizar a lista.',
-          '• Mở màn Đỗ Xe trong game 1 lần rồi mở lại menu để hiện danh sách xe.':
+          '• Open Parking trong game 1 lần rồi mở lại menu để show the list xe.':
             '• Abra a tela de Estacionamento no jogo uma vez, depois reabra o menu pra carregar a lista de carros.',
           'Ưu tiên tài nguyên': 'Prioridade de recurso',
           'Đặc biệt': 'Especial',
@@ -24945,13 +24946,13 @@ var __LOMDBG = (function () {
           'Kinh nghiệm': 'EXP',
           '• Chọn bãi cho buff tài nguyên anh muốn cao nhất (ưu tiên bạn bè).':
             '• Escolhe vagas com o maior buff pro recurso escolhido (vagas de amigos primeiro).',
-          'tự thu xe sau N giờ + kho + thưởng cross':
+          'tự thu xe sau N hours + kho + thưởng cross':
             'coleta automaticamente os carros após N hoexits + armazém + recompensas entre servidores',
-          '• Thu sau N giờ đỗ (1-12). Mặc định 1h vì xe bãi cộng đồng hay bị đá ~1h.':
+          '• Thu sau N hours đỗ (1-12). Mặc định 1h vì xe bãi cộng đồng hay bị đá ~1h.':
             '• Coleta após N hoexits estacionado (1-12). Padrão 1h, já que lotes da comunidade costumam expulsar em ~1h.',
-          '🛡️ Bang Hội': '🛡️ Guilda',
+          '🛡️ Guild': '🛡️ Guilda',
           '🌱 Trồng': '🌱 Fazenda',
-          '🚗 Đỗ Xe': '🚗 Estacionamento',
+          '🚗 Parking': '🚗 Estacionamento',
           'Sát thương vô hạn': 'Dano Infinito',
           'bật = one-hit địch (xe mình)': 'on = inimigos morrem com 1 golpe (suas unidades)',
           'Bỏ Cooldown Skill': 'Sem Cooldown de Skill',
@@ -24997,30 +24998,30 @@ var __LOMDBG = (function () {
           'Auto Nhận Quỹ': 'Coletar Fundo Automático',
           'Quỹ Cấp/Đèn — nhận tier đã mở': 'Fundo de Nível/Lâmpada — coleta níveis desbloqueados',
           'Auto Bậc Tăng Trưởng + Ưu Đãi Ngày': 'Nível de Crescimento Automático + Ofertas Diárias',
-          'Auto Quà Nạp Hàng Ngày + Battle Pass': 'Presentes Diários Automáticos + Battle Pass',
+          'Auto Daily Top-up Rewards + Battle Pass': 'Presentes Diários Automáticos + Battle Pass',
           'Thẻ đặc quyền + gem + BP free': 'cartão privilégio + gemas + BP grátis',
-          'Đào Mỏ': 'Mineexitção',
-          'Auto Đào Mỏ Bí Ẩn': 'Mineexitção Misteriosa Automática',
-          'Tự đào: khoan xuyên cột qua đá + lấy quặng, đỡ phí cuốc': 'Cava automático: fuexit a rocha + pega minério, economiza picaretas',
+          'Mining': 'Mineexitção',
+          'Auto Mystery Mine': 'Mineexitção Misteriosa Automática',
+          'Auto-mines through rock columns and collects ore while saving pickaxes.': 'Cava automático: fuexit a rocha + pega minério, economiza picaretas',
           '• Khoan để đào sâu (1 khoan ≈ 7 nhát cuốc); cuốc cho quặng + đất mềm':
             '• Broca paexit descer fundo (1 broca ≈ 7 picaretas); picareta paexit minério + terexit mole',
           Khác: 'Outros',
           '0s thay vì 15s': '0s em vez de 15s',
-          'Bang Hội': 'Guilda',
-          'Tự Bang Hội (gộp)': 'Guilda Automática (tudo em um)',
+          'Guild': 'Guilda',
+          'Tự Guild (gộp)': 'Guilda Automática (tudo em um)',
           '1 công tắc nhiều chức năng': 'um botão, várias funções',
-          '• Quyên góp + Giúp đỡ': '• Doar + Ajudar',
-          '• Rương Dung Nham + Nhà Hát': '• Baú de Lava + Teatro',
+          '• Donate + Help': '• Doar + Ajudar',
+          '• Lava Chest + Theater': '• Baú de Lava + Teatro',
           '• Đoạt Bảo 19h (đứng im, tối đa 5)': '• Caça ao Tesouro 19h (idle, máx 5)',
-          'Auto Trả Lời Trivia': 'Responder Quiz Automático',
-          'đăng đáp án nhiều ngôn ngữ': 'posta respostas em vários idiomas',
+          'Auto Trivia Answers': 'Responder Quiz Automático',
+          'posts answers in multiple languages': 'posta respostas em vários idiomas',
           'Tốc độ trả lời': 'Velocidade de Resposta',
           'Vừa (2-3s)': 'Médio (2-3s)',
           'Nhanh (~1s)': 'Rápido (~1s)',
           'Chậm (5-7s)': 'Lento (5-7s)',
-          'Trồng Trọt': 'Cultivo',
-          'Auto Trồng': 'Plantar Auto',
-          'harvest + plant lại': 'colher + replantar',
+          'Farm': 'Cultivo',
+          'Auto Plant': 'Plantar Auto',
+          'harvest + replant': 'colher + replantar',
           'Cấp giống': 'Grau da Semente',
           'Tất cả': 'Tudo',
           'Hạt giống cơ bản': 'Sementes Básicas',
@@ -25038,12 +25039,12 @@ var __LOMDBG = (function () {
           'Mua cao sản (111)': 'Comprar Alto Rendimento (111)',
           'Phân thường (112)': 'Fertilizante Normal (112)',
           'Cả hai': 'Ambos',
-          'Đỗ Xe': 'Estacionamento',
-          'Tự Đỗ Xe': 'Estacionar Auto',
+          'Parking': 'Estacionamento',
+          'Auto Parking': 'Estacionar Auto',
           'xếp xe tốt nhất vào bãi public': 'estaciona os melhores carros no pátio público',
-          'Tự Thu Xe': 'Coletar Carros Auto',
+          'Auto Collect Cars': 'Coletar Carros Auto',
           'thu khi đầy + kho + thưởng cross': 'coleta quando cheio + estoque + recompensa cruzada',
-          'Thu sau (giờ)': 'Coletar Após (hrs)',
+          'Collect after (hours)': 'Coletar Após (hrs)',
           '• 12 = thu khi income đầy; nhỏ hơn = thu sớm': '• 12 = coleta quando a renda estiver cheia; menor = coleta mais cedo',
           'Sự Kiện': 'Eventos',
           'Tính năng sự kiện đang được cập nhật.': 'Os recursos de eventos estão sendo atualizados.',
@@ -25056,28 +25057,28 @@ var __LOMDBG = (function () {
           'Activate': 'Ativar',
           'Key bị khóa — đã đăng xuất': 'Chave banida — desconectado',
           'Key hết hạn — đã đăng xuất': 'Chave expirada — desconectado',
-          'Key bị xóa — đã đăng xuất': 'Chave excluída — desconectado',
-          'Key dùng ở máy khác': 'Chave usada em outro dispositivo',
-          'Phiên đã kết thúc': 'Sessão encerexitda',
-          'Key sai định dạng': 'Formato de chave inválido',
-          'đang xác minh…': 'verificando…',
-          'Key OK — đang reload': 'Chave OK — recarregando',
+          'Key deleted — logged out': 'Chave excluída — desconectado',
+          'Key is active on another device': 'Chave usada em outro dispositivo',
+          'Session ended': 'Sessão encerexitda',
+          'Invalid key format': 'Formato de chave inválido',
+          'verifying…': 'verificando…',
+          'Key OK — reloading': 'Chave OK — recarregando',
           'Thiết bị này đã dùng thử rồi': 'Este dispositivo já usou seu teste grátis',
           'Active Key ở máy khác (vào web Reset thiết bị)': 'Chave ativa em outro dispositivo (reset o dispositivo no site)',
           'Key đã hết hạn': 'A chave expirou',
           'Key bị khóa': 'A chave está banida',
           'Key không tồn tại': 'A chave não existe',
           'Lỗi mạng, thử lại': 'Erro de rede, tente novamente',
-          'Chưa có key? Lấy key (mua / dùng thử miễn phí) tại vlm-disabled-domain.local':
+          'No key yet? Get a key in the license panel.':
             'Sem chave? Pegue uma (compexitr / teste grátis) em vlm-disabled-domain.local',
-          'Vĩnh viễn': 'Permanente',
+          'Lifetime': 'Permanente',
           Còn: 'Restante',
           'Đã hết hạn': 'Expirada',
           ngày: 'dias',
-          giờ: 'hrs',
-          phút: 'min',
-          'Bản mod': 'Versão do Mod',
-          'Tải lại payload': 'Recarregar Payload',
+          hours: 'hrs',
+          minutes: 'min',
+          'Build': 'Versão do Mod',
+          'Reload payload': 'Recarregar Payload',
           Đóng: 'Fechar',
           '🗑️ Clear Cache': '🗑️ Limpar Cache',
           '↻ Update': '↻ Atualizar',
@@ -25174,7 +25175,7 @@ var __LOMDBG = (function () {
             'On: auto-equips any gear with HIGHER combat power, ignoring stats (weaker → sold). Off: follows your chosen stats.',
           'Roll ra đồ ĐẠT bộ lọc (chọn dưới) VÀ khớp chỉ số → tự trang bị. Chỉ mặc.':
             'Gear that MEETS the filter (below) and matches stats → auto-equips. Equip only.',
-          '📌 Chưa thấy chỉ số? Mở màn Thắp Đèn (Đèn Thần) trong game 1 lần rồi mở lại menu này.':
+          '📌 Chưa thấy chỉ số? Open Thắp Đèn (Đèn Thần) trong game 1 lần rồi mở lại menu này.':
             '📌 No stats showing? Open the Genie Lamp screen in-game once, then reopen this menu.',
           '🔮 Roll Thần Đèn — Lọc Chỉ Số': '🔮 Genie Lamp Roll — Stat Filter',
           'Phẩm chất tối thiểu': 'Min Quality',
@@ -25221,10 +25222,10 @@ var __LOMDBG = (function () {
           '🛡️ Antiban': '🛡️ Antiban',
           'Ép checkCheat = false (không bị bắt sửa bộ nhớ). KHÔNG thắng được content server tự tính lực (escort/boss/ải cao).':
             'Forces checkCheat = false (memory edits not flagged). Does NOT win server-verified content (escort / boss / high stages).',
-          'Escort (Bang Hội)': 'Escort (Guild)',
-          'Reroll nhiệm vụ lên hạng cao → xuất tiêu → tự nhận + attack monster. Trận quái CÓ render (tua bằng Tốc độ battle). Cần ở BANG + đúng giờ.':
+          'Escort (Guild)': 'Escort (Guild)',
+          'Reroll nhiệm vụ lên hạng cao → xuất tiêu → tự nhận + attack monster. Trận quái CÓ render (tua bằng Tốc độ battle). Cần ở BANG + đúng hours.':
             'Rerolls the task to a high tier → dispatches → auto-claims + fights monsters. Monster battles DO render (speed up with Battle Speed). Needs a guild + the event window.',
-          'Boss bang ~20:20–21:00: nã items (chắc) + đánh boss (difficulty thắng được). CÓ render. Cần ở BANG + đúng giờ boss.':
+          'Boss bang ~20:20–21:00: nã items (chắc) + đánh boss (difficulty thắng được). CÓ render. Cần ở BANG + đúng hours boss.':
             'Guild boss ~20:20–21:00: donates items (guaranteed dmg) + fights the boss (winnable difficulty). DOES render. Needs a guild + the boss window.',
           '🎁 Gift Code': '🎁 Gift Codes',
           '🎁 Tự Nhận Code Game (server)': '🎁 Auto-redeem Game Codes (server)',
@@ -25237,26 +25238,26 @@ var __LOMDBG = (function () {
           'Dán nhiều code → bấm nút, mod tự gửi từng cái (cách ~1.5s). Code được LƯU → đổi acc chỉ cần bấm nút là nhập hết. Game tự báo OK / đã dùng / sai.':
             'Paste multiple codes → click the button, the mod sends each (~1.5s apart). Codes are SAVED → on a new account just click to redeem all. The game reports OK / already used / invalid.',
           '🗡️ Auto Đạo Tặc Tập Kích (Boss)': '🗡️ Auto Bandit Raid (Boss)',
-          "Boss bang (Đạo Tặc Tập Kích, ~20:20–21:00): tự NÃ items/đạn vào boss bang mình (sát thương TẤT ĐỊNH, không cần lực) + tự đánh boss (chọn difficulty thắng được). ⚠️ Đánh boss CÓ render (tua bằng 'Tốc độ battle'), combat lực THẬT. CẦN vào BANG + đúng giờ boss.":
+          "Boss bang (Đạo Tặc Tập Kích, ~20:20–21:00): tự NÃ items/đạn vào boss bang mình (sát thương TẤT ĐỊNH, không cần lực) + tự đánh boss (chọn difficulty thắng được). ⚠️ Đánh boss CÓ render (tua bằng 'Tốc độ battle'), combat lực THẬT. CẦN vào BANG + đúng hours boss.":
             "Guild boss (Bandit Raid, ~20:20–21:00): auto-donates ammo/items to your guild's boss (DETERMINISTIC damage, no power needed) + auto-fights the boss (picks a winnable difficulty). ⚠️ Boss fights DO render (speed up with 'Battle Speed'), REAL-power combat. Needs a GUILD + the boss window.",
           '🚚 Auto Con Đường Tiền Thưởng': '🚚 Auto Bounty Road (Guild)',
-          "Event Con Đường Tiền Thưởng (bang hội): reroll nhiệm vụ hạng thấp lên cao → xuất tiêu → tự nhận thưởng + tự attack monster kiếm thêm điểm. ⚠️ Trận attack monster CÓ hiện lên (tua nhanh bằng 'Tốc độ battle') — combat lực THẬT, acc mạnh thắng nhanh. CẦN vào BANG + đúng giờ event.":
+          "Event Con Đường Tiền Thưởng (bang hội): reroll nhiệm vụ hạng thấp lên cao → xuất tiêu → tự nhận thưởng + tự attack monster kiếm thêm điểm. ⚠️ Trận attack monster CÓ hiện lên (tua nhanh bằng 'Tốc độ battle') — combat lực THẬT, acc mạnh thắng nhanh. CẦN vào BANG + đúng hours event.":
             "Guild Bounty Road event: rerolls low-tier tasks for a better one → dispatches → auto-claims rewards + auto-fights monsters for extra points. ⚠️ Monster battles DO show (speed them up with 'Battle Speed') — REAL-power combat, strong accounts win fast. Needs a GUILD + the event window open.",
-          "Event Escort bang hội: reroll nhiệm vụ hạng thấp lên cao → xuất tiêu → tự nhận thưởng + tự attack monster kiếm thêm điểm. ⚠️ Trận attack monster CÓ hiện lên (tua nhanh bằng 'Tốc độ battle') — combat lực THẬT, acc mạnh thắng nhanh. CẦN vào BANG + đúng giờ event.":
+          "Event Escort bang hội: reroll nhiệm vụ hạng thấp lên cao → xuất tiêu → tự nhận thưởng + tự attack monster kiếm thêm điểm. ⚠️ Trận attack monster CÓ hiện lên (tua nhanh bằng 'Tốc độ battle') — combat lực THẬT, acc mạnh thắng nhanh. CẦN vào BANG + đúng hours event.":
             "Guild Escort event: rerolls low-tier tasks for a better one → dispatches → auto-claims rewards + auto-fights monsters for extra points. ⚠️ Monster battles DO show (speed them up with 'Battle Speed') — REAL-power combat, strong accounts win fast. Needs a GUILD + the event window open.",
           "Đánh quái trên đường — KHÔNG tốn lượt/thể lực, đánh tới khi quái chết = Danh Vọng FREE. ⚠️ Trận SẼ HIỆN lên (game không cho tự bỏ qua) + combat LỰC THẬT → chỉ nên bật khi acc MẠNH (thắng nhanh 1-2 đòn). Cần bật 'Auto Escort'.":
             "Fight road monsters — costs NO challenge/stamina, fight until they die = FREE reputation. ⚠️ The battle WILL show (the game won't auto-skip) + REAL-power combat → only enable on a STRONG account (wins in 1-2 hits). Needs 'Auto Escort' on.",
           '• Đánh Quái Escort (free)': '• Fight Escort Monsters (free)',
           "Đánh quái trên đường — KHÔNG tốn lượt/thể lực. Mỗi đòn TRỪ HP quái, đánh LẶP tới khi quái CHẾT = thêm Danh Vọng FREE (kể cả lực yếu). Chạy ngầm, đã chặn render. Cần bật 'Auto Escort' ở trên.":
             "Fight road monsters — costs NO challenge/stamina. Each hit chips the monster's HP; repeats until it DIES = extra FREE reputation (even at low power). Runs in the background, render suppressed. Needs 'Auto Escort' on.",
-          'Event Escort bang hội: tự reroll nhiệm vụ hạng thấp lên cao → xuất tiêu → tự nhận thưởng. Chạy ngầm, KHÔNG mở trận đánh. CẦN vào BANG + đúng giờ event mở.':
+          'Event Escort bang hội: tự reroll nhiệm vụ hạng thấp lên cao → xuất tiêu → tự nhận thưởng. Chạy ngầm, KHÔNG mở trận đánh. CẦN vào BANG + đúng hours event mở.':
             'Guild Escort event: auto-rerolls low-tier tasks for a better one → dispatches → auto-claims rewards. Runs in the background, no battles. Needs a GUILD + the event window open.',
           '🚚 Auto Escort (Bang)': '🚚 Auto Escort Transport (Guild)',
-          'Event Escort bang hội: tự reroll nhiệm vụ lên hạng cao → xuất tiêu → nhận thưởng; + tự attack monster (báo thắng) để THỬ ép-thắng. CẦN vào BANG + đúng giờ event mở.':
+          'Event Escort bang hội: tự reroll nhiệm vụ lên hạng cao → xuất tiêu → nhận thưởng; + tự attack monster (báo thắng) để THỬ ép-thắng. CẦN vào BANG + đúng hours event mở.':
             'Guild Escort event: auto-rerolls the task to a high tier → dispatches → claims rewards; + auto-fights monsters (reports a win) to TEST force-win. Needs a GUILD + the event window open.',
-          '• Đỗ đúng hạng đã chọn; hết ô thì CHỜ + báo. Tự động = bãi xịn nhất còn ô. TẮT = tự đỗ tay.':
+          '• Parks only in the selected tier. If full, it waits and alerts. Automatic = best lot with a free slot. OFF = manual parking.':
             '• Parks only the chosen tier; if full it WAITS + alerts. Auto = best lot with a free slot. OFF = park manually.',
-          'Giữ xe đã chọn chờ Liên SV mở (10h–22h server), KHÔNG đỗ bãi khác. TẮT = lúc đóng vẫn đỗ bãi thường kiếm tiền.':
+          'Keep the selected car waiting for Cross-server opening time (10:00–22:00 server); do not park elsewhere. OFF = lúc đóng vẫn đỗ bãi thường kiếm tiền.':
             "Holds the chosen car for Cross-server (open 10:00–22:00 server time), won't park elsewhere. OFF = parks other lots for income while closed.",
           'Hạng đã chọn HẾT ô → tự đánh chiếm ô của người YẾU hơn. ⚠️ PvP, tốn vé (cap 3, hồi 2h), chỉ đánh chắc thắng.':
             "Chosen tier FULL → auto-attacks a WEAKER player's slot to take it. ⚠️ PvP, costs a ticket (max 3, 2h recovery), only winnable targets.",
@@ -25278,7 +25279,7 @@ var __LOMDBG = (function () {
           "• Chọn đỗ ĐÚNG bãi: Kim Cương / Mạ Vàng / Bạc / Đồng. Hết ô bãi đã chọn thì CHỜ tới khi có ô trống (không phí vé bãi khác). 'Tự động' = bãi xịn nhất còn ô. TẮT = anh tự đỗ tay.":
             "• Park at the EXACT lot: Diamond / Gold / Silver / Bronze. If it's full, the mod WAITS for a free slot (no wasting tickets on a worse lot). 'Auto' = best lot with a free slot. OFF = park manually.",
           'Giữ xe Liên SV chờ mở': 'Hold Cross-server car until open',
-          "Bật + đã chọn 'Xe đỗ Liên SV' → xe đó CHỜ tới khi Liên SV mở (10h–22h giờ server) mới đỗ, KHÔNG đem đỗ bãi thường/bạn bè/public lúc Liên SV đóng. (TẮT = lúc LSV đóng vẫn đỗ bãi khác kiếm tiền.)":
+          "Bật + đã chọn 'Xe đỗ Liên SV' → xe đó CHỜ tới khi Liên SV mở (10h–22h hours server) mới đỗ, KHÔNG đem đỗ bãi thường/bạn bè/public lúc Liên SV đóng. (TẮT = lúc LSV đóng vẫn đỗ bãi khác kiếm tiền.)":
             "ON + you picked a 'Cross-server car' → that car WAITS until Cross-server opens (10:00–22:00 server time) before parking, and is NOT sent to normal/friend/public lots while it's closed. (OFF = the car still parks elsewhere to earn while Cross-server is closed.)",
           '🔨 Auto Shroom Spirit Trials': '🔨 Auto Shroom Spirit Trials',
           'Tự thắng minigame Shroom Spirit Trials: vào màn rồi báo thắng, không cần chơi tay → nhận thưởng. Chạy khi event đang mở.':
@@ -25295,7 +25296,7 @@ var __LOMDBG = (function () {
             '1 button: auto-jump in to attack + free revive + auto-find new targets. Must be in the battlefield.',
           '275 = bỏ con ≤275đ, con cao hơn vẫn đánh. 0 = đánh tất. Bot tự học điểm khi đánh.':
             '275 = skip targets ≤275 pts, higher ones still attacked. 0 = attack all. The bot learns point values as it fights.',
-          'Auto Chiến Liên Server': 'Auto Cross-Server War',
+          'Auto Chiến Cross-server': 'Auto Cross-Server War',
           'Auto Ma Bảo Tầm Trân': 'Auto Treasure Hunt (Ma Bao)',
           'Auto PVP (đánh bang yếu)': 'Auto PvP (hit weak guilds)',
           'Auto Đuổi Trộm': 'Auto Repel Thieves',
@@ -25306,12 +25307,12 @@ var __LOMDBG = (function () {
           'CHỈ Quái Xịn (boss + điểm cao, bỏ quái rác)': 'Elite monsters ONLY (boss + high points, skip trash mobs)',
           'CHỈ khi có đồng đội cùng map: cầu viện (free) + giúp lại để có điểm. Chơi 1 mình tự bỏ qua.':
             'ONLY with teammates on the same map: call for help (free) + help back for points. Skipped when playing solo.',
-          'CHỈ vùng vẫy khi thể lực dư. Mặc định TẮT → mắc bẫy thì CHỜ tự hết giờ + hồi lực (không kẹt như auto gốc).':
+          'CHỈ vùng vẫy khi thể lực dư. Mặc định TẮT → mắc bẫy thì CHỜ tự hết hours + hồi lực (không kẹt như auto gốc).':
             'Only struggle when stamina is spare. OFF by default → if trapped, WAIT it out + recover stamina (no getting stuck like the original auto).',
-          'Chiến Liên Server': 'Cross-Server War',
+          'Chiến Cross-server': 'Cross-Server War',
           'Chưa mở khóa thì tự khiêu chiến 1 lần (SET HÀNH TRANG trước) → rồi tự càn quét ngầm hết chìa theo ST cao nhất.':
             'If not unlocked, auto-challenges once (SET YOUR GEAR first) → then auto-sweeps in the background using all keys at your highest power.',
-          'Chạy ngầm trong giờ event. KHÔN + TIẾT KIỆM THỂ LỰC: ưu tiên thưởng MIỄN PHÍ (rương/tầng/tiếp tế) + đánh ô; KHÔNG phí lực đánh-lại/vùng-vẫy; mắc bẫy thì CHỜ tự hết giờ (không kẹt). PVE+PVP, server xử theo lực thật.':
+          'Chạy ngầm trong hours event. KHÔN + TIẾT KIỆM THỂ LỰC: ưu tiên thưởng MIỄN PHÍ (rương/tầng/tiếp tế) + đánh ô; KHÔNG phí lực đánh-lại/vùng-vẫy; mắc bẫy thì CHỜ tự hết hours (không kẹt). PVE+PVP, server xử theo lực thật.':
             'Runs in the background during the event. SMART + STAMINA-SAVING: prioritizes FREE rewards (chests/floors/supply) + fights tiles; NO wasting stamina on re-kills/struggling; if trapped, WAITS it out (no getting stuck). PvE+PvP, server resolves by real power.',
           'Chỉ đánh người yếu hơn. Không đụng người cùng server.': 'Only hits weaker players. Never touches same-server players.',
           'Cà tím': 'Eggplant',
@@ -25333,7 +25334,7 @@ var __LOMDBG = (function () {
             "On YOUR OWN server: jump in to attack bounties immediately (the one with the most kills, regardless of power). Won't jump while farming enemy servers. Finishes the current fight before jumping. ⚠ Enable only when YOUR POWER IS HIGH.",
           'Long Hải Thánh Vực (demo)': 'Dragon Sea Sanctuary (demo)',
           'Loại giống': 'Seed type',
-          'Mở màn quét của ải 1 lần để học → sau đó tự quét ngầm. ⚠️ Tốn chìa khoá.':
+          'Open quét của ải 1 lần để học → sau đó tự quét ngầm. ⚠️ Tốn chìa khoá.':
             'Opens the stage sweep once to learn it → then auto-sweeps in the background. ⚠️ Costs keys.',
           'Mở rương trong map (miễn phí, mất nếu không mở).': 'Open chests in the map (free, lost if not opened).',
           'Mở thẳng popup shop quà của event (khỏi cần lật trúng ô random).':
@@ -25354,13 +25355,13 @@ var __LOMDBG = (function () {
             'New server opens → 10s countdown then jumps in (CREATES A NEW CHARACTER). Tap the screen to cancel.',
           'Set xong đồ + kỹ năng + pet rồi hãy bật. Tự đánh hết lượt khi event mở.':
             'Set up your gear + skills + pets before enabling. Auto-fights all attempts while the event is open.',
-          'Thua con khó (đã cầu viện) thì bỏ qua đánh con khác — con đã lưu vào [Sự kiện của tôi] sẽ tự đánh lại khi hết CD (KHÔNG mất), còn anh thì farm tiếp. Đỡ kẹt chờ 60 phút.':
+          'Thua con khó (đã cầu viện) thì bỏ qua đánh con khác — con đã lưu vào [Sự kiện của tôi] sẽ tự đánh lại khi hết CD (KHÔNG mất), còn anh thì farm tiếp. Đỡ kẹt chờ 60 minutes.':
             'If you lose to a hard target (already called for help), skip it and fight others — the saved target in [My Events] is auto-retried when its cooldown ends (NOT lost), while you keep farming. Avoids waiting 60 minutes.',
           'Thám Hiểm Vũ Trụ': 'Space Exploration',
           'Thông minh: CHỈ đốt items ở tầng 3 (giá trị cao nhất), tầng 1/2 dùng thể lực hồi tự nhiên. Tắt = không dùng items.':
             'Smart: only burns items on floor 3 (highest value); floors 1/2 use naturally-regenerated stamina. Off = never use items.',
           'Thấy BOSS thì tạm dừng auto để bạn tự quyết.': 'Pauses the auto when a BOSS appears so you can decide for yourself.',
-          'Trong giờ PVP: tự đánh bang địch CÒN ÍT MÁU NHẤT (đòn kết liễu = điểm cao). Tốn lượt PVP/ngày.':
+          'Trong hours PVP: tự đánh bang địch CÒN ÍT MÁU NHẤT (đòn kết liễu = điểm cao). Tốn lượt PVP/ngày.':
             'During PvP hours: auto-attacks the enemy guild with the LOWEST HP (finishing blows = high points). Uses daily PvP attempts.',
           'Trộm Eggplant': 'Steal Eggplant',
           'Trộm Hồ Lô': 'Steal Gourd',
@@ -25404,29 +25405,29 @@ var __LOMDBG = (function () {
           '• Kiểu farm': '• Farm style',
           '• Người yếu hơn cỡ nào': '• How much weaker the target',
           '• Tự Bỏ Chạy Khỏi Người Mạnh Hơn': '• Auto Flee from Stronger Players',
-          '• Tự Nhận Rương Treo Liên Server': '• Auto Claim Cross-Server Idle Chest',
+          '• Tự Nhận Rương Treo Cross-server': '• Auto Claim Cross-Server Idle Chest',
           '• Tự Đánh Truy Nã (server mình)': '• Auto Fight Bounties (own server)',
           '≤ 100% (yếu/bằng)': '≤ 100% (weaker/equal)',
           '≤ 50% (chỉ con mồi)': '≤ 50% (easy prey only)',
           '≤ 90% lực mình': '≤ 90% of my power',
-          '⏳ Gần hết giờ: tự đánh người yếu để +thời gian.': "⏳ Near time's up: auto-hits weak players to gain +time.",
+          '⏳ Gần hết hours: tự đánh người yếu để +thời gian.': "⏳ Near time's up: auto-hits weak players to gain +time.",
           '── Tốn thể lực (mặc định TẮT để tiết kiệm) ──': '── Stamina-costing (OFF by default to save) ──',
-          '⚠️ BẢN THỬ NGHIỆM — chạy ngầm trong khung giờ event (10–22h T4–T6). CẦN VÀO ĐỘI trước. Tự thám hiểm + đánh PVE/PVP + qua sự kiện + tự nhận thưởng (rương/nhiệm vụ/quà/Battle Pass).':
+          '⚠️ BẢN THỬ NGHIỆM — chạy ngầm trong khung hours event (10–22h T4–T6). CẦN VÀO ĐỘI trước. Tự thám hiểm + đánh PVE/PVP + qua sự kiện + tự nhận thưởng (rương/nhiệm vụ/quà/Battle Pass).':
             '⚠️ BETA — runs in the background during event hours (10:00–22:00, Wed–Fri). JOIN A TEAM first. Auto-explores + fights PvE/PvP + clears events + auto-claims rewards (chests/quests/gifts/Battle Pass).',
           '⬆️ Nâng Cấp': '⬆️ Upgrade',
-          '🌐 Liên Server': '🌐 Cross-Server',
+          '🌐 Cross-server': '🌐 Cross-Server',
           '🌱 Nông Trại': '🌱 Farm',
           '🎁 Nhận Quà': '🎁 Rewards',
           '👹 Boss/Ải': '👹 Boss/Stage',
           '📺 Guide': '📺 Guide',
-          '📺 Video hướng dẫn nhập key & dùng mod': '📺 Video: how to enter key & use the mod',
+          '📺 Guide': '📺 Video: how to enter key & use the mod',
           'Tính năng khóa': 'Locked Feature',
           'Chức năng này cần KEY mua.': 'This feature requires a paid KEY.',
           'Nhập key ở tab License để mở khóa & tải chức năng về.': 'Enter your key in the License tab to unlock & download it.',
           'Nhập key mở khóa': 'Enter key to unlock',
-          '✓ Đã kích hoạt': '✓ Activated (Paid)',
-          '🆓 Miễn phí (cơ bản)': '🆓 Free (basic)',
-          '✗ Chưa kích hoạt': '✗ Not activated',
+          '✓ Activated': '✓ Activated (Paid)',
+          '🆓 Free (basic)': '🆓 Free (basic)',
+          '✗ Not activated': '✗ Not activated',
           '🏛️ Auto Back to Ancient': '🏛️ Auto Return to Ancient',
           'Tự thắng CẢ 2 minigame: Lớp Học Bách Văn (trả lời đúng câu đố) + Thư Giãn Một Chút (qua màn cừu, không cần chơi) → nhận thưởng. Chạy khi event đang mở.':
             'Auto-wins BOTH minigames: the Quiz (answers correctly) + the Sheep game (clears levels, no playing) → claim rewards. Runs while the event is open.',
@@ -25445,16 +25446,16 @@ var __LOMDBG = (function () {
             "Gifts your Milk Tea + ROSES to the friends toggled below → raises Intimacy. Gives CONTINUOUSLY until both run out, then stops (no spam). Enable 'Auto Buy' for more tea (roses are earned in-game).",
           'Số tặng mỗi lần/bạn (0 = MAX)': 'Amount per gift/friend (0 = MAX)',
           'Danh sách bạn (bấm để thu/mở)': 'Friends (tap to fold/unfold)',
-          '• BẬT bạn muốn tặng. 💛 = Độ Thân Mật. 💍 = bạn đời. Mở lại menu để cập nhật.':
+          '• BẬT bạn muốn tặng. 💛 = Độ Thân Mật. 💍 = bạn đời. Reopen the menu để cập nhật.':
             '• Toggle friends to gift. 💛 = Intimacy. 💍 = spouse. Reopen menu to refresh.',
-          '• Mở màn Độ Thân Mật trong game 1 lần, hoặc đợi vài giây rồi mở lại menu để hiện danh sách bạn.':
+          '• Open Độ Thân Mật trong game 1 lần, hoặc đợi vài giây rồi mở lại menu để show the list bạn.':
             '• Open the Intimacy screen in-game once, or wait a few seconds and reopen the menu to load the friend list.',
           'Xe đỗ Public': 'Public car',
           'Xe đỗ Liên SV': 'Cross-server car',
           'Tự động (xịn nhất)': 'Auto (best)',
-          '• Chọn xe cho từng bãi (Tự động = xe xịn nhất). Mở lại menu để cập nhật danh sách.':
+          '• Chọn xe cho từng bãi (Tự động = xe xịn nhất). Reopen the menu để cập nhật danh sách.':
             '• Pick a car for each lot (Auto = best). Reopen the menu to refresh the list.',
-          '• Mở màn Đỗ Xe trong game 1 lần rồi mở lại menu để hiện danh sách xe.':
+          '• Open Parking trong game 1 lần rồi mở lại menu để show the list xe.':
             '• Open the in-game Parking screen once, then reopen the menu to load the car list.',
           'Ưu tiên tài nguyên': 'Resource priority',
           'Đặc biệt': 'Special',
@@ -25462,12 +25463,12 @@ var __LOMDBG = (function () {
           'Kinh nghiệm': 'EXP',
           '• Chọn bãi cho buff tài nguyên anh muốn cao nhất (ưu tiên bạn bè).':
             '• Picks lots with the highest buff for your chosen resource (friend lots first).',
-          'tự thu xe sau N giờ + kho + thưởng cross': 'auto-collect cars after N hours + warehouse + cross-server rewards',
-          '• Thu sau N giờ đỗ (1-12). Mặc định 1h vì xe bãi cộng đồng hay bị đá ~1h.':
+          'tự thu xe sau N hours + kho + thưởng cross': 'auto-collect cars after N hours + warehouse + cross-server rewards',
+          '• Thu sau N hours đỗ (1-12). Mặc định 1h vì xe bãi cộng đồng hay bị đá ~1h.':
             '• Collect after N hours parked (1-12). Default 1h since community lots often get kicked ~1h.',
-          '🛡️ Bang Hội': '🛡️ Guild',
+          '🛡️ Guild': '🛡️ Guild',
           '🌱 Trồng': '🌱 Farm',
-          '🚗 Đỗ Xe': '🚗 Parking',
+          '🚗 Parking': '🚗 Parking',
           'Sát thương vô hạn': 'Infinite Damage',
           'bật = one-hit địch (xe mình)': 'on = one-hit enemies (your units)',
           'Bỏ Cooldown Skill': 'No Skill Cooldown',
@@ -25513,30 +25514,30 @@ var __LOMDBG = (function () {
           'Auto Nhận Quỹ': 'Auto Claim Fund',
           'Quỹ Cấp/Đèn — nhận tier đã mở': 'Level/Lamp Fund — claim unlocked tiers',
           'Auto Bậc Tăng Trưởng + Ưu Đãi Ngày': 'Auto Growth Tier + Daily Deals',
-          'Auto Quà Nạp Hàng Ngày + Battle Pass': 'Auto Daily Gifts + Battle Pass',
+          'Auto Daily Top-up Rewards + Battle Pass': 'Auto Daily Gifts + Battle Pass',
           'Thẻ đặc quyền + gem + BP free': 'privilege card + gems + free BP',
-          'Đào Mỏ': 'Mining',
-          'Auto Đào Mỏ Bí Ẩn': 'Auto Mystery Mining',
-          'Tự đào: khoan xuyên cột qua đá + lấy quặng, đỡ phí cuốc': 'Auto-dig: drill down through rock + grab ore, save pickaxes',
+          'Mining': 'Mining',
+          'Auto Mystery Mine': 'Auto Mystery Mining',
+          'Auto-mines through rock columns and collects ore while saving pickaxes.': 'Auto-dig: drill down through rock + grab ore, save pickaxes',
           '• Khoan để đào sâu (1 khoan ≈ 7 nhát cuốc); cuốc cho quặng + đất mềm':
             '• Drill to go deep (1 drill ≈ 7 pickaxes); pickaxe for ore + soft dirt',
           Khác: 'Other',
           '0s thay vì 15s': '0s instead of 15s',
-          'Bang Hội': 'Guild',
-          'Tự Bang Hội (gộp)': 'Auto Guild (all-in-one)',
+          'Guild': 'Guild',
+          'Tự Guild (gộp)': 'Auto Guild (all-in-one)',
           '1 công tắc nhiều chức năng': 'one switch, many functions',
-          '• Quyên góp + Giúp đỡ': '• Donate + Help',
-          '• Rương Dung Nham + Nhà Hát': '• Lava Chest + Theater',
+          '• Donate + Help': '• Donate + Help',
+          '• Lava Chest + Theater': '• Lava Chest + Theater',
           '• Đoạt Bảo 19h (đứng im, tối đa 5)': '• Treasure Hunt 7PM (idle, max 5)',
-          'Auto Trả Lời Trivia': 'Auto Answer Trivia',
-          'đăng đáp án nhiều ngôn ngữ': 'post answers in many languages',
+          'Auto Trivia Answers': 'Auto Answer Trivia',
+          'posts answers in multiple languages': 'post answers in many languages',
           'Tốc độ trả lời': 'Answer Speed',
           'Vừa (2-3s)': 'Medium (2-3s)',
           'Nhanh (~1s)': 'Fast (~1s)',
           'Chậm (5-7s)': 'Slow (5-7s)',
-          'Trồng Trọt': 'Farming',
-          'Auto Trồng': 'Auto Plant',
-          'harvest + plant lại': 'harvest + replant',
+          'Farm': 'Farming',
+          'Auto Plant': 'Auto Plant',
+          'harvest + replant': 'harvest + replant',
           'Cấp giống': 'Seed Grade',
           'Tất cả': 'All',
           'Hạt giống cơ bản': 'Basic Seeds',
@@ -25554,12 +25555,12 @@ var __LOMDBG = (function () {
           'Mua cao sản (111)': 'Buy High-Yield (111)',
           'Phân thường (112)': 'Normal Fertilizer (112)',
           'Cả hai': 'Both',
-          'Đỗ Xe': 'Parking',
-          'Tự Đỗ Xe': 'Auto Park',
+          'Parking': 'Parking',
+          'Auto Parking': 'Auto Park',
           'xếp xe tốt nhất vào bãi public': 'park best cars in public lot',
-          'Tự Thu Xe': 'Auto Collect Cars',
+          'Auto Collect Cars': 'Auto Collect Cars',
           'thu khi đầy + kho + thưởng cross': 'collect when full + storage + cross reward',
-          'Thu sau (giờ)': 'Collect After (hrs)',
+          'Collect after (hours)': 'Collect After (hrs)',
           '• 12 = thu khi income đầy; nhỏ hơn = thu sớm': '• 12 = collect when income full; lower = collect sooner',
           'Sự Kiện': 'Events',
           'Tính năng sự kiện đang được cập nhật.': 'Event features are being updated.',
@@ -25572,28 +25573,28 @@ var __LOMDBG = (function () {
           'Activate': 'Activate',
           'Key bị khóa — đã đăng xuất': 'Key banned — logged out',
           'Key hết hạn — đã đăng xuất': 'Key expired — logged out',
-          'Key bị xóa — đã đăng xuất': 'Key deleted — logged out',
-          'Key dùng ở máy khác': 'Key used on another device',
-          'Phiên đã kết thúc': 'Session ended',
-          'Key sai định dạng': 'Invalid key format',
-          'đang xác minh…': 'verifying…',
-          'Key OK — đang reload': 'Key OK — reloading',
+          'Key deleted — logged out': 'Key deleted — logged out',
+          'Key is active on another device': 'Key used on another device',
+          'Session ended': 'Session ended',
+          'Invalid key format': 'Invalid key format',
+          'verifying…': 'verifying…',
+          'Key OK — reloading': 'Key OK — reloading',
           'Thiết bị này đã dùng thử rồi': 'This device already used its trial',
           'Active Key ở máy khác (vào web Reset thiết bị)': 'Key active on another device (reset device on web)',
           'Key đã hết hạn': 'Key has expired',
           'Key bị khóa': 'Key is banned',
           'Key không tồn tại': 'Key does not exist',
           'Lỗi mạng, thử lại': 'Network error, try again',
-          'Chưa có key? Lấy key (mua / dùng thử miễn phí) tại vlm-disabled-domain.local':
+          'No key yet? Get a key in the license panel.':
             'No key? Get one (buy / free trial) at vlm-disabled-domain.local',
-          'Vĩnh viễn': 'Permanent',
+          'Lifetime': 'Permanent',
           Còn: 'Left',
           'Đã hết hạn': 'Expired',
           ngày: 'days',
-          giờ: 'hrs',
-          phút: 'min',
-          'Bản mod': 'Mod Version',
-          'Tải lại payload': 'Reload Payload',
+          hours: 'hrs',
+          minutes: 'min',
+          'Build': 'Mod Version',
+          'Reload payload': 'Reload Payload',
           Đóng: 'Close',
           '🗑️ Clear Cache': '🗑️ Clear Cache',
           '↻ Update': '↻ Update',
@@ -25604,8 +25605,8 @@ var __LOMDBG = (function () {
       },
       J = {
         en: {
-          'Chiến Liên Server': 'Cross-Server War',
-          'Auto Chiến Liên Server': 'Auto Cross-Server War',
+          'Chiến Cross-server': 'Cross-Server War',
+          'Auto Chiến Cross-server': 'Auto Cross-Server War',
           '1 nút: tự nhảy tới đánh + hồi sinh free + hết mồi tự tìm. Cần đang trong chiến trường.':
             '1 button: auto teleport to fight + free revive + auto-find new targets when out. Must be in the battlefield.',
           '• Kiểu farm': '• Farm mode',
@@ -25622,19 +25623,19 @@ var __LOMDBG = (function () {
           '≤ 75%': '≤ 75%',
           '≤ 50% (chỉ con mồi)': '≤ 50% (easy prey only)',
           'Chỉ đánh người yếu hơn. Không đụng người cùng server.': 'Only fight weaker players. Never touch same-server players.',
-          '⏳ Gần hết giờ: tự đánh người yếu để +thời gian.': '⏳ Almost out of time: auto-fight weak players to +time.',
+          '⏳ Gần hết hours: tự đánh người yếu để +thời gian.': '⏳ Almost out of time: auto-fight weak players to +time.',
           '• Tự Đánh Truy Nã (server mình)': '• Auto-Fight Wanted (your server)',
           'Khi ở SERVER MÌNH: có truy nã là nhảy tới đánh liền (đứa nhiều kill nhất, bất kể lực). Farm server địch thì KHÔNG nhảy. Đang đánh thì xong trận mới nhảy. ⚠ Bật khi LỰC CHIẾN BẠN CAO.':
             'On YOUR SERVER: when a wanted target appears, teleport in and fight immediately (the one with the most kills, regardless of power). When farming the enemy server it will NOT jump. If mid-fight, jumps only after the fight ends. ⚠ Enable only when YOUR COMBAT POWER IS HIGH.',
           '• Tự Bỏ Chạy Khỏi Người Mạnh Hơn': '• Auto-Flee from Stronger Players',
           'Người lực cao hơn mình tới gần → tự mở bản đồ chạy đi chỗ khác (theo CD dịch chuyển). Không chạy nhầm khi mình vừa nhảy tới.':
             "When a higher-power player gets close → auto-open the map and flee elsewhere (subject to teleport CD). Won't flee by mistake right after you've teleported in.",
-          '• Tự Nhận Rương Treo Liên Server': '• Auto-Claim Idle Reward',
+          '• Tự Nhận Rương Treo Cross-server': '• Auto-Claim Idle Reward',
           'Nhận thưởng treo khi đầy (~2h). Chạy riêng.': 'Claims idle reward when full (~2h). Runs independently.',
         },
         th: {
-          'Chiến Liên Server': 'สงครามข้ามเซิร์ฟเวอร์',
-          'Auto Chiến Liên Server': 'ออโต้สงครามข้ามเซิร์ฟเวอร์',
+          'Chiến Cross-server': 'สงครามข้ามเซิร์ฟเวอร์',
+          'Auto Chiến Cross-server': 'ออโต้สงครามข้ามเซิร์ฟเวอร์',
           '1 nút: tự nhảy tới đánh + hồi sinh free + hết mồi tự tìm. Cần đang trong chiến trường.':
             'ปุ่มเดียว: ดิ่งไปสู้เอง + เกิดใหม่ฟรี + หมดเป้าหาเองอัตโนมัติ ต้องอยู่ในสนามรบ',
           '• Kiểu farm': '• โหมดฟาร์ม',
@@ -25651,19 +25652,19 @@ var __LOMDBG = (function () {
           '≤ 75%': '≤ 75%',
           '≤ 50% (chỉ con mồi)': '≤ 50% (เฉพาะเหยื่อ)',
           'Chỉ đánh người yếu hơn. Không đụng người cùng server.': 'สู้เฉพาะคนที่อ่อนกว่า ไม่แตะคนเซิร์ฟเวอร์เดียวกัน',
-          '⏳ Gần hết giờ: tự đánh người yếu để +thời gian.': '⏳ ใกล้หมดเวลา: สู้คนอ่อนเองเพื่อ +เวลา',
+          '⏳ Gần hết hours: tự đánh người yếu để +thời gian.': '⏳ ใกล้หมดเวลา: สู้คนอ่อนเองเพื่อ +เวลา',
           '• Tự Đánh Truy Nã (server mình)': '• สู้ผู้ถูกหมายจับอัตโนมัติ (เซิร์ฟเวอร์ตัวเอง)',
           'Khi ở SERVER MÌNH: có truy nã là nhảy tới đánh liền (đứa nhiều kill nhất, bất kể lực). Farm server địch thì KHÔNG nhảy. Đang đánh thì xong trận mới nhảy. ⚠ Bật khi LỰC CHIẾN BẠN CAO.':
             'เมื่ออยู่เซิร์ฟเวอร์ตัวเอง: มีหมายจับจะดิ่งไปสู้ทันที (ตัวที่คิลมากที่สุด ไม่สนลค.) ฟาร์มเซิร์ฟเวอร์ศัตรูจะไม่ดิ่งไป กำลังสู้อยู่ก็จบยกก่อนค่อยดิ่ง ⚠ เปิดเมื่อลค.ของคุณสูง',
           '• Tự Bỏ Chạy Khỏi Người Mạnh Hơn': '• หนีจากคนที่แข็งกว่าอัตโนมัติ',
           'Người lực cao hơn mình tới gần → tự mở bản đồ chạy đi chỗ khác (theo CD dịch chuyển). Không chạy nhầm khi mình vừa nhảy tới.':
             'คนลค.สูงกว่าเข้าใกล้ → เปิดแผนที่หนีไปที่อื่นเอง (ตาม CD ดิ่ง) จะไม่หนีพลาดตอนเราเพิ่งดิ่งมาถึง',
-          '• Tự Nhận Rương Treo Liên Server': '• รับรางวัลตู้ปล่อยทิ้งอัตโนมัติ',
+          '• Tự Nhận Rương Treo Cross-server': '• รับรางวัลตู้ปล่อยทิ้งอัตโนมัติ',
           'Nhận thưởng treo khi đầy (~2h). Chạy riêng.': 'รับรางวัลปล่อยทิ้งเมื่อเต็ม (~2 ชม.) ทำงานแยกอิสระ',
         },
         id: {
-          'Chiến Liên Server': 'Perang Lintas-Server',
-          'Auto Chiến Liên Server': 'Auto Perang Lintas-Server',
+          'Chiến Cross-server': 'Perang Lintas-Server',
+          'Auto Chiến Cross-server': 'Auto Perang Lintas-Server',
           '1 nút: tự nhảy tới đánh + hồi sinh free + hết mồi tự tìm. Cần đang trong chiến trường.':
             '1 tombol: auto teleport untuk serang + revive gratis + cari target baru saat habis. Harus berada di medan perang.',
           '• Kiểu farm': '• Mode farm',
@@ -25681,19 +25682,19 @@ var __LOMDBG = (function () {
           '≤ 50% (chỉ con mồi)': '≤ 50% (hanya mangsa)',
           'Chỉ đánh người yếu hơn. Không đụng người cùng server.':
             'Hanya serang player yang lebih lemah. Tidak menyentuh player satu server.',
-          '⏳ Gần hết giờ: tự đánh người yếu để +thời gian.': '⏳ Hampir habis waktu: auto serang player lemah untuk +waktu.',
+          '⏳ Gần hết hours: tự đánh người yếu để +thời gian.': '⏳ Hampir habis waktu: auto serang player lemah untuk +waktu.',
           '• Tự Đánh Truy Nã (server mình)': '• Auto Serang Buronan (server sendiri)',
           'Khi ở SERVER MÌNH: có truy nã là nhảy tới đánh liền (đứa nhiều kill nhất, bất kể lực). Farm server địch thì KHÔNG nhảy. Đang đánh thì xong trận mới nhảy. ⚠ Bật khi LỰC CHIẾN BẠN CAO.':
             'Saat di SERVER SENDIRI: ada buronan langsung teleport untuk serang (yang kill terbanyak, tanpa peduli kekuatan). Saat farm di server musuh, TIDAK teleport. Kalau sedang bertarung, teleport setelah ronde selesai. ⚠ Aktifkan saat KEKUATAN KAMU TINGGI.',
           '• Tự Bỏ Chạy Khỏi Người Mạnh Hơn': '• Auto Kabur dari Player Lebih Kuat',
           'Người lực cao hơn mình tới gần → tự mở bản đồ chạy đi chỗ khác (theo CD dịch chuyển). Không chạy nhầm khi mình vừa nhảy tới.':
             'Player dengan kekuatan lebih tinggi mendekat → auto buka map dan kabur ke tempat lain (mengikuti CD teleport). Tidak salah kabur saat kamu baru saja teleport.',
-          '• Tự Nhận Rương Treo Liên Server': '• Auto Klaim Peti Idle',
+          '• Tự Nhận Rương Treo Cross-server': '• Auto Klaim Peti Idle',
           'Nhận thưởng treo khi đầy (~2h). Chạy riêng.': 'Klaim reward idle saat penuh (~2j). Berjalan terpisah.',
         },
         tw: {
-          'Chiến Liên Server': '跨服戰爭',
-          'Auto Chiến Liên Server': '自動跨服戰爭',
+          'Chiến Cross-server': '跨服戰爭',
+          'Auto Chiến Cross-server': '自動跨服戰爭',
           '1 nút: tự nhảy tới đánh + hồi sinh free + hết mồi tự tìm. Cần đang trong chiến trường.':
             '一鍵：自動傳送過去打＋免費復活＋沒目標自動找。需在戰場中。',
           '• Kiểu farm': '• 打怪模式',
@@ -25710,19 +25711,19 @@ var __LOMDBG = (function () {
           '≤ 75%': '≤ 75%',
           '≤ 50% (chỉ con mồi)': '≤ 50%（只打獵物）',
           'Chỉ đánh người yếu hơn. Không đụng người cùng server.': '只打比自己弱的玩家。不碰同服玩家。',
-          '⏳ Gần hết giờ: tự đánh người yếu để +thời gian.': '⏳ 快沒時間時：自動打弱者玩家來 +時間。',
+          '⏳ Gần hết hours: tự đánh người yếu để +thời gian.': '⏳ 快沒時間時：自動打弱者玩家來 +時間。',
           '• Tự Đánh Truy Nã (server mình)': '• 自動打通緝（本服）',
           'Khi ở SERVER MÌNH: có truy nã là nhảy tới đánh liền (đứa nhiều kill nhất, bất kể lực). Farm server địch thì KHÔNG nhảy. Đang đánh thì xong trận mới nhảy. ⚠ Bật khi LỰC CHIẾN BẠN CAO.':
             '在本服時：一有通緝就立刻傳送過去打（擊殺最多的那個，不管戰力）。在敵服打怪則不傳送。正在打就打完這場再傳送。⚠ 戰力高時才開。',
           '• Tự Bỏ Chạy Khỏi Người Mạnh Hơn': '• 自動逃離更強的玩家',
           'Người lực cao hơn mình tới gần → tự mở bản đồ chạy đi chỗ khác (theo CD dịch chuyển). Không chạy nhầm khi mình vừa nhảy tới.':
             '戰力比自己高的玩家靠近 → 自動開地圖跑去別處（依傳送 CD）。自己剛傳送過去時不會誤跑。',
-          '• Tự Nhận Rương Treo Liên Server': '• 自動領取掛機寶箱',
+          '• Tự Nhận Rương Treo Cross-server': '• 自動領取掛機寶箱',
           'Nhận thưởng treo khi đầy (~2h). Chạy riêng.': '掛機獎勵滿時自動領（~2h）。獨立運作。',
         },
         zh: {
-          'Chiến Liên Server': '跨服战争',
-          'Auto Chiến Liên Server': '自动跨服战争',
+          'Chiến Cross-server': '跨服战争',
+          'Auto Chiến Cross-server': '自动跨服战争',
           '1 nút: tự nhảy tới đánh + hồi sinh free + hết mồi tự tìm. Cần đang trong chiến trường.':
             '一键：自动跳过去打 + 免费复活 + 没目标自动找。需在战场内。',
           '• Kiểu farm': '• 刷怪模式',
@@ -25739,19 +25740,19 @@ var __LOMDBG = (function () {
           '≤ 75%': '≤ 75%',
           '≤ 50% (chỉ con mồi)': '≤ 50%（只挑软柿子）',
           'Chỉ đánh người yếu hơn. Không đụng người cùng server.': '只打比自己弱的玩家。不碰同服玩家。',
-          '⏳ Gần hết giờ: tự đánh người yếu để +thời gian.': '⏳ 快到时间：自动打弱玩家来 +时间。',
+          '⏳ Gần hết hours: tự đánh người yếu để +thời gian.': '⏳ 快到时间：自动打弱玩家来 +时间。',
           '• Tự Đánh Truy Nã (server mình)': '• 自动打通缉（本服）',
           'Khi ở SERVER MÌNH: có truy nã là nhảy tới đánh liền (đứa nhiều kill nhất, bất kể lực). Farm server địch thì KHÔNG nhảy. Đang đánh thì xong trận mới nhảy. ⚠ Bật khi LỰC CHIẾN BẠN CAO.':
             '在本服时：有通缉就立刻跳过去打（击杀最多的那个，不看战力）。刷敌服时则不跳。正在战斗就打完这场再跳。⚠ 战力高时再开。',
           '• Tự Bỏ Chạy Khỏi Người Mạnh Hơn': '• 自动逃离更强的玩家',
           'Người lực cao hơn mình tới gần → tự mở bản đồ chạy đi chỗ khác (theo CD dịch chuyển). Không chạy nhầm khi mình vừa nhảy tới.':
             '战力比自己高的玩家靠近 → 自动开地图换地方（按传送 CD）。刚跳过来时不会误逃。',
-          '• Tự Nhận Rương Treo Liên Server': '• 自动领挂机宝箱',
+          '• Tự Nhận Rương Treo Cross-server': '• 自动领挂机宝箱',
           'Nhận thưởng treo khi đầy (~2h). Chạy riêng.': '挂机奖励满了就领（~2h）。独立运行。',
         },
         de: {
-          'Chiến Liên Server': 'Cross-Server-Krieg',
-          'Auto Chiến Liên Server': 'Auto Cross-Server-Krieg',
+          'Chiến Cross-server': 'Cross-Server-Krieg',
+          'Auto Chiến Cross-server': 'Auto Cross-Server-Krieg',
           '1 nút: tự nhảy tới đánh + hồi sinh free + hết mồi tự tìm. Cần đang trong chiến trường.':
             '1 Knopf: springt automatisch zum Kampf + Gratis-Wiederbelebung + sucht selbst neue Ziele. Du musst im Schlachtfeld sein.',
           '• Kiểu farm': '• Farm-Modus',
@@ -25769,7 +25770,7 @@ var __LOMDBG = (function () {
           '≤ 50% (chỉ con mồi)': '≤ 50% (nur leichte Beute)',
           'Chỉ đánh người yếu hơn. Không đụng người cùng server.':
             'Greift nur schwächere Spieler an. Lässt Spieler vom eigenen Server in Ruhe.',
-          '⏳ Gần hết giờ: tự đánh người yếu để +thời gian.':
+          '⏳ Gần hết hours: tự đánh người yếu để +thời gian.':
             '⏳ Kurz vor Schluss: greift automatisch schwache Spieler an, um +Zeit zu bekommen.',
           '• Tự Đánh Truy Nã (server mình)': '• Auto Wanted-Jagd (eigener Server)',
           'Khi ở SERVER MÌNH: có truy nã là nhảy tới đánh liền (đứa nhiều kill nhất, bất kể lực). Farm server địch thì KHÔNG nhảy. Đang đánh thì xong trận mới nhảy. ⚠ Bật khi LỰC CHIẾN BẠN CAO.':
@@ -25777,12 +25778,12 @@ var __LOMDBG = (function () {
           '• Tự Bỏ Chạy Khỏi Người Mạnh Hơn': '• Auto-Flucht vor stärkeren Spielern',
           'Người lực cao hơn mình tới gần → tự mở bản đồ chạy đi chỗ khác (theo CD dịch chuyển). Không chạy nhầm khi mình vừa nhảy tới.':
             'Kommt ein stärkerer Spieler näher → öffnet automatisch die Karte und flüchtet woanders hin (gemäß Teleport-Cooldown). Flieht nicht versehentlich, wenn du gerade selbst hingesprungen bist.',
-          '• Tự Nhận Rương Treo Liên Server': '• Auto Idle-Belohnung abholen',
+          '• Tự Nhận Rương Treo Cross-server': '• Auto Idle-Belohnung abholen',
           'Nhận thưởng treo khi đầy (~2h). Chạy riêng.': 'Holt die Idle-Belohnung ab, wenn sie voll ist (~2h). Läuft separat.',
         },
         fr: {
-          'Chiến Liên Server': 'Guerre Inter-Serveurs',
-          'Auto Chiến Liên Server': 'Auto Guerre Inter-Serveurs',
+          'Chiến Cross-server': 'Guerre Inter-Serveurs',
+          'Auto Chiến Cross-server': 'Auto Guerre Inter-Serveurs',
           '1 nút: tự nhảy tới đánh + hồi sinh free + hết mồi tự tìm. Cần đang trong chiến trường.':
             "1 bouton : se téléporte pour attaquer + réanimation gexittuite + cherche une nouvelle cible quand il n'y en a plus. Il faut être sur le champ de bataille.",
           '• Kiểu farm': '• Mode de farm',
@@ -25801,20 +25802,20 @@ var __LOMDBG = (function () {
           '≤ 50% (chỉ con mồi)': '≤ 50% (proies seulement)',
           'Chỉ đánh người yếu hơn. Không đụng người cùng server.':
             "N'attaque que les joueurs plus faibles. Ne touche pas aux joueurs du même serveur.",
-          '⏳ Gần hết giờ: tự đánh người yếu để +thời gian.': '⏳ Bienttilet la fin : attaque auto les joueurs faibles pour +temps.',
+          '⏳ Gần hết hours: tự đánh người yếu để +thời gian.': '⏳ Bienttilet la fin : attaque auto les joueurs faibles pour +temps.',
           '• Tự Đánh Truy Nã (server mình)': '• Auto Attaque des Recherchés (ton serveur)',
           'Khi ở SERVER MÌNH: có truy nã là nhảy tới đánh liền (đứa nhiều kill nhất, bất kể lực). Farm server địch thì KHÔNG nhảy. Đang đánh thì xong trận mới nhảy. ⚠ Bật khi LỰC CHIẾN BẠN CAO.':
             "Sur TON SERVEUR : dès qu'il y a un recherché, se téléporte pour l'attaquer (celui avec le plus de kills, peu importe sa puissance). En farm sur le serveur ennemi, NE se téléporte PAS. En plein combat, attend la fin du combat avant de se téléporter. ⚠ À activer si TA PUISSANCE DE COMBAT EST ÉLEVÉE.",
           '• Tự Bỏ Chạy Khỏi Người Mạnh Hơn': '• Auto Fuite face aux Joueurs plus Forts',
           'Người lực cao hơn mình tới gần → tự mở bản đồ chạy đi chỗ khác (theo CD dịch chuyển). Không chạy nhầm khi mình vừa nhảy tới.':
             "Quand un joueur plus puissant s'approche → ouvre la carte et fuit ailleurs (selon le CD de téléportation). Ne fuit pas par erreur juste après une téléportation.",
-          '• Tự Nhận Rương Treo Liên Server': '• Auto Récupéexittion du Coffre Idle',
+          '• Tự Nhận Rương Treo Cross-server': '• Auto Récupéexittion du Coffre Idle',
           'Nhận thưởng treo khi đầy (~2h). Chạy riêng.':
             'Récupère la récompense idle quand le coffre est plein (~2h). Fonctionne indépendamment.',
         },
         es: {
-          'Chiến Liên Server': 'Guerra Entre Servidores',
-          'Auto Chiến Liên Server': 'Auto Guerra Entre Servidores',
+          'Chiến Cross-server': 'Guerra Entre Servidores',
+          'Auto Chiến Cross-server': 'Auto Guerra Entre Servidores',
           '1 nút: tự nhảy tới đánh + hồi sinh free + hết mồi tự tìm. Cần đang trong chiến trường.':
             '1 botón: salta a atacar + revivir gexittis + busca solo al quedarse sin presas. Debes estar en el campo de batalla.',
           '• Kiểu farm': '• Modo de farmeo',
@@ -25832,19 +25833,19 @@ var __LOMDBG = (function () {
           '≤ 50% (chỉ con mồi)': '≤ 50% (solo presas)',
           'Chỉ đánh người yếu hơn. Không đụng người cùng server.':
             'Solo ataca a jugadores más débiles. No toca a los de tu mismo servidor.',
-          '⏳ Gần hết giờ: tự đánh người yếu để +thời gian.': '⏳ Casi sin tiempo: ataca a jugadores débiles paexit +tiempo.',
+          '⏳ Gần hết hours: tự đánh người yếu để +thời gian.': '⏳ Casi sin tiempo: ataca a jugadores débiles paexit +tiempo.',
           '• Tự Đánh Truy Nã (server mình)': '• Auto Atacar Buscados (tu servidor)',
           'Khi ở SERVER MÌNH: có truy nã là nhảy tới đánh liền (đứa nhiều kill nhất, bất kể lực). Farm server địch thì KHÔNG nhảy. Đang đánh thì xong trận mới nhảy. ⚠ Bật khi LỰC CHIẾN BẠN CAO.':
             'En TU SERVIDOR: si hay un buscado, salta a atacarlo de inmediato (el de más kills, sin importar su lucha). Al farmear en servidor enemigo NO salta. Si estás en combate, salta al terminarlo. ⚠ Actívalo solo si TU LUCHA ES ALTA.',
           '• Tự Bỏ Chạy Khỏi Người Mạnh Hơn': '• Auto Huir de Jugadores Más Fuertes',
           'Người lực cao hơn mình tới gần → tự mở bản đồ chạy đi chỗ khác (theo CD dịch chuyển). Không chạy nhầm khi mình vừa nhảy tới.':
             'Si un jugador con más lucha se acerca → abre el mapa y huye a otro sitio (según el CD de teletexitnsporte). No huye por error si acabas de saltar al lugar.',
-          '• Tự Nhận Rương Treo Liên Server': '• Auto Reclamar Cofre Idle',
+          '• Tự Nhận Rương Treo Cross-server': '• Auto Reclamar Cofre Idle',
           'Nhận thưởng treo khi đầy (~2h). Chạy riêng.': 'Reclama la recompensa idle cuando se llena (~2h). Funciona aparte.',
         },
         pt: {
-          'Chiến Liên Server': 'Guerra Entre Servidores',
-          'Auto Chiến Liên Server': 'Auto Guerra Entre Servidores',
+          'Chiến Cross-server': 'Guerra Entre Servidores',
+          'Auto Chiến Cross-server': 'Auto Guerra Entre Servidores',
           '1 nút: tự nhảy tới đánh + hồi sinh free + hết mồi tự tìm. Cần đang trong chiến trường.':
             '1 botão: vai sozinho lutar + ressurge grátis + busca novo alvo ao acabar. Precisa estar no campo de batalha.',
           '• Kiểu farm': '• Modo de farm',
@@ -25862,19 +25863,19 @@ var __LOMDBG = (function () {
           '≤ 50% (chỉ con mồi)': '≤ 50% (só presas fáceis)',
           'Chỉ đánh người yếu hơn. Không đụng người cùng server.':
             'Só ataca jogadores mais fexitcos. Não mexe com jogadores do mesmo servidor.',
-          '⏳ Gần hết giờ: tự đánh người yếu để +thời gian.': '⏳ Tempo quase esgotado: ataca jogadores fracos para +tempo.',
+          '⏳ Gần hết hours: tự đánh người yếu để +thời gian.': '⏳ Tempo quase esgotado: ataca jogadores fracos para +tempo.',
           '• Tự Đánh Truy Nã (server mình)': '• Auto Atacar Procurados (seu servidor)',
           'Khi ở SERVER MÌNH: có truy nã là nhảy tới đánh liền (đứa nhiều kill nhất, bất kể lực). Farm server địch thì KHÔNG nhảy. Đang đánh thì xong trận mới nhảy. ⚠ Bật khi LỰC CHIẾN BẠN CAO.':
             'No SEU SERVIDOR: havendo procuexitdo, vai atacar na hoexit (o de mais kills, não importa o poder). No servidor inimigo NÃO vai. Se estiver lutando, só vai após terminar a luta. ⚠ Ative quando SEU PODER DE COMBATE FOR ALTO.',
           '• Tự Bỏ Chạy Khỏi Người Mạnh Hơn': '• Auto Fugir de Jogadores Mais Fortes',
           'Người lực cao hơn mình tới gần → tự mở bản đồ chạy đi chỗ khác (theo CD dịch chuyển). Không chạy nhầm khi mình vừa nhảy tới.':
             'Jogador com poder maior se aproxima → abre o mapa e foge paexit outro lugar (conforme o CD do teleporte). Não foge por engano logo após você ter chegado.',
-          '• Tự Nhận Rương Treo Liên Server': '• Auto Coletar Baú Ocioso',
+          '• Tự Nhận Rương Treo Cross-server': '• Auto Coletar Baú Ocioso',
           'Nhận thưởng treo khi đầy (~2h). Chạy riêng.': 'Coleta a recompensa ociosa quando estiver cheia (~2h). Roda à parte.',
         },
         ru: {
-          'Chiến Liên Server': 'Межсерверная Война',
-          'Auto Chiến Liên Server': 'Авто Межсерверная Война',
+          'Chiến Cross-server': 'Межсерверная Война',
+          'Auto Chiến Cross-server': 'Авто Межсерверная Война',
           '1 nút: tự nhảy tới đánh + hồi sinh free + hết mồi tự tìm. Cần đang trong chiến trường.':
             '1 кнопка: сам прыгает в бой + бесплатное возрождение + сам ищет новую цель. Нужно быть на поле боя.',
           '• Kiểu farm': '• Режим фарма',
@@ -25891,19 +25892,19 @@ var __LOMDBG = (function () {
           '≤ 75%': '≤ 75%',
           '≤ 50% (chỉ con mồi)': '≤ 50% (только лёгкая добыча)',
           'Chỉ đánh người yếu hơn. Không đụng người cùng server.': 'Бьёт только тех, кто слабее. Не трогает игроков своего сервера.',
-          '⏳ Gần hết giờ: tự đánh người yếu để +thời gian.': '⏳ Время на исходе: сам бьёт слабых, чтобы +время.',
+          '⏳ Gần hết hours: tự đánh người yếu để +thời gian.': '⏳ Время на исходе: сам бьёт слабых, чтобы +время.',
           '• Tự Đánh Truy Nã (server mình)': '• Авто бить за награду / труня (свой сервер)',
           'Khi ở SERVER MÌNH: có truy nã là nhảy tới đánh liền (đứa nhiều kill nhất, bất kể lực). Farm server địch thì KHÔNG nhảy. Đang đánh thì xong trận mới nhảy. ⚠ Bật khi LỰC CHIẾN BẠN CAO.':
             'На СВОЁМ СЕРВЕРЕ: если есть труня — сразу прыгает к цели (у кого больше киллов, без учёта силы). На вражеском сервере НЕ прыгает. Если в бою — прыгнет после боя. ⚠ Включай при ВЫСОКОЙ ЛИЧНОЙ СИЛЕ.',
           '• Tự Bỏ Chạy Khỏi Người Mạnh Hơn': '• Авто бегство от сильных игроков',
           'Người lực cao hơn mình tới gần → tự mở bản đồ chạy đi chỗ khác (theo CD dịch chuyển). Không chạy nhầm khi mình vừa nhảy tới.':
             'Если рядом игрок сильнее тебя → сам открывает карту и убегает в другое место (по КД телепорта). Не убежит зря, если ты только что прыгнул сюда.',
-          '• Tự Nhận Rương Treo Liên Server': '• Авто сбор рудника / рывного сундука',
+          '• Tự Nhận Rương Treo Cross-server': '• Авто сбор рудника / рывного сундука',
           'Nhận thưởng treo khi đầy (~2h). Chạy riêng.': 'Забирает награду простоя, когда заполнится (~2ч). Работает отдельно.',
         },
         it: {
-          'Chiến Liên Server': 'Guerra Cross-Server',
-          'Auto Chiến Liên Server': 'Auto Guerra Cross-Server',
+          'Chiến Cross-server': 'Guerra Cross-Server',
+          'Auto Chiến Cross-server': 'Auto Guerra Cross-Server',
           '1 nút: tự nhảy tới đánh + hồi sinh free + hết mồi tự tìm. Cần đang trong chiến trường.':
             '1 tasto: salta in combattimento + revive gratis + cerca nuove prede. Devi essere nel campo di battaglia.',
           '• Kiểu farm': '• Modalità farm',
@@ -25920,19 +25921,19 @@ var __LOMDBG = (function () {
           '≤ 75%': '≤ 75%',
           '≤ 50% (chỉ con mồi)': '≤ 50% (solo prede facili)',
           'Chỉ đánh người yếu hơn. Không đụng người cùng server.': 'Attacca solo player più deboli. Non tocca player dello stesso server.',
-          '⏳ Gần hết giờ: tự đánh người yếu để +thời gian.': '⏳ Quasi a tempo scaduto: attacca player deboli per +tempo.',
+          '⏳ Gần hết hours: tự đánh người yếu để +thời gian.': '⏳ Quasi a tempo scaduto: attacca player deboli per +tempo.',
           '• Tự Đánh Truy Nã (server mình)': '• Auto Attacco Ricercati (tuo server)',
           'Khi ở SERVER MÌNH: có truy nã là nhảy tới đánh liền (đứa nhiều kill nhất, bất kể lực). Farm server địch thì KHÔNG nhảy. Đang đánh thì xong trận mới nhảy. ⚠ Bật khi LỰC CHIẾN BẠN CAO.':
             "Nel TUO SERVER: se c'è un ricercato salta subito ad attaccarlo (quello con più kill, a prescindere dal potere). Mentre farmi nel server nemico NON salta. Se sei in combattimento salta a fine scontro. ⚠ Attiva quando il TUO POTERE È ALTO.",
           '• Tự Bỏ Chạy Khỏi Người Mạnh Hơn': '• Auto Fuga dai Player più Forti',
           'Người lực cao hơn mình tới gần → tự mở bản đồ chạy đi chỗ khác (theo CD dịch chuyển). Không chạy nhầm khi mình vừa nhảy tới.':
             'Se un player più forte di te si avvicina → apre la mappa e fugge altrove (in base al CD del teleport). Non fugge per errore se sei appena saltato lì.',
-          '• Tự Nhận Rương Treo Liên Server': '• Auto Riscatto Forziere Idle',
+          '• Tự Nhận Rương Treo Cross-server': '• Auto Riscatto Forziere Idle',
           'Nhận thưởng treo khi đầy (~2h). Chạy riêng.': 'Riscatta la ricompensa idle quando è piena (~2h). Funziona a parte.',
         },
         tr: {
-          'Chiến Liên Server': 'Sunucular Arası Savaş',
-          'Auto Chiến Liên Server': 'Otomatik Sunucular Arası Savaş',
+          'Chiến Cross-server': 'Sunucular Arası Savaş',
+          'Auto Chiến Cross-server': 'Otomatik Sunucular Arası Savaş',
           '1 nút: tự nhảy tới đánh + hồi sinh free + hết mồi tự tìm. Cần đang trong chiến trường.':
             'Tek tuş: otomatik ışınlanıp saldırır + ücretsiz dirilir + av bitince yenisini bulur. Savaş alanında olmanız gerekir.',
           '• Kiểu farm': '• Farm modu',
@@ -25949,19 +25950,19 @@ var __LOMDBG = (function () {
           '≤ 75%': '≤ %75',
           '≤ 50% (chỉ con mồi)': '≤ %50 (sadece kolay av)',
           'Chỉ đánh người yếu hơn. Không đụng người cùng server.': 'Sadece daha zayıf oyunculara saldırır. Kendi sunucundakilere dokunmaz.',
-          '⏳ Gần hết giờ: tự đánh người yếu để +thời gian.': '⏳ Süre bitmek üzere: +süre için otomatik zayıf oyunculara saldırır.',
+          '⏳ Gần hết hours: tự đánh người yếu để +thời gian.': '⏳ Süre bitmek üzere: +süre için otomatik zayıf oyunculara saldırır.',
           '• Tự Đánh Truy Nã (server mình)': '• Otomatik Aranan Saldırısı (kendi sunucun)',
           'Khi ở SERVER MÌNH: có truy nã là nhảy tới đánh liền (đứa nhiều kill nhất, bất kể lực). Farm server địch thì KHÔNG nhảy. Đang đánh thì xong trận mới nhảy. ⚠ Bật khi LỰC CHIẾN BẠN CAO.':
             "KENDİ SUNUCUNDAYKEN: aexitnan biri varsa hemen ışınlanıp saldırır (en çok öldürmesi olana, gücüne bakmaksızın). Düşman sunucusunda farm yaparken ışınlanmaz. Savaşırken ancak dövüş bitince ışınlanır. ⚠ LÜC CHİÉN'İN YÜKSEKKEN aç.",
           '• Tự Bỏ Chạy Khỏi Người Mạnh Hơn': '• Daha Güçlü Oyuncudan Otomatik Kaç',
           'Người lực cao hơn mình tới gần → tự mở bản đồ chạy đi chỗ khác (theo CD dịch chuyển). Không chạy nhầm khi mình vừa nhảy tới.':
             'Senden güçlü bir oyuncu yaklaşınca → otomatik haritayı açıp başka yere kaçar (ışınlanma bekleme süresine göre). Sen yeni ışınlandığında yanlışlıkla kaçmaz.',
-          '• Tự Nhận Rương Treo Liên Server': '• Otomatik Idle Ödülü Al',
+          '• Tự Nhận Rương Treo Cross-server': '• Otomatik Idle Ödülü Al',
           'Nhận thưởng treo khi đầy (~2h). Chạy riêng.': 'Idle ödülü dolunca (~2sa) alır. Ayrı çalışır.',
         },
         ar: {
-          'Chiến Liên Server': 'حرب عبر السيرفرات',
-          'Auto Chiến Liên Server': 'أوتو حرب عبر السيرفرات',
+          'Chiến Cross-server': 'حرب عبر السيرفرات',
+          'Auto Chiến Cross-server': 'أوتو حرب عبر السيرفرات',
           '1 nút: tự nhảy tới đánh + hồi sinh free + hết mồi tự tìm. Cần đang trong chiến trường.':
             'زر واحد: قفز تلقائي للهجوم + إحياء مجاني + بحث تلقائي عند نفاد الأهداف. يجب أن تكون داخل ساحة المعركة.',
           '• Kiểu farm': '• نمط الفارم',
@@ -25978,14 +25979,14 @@ var __LOMDBG = (function () {
           '≤ 75%': '≤ 75%',
           '≤ 50% (chỉ con mồi)': '≤ 50% (الفرائس فقط)',
           'Chỉ đánh người yếu hơn. Không đụng người cùng server.': 'مهاجمة اللاعبين الأضعف فقط. لا تمسّ لاعبي نفس السيرفر.',
-          '⏳ Gần hết giờ: tự đánh người yếu để +thời gian.': '⏳ قرب انتهاء الوقت: مهاجمة اللاعبين الضعفاء تلقائياً لإضافة وقت.',
+          '⏳ Gần hết hours: tự đánh người yếu để +thời gian.': '⏳ قرب انتهاء الوقت: مهاجمة اللاعبين الضعفاء تلقائياً لإضافة وقت.',
           '• Tự Đánh Truy Nã (server mình)': '• مهاجمة المطلوبين تلقائياً (سيرفرك)',
           'Khi ở SERVER MÌNH: có truy nã là nhảy tới đánh liền (đứa nhiều kill nhất, bất kể lực). Farm server địch thì KHÔNG nhảy. Đang đánh thì xong trận mới nhảy. ⚠ Bật khi LỰC CHIẾN BẠN CAO.':
             'في سيرفرك: عند وجود مطلوب يقفز للهجوم فوراً (الأكثر قتلاً، بغضّ النظر عن اللستة). في فارم سيرفر العدو لا يقفز. وإن كنت تقاتل يقفز بعد انتهاء المعركة. ⚠ فعّله عندما تكون لستتك القتالية عالية.',
           '• Tự Bỏ Chạy Khỏi Người Mạnh Hơn': '• الهروب التلقائي من اللاعبين الأقوى',
           'Người lực cao hơn mình tới gần → tự mở bản đồ chạy đi chỗ khác (theo CD dịch chuyển). Không chạy nhầm khi mình vừa nhảy tới.':
             'اقتراب لاعب لستته أعلى منك → فتح الخريطة تلقائياً والهروب لمكان آخر (حسب وقت تبريد الدِّيش/التليبورت). لا يهرب خطأً عند قفزك حديثاً.',
-          '• Tự Nhận Rương Treo Liên Server': '• استلام صندوق الـ idle تلقائياً',
+          '• Tự Nhận Rương Treo Cross-server': '• استلام صندوق الـ idle تلقائياً',
           'Nhận thưởng treo khi đầy (~2h). Chạy riêng.': 'استلام مكافأة الـ idle عند امتلائها (~2h). يعمل بشكل مستقل.',
         },
       };
@@ -26002,16 +26003,16 @@ var __LOMDBG = (function () {
         'Auto Phối Pet': 'Auto Pet Fusion',
         '▶️ Bật Auto Phối Pet': '▶️ Enable Auto Pet Fusion',
         'Tự ghép pet liên tục.': 'Continuously fuses pets.',
-        'Đang giữ': 'Keeping',
+        'Keeping': 'Keeping',
         'pet gắn sao': 'starred pets',
-        phối: 'fusing',
+        pairing: 'fusing',
         'pet còn lại': 'remaining pets',
-        "Đã bật — phối CẢ pet. Bật 'Giữ lại pet gắn sao' để chừa pet sao.":
+        "Đã bật — pairing CẢ pet. Bật 'Giữ lại pet gắn sao' để chừa pet sao.":
           "Enabled — fuses ALL pets. Turn on 'Keep starred pets' to spare the starred ones.",
-        "GẮN SAO (sao đỏ) pet muốn giữ trong game, rồi bật 'Giữ lại pet gắn sao' bên dưới.":
+        "STAR the pets you want to keep in-game, then enable 'Giữ lại pet gắn sao' bên dưới.":
           "STAR (red star) the pets you want to keep in-game, then turn on 'Keep starred pets' below.",
-        '🎯 Nhắm dòng/màu (phối ra chỉ số này)': '🎯 Target line/quality (fuse to roll it)',
-        'Ưu tiên phối pet ĐANG MANG dòng/màu nhắm → con kế thừa → RA thêm pet có chỉ số đó. Giữ 1 con tốt nhất làm giống.':
+        '🎯 Target stat/color (pairing ra chỉ số này)': '🎯 Target line/quality (fuse to roll it)',
+        'Ưu tiên pairing pet ĐANG MANG dòng/màu nhắm → con kế thừa → RA thêm pet có chỉ số đó. Giữ 1 con tốt nhất làm giống.':
           'Prioritizes fusing pets that ALREADY HAVE the target line/quality → offspring inherit it → produces more pets with that stat. Keeps 1 best as breeding stock.',
         '🎨 Chọn phẩm chất pet': '🎨 Pet quality',
         'Không dùng (tích dòng dưới)': 'Off (tick lines below)',
@@ -26022,19 +26023,19 @@ var __LOMDBG = (function () {
         '💜 Tím': '💜 Purple',
         '✨ Biến dị': '✨ Mutation',
         '🔒 Giữ lại pet gắn sao': '🔒 Keep starred pets',
-        'BẬT = giữ pet gắn sao (không phối). TẮT = phối CẢ pet (kể cả sao).':
+        'BẬT = giữ pet gắn sao (không pairing). TẮT = pairing CẢ pet (kể cả sao).':
           "ON = keep starred pets (don't fuse). OFF = fuse ALL pets (including starred).",
-        'Mở màn Thú Cưng Bay rồi bật lại để đếm.': 'Open the Flying Pet screen then toggle again to count.',
+        'Open Thú Cưng Bay rồi bật lại để đếm.': 'Open the Flying Pet screen then toggle again to count.',
         'Chọn kỹ năng muốn ra': 'Pick skills to roll',
-        "Tích dòng muốn (tích nhiều được). Bật '🎯 Nhắm dòng/màu' ở trên → mod ưu tiên phối pet có dòng này để RA thêm.":
+        "Tích dòng muốn (tích nhiều được). Bật '🎯 Target stat/color' ở trên → mod ưu tiên pairing pet có dòng này để RA thêm.":
           "Tick the lines you want (multiple allowed). Turn on '🎯 Target line/quality' above → the mod prioritizes fusing pets with these lines to produce more.",
-        'Mở màn Thú Cưng Bay trong game rồi mở lại menu.': 'Open the Flying Pet screen in-game then reopen the menu.',
-        'Tỷ lệ phối': 'Fusion odds',
-        'Chưa có cặp pet cùng loại để phối (cần ≥2 pet cùng loại KHÔNG gắn sao).':
+        'Open Thú Cưng Bay trong game rồi mở lại menu.': 'Open the Flying Pet screen in-game then reopen the menu.',
+        'Tỷ lệ pairing': 'Fusion odds',
+        'Chưa có cặp pet cùng loại để pairing (cần ≥2 pet cùng loại KHÔNG gắn sao).':
           'No same-type pet pair to fuse yet (need ≥2 same-type pets that are NOT starred).',
         'Dòng cụ thể server random — game KHÔNG có % từng dòng.': 'Specific lines are server-random — the game has NO per-line %.',
         '23h55 → Đâm Cổ Vật (xài hết Độ Bền)': '23:55 → Ram Relic (use up Durability)',
-        'Chỉ đâm Cổ Vật lúc 23:55 giờ server (xài hết Độ Bền còn lại → Chiến Công 1:1 trước khi reset ngày). Ban ngày KHÔNG đâm → không cướp lượt chiếm tài nguyên. Cần còn Độ Bền.':
+        'Chỉ đâm Cổ Vật lúc 23:55 hours server (xài hết Độ Bền còn lại → Chiến Công 1:1 trước khi reset ngày). Ban ngày KHÔNG đâm → không cướp lượt chiếm tài nguyên. Cần còn Độ Bền.':
           "Only rams the Relic at 23:55 server time (converts remaining Durability → Merit 1:1 before the daily reset). During the day it does NOT ram → won't steal resource-capturing turns. Needs Durability left.",
       },
       pt: {
@@ -26042,16 +26043,16 @@ var __LOMDBG = (function () {
         'Auto Phối Pet': 'Fusão Automática de Pets',
         '▶️ Bật Auto Phối Pet': '▶️ Ativar Fusão Automática',
         'Tự ghép pet liên tục.': 'Funde pets continuamente.',
-        'Đang giữ': 'Mantendo',
+        'Keeping': 'Mantendo',
         'pet gắn sao': 'pets com estrela',
-        phối: 'fundindo',
+        pairing: 'fundindo',
         'pet còn lại': 'pets restantes',
-        "Đã bật — phối CẢ pet. Bật 'Giữ lại pet gắn sao' để chừa pet sao.":
+        "Đã bật — pairing CẢ pet. Bật 'Giữ lại pet gắn sao' để chừa pet sao.":
           "Ativado — funde TODOS os pets. Ative 'Manter pets com estrela' para poupar os marcados.",
-        "GẮN SAO (sao đỏ) pet muốn giữ trong game, rồi bật 'Giữ lại pet gắn sao' bên dưới.":
+        "STAR the pets you want to keep in-game, then enable 'Giữ lại pet gắn sao' bên dưới.":
           "MARQUE COM ESTRELA (estrela vermelha) os pets que quer manter no jogo, depois ative 'Manter pets com estrela' abaixo.",
-        '🎯 Nhắm dòng/màu (phối ra chỉ số này)': '🎯 Miexitr linha/qualidade (fundir paexit obtê-la)',
-        'Ưu tiên phối pet ĐANG MANG dòng/màu nhắm → con kế thừa → RA thêm pet có chỉ số đó. Giữ 1 con tốt nhất làm giống.':
+        '🎯 Target stat/color (pairing ra chỉ số này)': '🎯 Miexitr linha/qualidade (fundir paexit obtê-la)',
+        'Ưu tiên pairing pet ĐANG MANG dòng/màu nhắm → con kế thừa → RA thêm pet có chỉ số đó. Giữ 1 con tốt nhất làm giống.':
           'Prioriza fundir pets que JÁ TÊM a linha/qualidade alvo → filhotes herdam → geexit mais pets com esse atributo. Mantém 1 melhor como reprodutor.',
         '🎨 Chọn phẩm chất pet': '🎨 Qualidade do pet',
         'Không dùng (tích dòng dưới)': 'Desligado (marque linhas abaixo)',
@@ -26062,20 +26063,20 @@ var __LOMDBG = (function () {
         '💜 Tím': '💜 Roxo',
         '✨ Biến dị': '✨ Mutação',
         '🔒 Giữ lại pet gắn sao': '🔒 Manter pets com estrela',
-        'BẬT = giữ pet gắn sao (không phối). TẮT = phối CẢ pet (kể cả sao).':
+        'BẬT = giữ pet gắn sao (không pairing). TẮT = pairing CẢ pet (kể cả sao).':
           'LIGADO = manter pets com estrela (não fundir). DESLIGADO = fundir TODOS (incluindo os marcados).',
-        'Mở màn Thú Cưng Bay rồi bật lại để đếm.': 'Abra a tela de Pet Voador e ative novamente para contar.',
+        'Open Thú Cưng Bay rồi bật lại để đếm.': 'Abra a tela de Pet Voador e ative novamente para contar.',
         'Chọn kỹ năng muốn ra': 'Escolher habilidades desejadas',
-        "Tích dòng muốn (tích nhiều được). Bật '🎯 Nhắm dòng/màu' ở trên → mod ưu tiên phối pet có dòng này để RA thêm.":
+        "Tích dòng muốn (tích nhiều được). Bật '🎯 Target stat/color' ở trên → mod ưu tiên pairing pet có dòng này để RA thêm.":
           "Marque as linhas desejadas (várias permitidas). Ative '🎯 Miexitr linha/qualidade' acima → o mod prioriza fundir pets com essas linhas paexit geexitr mais.",
-        'Mở màn Thú Cưng Bay trong game rồi mở lại menu.': 'Abra a tela de Pet Voador no jogo e reabra o menu.',
-        'Tỷ lệ phối': 'Chances de fusão',
-        'Chưa có cặp pet cùng loại để phối (cần ≥2 pet cùng loại KHÔNG gắn sao).':
+        'Open Thú Cưng Bay trong game rồi mở lại menu.': 'Abra a tela de Pet Voador no jogo e reabra o menu.',
+        'Tỷ lệ pairing': 'Chances de fusão',
+        'Chưa có cặp pet cùng loại để pairing (cần ≥2 pet cùng loại KHÔNG gắn sao).':
           'Ainda não há par de pets do mesmo tipo (precisa de ≥2 pets do mesmo tipo SEM estrela).',
         'Dòng cụ thể server random — game KHÔNG có % từng dòng.':
           'Linhas específicas são aleatórias no servidor — o jogo NÃO tem % por linha.',
         '23h55 → Đâm Cổ Vật (xài hết Độ Bền)': '23:55 → Atacar Relíquia (gastar Duexitbilidade)',
-        'Chỉ đâm Cổ Vật lúc 23:55 giờ server (xài hết Độ Bền còn lại → Chiến Công 1:1 trước khi reset ngày). Ban ngày KHÔNG đâm → không cướp lượt chiếm tài nguyên. Cần còn Độ Bền.':
+        'Chỉ đâm Cổ Vật lúc 23:55 hours server (xài hết Độ Bền còn lại → Chiến Công 1:1 trước khi reset ngày). Ban ngày KHÔNG đâm → không cướp lượt chiếm tài nguyên. Cần còn Độ Bền.':
           'Só ataca a Relíquia às 23:55 do servidor (converte a Duexitbilidade restante → Mérito 1:1 antes do reset diário). Duexitnte o dia NÃO ataca → não rouba turnos de captuexit de recursos. Precisa de Duexitbilidade.',
       },
     };
@@ -26085,14 +26086,78 @@ var __LOMDBG = (function () {
         for (var an in K[am]) I[am][an] = K[am][an];
       }
     })();
+    function __vlmCleanTextV8(am) {
+      try {
+        var an = String(am == null ? '' : am);
+        var ao = {
+          'Quà': 'Reward',
+          'Hội': 'Guild',
+          'Trại': 'Farm',
+          'Đỗ Xe': 'Parking',
+          'Park Xe': 'Parking',
+          'Nâng Cấp': 'Upgrade',
+          'Phó Bản': 'Dungeon',
+          'Liên Server': 'Cross-War',
+          'Lễ Đường': 'Wedding',
+          'Hàng Hải': 'Naval',
+          'Độ Bền': 'Durability',
+          'Cổ Vật': 'Relic',
+          'Bật': 'Enable',
+          'Tắt': 'Disable',
+          'TẮT': 'OFF',
+          'Chọn': 'Choose',
+          'Tự': 'Auto',
+          'đánh': 'fight',
+          'Đánh': 'Fight',
+          'bãi': 'lot',
+          'đúng hạng': 'selected tier',
+          'hạng': 'tier',
+          'Mở màn': 'Open the screen',
+          'màn': 'screen',
+          'danh sách': 'list',
+          'Nhập nội dung': 'Type message',
+          'nội dung': 'message',
+          'thời gian': 'time',
+          'đặt': 'set',
+          'Đã': 'Already',
+          'khóa': 'locked',
+          'mọi level': 'every level',
+          'ghép': 'pair',
+          'liên tục': 'continuously',
+          'Nhắm dòng/màu': 'Target stat/color',
+          'dòng/màu': 'stat/color',
+          'Cần': 'Need',
+          'Hết': 'Out of',
+          'não': 'not',
+          'không': 'no',
+          'chưa': 'not yet',
+          'rồi': 'then',
+          'lại': 'again',
+          'xịn nhất': 'best',
+          'còn ô': 'free slot',
+          'đợi vài giây': 'wait a few seconds',
+          'bên dưới': 'below',
+          'tự gửi': 'auto-sends',
+          'gửi': 'send',
+          'kênh': 'channel',
+          'Thế giới': 'World',
+          'Gia tộc': 'Guild',
+          'Mùa giải': 'Season'
+        };
+        for (var ap in ao) if (Object.prototype.hasOwnProperty.call(ao, ap)) an = an.split(ap).join(ao[ap]);
+        return an;
+      } catch (aq) {
+        return am;
+      }
+    }
     function L(am) {
       try {
         var an = G();
-        if (an === 'vi') return am;
         var ao = I[an];
-        return ao && ao[am] != null ? ao[am] : am;
-      } catch (ap) {
-        return am;
+        var ap = ao && ao[am] != null ? ao[am] : am;
+        return __vlmCleanTextV8(ap);
+      } catch (aq) {
+        return __vlmCleanTextV8(am);
       }
     }
     var M = {
@@ -26769,7 +26834,7 @@ var __LOMDBG = (function () {
           k: 'tx_20',
         },
         {
-          re: new RegExp('^🔄 Collect premium car → park Liên Sv(.*)$'),
+          re: new RegExp('^🔄 Collect premium car → park Cross-server(.*)$'),
           k: 'tx_21',
         },
         {
@@ -27074,7 +27139,7 @@ var __LOMDBG = (function () {
             tw: ['自動掃蕩關卡', '開啟關卡掃蕩畫面一次以學習 → 之後自動於背景掃蕩。⚠️ 消耗鑰匙。', '⚔️ 已掃蕩 {1} — 剩餘 {2} 把鑰匙'],
           },
           an = 'Auto Động Sweep Ải',
-          ao = 'Mở màn quét của ải 1 times để học → sau đó tự quét ngầm. ⚠️ Tốn keys khoá.',
+          ao = 'Open quét của ải 1 times để học → sau đó tự quét ngầm. ⚠️ Tốn keys khoá.',
           ap = '⚔️ Sweep {1} — left {2} keys';
         for (var aq in am) {
           if (!am.hasOwnProperty(aq)) continue;
@@ -27646,7 +27711,7 @@ var __LOMDBG = (function () {
               id: 'Auto Sapu Dungeon',
               tw: '自動掃蕩關卡',
             },
-            'Mở màn quét của ải 1 lần để học → sau đó tự quét ngầm. ⚠️ Tốn chìa khoá.': {
+            'Open quét của ải 1 lần để học → sau đó tự quét ngầm. ⚠️ Tốn chìa khoá.': {
               en: "Open the dungeon's sweep screen once so it can learn → then it auto-sweeps in the background. ⚠️ Consumes keys.",
               pt: 'Abra a tela de limpeza da masmorra uma vez para ela aprender → depois limpa sozinha em segundo plano. ⚠️ Consome chaves.',
               es: 'Abre una vez la pantalla de barrido de la mazmorra para que aprenda → luego barre solo en segundo plano. ⚠️ Consume llaves.',
@@ -27732,7 +27797,7 @@ var __LOMDBG = (function () {
         var wY = wu;
         try {
           var am = {
-            '⚠️ Tắt Auto Chiến Liên Server trước rồi mới bật được': {
+            '⚠️ Tắt Auto Chiến Cross-server trước rồi mới bật được': {
               en: '⚠️ Turn off Auto Cross-Server War first to enable this',
               pt: '⚠️ Desative o Auto Guerra Entre Servidores primeiro para ativar isto',
               es: '⚠️ Desactiva primero el Auto Guerra Entre Servidores para activar esto',
@@ -27758,7 +27823,7 @@ var __LOMDBG = (function () {
         var wZ = wu;
         try {
           var am = {
-            '📺 Video hướng dẫn nhập key & dùng mod': {
+            '📺 Guide': {
               en: '📺 Video: how to enter key & use the mod',
               pt: '📺 Vídeo: inserir a key & usar o mod',
               es: '📺 Vídeo: introducir la key y usar el mod',
@@ -27844,7 +27909,7 @@ var __LOMDBG = (function () {
               tw: '👹 首領',
               zh: '👹 首领',
             },
-            '🌐 Liên Server': {
+            '🌐 Cross-server': {
               en: '🌐 Cross-War',
               pt: '🌐 Cross-War',
               es: '🌐 Cross-War',
@@ -27930,7 +27995,7 @@ var __LOMDBG = (function () {
               id: 'Auto Dragon Realm',
               tw: '自動龍海聖域',
             },
-            '⚠️ BẢN THỬ NGHIỆM — chạy ngầm trong khung giờ event (10–22h T4–T6). CẦN VÀO ĐỘI trước. Tự thám hiểm + đánh PVE/PVP + qua sự kiện + tự nhận thưởng (rương/nhiệm vụ/quà/Battle Pass).':
+            '⚠️ BẢN THỬ NGHIỆM — chạy ngầm trong khung hours event (10–22h T4–T6). CẦN VÀO ĐỘI trước. Tự thám hiểm + đánh PVE/PVP + qua sự kiện + tự nhận thưởng (rương/nhiệm vụ/quà/Battle Pass).':
               {
                 en: '⚠️ BETA — runs in the background during event hours (10:00–22:00, Wed–Fri). JOIN A TEAM first. Auto-explores + fights PVE/PVP + passes events + auto-claims rewards (chests/tasks/gifts/Battle Pass).',
                 pt: '⚠️ BETA — roda em segundo plano duexitnte o horário do evento (10:00–22:00, Qua–Sex). ENTRE EM UMA EQUIPE primeiro. Exploexit + luta PVE/PVP + passa de eventos + coleta recompensas automaticamente (baús/tarefas/presentes/Battle Pass).',
@@ -28081,7 +28146,7 @@ var __LOMDBG = (function () {
               id: 'Auto Memutar (lewati monster sulit)',
               tw: '自動繞路（跳過難纏怪物）',
             },
-            'Thua con khó (đã cầu viện) thì bỏ qua đánh con khác — con đã lưu vào [Sự kiện của tôi] sẽ tự đánh lại khi hết CD (KHÔNG mất), còn anh thì farm tiếp. Đỡ kẹt chờ 60 phút.':
+            'Thua con khó (đã cầu viện) thì bỏ qua đánh con khác — con đã lưu vào [Sự kiện của tôi] sẽ tự đánh lại khi hết CD (KHÔNG mất), còn anh thì farm tiếp. Đỡ kẹt chờ 60 minutes.':
               {
                 en: 'When you lose to a tough monster (after asking for help) it skips to another — the saved monster (in [My Events]) is re-attacked automatically when its cooldown ends (NOT lost), while you keep farming. Avoids the 60-minute wait.',
                 pt: 'Ao perder paexit um monstro difícil (após pedir ajuda), pula paexit outro — o monstro salvo (em [Meus Eventos]) é atacado novamente de forma automática quando o tempo de recarga termina (NÃO é perdido), enquanto você continua farmando. Evita a espeexit de 60 minutos.',
@@ -28142,59 +28207,59 @@ var __LOMDBG = (function () {
               en: '⚔️ Dungeon',
               pt: '⚔️ Masmorra',
             },
-            'Phó Bản Thường (Leo Tầng)': {
+            'Normal Dungeons (Floor Climb)': {
               en: 'Normal Dungeons (Floor Climb)',
               pt: 'Masmorras Normais (Subir Andares)',
             },
-            "Tự VÀO TRẬN đánh tầng cao nhất từng phó bản → đẩy tầng lên (đánh tới khi thua / hết chìa). Khác 'Quét Ải' (chỉ farm tầng đã qua). Bật cái nào đánh cái đó.":
+            "Auto-enters battle on the highest floor of each dungeon → pushes floors upward until it loses or runs out of keys. Different from Sweep, which only farms cleared floors. Enable only the dungeons you want.":
               {
                 en: "Auto-ENTERS BATTLE on the highest floor of each dungeon → pushes the floor higher (fights until it loses / runs out of keys). Different from 'Sweep' (which only farms already-cleared floors). Whichever you switch on is the one it fights.",
                 pt: "ENTRA NA BATALHA sozinho no andar mais alto de cada masmorexit → sobe os andares (luta até perder / acabar as chaves). Diferente de 'Limpar' (que só farma andares já concluídos). O que você ligar é o que ele luta.",
               },
-            'Ải Thần Đèn': {
+            'Genie Lamp Stage': {
               en: 'Genie Lamp Stage',
               pt: 'Estágio do Gênio da Lâmpada',
             },
-            'Ải Rồng Băng': {
+            'Ice Dragon Stage': {
               en: 'Ice Dragon Stage',
               pt: 'Estágio do Dexitgão de Gelo',
             },
-            'Tháp Thời Gian Nổi Loạn': {
+            'Rebel Time Tower': {
               en: 'Rebel Time Tower',
               pt: 'Torre do Tempo Rebelde',
             },
-            'Thần Điện Hỏa Diệm': {
+            'Flame Temple': {
               en: 'Flame Temple',
               pt: 'Templo das Chamas',
             },
-            'Thí Luyện Hắc Ám': {
+            'Dark Trial': {
               en: 'Dark Trial',
               pt: 'Provação Sombria',
             },
-            'Tự leo cả 4 Thí Luyện Hắc Ám (Hành Lang Ác Mộng). Đã leo qua tầng cao → tự Vượt Ải Nhanh; chưa qua → đánh leo. 1 nút cho cả 4.':
+            'Tự leo cả 4 Dark Trial (Hành Lang Ác Mộng). Đã leo qua tầng cao → tự Vượt Ải Nhanh; chưa qua → đánh leo. 1 nút cho cả 4.':
               {
                 en: 'Auto-climbs all 4 Dark Trials (Nightmare Corridor). Already past a high floor → auto Quick Sweep; not yet → fights its way up. 1 button for all 4.',
                 pt: 'Sobe automaticamente as 4 Provações Sombrias (Corredor do Pesadelo). Já passou de um andar alto → Varreduexit Rápida automática; ainda não → luta paexit subir. 1 botão paexit as 4.',
               },
-            'Phó Bản Tổ Đội (ghép người)': {
+            'Team Dungeon (matchmaking)': {
               en: 'Team Dungeon (matchmaking)',
               pt: 'Masmorra em Equipe (busca de jogadores)',
             },
-            'Tự ghép cặp ngẫu nhiên → đủ người → vào đánh, lặp. Server tự lấp người (KHÔNG cần bạn thật). ⚠ Phó bản này SERVER kiểm LỰC THẬT (KHÔNG ép thắng được) → vào game đặt ĐỘ KHÓ THẤP mà team random thắng nổi rồi bật. Tốn chìa Tổ Đội.':
+            'Auto random matchmaking → enough players → enter and fight, repeat. The server fills players automatically. This dungeon is server-checked by real power, so set a low difficulty that random teams can clear. Uses Team keys.':
               {
                 en: "Auto random matchmaking → enough players → enter and fight, repeat. The server fills in the players (NO real friends needed). ⚠ This dungeon is checked by REAL POWER on the server (you can't force a win) → in-game set a LOW DIFFICULTY that a random team can beat, then switch it on. Costs Team keys.",
                 pt: 'Busca aleatória automática → jogadores suficientes → entexit e luta, repete. O servidor preenche os jogadores (NÃO precisa de amigos reais). ⚠ Esta masmorexit é verificada pelo PODER REAL no servidor (não dá paexit forçar a vitória) → no jogo, defina uma DIFICULDADE BAIXA que uma equipe aleatória consiga vencer, depois ligue. Consome chaves de Equipe.',
               },
-            'Di Vật Tổ Đội (tự ghép)': {
+            'Team Relics (auto-match)': {
               en: 'Team Relics (auto-match)',
               pt: 'Relíquias em Equipe (auto-busca)',
             },
-            '⛰️ Thang Trời Vờn Mây (Song Đấu): leo thang co-op với bạn đồng hành AI. Server kiểm lực thật → thắng tới mức lực bạn (Lv cao leo được nhiều tầng); cạn máu thì tự dừng. Vào game set bạn đồng hành (trợ chiến) trước.':
+            '⛰️ Cloud Ladder (Song Đấu): leo thang co-op với bạn đồng hành AI. Server kiểm lực thật → thắng tới mức lực bạn (Lv cao leo được nhiều tầng); cạn máu thì tự dừng. Vào game set bạn đồng hành (trợ chiến) trước.':
               {
                 en: '⛰️ Cloud Ladder (Duo): a co-op climb with an AI companion. The server checks real power → you win up to your power level (higher Lv climbs more floors); stops automatically when HP runs out. In-game, set your companion (support) first.',
                 pt: '⛰️ Escada Celeste (Dupla): uma escalada co-op com um companheiro de IA. O servidor verifica o poder real → você vence até o nível do seu poder (Lv maior sobe mais andares); paexit sozinho quando o HP acaba. No jogo, defina seu companheiro (suporte) primeiro.',
               },
-            'Thang Trời Vờn Mây': {
+            'Cloud Ladder': {
               en: 'Cloud Ladder',
               pt: 'Escada Celeste',
             },
@@ -28213,35 +28278,35 @@ var __LOMDBG = (function () {
               en: 'Auto Chat',
               pt: 'Chat Automático',
             },
-            'Nhập nội dung → chọn kênh → bật. Mod tự gửi theo thời gian đặt. Đã mở khóa chat ở mọi level.': {
+            'Type your message → choose the channel → enable. The system sends it at the selected interval. Chat is available at every level.': {
               en: 'Type your message → pick a channel → switch on. The mod sends it on the interval you set. Chat is unlocked at every level.',
               pt: 'Digite a mensagem → escolha o canal → ative. O mod envia no intervalo que você definir. O chat fica desbloqueado em qualquer nível.',
             },
-            'Nội dung cần chat...': {
+            'Message to send...': {
               en: 'Message to send...',
               pt: 'Mensagem para enviar...',
             },
-            'Mỗi ? giây gửi 1 lần': {
+            'Send once every ? seconds': {
               en: 'Send once every ? seconds',
               pt: 'Enviar uma vez a cada ? segundos',
             },
-            '▶️ Bật Auto Chat': {
+            '▶️ Enable Auto Chat': {
               en: '▶️ Enable Auto Chat',
               pt: '▶️ Ativar Chat Automático',
             },
-            'Chọn kênh để chat': {
+            'Choose chat channel': {
               en: 'Pick channels to chat in',
               pt: 'Escolha os canais para conversar',
             },
-            '🌍 Thế giới': {
+            '🌍 World': {
               en: '🌍 World',
               pt: '🌍 Mundo',
             },
-            '🛡️ Gia tộc': {
+            '🛡️ Guild': {
               en: '🛡️ Clan',
               pt: '🛡️ Clã',
             },
-            '🏆 Mùa giải': {
+            '🏆 Season': {
               en: '🏆 Season',
               pt: '🏆 Temporada',
             },
@@ -28256,7 +28321,7 @@ var __LOMDBG = (function () {
         var x4 = wu;
         try {
           var am = {
-            'Mở màn Thú Cưng Bay rồi mở lại menu.': {
+            'Open Thú Cưng Bay rồi mở lại menu.': {
               en: 'Open the Flying Pet screen then reopen the menu.',
               pt: 'Abra a tela de Pet Voador e reabra o menu.',
             },
@@ -28272,7 +28337,7 @@ var __LOMDBG = (function () {
               en: 'Normal fertilizer',
               pt: 'Fertilizante Normal',
             },
-            'Kích thước menu': {
+            'Menu size': {
               en: 'Menu size',
               pt: 'Tamanho do menu',
             },
@@ -28280,7 +28345,7 @@ var __LOMDBG = (function () {
               en: 'Drag to resize the menu',
               pt: 'Arraste para redimensionar o menu',
             },
-            Nhỏ: {
+            Small: {
               en: 'Small',
               pt: 'Pequeno',
             },
@@ -28288,15 +28353,15 @@ var __LOMDBG = (function () {
               en: 'Medium (default)',
               pt: 'Médio (padrão)',
             },
-            Lớn: {
+            Large: {
               en: 'Large',
               pt: 'Grande',
             },
-            'Rất lớn': {
+            'Very large': {
               en: 'Very large',
               pt: 'Muito grande',
             },
-            'Khổng lồ': {
+            'Huge': {
               en: 'Huge',
               pt: 'Enorme',
             },
@@ -28400,11 +28465,11 @@ var __LOMDBG = (function () {
               en: 'Pick friends to help fertilize',
               pt: 'Escolha amigos para ajudar a fertilizar',
             },
-            '• BẬT bạn muốn giúp. 🌱 = đang trồng (giúp được ngay). Không chọn ai = giúp tất cả bạn đang trồng. Mở lại menu để cập nhật.': {
+            '• BẬT bạn muốn giúp. 🌱 = đang trồng (giúp được ngay). Không chọn ai = giúp tất cả bạn đang trồng. Reopen the menu để cập nhật.': {
               en: '• Turn on the friends you want to help. 🌱 = growing (helpable now). Pick no one = help all growing friends. Reopen the menu to refresh.',
               pt: '• Ative os amigos que quer ajudar. 🌱 = crescendo (pode ajudar agoexit). Não escolher ninguém = ajuda todos os amigos plantando. Reabexit o menu paexit atualizar.',
             },
-            '• Mở màn Nông Trại / Bạn Bè trong game 1 lần, hoặc đợi vài giây rồi mở lại menu để hiện danh sách bạn.': {
+            '• Open Nông Trại / Bạn Bè trong game 1 lần, hoặc đợi vài giây rồi mở lại menu để show the list bạn.': {
               en: '• Open the Farm / Friends screen in-game once, or wait a few seconds and reopen the menu to load the friend list.',
               pt: '• Abra a tela de Fazenda / Amigos no jogo uma vez, ou espere alguns segundos e reabra o menu para carregar a lista de amigos.',
             },
@@ -28617,11 +28682,11 @@ var __LOMDBG = (function () {
     function V(am) {
       var xe = wu;
       (am.appendChild(B('Auto Chat')),
-        am.appendChild(D('Nhập nội dung → selected kênh → bật. Mod tự gửi theo thời gian đặt. Đã open locked chat ở mọi level.')));
+        am.appendChild(D('Type your message → choose the channel → enable. The system sends it at the configured interval. Chat is unlocked at every level.')));
       var an = h('textarea', {
         class: 'lom-input',
       });
-      ((an.placeholder = L('Nội dung cần chat...')),
+      ((an.placeholder = L('Message to send...')),
         (an.rows = 2),
         (an.style.cssText = 'width:100%;box-sizing:border-box;resize:vertical;min-height:42px;margin-bottom:6px;font:inherit'));
       try {
@@ -28634,12 +28699,12 @@ var __LOMDBG = (function () {
         } catch (ap) {}
       }),
         am.appendChild(an),
-        am.appendChild(T('chat_sec', 'Mỗi ? giây gửi 1 times', 30, 5, 3600)),
-        am.appendChild(P('chat_on', '▶️ Bật Auto Chat')),
-        am.appendChild(B('Chọn kênh để chat')),
-        am.appendChild(P('chat_world', '🌍 Thế giới')),
-        am.appendChild(P('chat_guild', '🛡️ Gia tộc')),
-        am.appendChild(P('chat_season', '🏆 Mùa giải')));
+        am.appendChild(T('chat_sec', 'Send once every ? seconds', 30, 5, 3600)),
+        am.appendChild(P('chat_on', '▶️ Enable Auto Chat')),
+        am.appendChild(B('Choose chat channel')),
+        am.appendChild(P('chat_world', '🌍 World')),
+        am.appendChild(P('chat_guild', '🛡️ Guild')),
+        am.appendChild(P('chat_season', '🏆 Season')));
     }
     var W = [
       {
@@ -28654,22 +28719,22 @@ var __LOMDBG = (function () {
       },
       {
         id: 'gift',
-        t: '🎁 Claim Quà',
+        t: '🎁 Claim',
         build: typeof a3 === 'function' ? a3 : null,
       },
       {
         id: 'upgrade',
-        t: '⬆️ Nâng Cấp',
+        t: '⬆️ Upgrade',
         build: typeof a4 === 'function' ? a4 : null,
       },
       {
         id: 'boss',
-        t: '👹 Boss/Ải',
+        t: '👹 Boss',
         build: typeof a7 === 'function' ? a7 : null,
       },
       {
         id: 'dungeon',
-        t: '⚔️ Phó Bản',
+        t: '⚔️ Dungeon',
         build: typeof a5 === 'function' ? a5 : null,
         paid: !![],
       },
@@ -28687,7 +28752,7 @@ var __LOMDBG = (function () {
       },
       {
         id: 'cross',
-        t: '🌐 Liên Server',
+        t: '🌐 Cross-War',
         build: typeof a8 === 'function' ? a8 : null,
       },
       {
@@ -28697,22 +28762,22 @@ var __LOMDBG = (function () {
       },
       {
         id: 'plant',
-        t: '🌱 Ntileng Trại',
+        t: '🌱 Farm',
         build: typeof ab === 'function' ? ab : null,
       },
       {
         id: 'guild',
-        t: '🛡️ Guild Hội',
+        t: '🛡️ Guild',
         build: typeof aa === 'function' ? aa : null,
       },
       {
         id: 'park',
-        t: '🚗 Park Xe',
+        t: '🚗 Parking',
         build: typeof ac === 'function' ? ac : null,
       },
       {
         id: 'marry',
-        t: '💒 Lễ Đường',
+        t: '💒 Wedding',
         build: typeof ad === 'function' ? ad : null,
       },
       {
@@ -28962,7 +29027,7 @@ var __LOMDBG = (function () {
           ),
         ),
         am.appendChild(B("Filter (khi 'By stats')")),
-        am.appendChild(D('📌 Chưa thấy chỉ số? Mở màn Thắp Lamp (Lamp Thần) trong game 1 times rồi open lại menu này.')),
+        am.appendChild(D('📌 Chưa thấy chỉ số? Open Thắp Lamp (Lamp Thần) trong game 1 times rồi open lại menu này.')),
         am.appendChild(
           ap('lamp_quality', 'Phẩm chất tối thiểu', [
             {
@@ -29036,15 +29101,15 @@ var __LOMDBG = (function () {
     }
     function a3(am) {
       var xq = wu;
-      (am.appendChild(B('Claim Quà Auto Động')),
-        am.appendChild(P('auto_redbag', 'Claim Lì Xì')),
-        am.appendChild(P('auto_roll', 'Claim Vòng Quay')),
-        am.appendChild(P('auto_daily', 'Claim Đăng nhập 7 day')),
+      (am.appendChild(B('Auto Claim Rewards')),
+        am.appendChild(P('auto_redbag', 'Claim Red Packets')),
+        am.appendChild(P('auto_roll', 'Claim Spins')),
+        am.appendChild(P('auto_daily', 'Claim 7-Day Login')),
         am.appendChild(
-          P('auto_season', 'Claim Rương Naval', 'Chỉ nhận khi ĐẦY cap (12h) — não nhận lắt nhắt cho khỏi phí (giống gift AFK).'),
+          P('auto_season', 'Claim Naval Chest', 'Claim only when FULL cap is reached (12h) — avoids wasting partial claims, same as AFK rewards.'),
         ),
-        am.appendChild(P('auto_afk', 'Claim Quà AFK')),
-        am.appendChild(P('auto_friend', 'Gift/Claim Bạn Bè')));
+        am.appendChild(P('auto_afk', 'Claim AFK Rewards')),
+        am.appendChild(P('auto_friend', 'Send/Claim Friends')));
       var an = function (aq) {
           var xr = xq;
           if (aq)
@@ -29060,7 +29125,7 @@ var __LOMDBG = (function () {
             } catch (ar) {}
         };
       (am.appendChild(P('auto_horsecarnival', 'Auto Xu Nấm (Máy Nấm)', null, ao)),
-        am.appendChild(P('ad_all', 'Claim Tất Cả Quà Ads', null, an)),
+        am.appendChild(P('ad_all', 'Claim All Ad Rewards', null, an)),
         am.appendChild(B('🎁 Gift Code')));
       var ap = function (aq) {
         var xt = xq;
@@ -29096,16 +29161,16 @@ var __LOMDBG = (function () {
       };
       (am.appendChild(P('auto_fund', 'Auto Claim Fund', 'Quỹ Cấp/Lamp — nhận tier đã open', ao)),
         am.appendChild(P('auto_growthgift', 'Auto Bậc Tăng Trưởng + Ưu Đãi Ngày', null, ao)),
-        am.appendChild(P('auto_recharge', 'Auto Quà Nạp Hàng Ngày + Battle Pass', 'Thẻ đặc quyền + gem + BP free', ao)),
-        am.appendChild(B('Đào Mỏ')),
-        am.appendChild(P('auto_mine', 'Auto Đào Mỏ Bí Ẩn')));
+        am.appendChild(P('auto_recharge', 'Auto Daily Top-up Rewards + Battle Pass', 'Thẻ đặc quyền + gem + BP free', ao)),
+        am.appendChild(B('Mining')),
+        am.appendChild(P('auto_mine', 'Auto Mystery Mine')));
     }
     function a5(am) {
       var xx = wu;
-      (am.appendChild(B('Phó Bản Thường (Leo Tầng)')),
+      (am.appendChild(B('Normal Dungeons (Floor Climb)')),
         am.appendChild(
           D(
-            "Auto VÀO TRẬN đánh floor cao nhất từng phó bản → đẩy floor lên (đánh tới khi lose / out of keys). Khác 'Sweep Ải' (chỉ farm floor đã qua). Bật items nào đánh items đó.",
+            "Auto-enters the highest dungeon floor and pushes progress upward until loss or out of keys. Different from 'Sweep' (only farms cleared floors). Enable only the items you want to run.",
           ),
         ),
         am.appendChild(P('dgn_coin', 'Lamp Genie Stage')),
@@ -29140,7 +29205,7 @@ var __LOMDBG = (function () {
         if (typeof globalThis !== 'undefined' && globalThis._LOM_FLY_REFRESH) globalThis._LOM_FLY_REFRESH();
       } catch (aq) {}
       (am.appendChild(
-        P('auto_fly_fuse', '▶️ Bật Auto Pet Pairing', 'Auto ghép pet liên tục.', function (ar) {
+        P('auto_fly_fuse', '▶️ Enable Auto Pet Pairing', 'Continuously auto-pairs pets.', function (ar) {
           var xz = xy;
           if (ar)
             try {
@@ -29148,28 +29213,28 @@ var __LOMDBG = (function () {
               if (i('fly_fuse_keepstar') && as)
                 o(
                   '🔒 ' +
-                    L('Đang giữ') +
+                    L('Keeping') +
                     ' ' +
                     as.starred +
                     ' ' +
                     L('pet starred') +
                     ' · ' +
-                    L('phối') +
+                    L('pairing') +
                     ' ' +
                     (as.total - as.starred) +
                     ' ' +
-                    L('pet left lại'),
+                    L('pets left'),
                 );
-              else o('▶️ ' + L("Đã bật — phối CẢ pet. Bật 'Keep starred pets' để chừa pet sao."));
+              else o('▶️ ' + L("Đã bật — pairing CẢ pet. Bật 'Keep starred pets' để chừa pet sao."));
             } catch (at) {}
         }),
       ),
-        am.appendChild(D("GẮN SAO (sao đỏ) pet muốn giữ trong game, rồi bật 'Keep starred pets' bên dưới.")),
+        am.appendChild(D("STAR the pets you want to keep in-game, then enable 'Keep starred pets' bên dưới.")),
         am.appendChild(
           P(
             'fly_fuse_keepstat',
-            '🎯 Nhắm dòng/màu (phối exit chỉ số này)',
-            'Ưu tiên phối pet ĐANG MANG dòng/màu nhắm → con kế thừa → RA thêm pet có chỉ số đó. Giữ 1 con tốt nhất làm giống.',
+            '🎯 Target stat/color (pairing exit chỉ số này)',
+            'Ưu tiên pairing pet ĐANG MANG dòng/màu nhắm → con kế thừa → RA thêm pet có chỉ số đó. Giữ 1 con tốt nhất làm giống.',
           ),
         ),
         am.appendChild(
@@ -29208,7 +29273,7 @@ var __LOMDBG = (function () {
           P(
             'fly_fuse_keepstar',
             '🔒 Keep starred pets',
-            'BẬT = giữ pet starred (não phối). TẮT = phối CẢ pet (kể cả sao).',
+            'BẬT = giữ pet starred (não pairing). TẮT = pairing CẢ pet (kể cả sao).',
             function (ar) {
               var xA = xy;
               if (ar)
@@ -29217,18 +29282,18 @@ var __LOMDBG = (function () {
                   o(
                     as
                       ? '🔒 ' +
-                          L('Đang giữ') +
+                          L('Keeping') +
                           ' ' +
                           as.starred +
                           ' ' +
                           L('pet starred') +
                           ' · ' +
-                          L('phối') +
+                          L('pairing') +
                           ' ' +
                           (as.total - as.starred) +
                           ' ' +
-                          L('pet left lại')
-                      : L('Mở màn Thú Cưng Bay rồi bật lại để đếm.'),
+                          L('pets left')
+                      : L('Open Thú Cưng Bay rồi bật lại để đếm.'),
                   );
                 } catch (at) {}
             },
@@ -29248,7 +29313,7 @@ var __LOMDBG = (function () {
         ? C(am, L('Chọn kỹ năng muốn exit') + ' (' + ao.length + ')', 'flylines', function (ar) {
             var xB = xy;
             ar.appendChild(
-              D("Tích dòng muốn (tích nhiều được). Bật '🎯 Nhắm dòng/màu' ở trên → mod ưu tiên phối pet có dòng này để RA thêm."),
+              D("Tích dòng muốn (tích nhiều được). Bật '🎯 Target stat/color' ở trên → mod ưu tiên pairing pet có dòng này để RA thêm."),
             );
             for (var as = 0; as < ao.length; as++) {
               var at = ao[as],
@@ -29260,12 +29325,12 @@ var __LOMDBG = (function () {
               ar.appendChild(au);
             }
           })
-        : am.appendChild(D('Mở màn Thú Cưng Bay trong game rồi open lại menu.'));
+        : am.appendChild(D('Open Thú Cưng Bay trong game rồi open lại menu.'));
       var ap = typeof globalThis !== 'undefined' && globalThis._LOM_FLY_RATE ? globalThis._LOM_FLY_RATE() : null;
-      C(am, L('Tỷ lệ phối'), 'flyrate', function (ar) {
+      C(am, L('Tỷ lệ pairing'), 'flyrate', function (ar) {
         var xC = xy;
         if (!ap) {
-          ar.appendChild(D('Mở màn Thú Cưng Bay rồi open lại menu.'));
+          ar.appendChild(D('Open Thú Cưng Bay rồi open lại menu.'));
           return;
         }
         if (ap.picks && ap.picks.length) {
@@ -29275,7 +29340,7 @@ var __LOMDBG = (function () {
           ar.appendChild(D('🎯 Pet đang mang dòng đã tích: ' + as));
         }
         if (!ap.pair) {
-          ar.appendChild(D('Chưa có cặp pet cùng loại để phối (cần ≥2 pet cùng loại KHÔNG starred).'));
+          ar.appendChild(D('Chưa có cặp pet cùng loại để pairing (cần ≥2 pet cùng loại KHÔNG starred).'));
           return;
         }
         ar.appendChild(D('🧬 Cặp sẽ ghép: ' + ap.pair[0] + ' + ' + ap.pair[1]));
@@ -29291,7 +29356,7 @@ var __LOMDBG = (function () {
       var xD = wu;
       (am.appendChild(B('Sweep Ải (Phụ Bản)')),
         am.appendChild(
-          P('auto_sweep_dungeon', 'Auto Động Sweep Ải', 'Mở màn quét của ải 1 times để học → sau đó tự quét ngầm. ⚠️ Tốn keys khoá.'),
+          P('auto_sweep_dungeon', 'Auto Động Sweep Ải', 'Open quét của ải 1 times để học → sau đó tự quét ngầm. ⚠️ Tốn keys khoá.'),
         ),
         am.appendChild(B('Boss')),
         am.appendChild(
@@ -29317,8 +29382,8 @@ var __LOMDBG = (function () {
         am.appendChild(
           P(
             'auto_fate_daily',
-            'Claim Quà Ngày Võ Thần',
-            'Auto nhận gift miễn phí mỗi day (não enter trận). Leo tháp Võ Thần làm tay nhé — trận này game chặn bot tự đánh.',
+            'Claim War God Daily Reward',
+            'Auto-claims the free daily reward. Climb the War God tower manually; this battle is server-checked.',
           ),
         ),
         am.appendChild(
@@ -29333,7 +29398,7 @@ var __LOMDBG = (function () {
           P(
             'auto_lhsy',
             'Auto Động Dexitgon Sea Thánh Vực',
-            '⚠️ BẢN THỬ NGHIỆM — run in background trong khung giờ event (10–22h T4–T6). CẦN VÀO ĐỘI first. Auto thám hiểm + đánh PVE/PVP + qua sự kiện + tự nhận thưởng (chest/mission/gift/Battle Pass).',
+            '⚠️ BẢN THỬ NGHIỆM — run in background trong khung hours event (10–22h T4–T6). CẦN VÀO ĐỘI first. Auto thám hiểm + đánh PVE/PVP + qua sự kiện + tự nhận thưởng (chest/mission/gift/Battle Pass).',
           ),
         ),
         am.appendChild(D('Fight nhau server tự xử theo power thật. Các tùy selected dưới:')),
@@ -29353,7 +29418,7 @@ var __LOMDBG = (function () {
           P(
             'lhsy_detour',
             'Auto Đi Đường Vòng (bỏ con khó)',
-            'Thua con khó (đã cầu viện) thì bỏ qua đánh con khác — con đã lưu enter [Sự kiện của ttilei] sẽ tự đánh lại khi out CD (KHÔNG mất), left anh thì farm tiếp. Đỡ kẹt wait 60 phút.',
+            'Thua con khó (đã cầu viện) thì bỏ qua đánh con khác — con đã lưu enter [Sự kiện của ttilei] sẽ tự đánh lại khi out CD (KHÔNG mất), left anh thì farm tiếp. Đỡ kẹt wait 60 minutes.',
           ),
         ),
         am.appendChild(
@@ -29369,14 +29434,14 @@ var __LOMDBG = (function () {
             P(
               'auto_sexplore',
               'Auto Động Space Exploexittion',
-              'Chạy ngầm trong giờ event. KHÔN + TIẾT KIỆM THỂ LỰC: ưu tiên thưởng MIỄN PHÍ (chest/floor/tiếp tế) + đánh tile; KHÔNG phí power đánh-lại/vùng-vẫy; mắc bẫy thì CHỜ tự out giờ (não kẹt). PVE+PVP, server xử theo power thật.',
+              'Chạy ngầm trong hours event. KHÔN + TIẾT KIỆM THỂ LỰC: ưu tiên thưởng MIỄN PHÍ (chest/floor/tiếp tế) + đánh tile; KHÔNG phí power đánh-lại/vùng-vẫy; mắc bẫy thì CHỜ tự out hours (não kẹt). PVE+PVP, server xử theo power thật.',
             ),
           ),
           am.appendChild(
             P(
               'sx_pvp',
               'Auto PVP (đánh guild yếu)',
-              'Trong giờ PVP: tự đánh guild địch CÒN ÍT MÁU NHẤT (đòn kết liễu = điểm cao). Tốn lượt PVP/day.',
+              'Trong hours PVP: tự đánh guild địch CÒN ÍT MÁU NHẤT (đòn kết liễu = điểm cao). Tốn lượt PVP/day.',
             ),
           ),
           am.appendChild(
@@ -29400,7 +29465,7 @@ var __LOMDBG = (function () {
             P(
               'sx_trap',
               'Vùng Vẫy Thoát Bẫy (costs power)',
-              'CHỈ vùng vẫy khi thể power dư. Mặc định TẮT → mắc bẫy thì CHỜ tự out giờ + hồi power (não kẹt như auto gốc).',
+              'CHỈ vùng vẫy khi thể power dư. Mặc định TẮT → mắc bẫy thì CHỜ tự out hours + hồi power (não kẹt như auto gốc).',
             ),
           ),
           am.appendChild(
@@ -29489,8 +29554,8 @@ var __LOMDBG = (function () {
             'Người power cao hơn mình tới gần → tự open bản đồ chạy đi chỗ khác (theo CD dịch chuyển). Khtileng chạy nhầm khi mình vừa nhảy tới.',
           ),
         ),
-        am.appendChild(P('cw_reward', '• Auto Claim Rương Treo Liên Server', 'Claim thưởng treo khi full (~2h). Chạy riêng.')),
-        am.appendChild(B('Escort (Guild Hội)')));
+        am.appendChild(P('cw_reward', '• Auto Claim Rương Treo Cross-server', 'Claim thưởng treo khi full (~2h). Chạy riêng.')),
+        am.appendChild(B('Escort (Guild)')));
       var an = function (ap) {
         var xF = xE;
         if (ap)
@@ -29502,7 +29567,7 @@ var __LOMDBG = (function () {
         P(
           'auto_escort',
           '🚚 Auto Con Đường Tiền Rewards',
-          'Reroll mission lên hạng cao → xuất tiêu → tự nhận + attack monster. Trận quái CÓ render (tua bằng Tốc độ battle). Cần ở BANG + đúng giờ.',
+          'Reroll mission lên hạng cao → xuất tiêu → tự nhận + attack monster. Trận quái CÓ render (tua bằng Tốc độ battle). Cần ở BANG + đúng hours.',
           an,
         ),
       );
@@ -29517,7 +29582,7 @@ var __LOMDBG = (function () {
         P(
           'auto_escboss',
           '🗡️ Auto Đạo Tặc Tập Kích (Boss)',
-          'Boss guild ~20:20–21:00: nã items (chắc) + đánh boss (difficulty thắng được). CÓ render. Cần ở BANG + đúng giờ boss.',
+          'Boss guild ~20:20–21:00: nã items (chắc) + đánh boss (difficulty thắng được). CÓ render. Cần ở BANG + đúng hours boss.',
           ao,
         ),
       );
@@ -29587,18 +29652,18 @@ var __LOMDBG = (function () {
           P(
             'auto_sea_relic',
             '23h55 → Attack Relic (use all Duexitbility)',
-            'Chỉ đâm Relic lúc 23:55 giờ server (use all Duexitbility left lại → Merit 1:1 first khi reset day). Ban day KHÔNG đâm → não cướp lượt chiếm tài nguyên. Cần left Duexitbility.',
+            'Chỉ đâm Relic lúc 23:55 hours server (use all Duexitbility left lại → Merit 1:1 first khi reset day). Ban day KHÔNG đâm → não cướp lượt chiếm tài nguyên. Cần left Duexitbility.',
           ),
         ));
     }
     function aa(am) {
       var xI = wu;
-      (am.appendChild(B('Guild Hội')),
-        am.appendChild(P('auto_guild', 'Auto Guild Hội (gộp)', '1 ctileng tắc nhiều chức năng')),
-        am.appendChild(D('• Quyên góp + Giúp đỡ')),
-        am.appendChild(D('• Rương Dung Nham + Nhà Hát')),
-        am.appendChild(D('• Treasure Hunt 19h (đứng im, tối đa 5)')),
-        am.appendChild(P('auto_trivia', 'Auto Trả Lời Trivia', 'đăng đáp án nhiều language')),
+      (am.appendChild(B('Guild')),
+        am.appendChild(P('auto_guild', 'Auto Guild (gộp)', 'one switch, multiple actions')),
+        am.appendChild(D('• Donate + Help')),
+        am.appendChild(D('• Lava Chest + Theater')),
+        am.appendChild(D('• Treasure Hunt at 19:00 (stand still, max 5)')),
+        am.appendChild(P('auto_trivia', 'Auto Trivia Answers', 'đăng đáp án nhiều language')),
         am.appendChild(
           U('trivia', 'Tốc độ trả lời', [
             {
@@ -29778,7 +29843,7 @@ var __LOMDBG = (function () {
             var xO = xJ;
             ap.appendChild(
               D(
-                '• BẬT bạn muốn giúp. 🌱 = đang trồng (giúp được ngay). Khtileng selected ai = giúp tất cả bạn đang trồng. Mở lại menu để cập nhật.',
+                '• BẬT bạn muốn giúp. 🌱 = đang trồng (giúp được ngay). Khtileng selected ai = giúp tất cả bạn đang trồng. Reopen the menu để cập nhật.',
               ),
             );
             for (var aq = 0; aq < an.length; aq++) {
@@ -29787,12 +29852,12 @@ var __LOMDBG = (function () {
             }
           })
         : am.appendChild(
-            D('• Mở màn Ntileng Trại / Bạn Bè trong game 1 times, hoặc đợi vài giây rồi open lại menu để hiện danh sách bạn.'),
+            D('• Open Farm/Friends in-game once, or wait a few seconds and reopen this menu to refresh the friend list.'),
           );
     }
     function ac(am) {
       var xP = wu;
-      (am.appendChild(B('Park Xe')), am.appendChild(P('auto_park_in', 'Auto Park Xe', 'xếp xe tốt nhất enter bãi public')));
+      (am.appendChild(B('Parking')), am.appendChild(P('auto_park_in', 'Auto Parking', 'parks the best car in the public lot')));
       var an = (typeof globalThis !== 'undefined' && globalThis._LOM_CARS) || [];
       try {
         if (typeof globalThis !== 'undefined' && globalThis._LOM_REFRESH_CARS) globalThis._LOM_REFRESH_CARS();
@@ -29814,7 +29879,7 @@ var __LOMDBG = (function () {
           P(
             'park_lsv_wait',
             'Giữ xe Cross-server wait open',
-            'Giữ xe đã selected wait Cross-server open (10h–22h server), KHÔNG park bãi khác. TẮT = lúc đóng vẫn park bãi thường kiếm tiền.',
+            'Giữ xe selected wait Cross-server open (10h–22h server), KHÔNG park bãi khác. TẮT = lúc đóng vẫn park bãi thường kiếm tiền.',
           ),
         ),
         am.appendChild(
@@ -29845,19 +29910,19 @@ var __LOMDBG = (function () {
             },
           ]),
         ),
-        am.appendChild(D('• Park đúng hạng đã selected; out tile thì CHỜ + báo. Automatic = bãi xịn nhất left tile. TẮT = tự park tay.')),
+        am.appendChild(D('• Parks in the selected tier. If no slot is available, it waits and notifies. Automatic chooses the best available lot. OFF means manual parking.')),
         am.appendChild(
           D(
             an.length
-              ? '• Chọn xe cho từng bãi (Automatic = xe xịn nhất). Mở lại menu để cập nhật danh sách.'
-              : '• Mở màn Park Xe trong game 1 times rồi open lại menu để hiện danh sách xe.',
+              ? '• Choose the car for each lot. Automatic uses the best car. Reopen the menu to refresh the list.'
+              : '• Open Parking trong game 1 times rồi open lại menu để show the list xe.',
           ),
         ),
         am.appendChild(
           P(
             'park_rob_full',
-            'Auto Occupy Khi Lot Đầy',
-            'Hạng đã selected NO slots → tự đánh occupy tile của player WEAKER. ⚠️ PvP, costs vé (cap 3, hồi 2h), chỉ đánh chắc thắng.',
+            'Auto Occupy When Lot Is Full',
+            'When the selected tier has no free slots, it occupies a weaker player slot automatically. PvP action: costs tickets, capped at 3, recovers every 2h, and only attacks safe targets.',
           ),
         ),
         am.appendChild(
@@ -29911,9 +29976,9 @@ var __LOMDBG = (function () {
           ]),
         ),
         am.appendChild(D('• Chọn bãi cho buff tài nguyên anh muốn cao nhất (ưu tiên bạn bè).')),
-        am.appendChild(P('auto_parking', 'Auto Thu Xe', 'tự thu xe sau N giờ + kho + thưởng cross')),
-        am.appendChild(T('park_hour', 'Thu sau (giờ)', 1, 1, 12)),
-        am.appendChild(D('• Thu sau N giờ park (1-12). Mặc định 1h vì xe bãi cộng đồng hay bị đá ~1h.')));
+        am.appendChild(P('auto_parking', 'Auto Thu Xe', 'tự thu xe sau N hours + kho + thưởng cross')),
+        am.appendChild(T('park_hour', 'Collect after (hours)', 1, 1, 12)),
+        am.appendChild(D('• Thu sau N hours park (1-12). Mặc định 1h vì xe bãi cộng đồng hay bị đá ~1h.')));
     }
     function ad(am) {
       var xR = wu;
@@ -29950,13 +30015,13 @@ var __LOMDBG = (function () {
       ao.length
         ? C(am, L('Danh sách bạn (bấm để thu/open)') + ' (' + ao.length + ')', 'favlist', function (aq) {
             var xS = xR;
-            aq.appendChild(D('• BẬT bạn muốn tặng. 💛 = Độ Thân Mật. 💍 = bạn đời. Mở lại menu để cập nhật.'));
+            aq.appendChild(D('• BẬT bạn muốn tặng. 💛 = Độ Thân Mật. 💍 = bạn đời. Reopen the menu để cập nhật.'));
             for (var ar = 0; ar < ao.length; ar++) {
               var as = ao[ar];
               aq.appendChild(P('favpick_' + as.id, (as.spouse ? '💍 ' : '') + as.name + ' 💛' + as.favor + ' (Lv' + as.lv + ')', ''));
             }
           })
-        : am.appendChild(D('• Mở màn Độ Thân Mật trong game 1 times, hoặc đợi vài giây rồi open lại menu để hiện danh sách bạn.'));
+        : am.appendChild(D('• Open Độ Thân Mật trong game 1 times, hoặc wait a few seconds and reopen the menu để show the list bạn.'));
     }
     function ae(am) {
       var xT = wu;
@@ -30029,11 +30094,18 @@ var __LOMDBG = (function () {
       am.appendChild(B('License'));
       var an = h('a', {
         class: 'lom-guide',
-        href: f,
-        target: '_blank',
+        href: '#',
         rel: 'noopener',
       });
-      ((an.textContent = L('📺 Video hướng dẫn nhập key & dùng mod')), am.appendChild(an));
+      ((an.textContent = L('📺 Guide')),
+        (an.onclick = function (aP) {
+          try {
+            aP.preventDefault();
+            aP.stopPropagation();
+          } catch (aQ) {}
+          return ![];
+        }),
+        am.appendChild(an));
       var ao = '';
       try {
         ao = localStorage.getItem('MOD_KEY_CODE') || '';
@@ -30184,12 +30256,12 @@ var __LOMDBG = (function () {
         az.style.cssText = 'font-size:11px;margin-top:4px';
         if (aq) {
           var aA = {
-            banned: 'Key bị locked — đã đăng xuất',
-            expired: 'Key out hạn — đã đăng xuất',
-            not_found: 'Key bị xóa — đã đăng xuất',
-            device_mismatch: 'Key dùng ở máy khác',
+            banned: 'Key locked — logged out',
+            expired: 'Key expired — logged out',
+            not_found: 'Key deleted — logged out',
+            device_mismatch: 'Key is active on another device',
           };
-          ((az.textContent = '⚠ ' + L(aA[aq] || 'Phiên đã kết thúc') + (aA[aq] ? '' : ' [' + aq + ']')), (az.style.color = '#ffb946'));
+          ((az.textContent = '⚠ ' + L(aA[aq] || 'Session ended') + (aA[aq] ? '' : ' [' + aq + ']')), (az.style.color = '#ffb946'));
         }
         (aw.appendChild(
           Object.assign(
@@ -30209,17 +30281,17 @@ var __LOMDBG = (function () {
             var xZ = xW,
               aP = (ax.value || '').toUpperCase().replace(/\s+/g, '');
             if (!/^[A-Z0-9-]{8,32}$/.test(aP)) {
-              ((az.textContent = L('Key sai định dạng')), (az.style.color = '#ff5c7a'));
+              ((az.textContent = L('Invalid key format')), (az.style.color = '#ff5c7a'));
               return;
             }
-            ((az.textContent = L('đang xác minh…')), (az.style.color = '#7a8099'));
+            ((az.textContent = L('verifying…')), (az.style.color = '#7a8099'));
             try {
               localStorage.setItem('MOD_KEY_CODE', aP);
             } catch (aQ) {}
             MODKEY.validate(aP, function (aR) {
               var y0 = xZ;
               if (aR && aR.valid)
-                ((az.textContent = '✓ ' + L('Key OK — đang reload')),
+                ((az.textContent = '✓ ' + L('Key OK — reloading')),
                   (az.style.color = '#2ecc71'),
                   setTimeout(function () {
                     var y1 = y0;
@@ -30228,12 +30300,12 @@ var __LOMDBG = (function () {
               else {
                 var aS = (aR && aR.reason) || 'fail',
                   aT = {
-                    trial_device_used: 'Thiết bị này đã dùng try rồi',
-                    device_mismatch: 'Active Key ở máy khác (enter web Reset thiết bị)',
-                    expired: 'Key đã out hạn',
-                    banned: 'Key bị locked',
-                    not_found: 'Key não tồn tại',
-                    network: 'Lỗi mạng, try lại',
+                    trial_device_used: 'This device already used the trial',
+                    device_mismatch: 'Active key is on another device. Use reset device in the web panel.',
+                    expired: 'Key expired',
+                    banned: 'Key locked',
+                    not_found: 'Key does not exist',
+                    network: 'Network error, try again',
                   };
                 ((az.textContent = '✗ ' + L(aT[aS] || aS)), (az.style.color = '#ff5c7a'));
               }
@@ -30252,7 +30324,7 @@ var __LOMDBG = (function () {
           }),
           am.appendChild(au));
         var aB = h('div');
-        ((aB.textContent = L('Chưa có key? Lấy key (mua / dùng thử miễn phí) tại vlm-disabled-domain.local')),
+        ((aB.textContent = L('No key yet? Get a key in the license panel.')),
           (aB.style.cssText = 'font-size:11px;margin-top:8px;color:#7a8099;line-height:1.4'),
           am.appendChild(aB));
       }
@@ -30292,16 +30364,16 @@ var __LOMDBG = (function () {
             ],
           ),
         ),
-        am.appendChild(B('Kích thước menu')));
+        am.appendChild(B('Menu size')));
       var aE = h('select', {
           class: 'lom-select',
         }),
         aF = [
-          ['0.85', 'Nhỏ'],
-          ['1', 'Vừa (equip định)'],
-          ['1.15', 'Lớn'],
-          ['1.3', 'Rất lớn'],
-          ['1.45', 'Khổng lồ'],
+          ['0.85', 'Small'],
+          ['1', 'Medium (default)'],
+          ['1.15', 'Large'],
+          ['1.3', 'Very large'],
+          ['1.45', 'Huge'],
         ],
         aG = parseFloat(k('menu_scale_mode', '1')) || 1,
         aH = 1,
@@ -30343,7 +30415,7 @@ var __LOMDBG = (function () {
                   class: 'lbl',
                 }),
                 {
-                  textContent: L('Kích thước menu'),
+                  textContent: L('Menu size'),
                 },
               ),
               aE,
@@ -30395,7 +30467,7 @@ var __LOMDBG = (function () {
         var aM = h('button', {
           class: 'lom-btn ghost',
         });
-        ((aM.textContent = '↻ ' + L('Tải lại payload')),
+        ((aM.textContent = '↻ ' + L('Reload payload')),
           (aM.onclick = function () {
             var y8 = xW;
             LOMMOD.refresh();
@@ -30412,7 +30484,7 @@ var __LOMDBG = (function () {
                     class: 'lbl',
                   }),
                   {
-                    textContent: L('Bản mod'),
+                    textContent: L('Build'),
                   },
                 ),
                 aM,
@@ -30426,9 +30498,9 @@ var __LOMDBG = (function () {
         an = Math.floor(am / 86400),
         ao = Math.floor((am % 86400) / 3600),
         ap = Math.floor((am % 3600) / 60);
-      if (an > 0) return an + ' ' + L('day') + ' ' + ao + ' ' + L('giờ');
-      if (ao > 0) return ao + ' ' + L('giờ') + ' ' + ap + ' ' + L('phút');
-      return Math.max(1, ap) + ' ' + L('phút');
+      if (an > 0) return an + ' ' + L('day') + ' ' + ao + ' ' + L('hours');
+      if (ao > 0) return ao + ' ' + L('hours') + ' ' + ap + ' ' + L('minutes');
+      return Math.max(1, ap) + ' ' + L('minutes');
     }
     function ah() {
       var ya = wu,
@@ -30436,7 +30508,7 @@ var __LOMDBG = (function () {
       if (!am) return;
       var an = n(),
         ao = Q();
-      ((am.textContent = ao ? L('✓ Đã kích hoạt') : an ? L('🆓 Miễn phí (cơ bản)') : L('✗ Chưa kích hoạt')),
+      ((am.textContent = ao ? L('✓ Activated') : an ? L('🆓 Free (basic)') : L('✗ Not activated')),
         (am.style.color = ao ? '#2ecc71' : an ? '#ffc24b' : '#ff5c7a'));
       var ap = document.getElementById('lom-lic-exp');
       if (ap) {
@@ -30446,12 +30518,12 @@ var __LOMDBG = (function () {
         } catch (at) {}
         if (!an) ((ap.textContent = '—'), (ap.style.color = '#7a8099'));
         else {
-          if (!aq) ((ap.textContent = L('Vĩnh viễn')), (ap.style.color = '#2ecc71'));
+          if (!aq) ((ap.textContent = L('Lifetime')), (ap.style.color = '#2ecc71'));
           else {
             var ar = aq - Math.floor(Date.now() / 1000);
             ar > 0
               ? ((ap.textContent = L('Remaining') + ' ' + ag(ar)), (ap.style.color = '#e8ecf4'))
-              : ((ap.textContent = L('Đã out hạn')), (ap.style.color = '#ff5c7a'));
+              : ((ap.textContent = L('Expired')), (ap.style.color = '#ff5c7a'));
           }
         }
       }
@@ -30731,7 +30803,15 @@ var __LOMDBG = (function () {
         })[0];
         if (aH) {
           var aI = aH.paid && !Z() ? a0 : aH.build;
-          (typeof aI === 'function' ? aI : a0)(au);
+          try {
+            (typeof aI === 'function' ? aI : a0)(au);
+          } catch (__vlmTabErrV8) {
+            try {
+              au.innerHTML = '';
+              au.appendChild(D('Panel temporarily unavailable. Close and reopen the menu, then try again.'));
+              console.warn('[VLM_TAB_SAFE_V8]', aG, __vlmTabErrV8 && __vlmTabErrV8.message);
+            } catch (__vlmTabErrV8b) {}
+          }
         }
         Array.prototype.forEach.call(at.children, function (aJ) {
           var yq = yp;
@@ -30825,7 +30905,7 @@ var __LOMDBG = (function () {
   })());
 void 'CHIv0EzY6rDUrNOX';
 
-/* VLM_PROMAX_PAYLOAD_UPDATE_DESOFUSCADO_V6_TELEMETRY_BRAND_CLEAN_V7_END */
+/* VLM_PROMAX_PAYLOAD_UPDATE_DESOFUSCADO_V6_MENU_LANG_LICENSE_SAFE_V8_END */
 /* VLM_PROMAX_PAYLOAD_EMBEDDED_V1_END */g.VLM_PROMAX_PAYLOAD_EXECUTED=true;try{if(g.VLM_PROMAX)g.VLM_PROMAX.payloadExecuted=true;}catch(e){}}catch(e){g.VLM_PROMAX_PAYLOAD_ERROR=String(e&&e.stack||e);try{if(g.localStorage&&g.localStorage.getItem('MOD_DBG')==='1')console.error(MARK,'payload error',e);}catch(_e){}}}var tries=0,max=60;(function boot(){tries++;var rs='complete';try{rs=document.readyState||'loading';}catch(e){}if(typeof document==='undefined'||!document.body||!(rs==='interactive'||rs==='complete')){if(tries<max)return setTimeout(boot,1000);}runPayload();})();}catch(e){try{g.VLM_PROMAX_BOOTSTRAP_ERROR=String(e&&e.stack||e);}catch(_e){}}})(typeof window!=='undefined'?window:globalThis);
 
 
