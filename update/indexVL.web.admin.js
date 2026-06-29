@@ -1,62 +1,3 @@
-/* VLM_PROMAX_GUIDE_CLOSE_FIX_V5_1 | ViciousLom | close button + guide noop + language residue clean */
-/* VLM_PROMAX_MENU_CLOSE_FIX_V5 | ViciousLom | robust DOM close for ProMax menu */
-;(function(){
-  try{
-    if(globalThis.__VLM_PROMAX_MENU_CLOSE_FIX_V5__)return;
-    globalThis.__VLM_PROMAX_MENU_CLOSE_FIX_V5__=true;
-    function panelOf(n){try{for(var p=n;p&&p!==document;p=p.parentNode){if(p.id==='lom-panel'||(p.classList&&p.classList.contains('lom-panel')))return p;} }catch(_){ } return null;}
-    function isCloseTarget(n){
-      try{
-        for(var p=n;p&&p!==document;p=p.parentNode){
-          var id=String(p.id||''), cls=String(p.className||''), aria=String((p.getAttribute&&p.getAttribute('aria-label'))||''), txt=String((p.innerText||p.textContent||'')).replace(/\s+/g,' ').trim();
-          var inPanel=!!panelOf(p);
-          if(id==='lom-x' && inPanel)return true;
-          if(inPanel && /(^|\s)x(\s|$)/i.test(cls) && /close|fechar|×|x/i.test(aria+' '+txt))return true;
-          if(inPanel && p.tagName==='BUTTON' && (txt==='×'||/^close$/i.test(txt)||/^fechar$/i.test(txt)||/close|fechar/i.test(aria)))return true;
-        }
-      }catch(_){ }
-      return false;
-    }
-    function closeMenu(reason){
-      try{
-        var panels=document.querySelectorAll('#lom-panel,.lom-panel,[data-vlm-promax-panel]');
-        for(var i=0;i<panels.length;i++){
-          var p=panels[i];
-          try{p.classList.remove('open','show','visible','active');}catch(_){ }
-          try{p.setAttribute('aria-hidden','true');}catch(_){ }
-          try{p.dataset.vlmClosedBy='VLM_PROMAX_MENU_CLOSE_FIX_V5';}catch(_){ }
-        }
-        try{globalThis.__VLM_PROMAX_MENU_LAST_CLOSE_V5={reason:String(reason||'close'),ts:Date.now()};}catch(_){ }
-      }catch(_){ }
-    }
-    function onClose(ev){
-      try{
-        if(!isCloseTarget(ev&&ev.target))return;
-        try{ev.preventDefault&&ev.preventDefault();}catch(_){ }
-        try{ev.stopPropagation&&ev.stopPropagation();}catch(_){ }
-        try{ev.stopImmediatePropagation&&ev.stopImmediatePropagation();}catch(_){ }
-        closeMenu(ev&&ev.type||'event');
-        return false;
-      }catch(_){ }
-    }
-    ['pointerdown','pointerup','touchstart','touchend','click','mouseup'].forEach(function(t){try{document.addEventListener(t,onClose,true);}catch(_){ }});
-    function bind(){
-      try{
-        var x=document.getElementById('lom-x');
-        if(x&&!x.__VLM_PROMAX_MENU_CLOSE_FIX_V5_BOUND__){
-          x.__VLM_PROMAX_MENU_CLOSE_FIX_V5_BOUND__=true;
-          x.setAttribute('data-vlm-close-fix-v5','1');
-          x.onclick=function(ev){return onClose(ev||globalThis.event);};
-          ['pointerdown','pointerup','touchstart','touchend','click'].forEach(function(t){try{x.addEventListener(t,onClose,true);}catch(_){ }});
-        }
-      }catch(_){ }
-    }
-    bind();
-    var n=0,id=setInterval(function(){n++;bind();if(n>180)clearInterval(id);},500);
-  }catch(e){try{console.warn('[VLM_PROMAX_MENU_CLOSE_FIX_V5_FAIL]',String(e&&e.message||e));}catch(_){}}
-})();
-// VLM_PROMAX_MENU_CLOSE_FIX_V5_END
-
 /* VLM_PROMAX_GUIDE_NOOP_LANG_CLEAN_V4 | ViciousLom | guide button disabled */
 ;(function(){
   try{
@@ -20616,7 +20557,7 @@ var __LOMDBG = (function () {
                       jZ.count > 0 &&
                       jZ.count > jZ.got_count &&
                       (!jh[jY] || Date.now() >= jh[jY]) &&
-                      (jA.reqGetSoloBoxReward(jY), (jh[jY] = Date.now() + 35000), iL('📦 Claim chest guild (type ' + jY + ')', '#2ecc71'));
+                      (jA.reqGetSoloBoxReward(jY), (jh[jY] = Date.now() + 35000), iL('📦 Claim chest guild (loại ' + jY + ')', '#2ecc71'));
                   });
               }
             } catch (jY) {}
@@ -21856,7 +21797,7 @@ var __LOMDBG = (function () {
           } catch (jx) {}
           if (!jf.autoExplore) {
             gJ = jh + 60000;
-            if (iq('sxStam')) iL('🌌 Out of stamina — auto paused ~1 min wait for recovery (still auto-claims free rewards)', '#f1c40f');
+            if (iq('sxStam')) iL('🌌 Out of stamina — auto tạm stop ~1 min wait for recovery (still auto-claims free rewards)', '#f1c40f');
           }
           if (i('sx_floor'))
             try {
@@ -24680,7 +24621,7 @@ var __LOMDBG = (function () {
           "🗑️ Auto-sell junk": '🗑️ Vender lixo automaticamente',
           "Gear that doesn't qualify → auto-sold (skips Precious). ⚠️ Sold for good.":
             'Item que não qualifica → vendido (pula Preciosos). ⚠️ Perdido pra sempre.',
-          '⚡ Fast Roll': '⚡ Roll rápido',
+          '⚡ Roll nhanh': '⚡ Roll rápido',
           "On / Off": 'Ligar / Desligar',
           "▶️ LIGAR AUTO ROLL DA LÂMPADA": '▶️ LIGAR AUTO ROLL DA LÂMPADA',
           "On = runs: auto-rolls + equips matches + sells junk. Off to stop.":
@@ -24792,7 +24733,7 @@ var __LOMDBG = (function () {
           "• Robbing = a PvP fight to seize a slot when full. Can't fake a win — ViciousLom only attacks WEAKER players (per 'safety level'). Needs a Cross-server ticket. Button = rob one slot now; Toggle = auto-rob when full.":
             "• Roubar = uma luta PvP para tomar uma vaga quando lotado. Não dá pra forçar vitória — ViciousLom só ataca jogadores MAIS FRACOS (pelo 'nível de segurança'). Precisa de ticket Inter-Servidor. Botão = rouba uma vaga agora; Interruptor = auto-roubar quando cheio.",
           'Gold-Plated Lot': 'Vaga Ouro',
-          'Silver Lot': 'Vaga Prata',
+          'Lot Bạc': 'Vaga Prata',
           "Bronze Lot": 'Vaga Bronze',
           "• Park at the EXACT lot: Diamond / Gold / Silver / Bronze. If it's full, the mod WAITS for a free slot (no wasting tickets on a worse lot). 'Auto' = best lot with a free slot. OFF = park manually.":
             "• Estacione na vaga EXATA: Diamante / Ouro / Prata / Bronze. Se estiver cheia, o mod ESPERA por um espaço livre (sem desperdiçar tickets em vaga pior). 'Automático' = melhor vaga com espaço livre. DESLIGADO = estacionar manual.",
@@ -25091,10 +25032,10 @@ var __LOMDBG = (function () {
           'Status': 'Status',
           'Expiration': 'Validade',
           "Active Key": 'Chave Ativa',
-          'Buy Key': 'Comprar Chave',
+          'Mua key': 'Comprar Chave',
           "Log Out": 'Sair',
           "Enter key:": 'Digite a chave:',
-          'Activate': 'Ativar',
+          'Kích Hoạt': 'Ativar',
           "Key banned — logged out": 'Chave banida — desconectado',
           "Key expired — logged out": 'Chave expirada — desconectado',
           "Key deleted — logged out": 'Chave excluída — desconectado',
@@ -25204,7 +25145,7 @@ var __LOMDBG = (function () {
           "🗑️ Auto-sell junk": '🗑️ Auto-sell junk',
           "Gear that doesn't qualify → auto-sold (skips Precious). ⚠️ Sold for good.":
             "Gear that doesn't qualify → auto-sold (skips Precious). ⚠️ Sold for good.",
-          '⚡ Fast Roll': '⚡ Fast roll',
+          '⚡ Roll nhanh': '⚡ Fast roll',
           "On / Off": 'On / Off',
           "Options": 'Options',
           "🗑️ Sell Junk + Old Gear": '🗑️ Sell Junk + Old Gear',
@@ -25314,7 +25255,7 @@ var __LOMDBG = (function () {
           "• Robbing = a PvP fight to seize a slot when full. Can't fake a win — ViciousLom only attacks WEAKER players (per 'safety level'). Needs a Cross-server ticket. Button = rob one slot now; Toggle = auto-rob when full.":
             "• Robbing = a PvP fight to seize a slot when full. Can't fake a win — ViciousLom only attacks WEAKER players (per 'safety level'). Needs a Cross-server ticket. Button = rob one slot now; Toggle = auto-rob when full.",
           'Gold-Plated Lot': 'Gold Lot',
-          'Silver Lot': 'Silver Lot',
+          'Lot Bạc': 'Silver Lot',
           "Bronze Lot": 'Bronze Lot',
           "• Park at the EXACT lot: Diamond / Gold / Silver / Bronze. If it's full, the mod WAITS for a free slot (no wasting tickets on a worse lot). 'Auto' = best lot with a free slot. OFF = park manually.":
             "• Park at the EXACT lot: Diamond / Gold / Silver / Bronze. If it's full, the mod WAITS for a free slot (no wasting tickets on a worse lot). 'Auto' = best lot with a free slot. OFF = park manually.",
@@ -25607,10 +25548,10 @@ var __LOMDBG = (function () {
           'Status': 'Status',
           'Expiration': 'Expiry',
           "Active Key": 'Active Key',
-          'Buy Key': 'Buy Key',
+          'Mua key': 'Buy Key',
           "Log Out": 'Log Out',
           "Enter key:": 'Enter key:',
-          'Activate': 'Activate',
+          'Kích Hoạt': 'Activate',
           "Key banned — logged out": 'Key banned — logged out',
           "Key expired — logged out": 'Key expired — logged out',
           "Key deleted — logged out": 'Key deleted — logged out',
@@ -26055,13 +25996,13 @@ var __LOMDBG = (function () {
         "Prioriza fundir pets que JÁ TÊM a linha/qualidade alvo → filhotes herdam → gera mais pets com esse atributo. Mantém 1 melhor como reprodutor.":
           'Prioritizes fusing pets that ALREADY HAVE the target line/quality → offspring inherit it → produces more pets with that stat. Keeps 1 best as breeding stock.',
         "🎨 Qualidade do pet": '🎨 Pet quality',
-        "Desligado (tick the lines below)": 'Off (tick lines below)',
+        "Desligado (marque linhas aplotxo)": 'Off (tick lines below)',
         '🩶 Xám': '🩶 Gray',
         "💙 Azul": '💙 Blue',
         '🧡 Cam': '🧡 Orange',
         '💛 Gold': '💛 Yellow',
-        '💜 Purple': '💜 Purple',
-        '✨ Mutation': '✨ Mutation',
+        '💜 Tím': '💜 Purple',
+        '✨ Biến dị': '✨ Mutation',
         '🔒 Keep starred pets': '🔒 Keep starred pets',
         "LIGADO = manter pets com estrela (não fundir). DESLIGADO = fundir TODOS (incluindo os marcados).":
           "ON = keep starred pets (don't fuse). OFF = fuse ALL pets (including starred).",
@@ -26095,13 +26036,13 @@ var __LOMDBG = (function () {
         "Prioriza fundir pets que JÁ TÊM a linha/qualidade alvo → filhotes herdam → gera mais pets com esse atributo. Mantém 1 melhor como reprodutor.":
           'Prioriza fundir pets que JÁ TÊM a linha/qualidade alvo → filhotes herdam → gera mais pets com esse atributo. Mantém 1 melhor como reprodutor.',
         "🎨 Qualidade do pet": '🎨 Qualidade do pet',
-        "Desligado (tick the lines below)": 'Desligado (tick the lines below)',
+        "Desligado (marque linhas aplotxo)": 'Desligado (marque linhas aplotxo)',
         '🩶 Xám': '🩶 Cinza',
         "💙 Azul": '💙 Azul',
         '🧡 Cam': '🧡 Laranja',
         '💛 Gold': '💛 Amarelo',
-        '💜 Purple': '💜 Roxo',
-        '✨ Mutation': '✨ Mutação',
+        '💜 Tím': '💜 Roxo',
+        '✨ Biến dị': '✨ Mutação',
         '🔒 Keep starred pets': '🔒 Manter pets com estrela',
         "LIGADO = manter pets com estrela (não fundir). DESLIGADO = fundir TODOS (incluindo os marcados).":
           'LIGADO = manter pets com estrela (não fundir). DESLIGADO = fundir TODOS (incluindo os marcados).',
@@ -26814,7 +26755,7 @@ var __LOMDBG = (function () {
           k: 'tx_21',
         },
         {
-          re: new RegExp('^📦 Claim chest guild \\(type (.*)$'),
+          re: new RegExp('^📦 Claim chest guild \\(loại (.*)$'),
           k: 'tx_22',
         },
         {
@@ -26991,7 +26932,7 @@ var __LOMDBG = (function () {
         },
         {
           re: /^📦 Claim chest guild \(loai (\d+)\)$/,
-          k: '📦 Claim chest guild (type {1})',
+          k: '📦 Claim chest guild (loại {1})',
         },
         {
           re: /^💬 Answer trivia \((\d+) languages\)$/,
@@ -28269,7 +28210,7 @@ var __LOMDBG = (function () {
         var x2 = wt;
         try {
           var aj = {
-            "Open the Flying Pet screen, then reopen the menu.": {
+            "Open screen Flying Pet roi open lai menu.": {
               en: 'Open the Flying Pet screen then reopen the menu.',
               pt: 'Abra a tela de Pet Voador e reabra o menu.',
             },
@@ -28431,7 +28372,7 @@ var __LOMDBG = (function () {
                 class: 'sub',
               }),
               {
-                textContent: J("Feature locked. Purchase key to unlock."),
+                textContent: J("Chi stop khi MUA KEY — build stop try secret locked"),
               },
             ),
           ],
@@ -28997,7 +28938,7 @@ var __LOMDBG = (function () {
           } catch (an) {}
       };
       (aj.appendChild(N('auto_library', "Auto Library", "enhance when pet/skill ready", ak)),
-        aj.appendChild(N('auto_achievement', 'Auto Achievement', "Claim Rewards", ak)),
+        aj.appendChild(N('auto_achievement', 'Auto Thành Autou', "Claim Rewards", ak)),
         aj.appendChild(N('auto_task', "Auto Daily Tasks", "+ auto share FB 1 times", ak)),
         aj.appendChild(z("Auto Recharge Gifts (free only)")));
       var al = function (am) {
@@ -29109,11 +29050,11 @@ var __LOMDBG = (function () {
             },
             {
               v: 3,
-              t: '💜 Purple',
+              t: '💜 Tím',
             },
             {
               v: 67,
-              t: '✨ Mutation',
+              t: '✨ Biến dị',
             },
           ]),
         ),
@@ -29178,14 +29119,14 @@ var __LOMDBG = (function () {
       A(aj, J('Pairing rate'), 'flyrate', function (ao) {
         var xy = xu;
         if (!am) {
-          ao.appendChild(B("Open the Flying Pet screen, then reopen the menu."));
+          ao.appendChild(B("Open screen Flying Pet roi open lai menu."));
           return;
         }
         if (am.picks && am.picks.length) {
           var ap = '';
           for (var aq = 0; aq < am.picks.length; aq++)
             ap += am.picks[aq].name + ' ×' + am.picks[aq].carriers + (aq < am.picks.length - 1 ? '  ·  ' : '');
-          ao.appendChild(B("🎯 Pet running with auto carriers:" + ap));
+          ao.appendChild(B("🎯 Pet running mang auto done tich:" + ap));
         }
         if (!am.pair) {
           ao.appendChild(B("No eligible same-type pet pair found yet (need at least 2 unstarred pets of the same type)."));
@@ -30055,7 +29996,7 @@ var __LOMDBG = (function () {
         var ar = f('button', {
           class: 'lom-btn',
         });
-        ((ar.textContent = '🛒 ' + J('Buy Key')),
+        ((ar.textContent = '🛒 ' + J('Mua key')),
           (ar.style.cssText = 'flex:1;background:linear-gradient(135deg,#ffc24b,#ff9d3c);color:#241500;border:none'),
           (ar.onclick = function () {
             var xV = xU;
@@ -30092,14 +30033,14 @@ var __LOMDBG = (function () {
         var av = f('button', {
           class: 'lom-btn',
         });
-        ((av.textContent = J('Activate')), (av.style.marginTop = '6px'));
+        ((av.textContent = J('Kích Hoạt')), (av.style.marginTop = '6px'));
         var aw = f('div', {
           id: 'lom-lic-msg',
         });
         aw.style.cssText = 'font-size:11px;margin-top:4px';
         if (an) {
           var ax = {
-            banned: "Key locked — done running xuat",
+            banned: "Key secret locked — done running xuat",
             expired: "Key out han — done running xuat",
             not_found: "Key deleted — logged out",
             device_mismatch: 'Key used on another device',
@@ -30156,7 +30097,7 @@ var __LOMDBG = (function () {
         var ar = f('button', {
           class: 'lom-btn',
         });
-        ((ar.textContent = '🛒 ' + J('Buy Key')),
+        ((ar.textContent = '🛒 ' + J('Mua key')),
           (ar.style.cssText = 'width:100%;margin-top:8px;background:linear-gradient(135deg,#ffc24b,#ff9d3c);color:#241500;border:none'),
           (ar.onclick = function () {
             var xZ = xU;
