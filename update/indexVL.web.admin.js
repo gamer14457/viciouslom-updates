@@ -8486,3 +8486,71 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
   }catch(e){try{console.warn('[VLM_FIX11] bootstrap fail',e&&e.message||e)}catch(_){}}
 })();
 /* VLM_FIX11_MENU_BOOTSTRAP_FALLBACK_LOADER_V1_END */
+
+
+;/* VLM_FIX12_PREMIUM_UNLOCK_FLAGS_V1_START */
+(function(){
+  'use strict';
+  var MARK='VLM_FIX12_PREMIUM_UNLOCK_FLAGS_V1';
+  try{
+    if(window.__VLM_FIX12_PREMIUM_UNLOCK_FLAGS_INSTALLED)return;
+    window.__VLM_FIX12_PREMIUM_UNLOCK_FLAGS_INSTALLED=MARK;
+    function get(k){try{return localStorage.getItem(k)||sessionStorage.getItem(k)||''}catch(e){return''}}
+    function set(k,v){try{localStorage.setItem(k,String(v));sessionStorage.setItem(k,String(v));}catch(e){}}
+    function ck(n){try{var m=document.cookie.match(new RegExp('(?:^|; )'+n.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'=([^;]*)'));return m?decodeURIComponent(m[1]):''}catch(e){return''}}
+    function qp(n){try{return new URL(location.href).searchParams.get(n)||''}catch(e){return''}}
+    function sc(k,v){try{if(v!==undefined&&v!==null&&String(v)!=='')document.cookie=k+'='+encodeURIComponent(String(v))+';path=/;max-age=86400;samesite=Lax'}catch(e){}}
+    function hasValidSession(){
+      var key=qp('vlm_key')||get('MOD_KEY_CODE')||get('KEY_CODE')||ck('MOD_KEY_CODE')||ck('VLM_KEY_CODE')||'';
+      var tok=qp('vlm_token')||qp('mtoken')||qp('token')||get('MOD_MTOKEN')||get('VLM_MTOKEN')||ck('MOD_MTOKEN')||ck('VLM_MTOKEN')||'';
+      var valid=get('MOD_KEY_VALID')==='1'||get('KEY_VALID')==='1'||get('MOD_KEY_ADMIN')==='1'||get('KEY_ADMIN')==='1';
+      return !!(key && (tok || valid));
+    }
+    function applyPremiumFlags(reason){
+      if(!hasValidSession())return false;
+      var key=qp('vlm_key')||get('MOD_KEY_CODE')||get('KEY_CODE')||ck('MOD_KEY_CODE')||'';
+      var tok=qp('vlm_token')||qp('mtoken')||qp('token')||get('MOD_MTOKEN')||ck('MOD_MTOKEN')||'';
+      if(key){key=String(key).trim().replace(/^key\s*=\s*/i,'').toUpperCase();set('MOD_KEY_CODE',key);set('KEY_CODE',key);sc('MOD_KEY_CODE',key);}
+      if(tok){set('MOD_MTOKEN',tok);set('VLM_MTOKEN',tok);sc('MOD_MTOKEN',tok);}
+      set('MOD_KEY_VALID','1'); set('KEY_VALID','1');
+      set('MOD_KEY_ADMIN','1'); set('KEY_ADMIN','1');
+      set('MOD_KEY_TIER','paid'); set('KEY_TIER','paid');
+      set('KEY_PLAN','paid'); set('MOD_KEY_PLAN','paid');
+      set('MOD_KEY_LASTOK',String(Date.now())); set('KEY_LASTOK',String(Date.now()));
+      try{document.documentElement.classList.add('vlm-fix12-unlocked')}catch(e){}
+      try{window.__VLM_FIX12_UNLOCK_FLAGS={valid:true,tier:'paid',admin:true,reason:reason||'auto',marker:MARK,ts:Date.now()}}catch(e){}
+      return true;
+    }
+    function injectCss(){
+      try{
+        if(document.getElementById('vlm-fix12-unlock-css'))return;
+        var s=document.createElement('style'); s.id='vlm-fix12-unlock-css';
+        s.textContent='html.vlm-fix12-unlocked .lom-locked{opacity:1!important;pointer-events:auto!important}html.vlm-fix12-unlocked .lom-locked::after{content:""!important;display:none!important}html.vlm-fix12-unlocked .lom-row.lom-locked{filter:none!important}';
+        document.head && document.head.appendChild(s);
+      }catch(e){}
+    }
+    function unlockDom(){
+      try{
+        if(!applyPremiumFlags('dom'))return;
+        injectCss();
+        var nodes=document.querySelectorAll('.lom-locked');
+        for(var i=0;i<nodes.length;i++){nodes[i].classList.remove('lom-locked');nodes[i].style.opacity='';nodes[i].style.pointerEvents='auto';}
+        var txts=document.querySelectorAll('.lom-sec,.lom-row,.lom-note,.lbl,.sub');
+        for(var j=0;j<txts.length;j++){
+          var t=txts[j].textContent||'';
+          if(t.indexOf('🔒')>=0 && (t.toLowerCase().indexOf('locked')>=0 || t.toLowerCase().indexOf('key')>=0)){
+            txts[j].textContent=t.replace(/🔒\s*/g,'');
+          }
+        }
+      }catch(e){}
+    }
+    applyPremiumFlags('boot');
+    injectCss();
+    setTimeout(function(){applyPremiumFlags('t0'); unlockDom();},250);
+    setTimeout(function(){applyPremiumFlags('t1'); unlockDom();},1200);
+    setTimeout(function(){applyPremiumFlags('t2'); unlockDom();},3500);
+    setInterval(function(){applyPremiumFlags('interval'); unlockDom();},2500);
+    try{window.VLM_FIX12_APPLY_PREMIUM_FLAGS=function(){applyPremiumFlags('manual'); unlockDom(); return window.__VLM_FIX12_UNLOCK_FLAGS||null;};}catch(e){}
+  }catch(e){try{console.warn('[VLM_FIX12] unlock flags fail', e&&e.message||e)}catch(_){}}
+})();
+/* VLM_FIX12_PREMIUM_UNLOCK_FLAGS_V1_END */
