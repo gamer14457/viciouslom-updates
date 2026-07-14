@@ -8565,16 +8565,16 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
 ;/* VLM_FIX35A_INDEX_DMG_REAPPLIED=1; */
 
 
-;/* VLM_FIX36X_ACCOUNT_ID_OBSERVER_INDEX_START */
+;/* VLM_FIX36Y_ACCOUNT_SLOT_OBSERVER_INDEX_START */
 (function(){
   "use strict";
-  var MARK="VLM_FIX36X_ACCOUNT_ID_OBSERVER_VERSION_10_2";
+  var MARK="VLM_FIX36Y_ACCOUNT_SLOT_OBSERVER_VERSION_10_3";
   try{
     if(globalThis.__VLM_ACCOUNT_OBSERVER_INDEX_INSTALLED)return;
     globalThis.__VLM_ACCOUNT_OBSERVER_INDEX_INSTALLED=MARK;
-    var SNAP_KEY="VLM_GAME_ACCOUNT_SNAPSHOT_FIX36X";
-    var HIST_KEY="VLM_GAME_ACCOUNT_HISTORY_FIX36X";
-    var busy=false,lastFingerprint="";
+    var SNAP_KEY="VLM_GAME_ACCOUNT_SNAPSHOT_FIX36Y";
+    var HIST_KEY="VLM_GAME_ACCOUNT_HISTORY_FIX36Y";
+    var busy=false,lastSignature="";
     function clean(v,max){
       try{
         if(v===null||v===undefined)return "";
@@ -8582,6 +8582,11 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
         if(s==="0"||s==="undefined"||s==="null")return "";
         return s.slice(0,max||128);
       }catch(e){return "";}
+    }
+    function cleanName(v){
+      var s=clean(v,80);
+      if(/^(viciouslom|vl|loading\s*99)$/i.test(s))return "";
+      return s;
     }
     function readLS(k){try{return localStorage.getItem(k)||""}catch(e){return ""}}
     function writeLS(k,v){try{localStorage.setItem(k,String(v))}catch(e){}}
@@ -8597,11 +8602,31 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
         writeLS("VLM_GAME_ACCOUNT_REGION",state.region||"");
         var hist=safeJson(readLS(HIST_KEY),[]);
         if(!Array.isArray(hist))hist=[];
-        var fp=state.fingerprint||"";
-        if(fp&&(!hist.length||hist[0].fingerprint!==fp)){
-          hist.unshift({fingerprint:fp,uid:state.uid,role_id:state.role_id,server_id:state.server_id,role_name:state.role_name,region:state.region,seen_at:state.captured_at});
-          hist=hist.slice(0,12);
+        var fp=state.account_fingerprint||"";
+        if(fp&&state.ok){
+          var old=null,next=[];
+          for(var i=0;i<hist.length;i++){
+            var item=hist[i]||{};
+            if(item.account_fingerprint===fp&&!old)old=item;
+            else next.push(item);
+          }
+          var now=state.captured_at;
+          next.unshift({
+            account_fingerprint:fp,
+            parent_fingerprint:state.parent_fingerprint||"",
+            uid:state.uid||"",
+            role_id:state.role_id||"",
+            server_id:state.server_id||"",
+            server_name:state.server_name||"",
+            role_name:state.role_name||(old&&old.role_name)||"",
+            region:state.region||"",
+            first_seen_at:old&&old.first_seen_at||now,
+            last_seen_at:now
+          });
+          hist=next.slice(0,20);
           writeLS(HIST_KEY,JSON.stringify(hist));
+          state.detected_account_count=hist.length;
+          writeLS(SNAP_KEY,JSON.stringify(state));
         }
         try{window.dispatchEvent(new CustomEvent("vlm-account-observer-update",{detail:state}))}catch(e){}
       }catch(e){}
@@ -8623,22 +8648,32 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
         var uid=clean(login&&login.uid,96);
         var roleId=clean(role&&role.GetRoleId&&role.GetRoleId(),96);
         var serverId=clean(role&&role.GetServerId&&role.GetServerId(),64);
-        var roleName=clean(role&&role.GetRoleName&&role.GetRoleName(),80);
+        var roleName=cleanName(role&&role.GetRoleName&&role.GetRoleName());
+        var selectedRoleId=clean(login&&login.roleId,96);
+        var selectedServerId=clean(login&&login.loginServer&&(login.loginServer.id||login.loginServer.server_id),64);
+        var selectedServerName=clean(login&&login.loginServer&&(login.loginServer.name||login.loginServer.server_name),80);
         var region=clean(globalThis.LOM_REGION||readLS("LOM_REGION")||"eu",16).toLowerCase()||"eu";
-        var ready=!!(uid&&roleId);
+        var roleInitialized=!!(role&&role.hasInit);
+        var roleMatches=!selectedRoleId||selectedRoleId===roleId;
+        var serverMatches=!selectedServerId||selectedServerId===serverId;
+        var ready=!!(uid&&roleId&&serverId&&roleInitialized&&roleMatches&&serverMatches);
         return {
           ok:ready,
           status:ready?"detected":(uid||roleId?"partial":"waiting"),
           uid:uid,
           role_id:roleId,
           server_id:serverId,
+          server_name:selectedServerName,
           role_name:roleName,
           region:region,
-          fingerprint:uid?(region+":"+uid):"",
-          role_fingerprint:roleId?(region+":"+serverId+":"+roleId):"",
-          role_initialized:!!(role&&role.hasInit),
+          account_fingerprint:roleId?(region+":"+roleId):"",
+          parent_fingerprint:uid?(region+":"+uid):"",
+          role_initialized:roleInitialized,
+          role_matches_login:roleMatches,
+          server_matches_login:serverMatches,
           captured_at:new Date().toISOString(),
-          source:"LoginDataCache.uid+RoleDataCache",
+          source:"RoleDataCache.GetRoleId+LoginDataCache.uid",
+          slot_policy:"one_slot_per_region_role_id",
           mode:"observe_only",
           marker:MARK
         };
@@ -8652,8 +8687,8 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
       try{
         var state=await capture();
         if(state){
-          var fp=[state.status,state.fingerprint,state.role_fingerprint,state.role_name].join("|");
-          if(force||fp!==lastFingerprint){lastFingerprint=fp;publish(state);}
+          var sig=[state.status,state.account_fingerprint,state.parent_fingerprint,state.role_name,state.server_id,state.role_initialized,state.role_matches_login,state.server_matches_login].join("|");
+          if(force||sig!==lastSignature){lastSignature=sig;publish(state);}
           return state;
         }
       }finally{busy=false;}
@@ -8664,10 +8699,10 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
     };
     globalThis.__VLM_ACCOUNT_OBSERVER_HISTORY=function(){try{return safeJson(readLS(HIST_KEY),[])}catch(e){return[]}};
     globalThis.__VLM_ACCOUNT_OBSERVER_REFRESH=function(){return tick(true)};
-    setTimeout(function(){tick(true)},1400);
-    setTimeout(function(){tick(true)},4500);
-    setTimeout(function(){tick(true)},9000);
+    setTimeout(function(){tick(true)},1800);
+    setTimeout(function(){tick(true)},5200);
+    setTimeout(function(){tick(true)},10000);
     setInterval(function(){tick(false)},2500);
   }catch(e){try{console.warn("[VLM_ACCOUNT_OBSERVER] install error",e&&e.message||e)}catch(_){} }
 })();
-/* VLM_FIX36X_ACCOUNT_ID_OBSERVER_INDEX_END */
+/* VLM_FIX36Y_ACCOUNT_SLOT_OBSERVER_INDEX_END */
