@@ -8563,3 +8563,111 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
 /* VLM_LICENSE_EXPIRY_INDEX_FIX32 */
 
 ;/* VLM_FIX35A_INDEX_DMG_REAPPLIED=1; */
+
+
+;/* VLM_FIX36X_ACCOUNT_ID_OBSERVER_INDEX_START */
+(function(){
+  "use strict";
+  var MARK="VLM_FIX36X_ACCOUNT_ID_OBSERVER_VERSION_10_2";
+  try{
+    if(globalThis.__VLM_ACCOUNT_OBSERVER_INDEX_INSTALLED)return;
+    globalThis.__VLM_ACCOUNT_OBSERVER_INDEX_INSTALLED=MARK;
+    var SNAP_KEY="VLM_GAME_ACCOUNT_SNAPSHOT_FIX36X";
+    var HIST_KEY="VLM_GAME_ACCOUNT_HISTORY_FIX36X";
+    var busy=false,lastFingerprint="";
+    function clean(v,max){
+      try{
+        if(v===null||v===undefined)return "";
+        var s=String(v).trim();
+        if(s==="0"||s==="undefined"||s==="null")return "";
+        return s.slice(0,max||128);
+      }catch(e){return "";}
+    }
+    function readLS(k){try{return localStorage.getItem(k)||""}catch(e){return ""}}
+    function writeLS(k,v){try{localStorage.setItem(k,String(v))}catch(e){}}
+    function safeJson(raw,fallback){try{return JSON.parse(raw)}catch(e){return fallback}}
+    function publish(state){
+      try{
+        globalThis.__VLM_ACCOUNT_OBSERVER_STATE=state;
+        writeLS(SNAP_KEY,JSON.stringify(state));
+        writeLS("VLM_GAME_UID",state.uid||"");
+        writeLS("VLM_GAME_ROLE_ID",state.role_id||"");
+        writeLS("VLM_GAME_SERVER_ID",state.server_id||"");
+        writeLS("VLM_GAME_ROLE_NAME",state.role_name||"");
+        writeLS("VLM_GAME_ACCOUNT_REGION",state.region||"");
+        var hist=safeJson(readLS(HIST_KEY),[]);
+        if(!Array.isArray(hist))hist=[];
+        var fp=state.fingerprint||"";
+        if(fp&&(!hist.length||hist[0].fingerprint!==fp)){
+          hist.unshift({fingerprint:fp,uid:state.uid,role_id:state.role_id,server_id:state.server_id,role_name:state.role_name,region:state.region,seen_at:state.captured_at});
+          hist=hist.slice(0,12);
+          writeLS(HIST_KEY,JSON.stringify(hist));
+        }
+        try{window.dispatchEvent(new CustomEvent("vlm-account-observer-update",{detail:state}))}catch(e){}
+      }catch(e){}
+    }
+    async function capture(){
+      try{
+        if(!globalThis.System||typeof globalThis.System.import!=="function")return null;
+        var isFn=globalThis.IS;
+        if(typeof isFn!=="function"&&typeof IS==="function")isFn=IS;
+        if(typeof isFn!=="function")return null;
+        var mods=await Promise.all([
+          globalThis.System.import("chunks:///_virtual/LoginDataCache.ts"),
+          globalThis.System.import("chunks:///_virtual/RoleDataCache.ts")
+        ]);
+        var LoginClass=mods[0]&&(mods[0].LoginDataCache||mods[0].default);
+        var RoleClass=mods[1]&&(mods[1].RoleDataCache||mods[1].default);
+        if(!LoginClass||!RoleClass)return null;
+        var login=isFn(LoginClass),role=isFn(RoleClass);
+        var uid=clean(login&&login.uid,96);
+        var roleId=clean(role&&role.GetRoleId&&role.GetRoleId(),96);
+        var serverId=clean(role&&role.GetServerId&&role.GetServerId(),64);
+        var roleName=clean(role&&role.GetRoleName&&role.GetRoleName(),80);
+        var region=clean(globalThis.LOM_REGION||readLS("LOM_REGION")||"eu",16).toLowerCase()||"eu";
+        var ready=!!(uid&&roleId);
+        return {
+          ok:ready,
+          status:ready?"detected":(uid||roleId?"partial":"waiting"),
+          uid:uid,
+          role_id:roleId,
+          server_id:serverId,
+          role_name:roleName,
+          region:region,
+          fingerprint:uid?(region+":"+uid):"",
+          role_fingerprint:roleId?(region+":"+serverId+":"+roleId):"",
+          role_initialized:!!(role&&role.hasInit),
+          captured_at:new Date().toISOString(),
+          source:"LoginDataCache.uid+RoleDataCache",
+          mode:"observe_only",
+          marker:MARK
+        };
+      }catch(e){
+        return {ok:false,status:"error",error:clean(e&&e.message||e,160),captured_at:new Date().toISOString(),mode:"observe_only",marker:MARK};
+      }
+    }
+    async function tick(force){
+      if(busy)return globalThis.__VLM_ACCOUNT_OBSERVER_STATE||null;
+      busy=true;
+      try{
+        var state=await capture();
+        if(state){
+          var fp=[state.status,state.fingerprint,state.role_fingerprint,state.role_name].join("|");
+          if(force||fp!==lastFingerprint){lastFingerprint=fp;publish(state);}
+          return state;
+        }
+      }finally{busy=false;}
+      return null;
+    }
+    globalThis.__VLM_ACCOUNT_OBSERVER_GET=function(){
+      try{return globalThis.__VLM_ACCOUNT_OBSERVER_STATE||safeJson(readLS(SNAP_KEY),null)}catch(e){return null}
+    };
+    globalThis.__VLM_ACCOUNT_OBSERVER_HISTORY=function(){try{return safeJson(readLS(HIST_KEY),[])}catch(e){return[]}};
+    globalThis.__VLM_ACCOUNT_OBSERVER_REFRESH=function(){return tick(true)};
+    setTimeout(function(){tick(true)},1400);
+    setTimeout(function(){tick(true)},4500);
+    setTimeout(function(){tick(true)},9000);
+    setInterval(function(){tick(false)},2500);
+  }catch(e){try{console.warn("[VLM_ACCOUNT_OBSERVER] install error",e&&e.message||e)}catch(_){} }
+})();
+/* VLM_FIX36X_ACCOUNT_ID_OBSERVER_INDEX_END */
