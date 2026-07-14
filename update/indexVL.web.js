@@ -6542,13 +6542,13 @@ System.register("chunks:///_virtual/LogUtil.ts",["cc"],(function(t){"use strict"
 
 System.register("chunks:///_virtual/LowModeView.ts",["cc","./BattleData.ts","./CameraMgr.ts","./NodeUtil.ts","./TimeUtil.ts","./NativeToJs.ts","./GameSetting.ts"],(function(t){"use strict";var i,e,s,o,n,a,h,r,c,d,l,g,m,p,u,f,C;return{setters:[function(t){i=t.cclegacy,e=t.sys,s=t.find,o=t.Sprite,n=t.Label,a=t.Slider,h=t.UITransform,r=t.Size,c=t.game,d=t.isValid,l=t.Prefab},function(t){g=t.ChapterType},function(t){m=t.cameraMgr},function(t){p=t.default},function(t){u=t.default},function(t){f=t.NativeToJs},function(t){C=t.default}],execute:function(){i._RF.push({},"86a3faPbgBBPYbFl8R9JjfR","LowModeView",void 0);var v=["","Ⅰ","Ⅱ","Ⅲ","Ⅳ","Ⅴ","Ⅵ","Ⅶ","Ⅷ","Ⅸ","Ⅹ"],U=[[999000441,0],[999000444,0],[999000448,0],[999000442,1],[999000442,2],[999000442,3],[999000445,1],[999000445,2],[999000445,3],[999000445,4],[999000449,1],[999000449,2],[999000449,3],[999000449,4],[999000449,5],[999000449,6],[999000449,7],[999000449,8],[999000449,9],[999000449,10],[999000447,1],[999000447,2],[999000447,3],[999000447,4],[999000447,5],[999000447,6],[999000447,7],[999000447,8],[999000447,9],[999000447,10],[999000446,1],[999000446,2],[999000446,3],[999000446,4],[999000446,5],[999000446,6],[999000446,7],[999000446,8],[999000446,9],[999000446,10],[999000443,1],[999000443,2],[999000443,3],[999000443,4],[999000443,5],[999000443,6],[999000443,7],[999000443,8],[999000443,9],[999000443,10],[999000556,1],[999000556,2],[999000556,3],[999000556,4],[999000556,5],[999000556,6],[999000556,7],[999000556,8],[999000556,9],[999000556,10],[999000557,1],[999000557,2],[999000557,3],[999000557,4],[999000557,5],[999000557,6],[999000557,7],[999000557,8],[999000557,9],[999000557,10],[1000003,1],[1000003,2],[1000003,3],[1000003,4],[1000003,5],[1000003,6],[1000003,7],[1000003,8],[1000003,9],[1000003,10],[1000004,1],[1000004,2],[1000004,3],[1000004,4],[1000004,5],[1000004,6],[1000004,7],[1000004,8],[1000004,9],[1000004,10],[1000005,1],[1000005,2],[1000005,3],[1000005,4],[1000005,5],[1000005,6],[1000005,7],[1000005,8],[1000005,9],[1000005,10]];t("default",function(){function t(){var t=this;this.node=void 0,this.isShow=!1,this.nodeUIRoot=void 0,this.nodeBattleRoot=void 0,this.charge=void 0,this.txtCharge=void 0,this.txtTime=void 0,this.txtChapter=void 0,this.curChapterId=void 0,this.sliderUnlock=void 0,this.sliderBar=void 0,this.gostList=[],this.gostHitList=[],this.checkTimer=-1,this.action1=void 0,this.action2=void 0,this.action3_1=void 0,this.action3_2=void 0,this.action3_3=void 0,this.battery_time=0,this.action4=void 0,resourceMgr.loadRes("ui/module/common/LowModeView",l,(function(i){t.node=nodeInstantiate.instantiate(i.item.asset),t.onInit()}))}var i=t.prototype;return i.clear=function(){this.node.destroy()},i.onInit=function(){this.node.setScale(e.uiMirror?-1:1,1,1),this.nodeUIRoot=s("UIRoot"),this.nodeBattleRoot=s("BattleRoot"),this.charge=p.findChildComponent(this.node,"charge/Bar",o),this.txtCharge=p.findChildComponent(this.node,"charge/txtCharge",n),this.txtTime=p.findChildComponent(this.node,"content/txtTime",n),this.txtChapter=p.findChildComponent(this.node,"content/title/txtChapter",n),this.sliderUnlock=p.findChildComponent(this.node,"content/sliderUnlock",a),this.sliderBar=p.findChildComponent(this.sliderUnlock.node,"Bar",o);for(var t=0;t<4;t++)this.gostList[t]=p.findChild(this.sliderUnlock.node,"gost/"+t),this.gostList[t].active=!0;for(var i=0;i<3;i++)this.gostHitList[i]=p.findChild(this.sliderUnlock.node,"gostHit/"+i),this.gostHitList[i].active=!1;this.sliderUnlock.node.on("slide",this.sliderCallback,this),this.action1=p.findChild(this.node,"content/sliderUnlock/action_slider"),this.action2=p.findChild(this.node,"content/sliderUnlock/Handle/action_run"),this.action3_1=p.findChild(this.node,"content/sliderUnlock/action_gui_1"),this.action3_2=p.findChild(this.node,"content/sliderUnlock/action_gui_2"),this.action3_3=p.findChild(this.node,"content/sliderUnlock/action_gui_3"),this.action4=p.findChild(this.node,"content/sliderUnlock/Handle/action_idle")},i.sliderCallback=function(){var t=582*this.sliderUnlock.progress;this.sliderBar.node.getComponent(h).contentSize=new r(t,92),this.gostList[0].active=this.sliderUnlock.progress<=.2,this.gostList[1].active=this.sliderUnlock.progress<=.3,this.gostList[2].active=this.sliderUnlock.progress<=.45,this.gostList[3].active=this.sliderUnlock.progress<=.62,this.gostHitList[0].active=this.sliderUnlock.progress>=.2,this.gostHitList[1].active=this.sliderUnlock.progress>=.354,this.gostHitList[2].active=this.sliderUnlock.progress>=.65,this.action1.active=!0,this.action2.active=!0,this.action4.active=!1,this.isShow&&this.sliderUnlock.progress>=.85&&(this.node.removeFromParent(),IS(C).setLowMode(!1),m.uiCamera.enabled=!0,this.isShow=!1,uiMgr.openFullScreenNum.delete("LowModeView"),-1!=this.checkTimer&&(normalTimer.stop(this.checkTimer),this.checkTimer=-1),e.os==e.OS.IOS?c.frameRate=45:c.frameRate=60)},i.onUpdate=function(){this.UpdateTime(),this.curChapterId!=chapterDataCache.curChapterId&&this.reset(),this.battery_time>60&&(this.battery_time=this.battery_time-60,f.GetBatteryRate()),this.battery_time=this.battery_time+5,this.showCharge()},i.UpdateTime=function(){if(d(this.txtTime)){var t,i,e=new Date(1e3*u.getLocalTime()),s=e.getHours(),o=e.getMinutes();i=s<10?"0"+s:s,t=o<10?"0"+o:o,this.txtTime.string=i+":"+t}},i.show=function(){var t=this;this.isShow||(this.isShow=!0,-1!=this.checkTimer&&normalTimer.stop(this.checkTimer),this.checkTimer=normalTimer.start(5,-1,(function(){t.onUpdate()})),f.GetBatteryRate(),c.frameRate=30,this.node.parent=this.nodeUIRoot.parent,this.sliderUnlock.progress=0,this.sliderBar.node.getComponent(h).contentSize=new r(0,92),m.uiCamera.enabled=!1,IS(C).setLowMode(!0),this.gostHitList[0].active=!1,this.gostHitList[1].active=!1,this.gostHitList[2].active=!1,this.action1.active=!1,this.action2.active=!1,this.action4.active=!0,this.UpdateTime(),this.reset(),this.onUpdate(),uiMgr.openFullScreenNum.add("LowModeView"))},i.showCharge=function(){d(this.charge)&&(this.charge.fillRange=Math.min(Number(f.BatteryRate)/100,1),this.txtCharge.string=Math.floor(parseInt(f.BatteryRate))+"%")},i.reset=function(){if(chapterDataCache.chapterType==g.Main){this.curChapterId=chapterDataCache.curChapterId;var t=chapterDataCache.getChapterConfig(chapterDataCache.curChapterId),i=U[t.level-1];this.txtChapter.string=""+GetLanguage_UI(i[0])+v[i[1]]+"  "+t.chapter+" - "+t.section+" "}},t}());i._RF.pop()}}}));
 
-System.register("chunks:///_virtual/MailControl.ts",["cc","./ControlMgr.ts","./MailDefine.ts","./MailModel.ts"],(function(i){"use strict";var e,n,a,t;return{setters:[function(i){e=i.cclegacy},function(i){n=i.controlMgr},function(i){a=i.MailDefine},function(i){t=i.MailModel}],execute:function(){e._RF.push({},"9622dMov/ZH65rhuGvtePUN","MailControl",void 0);i("default",function(){var i=e.prototype;function e(){netManager.addEventListener("mail.mail_list_s2c",this.on_mail_data_list_s2c,this),netManager.addEventListener("mail.mail_new_s2c",this.on_mail_new_s2c,this),netManager.addEventListener("mail.mail_read_s2c",this.on_mail_mail_read_s2c,this),netManager.addEventListener("mail.mail_claim_s2c",this.on_mail_claim_s2c,this),netManager.addEventListener("mail.mail_delete_s2c",this.on_mail_delete_s2c,this),netManager.addEventListener("mail.mail_expired_reward_s2c",this.on_mail_expired_reward_s2c,this),n.addControl(this)}return i.clear=function(){printLog("MailControl")},i.onLogin=function(){},i.onReconnect=function(){},i.reqMailList=function(i){netManager.send("mail.mail_list_c2s",{mail_id:i})},i.reqReadMail=function(i){netManager.send("mail.mail_read_c2s",{mail_id:i})},i.reqGetMailGood=function(i,e){netManager.send("mail.mail_claim_c2s",{mail_id:i,type:e})},i.reqDelMail=function(i,e){netManager.send("mail.mail_delete_c2s",{mail_id:i,type:e})},i.req_mail_expired_reward_c2s=function(){netManager.send("mail.mail_expired_reward_c2s",{})},i.on_mail_data_list_s2c=function(i){IS(t).SetMailInfo(i),normalEvent.emit(a.MailInfoBack,i)},i.on_mail_new_s2c=function(i){IS(t).NewMail(i),normalEvent.emit(a.MailInfoBack,i)},i.on_mail_mail_read_s2c=function(i){IS(t).ReadMail(i),normalEvent.emit(a.MailInfoBack,i)},i.on_mail_claim_s2c=function(i){IS(t).AttachMail(i),normalEvent.emit(a.MailInfoBack,i)},i.on_mail_delete_s2c=function(i){IS(t).DelMail(i),normalEvent.emit(a.MailInfoBack,i)},i.on_mail_expired_reward_s2c=function(i){i.reward_list.length>0&&uiMgr.openView("GoodsGetView",i.reward_list,null,GetLanguage(202255))},e}());e._RF.pop()}}}));
+System.register("chunks:///_virtual/MailControl.ts",["cc","./ControlMgr.ts","./MailDefine.ts","./MailModel.ts"],(function(i){"use strict";var e,n,a,t;return{setters:[function(i){e=i.cclegacy},function(i){n=i.controlMgr},function(i){a=i.MailDefine},function(i){t=i.MailModel}],execute:function(){e._RF.push({},"9622dMov/ZH65rhuGvtePUN","MailControl",void 0);i("default",function(){var i=e.prototype;function e(){netManager.addEventListener("mail.mail_list_s2c",this.on_mail_data_list_s2c,this),netManager.addEventListener("mail.mail_new_s2c",this.on_mail_new_s2c,this),netManager.addEventListener("mail.mail_read_s2c",this.on_mail_mail_read_s2c,this),netManager.addEventListener("mail.mail_claim_s2c",this.on_mail_claim_s2c,this),netManager.addEventListener("mail.mail_delete_s2c",this.on_mail_delete_s2c,this),netManager.addEventListener("mail.mail_expired_reward_s2c",this.on_mail_expired_reward_s2c,this),n.addControl(this)}return i.clear=function(){printLog("MailControl")},i.onLogin=function(){},i.onReconnect=function(){},i.reqMailList=function(i){netManager.send("mail.mail_list_c2s",{mail_id:i})},i.reqReadMail=function(i){netManager.send("mail.mail_read_c2s",{mail_id:i})},i.reqGetMailGood=function(i,e){netManager.send("mail.mail_claim_c2s",{mail_id:i,type:e})},i.reqDelMail=function(i,e){netManager.send("mail.mail_delete_c2s",{mail_id:i,type:e})},i.req_mail_expired_reward_c2s=function(){netManager.send("mail.mail_expired_reward_c2s",{})},i.on_mail_data_list_s2c=function(i){IS(t).SetMailInfo(i),normalEvent.emit(a.MailInfoBack,i)},i.on_mail_new_s2c=function(i){IS(t).NewMail(i),normalEvent.emit(a.MailInfoBack,i)},i.on_mail_mail_read_s2c=function(i){IS(t).ReadMail(i),normalEvent.emit(a.MailInfoBack,i)},i.on_mail_claim_s2c=function(i){IS(t).AttachMail(i),normalEvent.emit(a.MailInfoBack,i)},i.on_mail_delete_s2c=function(i){IS(t).DelMail(i),normalEvent.emit(a.MailInfoBack,i)},i.on_mail_expired_reward_s2c=function(i){i.reward_list.length>0&&!(Date.now()<Number(globalThis.__VLM_MAIL_SILENT_UNTIL_FIX36E||0))&&uiMgr.openView("GoodsGetView",i.reward_list,null,GetLanguage(202255))/* VLM_FIX36E_MAIL_SILENT_EXPIRED */},e}());e._RF.pop()}}}));
 
 System.register("chunks:///_virtual/MailDefine.ts",["cc"],(function(e){"use strict";var i;return{setters:[function(e){i=e.cclegacy}],execute:function(){i._RF.push({},"02eacmA+ApNXpHuwMaciTQe","MailDefine",void 0);e("MailDefine",{MailInfoBack:"MailInfoBack",MailRedChange:"MailRedChange"});i._RF.pop()}}}));
 
 System.register("chunks:///_virtual/MailDetailView.ts",["./rollupPluginModLoBabelHelpers.js","cc","./UIList.ts","./NodeUtil.ts","./StringUtil.ts","./TimeUtil.ts","./BaseView.ts","./FixMath.ts","./MulLanguageUtil.ts","./BagDefine.ts","./BagModel.ts","./MessageView.ts","./NativeToJs.ts","./WelfareDataCache.ts","./MailControl.ts"],(function(t){"use strict";var i,n,e,o,a,s,l,r,d,c,h,u,f,g,m,p,C,v,x,_,I,S,L,b;return{setters:[function(t){i=t.inheritsLoose,n=t.createForOfIteratorHelperLoose},function(t){e=t.cclegacy,o=t.Button,a=t.Label,s=t.ScrollView,l=t.Sprite,r=t.UITransform,d=t.RichText,c=t.js},function(t){h=t.SelectedType,u=t.ListItem},function(t){f=t.default},function(t){g=t.default},function(t){m=t.default},function(t){p=t.BaseView},function(t){C=t.FixMath},function(t){v=t.default},function(t){x=t.ItemIdDefine},function(t){_=t.BagModel},function(t){I=t.default},function(t){S=t.NativeToJs},function(t){L=t.WelfareDataCache},function(t){b=t.default}],execute:function(){e._RF.push({},"c07338hAPxPXIkTI8mTZ2Qa","MailDetailView",void 0);t("default",function(t){function e(){var i;return(i=t.call(this)||this).txtTitle=void 0,i.txtTime=void 0,i.txtContent=void 0,i.rewardBox=void 0,i.itemList=void 0,i.content=void 0,i.get_status=void 0,i.get_btn=void 0,i.textScroll=void 0,i.btnSpecial=void 0,i.data=void 0,i.SIZE_BIG=320,i.SIZE_SMALL=140,i.name="MailDetailView",i.url="ui/module/mail/MailDetailView",i}i(e,t);var d=e.prototype;return d.onInit=function(){var t=this,i=this.findChild("imgMask");this.addComponentCallbackListener(i,o.EventType.CLICK,(function(){t.onMaskClick()})),this.btnSpecial=this.findChild("content/box/btnSpecial"),this.addComponentCallbackListener(this.btnSpecial,o.EventType.CLICK,(function(){IS(L).jumpToDiscord()})),this.txtTitle=this.findChildComponent("content/box/title/txtTitle",a),this.txtTime=this.findChildComponent("content/box/title/txtTime",a),this.txtContent=this.findChildComponent("content/box/content",a),this.rewardBox=this.findChild("content/box/rewardBox");this.findChild("content/box/rewardBox/mailList");var n=this.findChildComponent("content/box/rewardBox/mailList",s);this.itemList=this.addUIList(n,T),this.itemList.selectedMode=h.SINGLE,this.get_btn=this.findChildComponent("content/box/rewardBox/btnGet",l);var e=this.findChild("content/box/rewardBox/btnGet");this.addComponentCallbackListener(e,o.EventType.CLICK,(function(){0!=t.data.is_attach?(IS(b).reqGetMailGood(t.data.id,0),t.close()):I.showFlyTip(GetLanguage(200060))})),this.get_status=this.findChildComponent("content/box/rewardBox/btnGet/Label",a),this.textScroll=this.findChildComponent("content/box/ScrollView",s),this.content=this.addUIList(this.textScroll,y),this.content.virtual=!1},d.registerUpdateHandler=function(){},d.onMaskClick=function(){this.close()},d.onAfterOpen=function(){this.data=this.openArgs[0],this.updateData()},d.onBeforeClose=function(){},d.updateData=function(){var t=1e3*this.data.send_time,i=m.ServerDate(t),e=i.getFullYear(),o=i.getMonth()+1,a=i.getDate(),s=i.getHours(),l=i.getMinutes(),d=s+"";s<10&&(d="0"+s);var c=l+"";l<10&&(c="0"+l),this.txtTime.string=e+"/"+o+"/"+a+"  "+d+":"+c+m.GetServerTimeZoneStr();var h=GetLanguage(200321),u=!1;0==this.data.is_attach&&(h=GetLanguage(200314),u=!0),this.get_btn.grayscale=u,this.get_status.string=h;var f=configMail.getDataByKey(this.data.cfg_id);this.btnSpecial.active=10208==this.data.cfg_id,null!=this.data.title.arg_list&&this.data.title.arg_list.length>0?3==this.data.title.arg_list[0].k&&0==this.data.title.arg_list[0].v?this.txtTitle.string=this.data.title.arg_list[0].name:this.txtTitle.string=g.format_p_lang_info(f.title,this.data.title,void 0,{leftTimeCallback:function(t){return t/60}}):this.txtTitle.string=f.title;var p="";if(null!=this.data.content.arg_list&&this.data.content.arg_list.length>0){var C="%s";if(0!=this.data.content.id){var x=v.GetconfigLanguage_Text(this.data.content.id);null!=x&&(C=x.text)}p=g.format_p_lang_info(C,this.data.content,void 0,{leftTimeCallback:function(t){return t/60}})}else p=f.content;this.content.datas=[p];var _=!1;if(null!=this.data.goods_list&&this.data.goods_list.length>0){_=!0;for(var I,S=[],L=[],b=n(this.data.goods_list);!(I=b()).done;){var y=I.value;2!=y.gtid?S.push(y):L.push(y)}if(S.length>1&&S.sort((function(t,i){return configGoods.getDataByKey(t.gtid).quality>=configGoods.getDataByKey(i.gtid).quality?-1:1})),L.length>0)for(var T,w=n(L);!(T=w()).done;){var B=T.value;S.unshift(B)}this.itemList.datas=S}this.rewardBox.active=_,this.textScroll.getComponent(r).height=_?this.SIZE_SMALL:this.SIZE_BIG,10208==this.data.cfg_id&&(this.textScroll.getComponent(r).height=260)},d.onDestroy=function(){},e}(p));var y=function(t){function n(){for(var i,n=arguments.length,e=new Array(n),o=0;o<n;o++)e[o]=arguments[o];return(i=t.call.apply(t,[this].concat(e))||this).txtContent=void 0,i}i(n,t);var e=n.prototype;return e.onInit=function(){this.txtContent=f.findChildComponent(this.node,"",d),this.txtContent.Clicked=function(t,i){S.openURL(i)}},e.onRender=function(t,i){var n=t.replace(/<on click=(\w+)/g,"<on click='$1'").replace(/param=(\S+?)\>/g,"param='$1'>");this.txtContent.string=c.formatStr("<color=#544231>%s</color>",n);var e=this.txtContent.node.getComponent(r).contentSize;f.findChildComponent(this.view.node,"content/box/ScrollView/view/content",r).contentSize=e},n}(u),T=function(t){function n(){for(var i,n=arguments.length,e=new Array(n),o=0;o<n;o++)e[o]=arguments[o];return(i=t.call.apply(t,[this].concat(e))||this).imgFrame=void 0,i.imgIcon=void 0,i.txtNum=void 0,i}i(n,t);var e=n.prototype;return e.onInit=function(){var t=this;this.imgFrame=f.findChildComponent(this.node,"head/imgFrame",l),this.imgIcon=f.findChildComponent(this.node,"head/imgIcon",l),this.txtNum=f.findChildComponent(this.node,"head/num",a),this.view.addComponentCallbackListener(this.imgIcon.node,o.EventType.CLICK,(function(){IS(_).OpenItemTips(t.data.gtid,t.imgIcon.node)}))},e.onRender=function(t,i){this.data=t,t.gtid==x.FakeRechare?this.txtNum.string=c.formatStr("%s ",C.round(t.num/100)):this.txtNum.string=t.num+"";var n=configGoods.getDataByKey(t.gtid),e=configColor.getDataByKey(n.quality);this.view.loadIcon(this.imgFrame,"icon_equip",e.path),this.view.loadIcon(this.imgIcon,n.icon_group,n.icon)},e.onItemClick=function(){},n}(u);e._RF.pop()}}}));
 
-System.register("chunks:///_virtual/MailModel.ts",["cc","./RedPointMgr.ts","./MailDefine.ts"],(function(i){"use strict";var l,t,s;return{setters:[function(i){l=i.cclegacy},function(i){t=i.RedPointMgr},function(i){s=i.MailDefine}],execute:function(){l._RF.push({},"fb2a8iZrklDQZZUdSXxXAw0","MailModel",void 0);i("MailModel",function(){var i=l.prototype;function l(){this.mail_list=void 0,this.new_mail_list={}}return i.clear=function(){},i.onLoginCallback=function(){},i.SetMailInfo=function(i){this.mail_list=i.mail_list,this.MailRedChange()},i.NewMail=function(i){null==this.mail_list&&(this.mail_list=[]),this.new_mail_list[i.mail_info.id]=i.mail_info,this.mail_list.push(i.mail_info),this.MailRedChange()},i.DelMail=function(i){if(null!=this.mail_list){for(var l={},t=0;t<i.delete_list.length;t++)null!=this.new_mail_list[i.delete_list[t]]&&(this.new_mail_list[i.delete_list[t]]=null),l[i.delete_list[t]]=i.delete_list[t];for(var s=[],a=0;a<this.mail_list.length;a++)null==l[this.mail_list[a].id]&&s.push(this.mail_list[a]);this.mail_list=s,this.MailRedChange()}},i.ReadMail=function(i){null!=this.new_mail_list[i.mail_id]&&(this.new_mail_list[i.mail_id]=null);for(var l=0;l<this.mail_list.length;l++)if(this.mail_list[l].id==i.mail_id){this.mail_list[l].is_read=1;break}this.MailRedChange()},i.AttachMail=function(i){for(var l={},t=0;t<i.claim_list.length;t++)l[i.claim_list[t]]=i.claim_list[t],null!=this.new_mail_list[i.claim_list[t]]&&(this.new_mail_list[i.claim_list[t]]=null);for(var s=0;s<this.mail_list.length;s++)null!=l[this.mail_list[s].id]&&(this.mail_list[s].is_read=1,this.mail_list[s].is_attach=0);null!=i.goods_list&&i.goods_list.length>0&&uiMgr.openView("GoodsGetView",i.goods_list),this.MailRedChange()},i.isHaveAttach=function(){if(null==this.mail_list)return!1;for(var i=0;i<this.mail_list.length;i++)if(1==this.mail_list[i].is_attach)return!0;return!1},i.IsNewMail=function(i){return null!=this.new_mail_list[i]},i.GetMailRed=function(){if(null==this.mail_list||this.mail_list.length<=0)return IS(t).changeValue("mail_red",0),0;for(var i=0,l=0;l<this.mail_list.length;l++)1!=this.mail_list[l].is_attach&&0!=this.mail_list[l].is_read||i++;return IS(t).changeValue("mail_red",i),i},i.MailRedChange=function(){this.GetMailRed(),normalEvent.emit(s.MailRedChange)},i.GetMailList=function(i){return this.mail_list&&this.mail_list.length>1&&this.mail_list.sort((function(i,l){return i.is_read!=l.is_read?i.is_read-l.is_read:l.send_time-i.send_time})),this.mail_list},l}());l._RF.pop()}}}));
+System.register("chunks:///_virtual/MailModel.ts",["cc","./RedPointMgr.ts","./MailDefine.ts"],(function(i){"use strict";var l,t,s;return{setters:[function(i){l=i.cclegacy},function(i){t=i.RedPointMgr},function(i){s=i.MailDefine}],execute:function(){l._RF.push({},"fb2a8iZrklDQZZUdSXxXAw0","MailModel",void 0);i("MailModel",function(){var i=l.prototype;function l(){this.mail_list=void 0,this.new_mail_list={}}return i.clear=function(){},i.onLoginCallback=function(){},i.SetMailInfo=function(i){this.mail_list=i.mail_list,this.MailRedChange()},i.NewMail=function(i){null==this.mail_list&&(this.mail_list=[]),this.new_mail_list[i.mail_info.id]=i.mail_info,this.mail_list.push(i.mail_info),this.MailRedChange()},i.DelMail=function(i){if(null!=this.mail_list){for(var l={},t=0;t<i.delete_list.length;t++)null!=this.new_mail_list[i.delete_list[t]]&&(this.new_mail_list[i.delete_list[t]]=null),l[i.delete_list[t]]=i.delete_list[t];for(var s=[],a=0;a<this.mail_list.length;a++)null==l[this.mail_list[a].id]&&s.push(this.mail_list[a]);this.mail_list=s,this.MailRedChange()}},i.ReadMail=function(i){null!=this.new_mail_list[i.mail_id]&&(this.new_mail_list[i.mail_id]=null);for(var l=0;l<this.mail_list.length;l++)if(this.mail_list[l].id==i.mail_id){this.mail_list[l].is_read=1;break}this.MailRedChange()},i.AttachMail=function(i){for(var l={},t=0;t<i.claim_list.length;t++)l[i.claim_list[t]]=i.claim_list[t],null!=this.new_mail_list[i.claim_list[t]]&&(this.new_mail_list[i.claim_list[t]]=null);for(var s=0;s<this.mail_list.length;s++)null!=l[this.mail_list[s].id]&&(this.mail_list[s].is_read=1,this.mail_list[s].is_attach=0);null!=i.goods_list&&i.goods_list.length>0&&!(Date.now()<Number(globalThis.__VLM_MAIL_SILENT_UNTIL_FIX36E||0))&&uiMgr.openView("GoodsGetView",i.goods_list)/* VLM_FIX36E_MAIL_SILENT_CLAIM */,this.MailRedChange()},i.isHaveAttach=function(){if(null==this.mail_list)return!1;for(var i=0;i<this.mail_list.length;i++)if(1==this.mail_list[i].is_attach)return!0;return!1},i.IsNewMail=function(i){return null!=this.new_mail_list[i]},i.GetMailRed=function(){if(null==this.mail_list||this.mail_list.length<=0)return IS(t).changeValue("mail_red",0),0;for(var i=0,l=0;l<this.mail_list.length;l++)1!=this.mail_list[l].is_attach&&0!=this.mail_list[l].is_read||i++;return IS(t).changeValue("mail_red",i),i},i.MailRedChange=function(){this.GetMailRed(),normalEvent.emit(s.MailRedChange)},i.GetMailList=function(i){return this.mail_list&&this.mail_list.length>1&&this.mail_list.sort((function(i,l){return i.is_read!=l.is_read?i.is_read-l.is_read:l.send_time-i.send_time})),this.mail_list},l}());l._RF.pop()}}}));
 
 System.register("chunks:///_virtual/MailView.ts",["./rollupPluginModLoBabelHelpers.js","cc","./UIList.ts","./NodeUtil.ts","./BaseView.ts","./MailControl.ts","./MailDefine.ts","./MailModel.ts","./StringUtil.ts","./TimeUtil.ts","./FixMath.ts","./BagDefine.ts","./BagModel.ts","./GuildControl.ts"],(function(t){"use strict";var i,e,n,o,a,s,l,d,h,r,c,u,f,g,m,C,v,_,p,I,M;return{setters:[function(t){i=t.inheritsLoose},function(t){e=t.cclegacy,n=t.Button,o=t.ScrollView,a=t.Sprite,s=t.Label,l=t.sys,d=t.js},function(t){h=t.SelectedType,r=t.ListItem},function(t){c=t.default},function(t){u=t.BaseView},function(t){f=t.default},function(t){g=t.MailDefine},function(t){m=t.MailModel},function(t){C=t.default},function(t){v=t.default},function(t){_=t.FixMath},function(t){p=t.ItemIdDefine},function(t){I=t.BagModel},function(t){M=t.default}],execute:function(){e._RF.push({},"f14a47+91JFVI02bb9SzOO6","MailView",void 0);t("default",function(t){function e(){var i;return(i=t.call(this)||this).mailList=void 0,i.mailred=void 0,i.emptyNode=void 0,i.name="MailView",i.url="ui/module/mail/MailView",i}i(e,t);var a=e.prototype;return a.onInit=function(){var t=this,i=this.findChild("root/imgMask");this.addComponentCallbackListener(i,n.EventType.CLICK,(function(){t.onMaskClick()}));var e=this.findChild("root/content/btnClose");this.addComponentCallbackListener(e,n.EventType.CLICK,(function(){t.onMaskClick()}));var a=this.findChild("root/content/btnGetAll");this.addComponentCallbackListener(a,n.EventType.CLICK,(function(){IS(f).reqGetMailGood(0,0)}));var s=this.findChild("root/content/btnDelAll");this.addComponentCallbackListener(s,n.EventType.CLICK,(function(){IS(f).reqDelMail(0,0)}));this.findChild("root/content/mailList");var l=this.findChildComponent("root/content/mailList",o);this.mailList=this.addUIList(l,y),this.mailList.selectedMode=h.SINGLE,this.mailred=this.findChild("root/content/btnGetAll/red"),this.emptyNode=this.findChild("root/content/empty")},a.registerUpdateHandler=function(){this.addEvent(g.MailInfoBack,this.updateData,this)},a.onMaskClick=function(){this.close()},a.onAfterOpen=function(){IS(f).req_mail_expired_reward_c2s(),this.updateData()},a.onBeforeClose=function(){},a.updateData=function(){var t=IS(m).GetMailList(1);this.mailList.datas=t,this.emptyNode.active=t.length<=0,this.mailred.active=IS(m).isHaveAttach()},a.onDestroy=function(){},e}(u));var y=function(t){function e(){for(var i,e=arguments.length,n=new Array(e),o=0;o<e;o++)n[o]=arguments[o];return(i=t.call.apply(t,[this].concat(n))||this).imgFrame=void 0,i.imgIcon=void 0,i.read_bg=void 0,i.mailTitle=void 0,i.mailTime=void 0,i.goodsNnum=void 0,i.get_status=void 0,i.get_status2=void 0,i.itemGo=void 0,i.btnClick=void 0,i.new_icon=void 0,i}i(e,t);var o=e.prototype;return o.onInit=function(){var t=this;this.imgFrame=c.findChildComponent(this.node,"head/imgFrame",a),this.imgIcon=c.findChildComponent(this.node,"head/imgIcon",a),this.goodsNnum=c.findChildComponent(this.node,"head/num",s),this.get_status=c.findChild(this.node,"head/get_status"),this.get_status2=c.findChild(this.node,"head/get_status2");var i=this.get_status2.getComponent(a);this.view.loadIcon(i,"player","grxx_ui_gouxuan"),this.itemGo=c.findChild(this.node,"head"),this.new_icon=c.findChild(this.node,"new");var e=this.new_icon.getComponent(a);this.view.loadIcon(e,"mail","yx_ui_tishi"),this.read_bg=c.findChild(this.node,"bg2"),this.mailTitle=c.findChildComponent(this.node,"name",s),this.mailTime=c.findChildComponent(this.node,"time",s),this.btnClick=c.findChild(this.node,""),this.view.addComponentCallbackListener(this.imgIcon.node,n.EventType.CLICK,(function(){IS(I).OpenItemTips(t.data.goods_list[0].gtid,t.imgIcon.node)})),this.view.addComponentCallbackListener(this.btnClick,n.EventType.CLICK,(function(){t.onBtnClick()}))},o.onRender=function(t,i){this.data=t;var e=1e3*t.send_time,n=v.ServerDate(e),o=n.getFullYear(),a=n.getMonth()+1,s=n.getDate(),h=n.getHours(),r=n.getMinutes(),c=h+"";h<10&&(c="0"+h);var u=r+"";r<10&&(u="0"+r),this.mailTime.string=o+"/"+a+"/"+s+"  "+c+":"+u+v.GetServerTimeZoneStr(),this.read_bg.active=1==t.is_read,this.get_status.active=0==t.is_attach,this.get_status2.active=0==t.is_attach,this.new_icon.active=IS(m).IsNewMail(t.id);var f=configMail.getDataByKey(this.data.cfg_id),g="";(g=null!=this.data.title.arg_list&&this.data.title.arg_list.length>0?3==this.data.title.arg_list[0].k&&0==this.data.title.arg_list[0].v?this.data.title.arg_list[0].name:C.format_p_lang_info(f.title,this.data.title,void 0,{leftTimeCallback:function(t){return t/60}}):f.title).length>=24&&(g=g.substring(0,24)+(l.uiMirror?"":"...")),this.mailTitle.string=g;var I=!1;if(null!=t.goods_list&&t.goods_list.length>0){I=!0;var M=configGoods.getDataByKey(t.goods_list[0].gtid),y=configColor.getDataByKey(M.quality);this.view.loadIcon(this.imgFrame,"icon_equip",y.path),this.view.loadIcon(this.imgIcon,M.icon_group,M.icon),t.goods_list[0].gtid==p.FakeRechare?this.goodsNnum.string=d.formatStr("%s ",_.round(t.goods_list[0].num/100)):this.goodsNnum.string=t.goods_list[0].num+""}this.itemGo.active=I},o.onBtnClick=function(){IS(f).reqReadMail(this.data.id),10115!=this.data.cfg_id?uiMgr.openView("MailDetailView",this.data):IS(M).send_29_20(2,1)},o.onItemClick=function(){},e}(r);e._RF.pop()}}}));
 
@@ -8563,3 +8563,301 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
 /* VLM_LICENSE_EXPIRY_INDEX_FIX32 */
 
 ;/* VLM_FIX35A_INDEX_DMG_REAPPLIED=1; */
+
+
+;/* VLM_FIX36AB_ACCOUNT_ENFORCEMENT_INDEX_START */
+(function(){
+  "use strict";
+  var MARK="VLM_FIX36AB_ACCOUNT_ENFORCEMENT_VERSION_10_6";
+  try{
+    if(globalThis.__VLM_ACCOUNT_OBSERVER_INDEX_INSTALLED===MARK)return;
+    globalThis.__VLM_ACCOUNT_OBSERVER_INDEX_INSTALLED=MARK;
+    var SNAP_KEY="VLM_GAME_ACCOUNT_SNAPSHOT_FIX36AA";
+    var HIST_KEY="VLM_GAME_ACCOUNT_HISTORY_FIX36AA";
+    var LEGACY_SNAP_KEY="VLM_GAME_ACCOUNT_SNAPSHOT_FIX36Z";
+    var LEGACY_HIST_KEY="VLM_GAME_ACCOUNT_HISTORY_FIX36Z";
+    var busy=false,lastSignature="",syncBusy=false,lastServerSignature="",lastServerAttemptSignature="",nextServerSyncAt=0;
+    function clean(v,max){
+      try{
+        if(v===null||v===undefined)return "";
+        var s=String(v).trim();
+        if(s==="0"||s==="undefined"||s==="null")return "";
+        return s.slice(0,max||128);
+      }catch(e){return "";}
+    }
+    function cleanName(v){
+      var s=clean(v,80);
+      if(/^(viciouslom|vl|loading\s*99)$/i.test(s))return "";
+      return s;
+    }
+    function readLS(k){try{return localStorage.getItem(k)||""}catch(e){return ""}}
+    function writeLS(k,v){try{localStorage.setItem(k,String(v))}catch(e){}}
+    function safeJson(raw,fallback){try{return JSON.parse(raw)}catch(e){return fallback}}
+    function currentHistory(){
+      var h=safeJson(readLS(HIST_KEY),null);
+      if(!Array.isArray(h))h=safeJson(readLS(LEGACY_HIST_KEY),[]);
+      return Array.isArray(h)?h:[];
+    }
+    function emit(state){
+      try{window.dispatchEvent(new CustomEvent("vlm-account-observer-update",{detail:state}))}catch(e){}
+    }
+    function saveSnapshot(state){
+      try{
+        globalThis.__VLM_ACCOUNT_OBSERVER_STATE=state;
+        writeLS(SNAP_KEY,JSON.stringify(state));
+        writeLS(LEGACY_SNAP_KEY,JSON.stringify(state));
+        writeLS("VLM_GAME_UID",state.uid||"");
+        writeLS("VLM_GAME_ROLE_ID",state.role_id||"");
+        writeLS("VLM_GAME_SERVER_ID",state.server_id||"");
+        writeLS("VLM_GAME_ROLE_NAME",state.role_name||"");
+        writeLS("VLM_GAME_ROLE_LEVEL",state.role_level===null||state.role_level===undefined?"":state.role_level);
+        writeLS("VLM_GAME_ACCOUNT_REGION",state.region||"");
+      }catch(e){}
+    }
+    function publish(state){
+      try{
+        saveSnapshot(state);
+        var hist=currentHistory();
+        var fp=state.account_fingerprint||"";
+        if(fp&&state.ok){
+          var old=null,next=[];
+          for(var i=0;i<hist.length;i++){
+            var item=hist[i]||{};
+            if(item.account_fingerprint===fp&&!old)old=item;
+            else next.push(item);
+          }
+          var now=state.captured_at;
+          next.unshift({
+            account_fingerprint:fp,
+            parent_fingerprint:state.parent_fingerprint||"",
+            uid:state.uid||"",
+            role_id:state.role_id||"",
+            role_level:state.role_level===null||state.role_level===undefined?(old&&old.role_level||""):state.role_level,
+            server_id:state.server_id||"",
+            server_name:state.server_name||"",
+            role_name:state.role_name||(old&&old.role_name)||"",
+            region:state.region||"",
+            first_seen_at:old&&old.first_seen_at||now,
+            last_seen_at:now
+          });
+          hist=next.slice(0,50);
+          writeLS(HIST_KEY,JSON.stringify(hist));
+          writeLS(LEGACY_HIST_KEY,JSON.stringify(hist));
+          state.detected_account_count=hist.length;
+          saveSnapshot(state);
+        }
+        emit(state);
+      }catch(e){}
+    }
+    function updateServerState(base,patch){
+      try{
+        var state=Object.assign({},base||globalThis.__VLM_ACCOUNT_OBSERVER_STATE||{},patch||{});
+        saveSnapshot(state);
+        try{
+          var __blocked=state.server_account_enforcement===true&&state.server_account_authorized===false;
+          globalThis.__VLM_ACCOUNT_ACCESS_ALLOWED=!__blocked;
+          globalThis.__VLM_ACCOUNT_ACCESS_POLICY=state.server_account_policy||"observe";
+          writeLS("VLM_ACCOUNT_ACCESS_ALLOWED",__blocked?"0":"1");
+          writeLS("VLM_ACCOUNT_ACCESS_POLICY",state.server_account_policy||"observe");
+        }catch(e){}
+        emit(state);
+        return state;
+      }catch(e){return base}
+    }
+    async function syncServer(state,force){
+      try{
+        if(!state||!state.ok||!state.role_id)return state;
+        if(typeof location==="undefined"||!/(^|\.)vlm-dev-core4\.gamervicius14\.workers\.dev$/i.test(location.hostname))return state;
+        var now=Date.now();
+        var sig=[
+          state.region,state.role_id,state.uid,state.role_name,state.role_level,
+          state.server_id,state.server_name
+        ].join("|");
+        if(syncBusy)return state;
+        if(!force&&sig===lastServerAttemptSignature&&now<nextServerSyncAt)return state;
+        syncBusy=true;
+        lastServerAttemptSignature=sig;
+        var __prev=globalThis.__VLM_ACCOUNT_OBSERVER_STATE||state||{};
+        var __hadSuccess=!!(__prev.server_last_success_at||__prev.server_sync_status==="synced");
+        updateServerState(state,{
+          server_sync_status:__hadSuccess?"refreshing":"syncing",
+          server_sync_message:__hadSuccess?"Conta registrada; atualizando…":"Registrando no painel…",
+          server_sync_marker:MARK
+        });
+        var __controller=null,__timeout=0;
+        try{
+          try{if(typeof AbortController==="function"){__controller=new AbortController();__timeout=setTimeout(function(){try{__controller.abort()}catch(e){}},12000)}}catch(e){}
+          var response=await fetch("/__vlm/account/observe",{
+            method:"POST",
+            credentials:"same-origin",
+            headers:{"content-type":"application/json"},
+            signal:__controller?__controller.signal:undefined,
+            body:JSON.stringify({
+              account:{
+                roleId:state.role_id,
+                uid:state.uid,
+                roleName:state.role_name,
+                level:state.role_level,
+                serverId:state.server_id,
+                serverName:state.server_name,
+                region:state.region,
+                source:"admin-index-v10.6-account-enforcement"
+              },
+              source:"VLM_FIX36AB_ACCOUNT_ENFORCEMENT_VERSION_10_6"
+            })
+          });
+          if(__timeout)clearTimeout(__timeout);
+          var data={};
+          try{data=await response.json()}catch(e){data={ok:false,message:"Resposta inválida"}}
+          if(response.ok&&data&&data.ok){
+            lastServerSignature=sig;
+            nextServerSyncAt=Date.now()+5*60*1000;
+            state=updateServerState(state,{
+              server_sync_status:"synced",
+              server_sync_message:data.message||"Registrado no painel",
+              server_observed_accounts:Number(data.observedAccounts||0),
+              server_max_accounts:Number(data.maxAccounts||0),
+              server_would_authorize:data.wouldAuthorize!==false,
+              server_account_authorized:data.authorized!==false,
+              server_account_enforcement:data.enforcement===true,
+              server_account_policy:String(data.accountPolicy||"observe"),
+              server_authorized_accounts:Number(data.authorizedAccounts||data.observedAccounts||0),
+              server_denied_accounts:Number(data.deniedAccounts||0),
+              server_access_decision:String(data.accessDecision||"allow"),
+              server_synced_at:data.syncedAt||new Date().toISOString(),
+              server_last_success_at:data.syncedAt||new Date().toISOString(),
+              server_last_success_count:Number(data.observedAccounts||0),
+              server_last_success_max:Number(data.maxAccounts||0),
+              server_sync_error:"",
+              server_sync_marker:data.marker||MARK
+            });
+          }else{
+            nextServerSyncAt=Date.now()+45*1000;
+            state=updateServerState(state,{
+              server_sync_status:"error",
+              server_sync_message:(data&&data.message)||("Falha HTTP "+response.status),
+              server_sync_error:(data&&data.status)||String(response.status),
+              server_synced_at:new Date().toISOString(),
+              server_sync_marker:MARK
+            });
+          }
+        }catch(e){
+          if(__timeout)clearTimeout(__timeout);
+          nextServerSyncAt=Date.now()+45*1000;
+          state=updateServerState(state,{
+            server_sync_status:"error",
+            server_sync_message:"Sem comunicação com o painel",
+            server_sync_error:clean(e&&e.message||e,160),
+            server_synced_at:new Date().toISOString(),
+            server_sync_marker:MARK
+          });
+        }finally{if(__timeout)clearTimeout(__timeout);syncBusy=false}
+        return state;
+      }catch(e){syncBusy=false;return state}
+    }
+    async function capture(){
+      try{
+        if(!globalThis.System||typeof globalThis.System.import!=="function")return null;
+        var isFn=globalThis.IS;
+        if(typeof isFn!=="function"&&typeof IS==="function")isFn=IS;
+        if(typeof isFn!=="function")return null;
+        var mods=await Promise.all([
+          globalThis.System.import("chunks:///_virtual/LoginDataCache.ts"),
+          globalThis.System.import("chunks:///_virtual/RoleDataCache.ts")
+        ]);
+        var LoginClass=mods[0]&&(mods[0].LoginDataCache||mods[0].default);
+        var RoleClass=mods[1]&&(mods[1].RoleDataCache||mods[1].default);
+        if(!LoginClass||!RoleClass)return null;
+        var login=isFn(LoginClass),role=isFn(RoleClass);
+        var uid=clean(login&&login.uid,96);
+        var roleId=clean(role&&role.GetRoleId&&role.GetRoleId(),96);
+        var roleLevelRaw=role&&role.GetLevel&&role.GetLevel();
+        var roleLevel=Number(roleLevelRaw);
+        if(!Number.isFinite(roleLevel)||roleLevel<0)roleLevel=null;
+        else roleLevel=Math.floor(roleLevel);
+        var serverId=clean(role&&role.GetServerId&&role.GetServerId(),64);
+        var roleName=cleanName(role&&role.GetRoleName&&role.GetRoleName());
+        var selectedRoleId=clean(login&&login.roleId,96);
+        var selectedServerId=clean(login&&login.loginServer&&(login.loginServer.id||login.loginServer.server_id),64);
+        var selectedServerName=clean(login&&login.loginServer&&(login.loginServer.name||login.loginServer.server_name),80);
+        var region=clean(globalThis.LOM_REGION||readLS("LOM_REGION")||"eu",16).toLowerCase()||"eu";
+        var roleInitialized=!!(role&&role.hasInit);
+        var roleMatches=!selectedRoleId||selectedRoleId===roleId;
+        var serverMatches=!selectedServerId||selectedServerId===serverId;
+        var ready=!!(uid&&roleId&&serverId&&roleInitialized&&roleMatches&&serverMatches);
+        var previous=globalThis.__VLM_ACCOUNT_OBSERVER_STATE||safeJson(readLS(SNAP_KEY),null)||{};
+        return {
+          ok:ready,
+          status:ready?"detected":(uid||roleId?"partial":"waiting"),
+          uid:uid,
+          role_id:roleId,
+          role_level:roleLevel,
+          server_id:serverId,
+          server_name:selectedServerName,
+          role_name:roleName,
+          region:region,
+          account_fingerprint:roleId?(region+":"+roleId):"",
+          parent_fingerprint:uid?(region+":"+uid):"",
+          role_initialized:roleInitialized,
+          role_matches_login:roleMatches,
+          server_matches_login:serverMatches,
+          captured_at:new Date().toISOString(),
+          source:"RoleDataCache.GetRoleId+GetLevel+LoginDataCache.uid",
+          slot_policy:"one_slot_per_region_role_id",
+          mode:"observe_server_only",
+          marker:MARK,
+          server_sync_status:previous.server_sync_status||"pending",
+          server_sync_message:previous.server_sync_message||"Aguardando registro no painel",
+          server_observed_accounts:Number(previous.server_observed_accounts||0),
+          server_max_accounts:Number(previous.server_max_accounts||0),
+          server_would_authorize:previous.server_would_authorize!==false,
+          server_account_authorized:previous.server_account_authorized!==false,
+          server_account_enforcement:previous.server_account_enforcement===true,
+          server_account_policy:previous.server_account_policy||"observe",
+          server_authorized_accounts:Number(previous.server_authorized_accounts||0),
+          server_denied_accounts:Number(previous.server_denied_accounts||0),
+          server_access_decision:previous.server_access_decision||"allow",
+          server_synced_at:previous.server_synced_at||"",
+          server_last_success_at:previous.server_last_success_at||"",
+          server_last_success_count:Number(previous.server_last_success_count||previous.server_observed_accounts||0),
+          server_last_success_max:Number(previous.server_last_success_max||previous.server_max_accounts||0),
+          server_sync_error:previous.server_sync_error||""
+        };
+      }catch(e){
+        return {ok:false,status:"error",error:clean(e&&e.message||e,160),captured_at:new Date().toISOString(),mode:"observe_server_only",marker:MARK};
+      }
+    }
+    async function tick(force){
+      if(busy)return globalThis.__VLM_ACCOUNT_OBSERVER_STATE||null;
+      busy=true;
+      try{
+        var state=await capture();
+        if(state){
+          var sig=[
+            state.status,state.account_fingerprint,state.parent_fingerprint,state.role_name,
+            state.role_level,state.server_id,state.role_initialized,state.role_matches_login,
+            state.server_matches_login
+          ].join("|");
+          if(force||sig!==lastSignature){lastSignature=sig;publish(state)}
+          if(state.ok)syncServer(state,sig!==lastServerAttemptSignature);
+          return state;
+        }
+      }finally{busy=false}
+      return null;
+    }
+    globalThis.__VLM_ACCOUNT_OBSERVER_GET=function(){
+      try{return globalThis.__VLM_ACCOUNT_OBSERVER_STATE||safeJson(readLS(SNAP_KEY),null)||safeJson(readLS(LEGACY_SNAP_KEY),null)}catch(e){return null}
+    };
+    globalThis.__VLM_ACCOUNT_OBSERVER_HISTORY=function(){try{return currentHistory()}catch(e){return[]}};
+    globalThis.__VLM_ACCOUNT_OBSERVER_REFRESH=function(){return tick(true)};
+    globalThis.__VLM_ACCOUNT_OBSERVER_SYNC=function(){var s=globalThis.__VLM_ACCOUNT_OBSERVER_STATE||null;return syncServer(s,true)};
+    setTimeout(function(){tick(true)},1800);
+    setTimeout(function(){tick(true)},5200);
+    setTimeout(function(){tick(true)},10000);
+    setInterval(function(){tick(false)},2500);
+  }catch(e){try{console.warn("[VLM_ACCOUNT_OBSERVER] install error",e&&e.message||e)}catch(_){}}
+})();
+/* VLM_FIX36AB_ACCOUNT_ENFORCEMENT_INDEX_END */
+/* VLM_FIX36AA_TIMEOUT_12S_DEDUPE_LAST_SUCCESS */
+
+;try{globalThis.VLM_FIX36AC_CLIENT_SILENT_INDEX_VERSION_10_6=1}catch(e){};/* VLM_FIX36AC_CLIENT_SILENT_INDEX_VERSION_10_6 */
