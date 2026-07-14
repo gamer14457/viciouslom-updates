@@ -8565,18 +8565,18 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
 ;/* VLM_FIX35A_INDEX_DMG_REAPPLIED=1; */
 
 
-;/* VLM_FIX36Z_ROLEID_SERVER_OBSERVER_INDEX_START */
+;/* VLM_FIX36AA_ROLEID_SYNC_STABLE_INDEX_START */
 (function(){
   "use strict";
-  var MARK="VLM_FIX36Z_ROLEID_SERVER_OBSERVER_VERSION_10_4";
+  var MARK="VLM_FIX36AA_ROLEID_SYNC_STABLE_VERSION_10_5";
   try{
     if(globalThis.__VLM_ACCOUNT_OBSERVER_INDEX_INSTALLED===MARK)return;
     globalThis.__VLM_ACCOUNT_OBSERVER_INDEX_INSTALLED=MARK;
-    var SNAP_KEY="VLM_GAME_ACCOUNT_SNAPSHOT_FIX36Z";
-    var HIST_KEY="VLM_GAME_ACCOUNT_HISTORY_FIX36Z";
-    var LEGACY_SNAP_KEY="VLM_GAME_ACCOUNT_SNAPSHOT_FIX36Y";
-    var LEGACY_HIST_KEY="VLM_GAME_ACCOUNT_HISTORY_FIX36Y";
-    var busy=false,lastSignature="",syncBusy=false,lastServerSignature="",nextServerSyncAt=0;
+    var SNAP_KEY="VLM_GAME_ACCOUNT_SNAPSHOT_FIX36AA";
+    var HIST_KEY="VLM_GAME_ACCOUNT_HISTORY_FIX36AA";
+    var LEGACY_SNAP_KEY="VLM_GAME_ACCOUNT_SNAPSHOT_FIX36Z";
+    var LEGACY_HIST_KEY="VLM_GAME_ACCOUNT_HISTORY_FIX36Z";
+    var busy=false,lastSignature="",syncBusy=false,lastServerSignature="",lastServerAttemptSignature="",nextServerSyncAt=0;
     function clean(v,max){
       try{
         if(v===null||v===undefined)return "";
@@ -8667,18 +8667,24 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
           state.server_id,state.server_name
         ].join("|");
         if(syncBusy)return state;
-        if(!force&&sig===lastServerSignature&&now<nextServerSyncAt)return state;
+        if(!force&&sig===lastServerAttemptSignature&&now<nextServerSyncAt)return state;
         syncBusy=true;
+        lastServerAttemptSignature=sig;
+        var __prev=globalThis.__VLM_ACCOUNT_OBSERVER_STATE||state||{};
+        var __hadSuccess=!!(__prev.server_last_success_at||__prev.server_sync_status==="synced");
         updateServerState(state,{
-          server_sync_status:"syncing",
-          server_sync_message:"Registrando no painel…",
+          server_sync_status:__hadSuccess?"refreshing":"syncing",
+          server_sync_message:__hadSuccess?"Conta registrada; atualizando…":"Registrando no painel…",
           server_sync_marker:MARK
         });
+        var __controller=null,__timeout=0;
         try{
+          try{if(typeof AbortController==="function"){__controller=new AbortController();__timeout=setTimeout(function(){try{__controller.abort()}catch(e){}},12000)}}catch(e){}
           var response=await fetch("/__vlm/account/observe",{
             method:"POST",
             credentials:"same-origin",
             headers:{"content-type":"application/json"},
+            signal:__controller?__controller.signal:undefined,
             body:JSON.stringify({
               account:{
                 roleId:state.role_id,
@@ -8690,9 +8696,10 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
                 region:state.region,
                 source:"admin-index-v10.4-roleid-observer"
               },
-              source:"VLM_FIX36Z_ROLEID_SERVER_OBSERVER_VERSION_10_4"
+              source:"VLM_FIX36AA_ROLEID_SYNC_STABLE_VERSION_10_5"
             })
           });
+          if(__timeout)clearTimeout(__timeout);
           var data={};
           try{data=await response.json()}catch(e){data={ok:false,message:"Resposta inválida"}}
           if(response.ok&&data&&data.ok){
@@ -8705,11 +8712,14 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
               server_max_accounts:Number(data.maxAccounts||0),
               server_would_authorize:data.wouldAuthorize!==false,
               server_synced_at:data.syncedAt||new Date().toISOString(),
+              server_last_success_at:data.syncedAt||new Date().toISOString(),
+              server_last_success_count:Number(data.observedAccounts||0),
+              server_last_success_max:Number(data.maxAccounts||0),
               server_sync_error:"",
               server_sync_marker:data.marker||MARK
             });
           }else{
-            nextServerSyncAt=Date.now()+60*1000;
+            nextServerSyncAt=Date.now()+45*1000;
             state=updateServerState(state,{
               server_sync_status:"error",
               server_sync_message:(data&&data.message)||("Falha HTTP "+response.status),
@@ -8719,7 +8729,8 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
             });
           }
         }catch(e){
-          nextServerSyncAt=Date.now()+60*1000;
+          if(__timeout)clearTimeout(__timeout);
+          nextServerSyncAt=Date.now()+45*1000;
           state=updateServerState(state,{
             server_sync_status:"error",
             server_sync_message:"Sem comunicação com o painel",
@@ -8727,7 +8738,7 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
             server_synced_at:new Date().toISOString(),
             server_sync_marker:MARK
           });
-        }finally{syncBusy=false}
+        }finally{if(__timeout)clearTimeout(__timeout);syncBusy=false}
         return state;
       }catch(e){syncBusy=false;return state}
     }
@@ -8788,6 +8799,9 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
           server_max_accounts:Number(previous.server_max_accounts||0),
           server_would_authorize:previous.server_would_authorize!==false,
           server_synced_at:previous.server_synced_at||"",
+          server_last_success_at:previous.server_last_success_at||"",
+          server_last_success_count:Number(previous.server_last_success_count||previous.server_observed_accounts||0),
+          server_last_success_max:Number(previous.server_last_success_max||previous.server_max_accounts||0),
           server_sync_error:previous.server_sync_error||""
         };
       }catch(e){
@@ -8806,7 +8820,7 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
             state.server_matches_login
           ].join("|");
           if(force||sig!==lastSignature){lastSignature=sig;publish(state)}
-          if(state.ok)syncServer(state,force||sig!==lastServerSignature);
+          if(state.ok)syncServer(state,sig!==lastServerAttemptSignature);
           return state;
         }
       }finally{busy=false}
@@ -8824,4 +8838,5 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
     setInterval(function(){tick(false)},2500);
   }catch(e){try{console.warn("[VLM_ACCOUNT_OBSERVER] install error",e&&e.message||e)}catch(_){}}
 })();
-/* VLM_FIX36Z_ROLEID_SERVER_OBSERVER_INDEX_END */
+/* VLM_FIX36AA_ROLEID_SYNC_STABLE_INDEX_END */
+/* VLM_FIX36AA_TIMEOUT_12S_DEDUPE_LAST_SUCCESS */
