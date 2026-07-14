@@ -8565,10 +8565,10 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
 ;/* VLM_FIX35A_INDEX_DMG_REAPPLIED=1; */
 
 
-;/* VLM_FIX36AA_ROLEID_SYNC_STABLE_INDEX_START */
+;/* VLM_FIX36AB_ACCOUNT_ENFORCEMENT_INDEX_START */
 (function(){
   "use strict";
-  var MARK="VLM_FIX36AA_ROLEID_SYNC_STABLE_VERSION_10_5";
+  var MARK="VLM_FIX36AB_ACCOUNT_ENFORCEMENT_VERSION_10_6";
   try{
     if(globalThis.__VLM_ACCOUNT_OBSERVER_INDEX_INSTALLED===MARK)return;
     globalThis.__VLM_ACCOUNT_OBSERVER_INDEX_INSTALLED=MARK;
@@ -8653,6 +8653,13 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
       try{
         var state=Object.assign({},base||globalThis.__VLM_ACCOUNT_OBSERVER_STATE||{},patch||{});
         saveSnapshot(state);
+        try{
+          var __blocked=state.server_account_enforcement===true&&state.server_account_authorized===false;
+          globalThis.__VLM_ACCOUNT_ACCESS_ALLOWED=!__blocked;
+          globalThis.__VLM_ACCOUNT_ACCESS_POLICY=state.server_account_policy||"observe";
+          writeLS("VLM_ACCOUNT_ACCESS_ALLOWED",__blocked?"0":"1");
+          writeLS("VLM_ACCOUNT_ACCESS_POLICY",state.server_account_policy||"observe");
+        }catch(e){}
         emit(state);
         return state;
       }catch(e){return base}
@@ -8694,9 +8701,9 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
                 serverId:state.server_id,
                 serverName:state.server_name,
                 region:state.region,
-                source:"admin-index-v10.4-roleid-observer"
+                source:"admin-index-v10.6-account-enforcement"
               },
-              source:"VLM_FIX36AA_ROLEID_SYNC_STABLE_VERSION_10_5"
+              source:"VLM_FIX36AB_ACCOUNT_ENFORCEMENT_VERSION_10_6"
             })
           });
           if(__timeout)clearTimeout(__timeout);
@@ -8711,6 +8718,12 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
               server_observed_accounts:Number(data.observedAccounts||0),
               server_max_accounts:Number(data.maxAccounts||0),
               server_would_authorize:data.wouldAuthorize!==false,
+              server_account_authorized:data.authorized!==false,
+              server_account_enforcement:data.enforcement===true,
+              server_account_policy:String(data.accountPolicy||"observe"),
+              server_authorized_accounts:Number(data.authorizedAccounts||data.observedAccounts||0),
+              server_denied_accounts:Number(data.deniedAccounts||0),
+              server_access_decision:String(data.accessDecision||"allow"),
               server_synced_at:data.syncedAt||new Date().toISOString(),
               server_last_success_at:data.syncedAt||new Date().toISOString(),
               server_last_success_count:Number(data.observedAccounts||0),
@@ -8798,6 +8811,12 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
           server_observed_accounts:Number(previous.server_observed_accounts||0),
           server_max_accounts:Number(previous.server_max_accounts||0),
           server_would_authorize:previous.server_would_authorize!==false,
+          server_account_authorized:previous.server_account_authorized!==false,
+          server_account_enforcement:previous.server_account_enforcement===true,
+          server_account_policy:previous.server_account_policy||"observe",
+          server_authorized_accounts:Number(previous.server_authorized_accounts||0),
+          server_denied_accounts:Number(previous.server_denied_accounts||0),
+          server_access_decision:previous.server_access_decision||"allow",
           server_synced_at:previous.server_synced_at||"",
           server_last_success_at:previous.server_last_success_at||"",
           server_last_success_count:Number(previous.server_last_success_count||previous.server_observed_accounts||0),
@@ -8838,5 +8857,5 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
     setInterval(function(){tick(false)},2500);
   }catch(e){try{console.warn("[VLM_ACCOUNT_OBSERVER] install error",e&&e.message||e)}catch(_){}}
 })();
-/* VLM_FIX36AA_ROLEID_SYNC_STABLE_INDEX_END */
+/* VLM_FIX36AB_ACCOUNT_ENFORCEMENT_INDEX_END */
 /* VLM_FIX36AA_TIMEOUT_12S_DEDUPE_LAST_SUCCESS */
