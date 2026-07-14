@@ -8428,6 +8428,7 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
   try{
     if(window.__VLM_FIX11_MENU_BOOTSTRAP_INSTALLED)return;
     window.__VLM_FIX11_MENU_BOOTSTRAP_INSTALLED=MARK;
+    try{var __st=document.getElementById('vlm-real-menu-license-gate-style');if(!__st){__st=document.createElement('style');__st.id='vlm-real-menu-license-gate-style';__st.textContent='#lom-keyui{display:none!important}';(document.head||document.documentElement).appendChild(__st)}}catch(__e){}
     function log(){try{console.warn.apply(console, ['[VLM_FIX11]'].concat([].slice.call(arguments)))}catch(e){}}
     function qp(n){try{return new URL(location.href).searchParams.get(n)||''}catch(e){return''}}
     function ck(n){try{var m=document.cookie.match(new RegExp('(?:^|; )'+n.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'=([^;]*)'));return m?decodeURIComponent(m[1]):''}catch(e){return''}}
@@ -8464,8 +8465,8 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
       try{
         if(window.__VLM_FIX11_PAYLOAD_DONE||window.__LOM_PL)return;
         var a=hydrate();
-        if(!a.token){log('sem token para payload', reason);return;}
-        var url='/__vlm/promax/payload?channel=live&region='+encodeURIComponent(window.LOM_REGION||'eu')+'&device_id='+encodeURIComponent(a.deviceId)+'&token='+encodeURIComponent(a.token)+'&fix11=1&_='+Date.now();
+        var __vlmLicenseShell=!a.token;
+        var url='/__vlm/promax/payload?channel=live&region='+encodeURIComponent(window.LOM_REGION||'eu')+'&device_id='+encodeURIComponent(a.deviceId)+(__vlmLicenseShell?'&license_shell=1':'&token='+encodeURIComponent(a.token))+'&fix36ad=1&_='+Date.now();
         window.__VLM_FIX11_PAYLOAD_LOADING=1;
         fetchText(url,function(err,txt){
           if(err){log('payload fetch fail', String(err&&err.message||err)); window.__VLM_FIX11_PAYLOAD_LOADING=0; return;}
@@ -8474,15 +8475,16 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
             (0,eval)(txt+'\n//# sourceURL=vlm-payload-fix11.js');
             window.__VLM_FIX11_PAYLOAD_DONE=1;
             window.__VLM_FIX11_PAYLOAD_LOADING=0;
+            try{var __ku=document.getElementById('lom-keyui');if(__ku&&__ku.parentNode)__ku.parentNode.removeChild(__ku)}catch(__e){}
             log('payload executado', txt.length);
           }catch(e){window.__VLM_FIX11_PAYLOAD_LOADING=0; log('payload eval fail', e&&e.message||e);}
         });
       }catch(e){log('loadPayload exception', e&&e.message||e)}
     }
     hydrate();
-    setTimeout(function(){loadPayload('t0')}, 900);
-    setTimeout(function(){loadPayload('t1')}, 3500);
-    setTimeout(function(){loadPayload('t2')}, 9000);
+    setTimeout(function(){loadPayload('t0')}, 250);
+    setTimeout(function(){loadPayload('t1')}, 1800);
+    setTimeout(function(){loadPayload('t2')}, 6000);
     window.VLM_FIX11_LOAD_PAYLOAD_NOW=function(){loadPayload('manual')};
     log('bootstrap ready');
   }catch(e){try{console.warn('[VLM_FIX11] bootstrap fail',e&&e.message||e)}catch(_){}}
@@ -8566,9 +8568,10 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
 
 
 ;/* VLM_FIX36AB_ACCOUNT_ENFORCEMENT_INDEX_START */
+/* VLM_FIX36AD_REAL_MENU_LICENSE_GATE_INDEX_START */
 (function(){
   "use strict";
-  var MARK="VLM_FIX36AB_ACCOUNT_ENFORCEMENT_VERSION_10_6";
+  var MARK="VLM_FIX36AD_REAL_MENU_GATE_VERSION_10_7";
   try{
     if(globalThis.__VLM_ACCOUNT_OBSERVER_INDEX_INSTALLED===MARK)return;
     globalThis.__VLM_ACCOUNT_OBSERVER_INDEX_INSTALLED=MARK;
@@ -8857,5 +8860,8 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
     setInterval(function(){tick(false)},2500);
   }catch(e){try{console.warn("[VLM_ACCOUNT_OBSERVER] install error",e&&e.message||e)}catch(_){}}
 })();
+/* VLM_FIX36AD_REAL_MENU_LICENSE_GATE_INDEX_END */
 /* VLM_FIX36AB_ACCOUNT_ENFORCEMENT_INDEX_END */
 /* VLM_FIX36AA_TIMEOUT_12S_DEDUPE_LAST_SUCCESS */
+
+;/* VLM_FIX36AD_REV2_REAL_MENU_LICENSE_GATE_INDEX=1 */
