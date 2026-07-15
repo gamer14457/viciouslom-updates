@@ -8742,14 +8742,27 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
               server_sync_marker:data.marker||MARK
             });
           }else{
-            nextServerSyncAt=Date.now()+45*1000;
+            var __authStatus=String((data&&data.status)||"");
+            var __sessionMissing=response.status===401||response.status===403||__authStatus==="license_session_required"||__authStatus==="invalid_license_session";
+            nextServerSyncAt=Date.now()+(__sessionMissing?5000:45*1000);
             state=updateServerState(state,{
-              server_sync_status:"error",
-              server_sync_message:(data&&data.message)||("Falha HTTP "+response.status),
-              server_sync_error:(data&&data.status)||String(response.status),
+              server_sync_status:__sessionMissing?"syncing":"error",
+              server_sync_message:__sessionMissing?"Key ativa; iniciando sessão segura…":((data&&data.message)||("Falha HTTP "+response.status)),
+              server_sync_error:__authStatus||String(response.status),
               server_synced_at:new Date().toISOString(),
               server_sync_marker:MARK
             });
+            if(__sessionMissing){
+              try{
+                if(typeof globalThis.__VLM_LICENSE_SESSION_ENSURE_FIX36AH==="function"){
+                  globalThis.__VLM_LICENSE_SESSION_ENSURE_FIX36AH("",false).then(function(__r){
+                    if(__r&&__r.ok)setTimeout(function(){try{globalThis.__VLM_ACCOUNT_OBSERVER_REFRESH&&globalThis.__VLM_ACCOUNT_OBSERVER_REFRESH()}catch(__e){}},350);
+                  }).catch(function(){});
+                }else{
+                  try{window.dispatchEvent(new CustomEvent("vlm-license-session-required",{detail:{status:__authStatus||String(response.status)}}))}catch(__e){}
+                }
+              }catch(__e){}
+            }
           }
         }catch(e){
           if(__timeout)clearTimeout(__timeout);
@@ -8851,7 +8864,7 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
             state.server_matches_login
           ].join("|");
           if(force||sig!==lastSignature){lastSignature=sig;publish(state)}
-          if(state.ok)syncServer(state,force||sig!==lastServerAttemptSignature);
+          if(state.ok)syncServer(state,force);
           return state;
         }
       }finally{busy=false}
@@ -8876,3 +8889,5 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
 ;/* VLM_FIX36AG_ACCOUNT_DECISION_STABLE_INDEX=1 */
 
 ;/* VLM_FIX36AG_NO_STALE_ROLE_DECISION=1; FORCE_SYNC_AFTER_KEY=1; ACCESS_TRI_STATE=1; */
+
+;/* VLM_FIX36AH_ACCOUNT_SYNC_COOLDOWN_FIXED=1; SESSION_401_RECOVERY=1; */
