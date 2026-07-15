@@ -1,0 +1,1312 @@
+[
+  {
+    "module": "AchievementView.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 7929,
+    "client_size": 7929,
+    "admin_sha": "a8c4a59e78570511cd1ebcbe78fbf6762f0db0c61dad017e073aa3769063bddf",
+    "client_sha": "a8c4a59e78570511cd1ebcbe78fbf6762f0db0c61dad017e073aa3769063bddf",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "ActivityAutumnRankView.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 10939,
+    "client_size": 10939,
+    "admin_sha": "3713857cd921729511d56fb99829f5ff93a6c6e0012c223df96c1960bee18a07",
+    "client_sha": "3713857cd921729511d56fb99829f5ff93a6c6e0012c223df96c1960bee18a07",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "ActivityDataCache.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 36741,
+    "client_size": 36741,
+    "admin_sha": "3c50370f81a589814c46471b596487a98958f56d1f122bd09a821865e64d4666",
+    "client_sha": "3c50370f81a589814c46471b596487a98958f56d1f122bd09a821865e64d4666",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "ActivityLhsyRankView.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 13692,
+    "client_size": 13692,
+    "admin_sha": "83ec6039af9302ebcc58fc64a56115120258a3cdf9b61404280f1859fddf6b8f",
+    "client_sha": "83ec6039af9302ebcc58fc64a56115120258a3cdf9b61404280f1859fddf6b8f",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "ActivityLhsyTeamView.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 9058,
+    "client_size": 9058,
+    "admin_sha": "9192f2bc4c1238940795702ace2f035d4dd1fe7703645322234212a0fd093402",
+    "client_sha": "9192f2bc4c1238940795702ace2f035d4dd1fe7703645322234212a0fd093402",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "AdModel.ts",
+    "status": "MEDIO",
+    "danger_score": 12,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 5169,
+    "client_size": 5169,
+    "admin_sha": "3e4422b6a4f3aaad897d5af893f32b83198826872964c62a300ef347340664f2",
+    "client_sha": "3e4422b6a4f3aaad897d5af893f32b83198826872964c62a300ef347340664f2",
+    "similarity": 1.0,
+    "counts": {
+      "VLM_FIREWALL": 3,
+      "setTimeout": 1,
+      "清除广告奖励": 1
+    },
+    "reasons": [
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "ArtifactControl.ts",
+    "status": "MEDIO",
+    "danger_score": 8,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 13714,
+    "client_size": 13714,
+    "admin_sha": "4db536d5455d69c728af23c13f04b7d081d8ffc26b9000ca9b99fb1f3d3dc155",
+    "client_sha": "4db536d5455d69c728af23c13f04b7d081d8ffc26b9000ca9b99fb1f3d3dc155",
+    "similarity": 1.0,
+    "counts": {
+      "setInterval": 1,
+      "setTimeout": 3,
+      "localStorage": 9
+    },
+    "reasons": [
+      "setInterval",
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "ArtifactDataCache.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 8113,
+    "client_size": 8113,
+    "admin_sha": "66fab0d947ce6dc84f2916e12676b6bc85d886e78a3c6a8d01c883d742de1877",
+    "client_sha": "66fab0d947ce6dc84f2916e12676b6bc85d886e78a3c6a8d01c883d742de1877",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "BadgeControl.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 3444,
+    "client_size": 3444,
+    "admin_sha": "c7b73dea49f4231078ad5a5093c27d57a1fbb3fd783163722a76e5da600c0814",
+    "client_sha": "c7b73dea49f4231078ad5a5093c27d57a1fbb3fd783163722a76e5da600c0814",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "BadgeDungeonView.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 6703,
+    "client_size": 6703,
+    "admin_sha": "2cf4b1c72e276947cb6aef64c10213004978a7d177344c04e61a1fe0535cbd14",
+    "client_sha": "2cf4b1c72e276947cb6aef64c10213004978a7d177344c04e61a1fe0535cbd14",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "BattleMain.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 7145,
+    "client_size": 7145,
+    "admin_sha": "715af6ae9fca93d33c7a3081b0cf1eda2c6f805de03c29416f1d7ccb4ba52827",
+    "client_sha": "715af6ae9fca93d33c7a3081b0cf1eda2c6f805de03c29416f1d7ccb4ba52827",
+    "similarity": 1.0,
+    "counts": {
+      "VLM_FIREWALL": 3,
+      "localStorage": 8
+    },
+    "reasons": []
+  },
+  {
+    "module": "BattlePassDataCache.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 3920,
+    "client_size": 3920,
+    "admin_sha": "e03b7c2f978cb5da4b37a50f309a9a59cc14405ae691271ce91ddab81f5863c6",
+    "client_sha": "e03b7c2f978cb5da4b37a50f309a9a59cc14405ae691271ce91ddab81f5863c6",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "BattleChapterMainPanel.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 5245,
+    "client_size": 5245,
+    "admin_sha": "4efee883604de6d914a53bb439857b31543899fb18bc4b7f79261d9cf2ef0426",
+    "client_sha": "4efee883604de6d914a53bb439857b31543899fb18bc4b7f79261d9cf2ef0426",
+    "similarity": 1.0,
+    "counts": {
+      "VICIØUSLOM": 1,
+      "VLM_CHAPTER_NEON_FAIL": 1
+    },
+    "reasons": []
+  },
+  {
+    "module": "BubbleControl.ts",
+    "status": "MEDIO",
+    "danger_score": 14,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 6235,
+    "client_size": 6235,
+    "admin_sha": "9b975378876a81ff591a17c9183fcca47f48bb1bfe2b5b9fea5bab25a3272a3e",
+    "client_sha": "9b975378876a81ff591a17c9183fcca47f48bb1bfe2b5b9fea5bab25a3272a3e",
+    "similarity": 1.0,
+    "counts": {
+      "setInterval": 1,
+      "setTimeout": 6,
+      "localStorage": 11
+    },
+    "reasons": [
+      "setInterval",
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "BubbleDataCache.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 6527,
+    "client_size": 6527,
+    "admin_sha": "2cefec9aa3704252128b57ff31abbccfc4b75a2c35af26510445dac0c8e9baad",
+    "client_sha": "2cefec9aa3704252128b57ff31abbccfc4b75a2c35af26510445dac0c8e9baad",
+    "similarity": 1.0,
+    "counts": {
+      "localStorage": 9
+    },
+    "reasons": []
+  },
+  {
+    "module": "ChapterNormal.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 3385,
+    "client_size": 3385,
+    "admin_sha": "bd5279f3eaee0f1eb991fdfeb268e3d951ee2649b086c55b4b4391892309a7f1",
+    "client_sha": "bd5279f3eaee0f1eb991fdfeb268e3d951ee2649b086c55b4b4391892309a7f1",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "ChatControl.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 7143,
+    "client_size": 7143,
+    "admin_sha": "19f9400c36965fb7495746a9e0ecb9357d2c51779d1d1c73115f56430886c569",
+    "client_sha": "19f9400c36965fb7495746a9e0ecb9357d2c51779d1d1c73115f56430886c569",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "CommonModel.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 6351,
+    "client_size": 6351,
+    "admin_sha": "9dd39da3a6c17888d9a2fa1fabb4bf075239b5edd1a969d969f29a1bc1f2dfdc",
+    "client_sha": "9dd39da3a6c17888d9a2fa1fabb4bf075239b5edd1a969d969f29a1bc1f2dfdc",
+    "similarity": 1.0,
+    "counts": {
+      "localStorage": 7
+    },
+    "reasons": []
+  },
+  {
+    "module": "DungeonControl.ts",
+    "status": "MEDIO",
+    "danger_score": 30,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 26788,
+    "client_size": 26788,
+    "admin_sha": "0c093c06fcde986e3c2a90ca0812906a75c1565b7e8db71c9d815e0c32fa0c40",
+    "client_sha": "0c093c06fcde986e3c2a90ca0812906a75c1565b7e8db71c9d815e0c32fa0c40",
+    "similarity": 1.0,
+    "counts": {
+      "VLM_SHERIFF": 9,
+      "setInterval": 1,
+      "setTimeout": 5,
+      "localStorage": 6
+    },
+    "reasons": [
+      "VLM_SHERIFF",
+      "setInterval",
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "EquipControl.ts",
+    "status": "MEDIO",
+    "danger_score": 14,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 15463,
+    "client_size": 15463,
+    "admin_sha": "cba0f8bbe624febcff831a60145516ef95f81619cb0f8c56815b698d730d06b7",
+    "client_sha": "cba0f8bbe624febcff831a60145516ef95f81619cb0f8c56815b698d730d06b7",
+    "similarity": 1.0,
+    "counts": {
+      "setInterval": 2,
+      "setTimeout": 5,
+      "localStorage": 11
+    },
+    "reasons": [
+      "setInterval",
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "EquipModel.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 10389,
+    "client_size": 10389,
+    "admin_sha": "818ce8f054d0d65651091099bc9b42c031b440bbeeec96b911d7a5667243bf85",
+    "client_sha": "818ce8f054d0d65651091099bc9b42c031b440bbeeec96b911d7a5667243bf85",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "EquipFigureView.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 8041,
+    "client_size": 8041,
+    "admin_sha": "28486dcca68e27f2cc94aada77d7938f5655e4056c302dca9075df466e194b42",
+    "client_sha": "28486dcca68e27f2cc94aada77d7938f5655e4056c302dca9075df466e194b42",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "FrameDataCache.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 6241,
+    "client_size": 6241,
+    "admin_sha": "bebd9f769ae59ee083ad23530c672dcf22108bbcc8e66e83eacf076901895952",
+    "client_sha": "bebd9f769ae59ee083ad23530c672dcf22108bbcc8e66e83eacf076901895952",
+    "similarity": 1.0,
+    "counts": {
+      "localStorage": 9
+    },
+    "reasons": []
+  },
+  {
+    "module": "GuildGVEControl.ts",
+    "status": "MEDIO",
+    "danger_score": 36,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 10347,
+    "client_size": 10347,
+    "admin_sha": "ca53460f2bc9d67d8705770053419e96e4774d27f8682f43a2ac1a744b5b9d15",
+    "client_sha": "ca53460f2bc9d67d8705770053419e96e4774d27f8682f43a2ac1a744b5b9d15",
+    "similarity": 1.0,
+    "counts": {
+      "VLM_SHERIFF": 6,
+      "setInterval": 1,
+      "setTimeout": 6,
+      "localStorage": 6
+    },
+    "reasons": [
+      "VLM_SHERIFF",
+      "setInterval",
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "GuildGVEMapScene.ts",
+    "status": "MEDIO",
+    "danger_score": 14,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 16599,
+    "client_size": 16599,
+    "admin_sha": "025b9e1774f1b81c592b4ef4409e311c9f7dd1a0433019308d523b9f12eec4a7",
+    "client_sha": "025b9e1774f1b81c592b4ef4409e311c9f7dd1a0433019308d523b9f12eec4a7",
+    "similarity": 1.0,
+    "counts": {
+      "setTimeout": 2,
+      "localStorage": 3
+    },
+    "reasons": [
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "HeadFrameControl.ts",
+    "status": "MEDIO",
+    "danger_score": 10,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 5973,
+    "client_size": 5973,
+    "admin_sha": "603936d98efb2344a47f6109324f462c5be905d0bb3863545ced657e54e0b926",
+    "client_sha": "603936d98efb2344a47f6109324f462c5be905d0bb3863545ced657e54e0b926",
+    "similarity": 1.0,
+    "counts": {
+      "setInterval": 1,
+      "setTimeout": 4,
+      "localStorage": 11
+    },
+    "reasons": [
+      "setInterval",
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "HorseControl.ts",
+    "status": "MEDIO",
+    "danger_score": 8,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 9818,
+    "client_size": 9818,
+    "admin_sha": "62442cced668024bdbbfb73dd19907020378406a2cd365415674c94810c27007",
+    "client_sha": "62442cced668024bdbbfb73dd19907020378406a2cd365415674c94810c27007",
+    "similarity": 1.0,
+    "counts": {
+      "setInterval": 1,
+      "setTimeout": 3,
+      "localStorage": 9
+    },
+    "reasons": [
+      "setInterval",
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "HorseDataChche.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 3070,
+    "client_size": 3070,
+    "admin_sha": "31ed834a34e8f574e5590370c083416bf1b0244d203dd4e349a465d96d0f0726",
+    "client_sha": "31ed834a34e8f574e5590370c083416bf1b0244d203dd4e349a465d96d0f0726",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "HorseSkinView.ts",
+    "status": "MEDIO",
+    "danger_score": 8,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 20559,
+    "client_size": 20559,
+    "admin_sha": "15a3ac12b47e7f041e47976ca718a5a1bca72feb280fad646778c90422d6c2a6",
+    "client_sha": "15a3ac12b47e7f041e47976ca718a5a1bca72feb280fad646778c90422d6c2a6",
+    "similarity": 1.0,
+    "counts": {
+      "setInterval": 1,
+      "setTimeout": 3,
+      "localStorage": 6
+    },
+    "reasons": [
+      "setInterval",
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "HurtUtil.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 11319,
+    "client_size": 11319,
+    "admin_sha": "5fdce633f89378228a2c5faa727997757671af1ca58d220cd430ed4096912adb",
+    "client_sha": "5fdce633f89378228a2c5faa727997757671af1ca58d220cd430ed4096912adb",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "KungfuRaceControl.ts",
+    "status": "MEDIO",
+    "danger_score": 4,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 14250,
+    "client_size": 14250,
+    "admin_sha": "4c564ce19cc93c1613767c1f5d4458408d4deb96f827c91dae64b9f61435bff6",
+    "client_sha": "4c564ce19cc93c1613767c1f5d4458408d4deb96f827c91dae64b9f61435bff6",
+    "similarity": 1.0,
+    "counts": {
+      "VLM_FIREWALL": 3,
+      "setTimeout": 2,
+      "localStorage": 8
+    },
+    "reasons": [
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "LoginControl.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 23891,
+    "client_size": 23891,
+    "admin_sha": "f73a06cf111c6edc4cd5be93fa063f8ae8f14b8c40f0b6baf12acd37f64cb753",
+    "client_sha": "f73a06cf111c6edc4cd5be93fa063f8ae8f14b8c40f0b6baf12acd37f64cb753",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "MainView.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 23298,
+    "client_size": 23298,
+    "admin_sha": "6ff47004860a79893eb7b454857be01ea2f97ee63cd8a7c4a89fa2f7e6626548",
+    "client_sha": "6ff47004860a79893eb7b454857be01ea2f97ee63cd8a7c4a89fa2f7e6626548",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "MainView_BoxInfo.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 20288,
+    "client_size": 20288,
+    "admin_sha": "91a124c70a212de37aee20a2116bf34cbd8324cbdb8ea03e5a1ce8e41314b348",
+    "client_sha": "91a124c70a212de37aee20a2116bf34cbd8324cbdb8ea03e5a1ce8e41314b348",
+    "similarity": 1.0,
+    "counts": {
+      "VLM_FIREWALL": 3
+    },
+    "reasons": []
+  },
+  {
+    "module": "MainView_SystemTop.ts",
+    "status": "CRITICO",
+    "danger_score": 176,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 148835,
+    "client_size": 149726,
+    "admin_sha": "0d93c2512ec00a51e06fe12eca14a337ec0e04ab66831155a896fdd153631af3",
+    "client_sha": "a3a9eb18ae83661cb09d8ba27e9dc6453e0ecc7fc7458bb9f821bda269c7d0f7",
+    "similarity": 0.99336,
+    "counts": {
+      "HARD_OFF": 1,
+      "PANEL_INACTIVE": 5,
+      "CLIENTE_NAO_ENCONTRADO": 1,
+      "activate pending panel/chat key": 1,
+      "VALIDATING KEY": 2,
+      "/activate": 2,
+      "/verify": 1,
+      "VLM_CHAT_MAINVIEW_PANEL_FIX_V3": 2,
+      "VLM_FIREWALL": 10,
+      "VLM_SHERIFF": 10,
+      "VLM_ASSIST": 4,
+      "VLM_WORKSHOP": 4,
+      "setInterval": 3,
+      "setTimeout": 2,
+      "XMLHttpRequest": 4,
+      "localStorage": 96,
+      "sessionStorage": 1,
+      "VLM_VALIDATOR_MENU_FIX_V2": 1
+    },
+    "reasons": [
+      "HARD_OFF",
+      "PANEL_INACTIVE",
+      "activate pending panel/chat key",
+      "VALIDATING KEY",
+      "VLM_SHERIFF",
+      "VLM_ASSIST",
+      "VLM_WORKSHOP",
+      "setInterval",
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "MainView_PlayerTop.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 17871,
+    "client_size": 17871,
+    "admin_sha": "73e0f017537eeafeb20fdcdbe3de1f5e2f10e9cb6ed2c211b08ca47fca273c7e",
+    "client_sha": "73e0f017537eeafeb20fdcdbe3de1f5e2f10e9cb6ed2c211b08ca47fca273c7e",
+    "similarity": 1.0,
+    "counts": {
+      "VICIØUSLOM": 3
+    },
+    "reasons": []
+  },
+  {
+    "module": "MysteryControl.ts",
+    "status": "ALTO",
+    "danger_score": 84,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 20342,
+    "client_size": 20342,
+    "admin_sha": "f84e43022c01469707a856108f5550fa4fc31a3a847b80fbe7acb5a7956dd9f3",
+    "client_sha": "f84e43022c01469707a856108f5550fa4fc31a3a847b80fbe7acb5a7956dd9f3",
+    "similarity": 1.0,
+    "counts": {
+      "VLM_SHERIFF": 21,
+      "VLM_ASSIST": 9,
+      "setInterval": 2,
+      "setTimeout": 6,
+      "localStorage": 13,
+      "home.home_mine_info_c2s": 1,
+      "worker_common.worker_common_farm_housekeeper": 19
+    },
+    "reasons": [
+      "VLM_SHERIFF",
+      "VLM_ASSIST",
+      "setInterval",
+      "setTimeout",
+      "home.home_mine_info_c2s",
+      "worker_common.worker_common_farm_housekeeper"
+    ]
+  },
+  {
+    "module": "MysteryDungeonManagerView.ts",
+    "status": "MEDIO",
+    "danger_score": 2,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 19072,
+    "client_size": 19072,
+    "admin_sha": "1007842592fb71382fe8496271a87d38ea662c5d66a8b945a7a82ea0a4ffa357",
+    "client_sha": "1007842592fb71382fe8496271a87d38ea662c5d66a8b945a7a82ea0a4ffa357",
+    "similarity": 1.0,
+    "counts": {
+      "VLM_ASSIST": 1,
+      "localStorage": 3
+    },
+    "reasons": [
+      "VLM_ASSIST"
+    ]
+  },
+  {
+    "module": "MysteryMineView.ts",
+    "status": "MEDIO",
+    "danger_score": 16,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 44756,
+    "client_size": 44756,
+    "admin_sha": "c1ba355412cc19ccaf845d84267bc7aaa288af5de434a44df3c6959be8c6bda9",
+    "client_sha": "c1ba355412cc19ccaf845d84267bc7aaa288af5de434a44df3c6959be8c6bda9",
+    "similarity": 1.0,
+    "counts": {
+      "setInterval": 1,
+      "setTimeout": 2,
+      "localStorage": 3
+    },
+    "reasons": [
+      "setInterval",
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "ParkingControl.ts",
+    "status": "ALTO",
+    "danger_score": 50,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 37894,
+    "client_size": 37894,
+    "admin_sha": "a2b87ef8c7c91881dfafd6dd94e0120df8d0ba4d9c590bbc76611ee58966c107",
+    "client_sha": "a2b87ef8c7c91881dfafd6dd94e0120df8d0ba4d9c590bbc76611ee58966c107",
+    "similarity": 1.0,
+    "counts": {
+      "VLM_SHERIFF": 9,
+      "setInterval": 1,
+      "setTimeout": 12,
+      "localStorage": 3,
+      "vlmAutoParkingOperate": 7
+    },
+    "reasons": [
+      "VLM_SHERIFF",
+      "setInterval",
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "PetModel.ts",
+    "status": "MEDIO",
+    "danger_score": 2,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 5227,
+    "client_size": 5227,
+    "admin_sha": "e5d02de3e559fe9d3b96d87d6496aaac090770e469dbd75a8da83c7d132233de",
+    "client_sha": "e5d02de3e559fe9d3b96d87d6496aaac090770e469dbd75a8da83c7d132233de",
+    "similarity": 1.0,
+    "counts": {
+      "setInterval": 1
+    },
+    "reasons": [
+      "setInterval"
+    ]
+  },
+  {
+    "module": "PlantControl.ts",
+    "status": "ALTO",
+    "danger_score": 69,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 28185,
+    "client_size": 28185,
+    "admin_sha": "bfed29c20838072487e120f775a0a0933497e8fcdcc53863d76141cc9c8802b9",
+    "client_sha": "bfed29c20838072487e120f775a0a0933497e8fcdcc53863d76141cc9c8802b9",
+    "similarity": 1.0,
+    "counts": {
+      "VLM_SHERIFF": 18,
+      "setInterval": 2,
+      "setTimeout": 16,
+      "localStorage": 20,
+      "home.home_farm_search_list_c2s": 1
+    },
+    "reasons": [
+      "VLM_SHERIFF",
+      "setInterval",
+      "setTimeout",
+      "home.home_farm_search_list_c2s"
+    ]
+  },
+  {
+    "module": "PlantMainView.ts",
+    "status": "MEDIO",
+    "danger_score": 22,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 56071,
+    "client_size": 56071,
+    "admin_sha": "879fbebf3afcf82e6a440299de1eefae4d75c99b96588f7aba6f618328d5f628",
+    "client_sha": "879fbebf3afcf82e6a440299de1eefae4d75c99b96588f7aba6f618328d5f628",
+    "similarity": 1.0,
+    "counts": {
+      "setInterval": 1,
+      "setTimeout": 5,
+      "localStorage": 8
+    },
+    "reasons": [
+      "setInterval",
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "PlayerClosetView.ts",
+    "status": "MEDIO",
+    "danger_score": 20,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 30129,
+    "client_size": 30129,
+    "admin_sha": "d4814fd5ff8ef9a9919bcf6cefd874a5dbac201dbff3c81c1ec872197b785269",
+    "client_sha": "d4814fd5ff8ef9a9919bcf6cefd874a5dbac201dbff3c81c1ec872197b785269",
+    "similarity": 1.0,
+    "counts": {
+      "setTimeout": 35,
+      "localStorage": 9
+    },
+    "reasons": [
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "PlayerInfoView.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 26211,
+    "client_size": 26211,
+    "admin_sha": "56469ce9d3dda4fa29712c511714e365453f41224dcfc17f4802090d633fa0cb",
+    "client_sha": "56469ce9d3dda4fa29712c511714e365453f41224dcfc17f4802090d633fa0cb",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "PvpControl.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 15141,
+    "client_size": 15141,
+    "admin_sha": "1d6a83dd957d459fb7e46bb9a32ebc86de76d7cd29e4bd6542ad862d04523ca2",
+    "client_sha": "1d6a83dd957d459fb7e46bb9a32ebc86de76d7cd29e4bd6542ad862d04523ca2",
+    "similarity": 1.0,
+    "counts": {
+      "localStorage": 5
+    },
+    "reasons": []
+  },
+  {
+    "module": "RedBagListView.ts",
+    "status": "MEDIO",
+    "danger_score": 2,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 6350,
+    "client_size": 6350,
+    "admin_sha": "49a21a960fc70923071358badf9549821370fef2359dd9315c3ee78961e2c991",
+    "client_sha": "49a21a960fc70923071358badf9549821370fef2359dd9315c3ee78961e2c991",
+    "similarity": 1.0,
+    "counts": {
+      "setTimeout": 1
+    },
+    "reasons": [
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "RoleControl.ts",
+    "status": "MEDIO",
+    "danger_score": 28,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 16723,
+    "client_size": 16723,
+    "admin_sha": "72cc189bb064dd56f4d286495c48c03e8613c8b78bb01ecebc61d7ddac74a481",
+    "client_sha": "72cc189bb064dd56f4d286495c48c03e8613c8b78bb01ecebc61d7ddac74a481",
+    "similarity": 1.0,
+    "counts": {
+      "setInterval": 1,
+      "setTimeout": 8,
+      "localStorage": 9
+    },
+    "reasons": [
+      "setInterval",
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "RoleDataCache.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 21433,
+    "client_size": 21433,
+    "admin_sha": "a35f7fecf7191df8893e3b9ef9f6dd2f4cce302da8f5209852e51caad0867043",
+    "client_sha": "a35f7fecf7191df8893e3b9ef9f6dd2f4cce302da8f5209852e51caad0867043",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "RouletteControl.ts",
+    "status": "MEDIO",
+    "danger_score": 8,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 3813,
+    "client_size": 3813,
+    "admin_sha": "e4e7b739b0e25e1ae704a0073d999989830b7a32400e75e28f5216906e6ca519",
+    "client_sha": "e4e7b739b0e25e1ae704a0073d999989830b7a32400e75e28f5216906e6ca519",
+    "similarity": 1.0,
+    "counts": {
+      "setInterval": 1,
+      "setTimeout": 3
+    },
+    "reasons": [
+      "setInterval",
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "SceneRole3.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 5447,
+    "client_size": 5447,
+    "admin_sha": "758e6ad061d18eacc54fba0cf48605027eff1ce6ab626c773893ffb21a5f9e92",
+    "client_sha": "758e6ad061d18eacc54fba0cf48605027eff1ce6ab626c773893ffb21a5f9e92",
+    "similarity": 1.0,
+    "counts": {
+      "localStorage": 4
+    },
+    "reasons": []
+  },
+  {
+    "module": "SceneUnit2.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 10271,
+    "client_size": 10271,
+    "admin_sha": "494ae2771ce6c3b950ea808735a34c480c2aa8f4a55f1a54ddad9cc2d9e7b4a0",
+    "client_sha": "494ae2771ce6c3b950ea808735a34c480c2aa8f4a55f1a54ddad9cc2d9e7b4a0",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "SceneUnit5.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 4165,
+    "client_size": 4165,
+    "admin_sha": "558fcef223b3faa649b8e02c70ab5c6d6e7a02ab0c7d3b0331a58f780f8b79ce",
+    "client_sha": "558fcef223b3faa649b8e02c70ab5c6d6e7a02ab0c7d3b0331a58f780f8b79ce",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "SceneUnit6.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 6597,
+    "client_size": 6597,
+    "admin_sha": "eb6240dfefe96697345a915895cd33ce0d351c7d755a9121d437b90e0cc38625",
+    "client_sha": "eb6240dfefe96697345a915895cd33ce0d351c7d755a9121d437b90e0cc38625",
+    "similarity": 1.0,
+    "counts": {
+      "localStorage": 4
+    },
+    "reasons": []
+  },
+  {
+    "module": "SevenLoginControl.ts",
+    "status": "MEDIO",
+    "danger_score": 8,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 3744,
+    "client_size": 3744,
+    "admin_sha": "0a02cae8ddf73ab0972172987620d0574579d30040ad21044077024dc51916ba",
+    "client_sha": "0a02cae8ddf73ab0972172987620d0574579d30040ad21044077024dc51916ba",
+    "similarity": 1.0,
+    "counts": {
+      "setInterval": 1,
+      "setTimeout": 3
+    },
+    "reasons": [
+      "setInterval",
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "SkillModel.ts",
+    "status": "MEDIO",
+    "danger_score": 2,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 5524,
+    "client_size": 5524,
+    "admin_sha": "0f6675741f2024d1873eec8beab70ed88737cda9fa020f192319fc3afd660a8f",
+    "client_sha": "0f6675741f2024d1873eec8beab70ed88737cda9fa020f192319fc3afd660a8f",
+    "similarity": 1.0,
+    "counts": {
+      "setInterval": 1
+    },
+    "reasons": [
+      "setInterval"
+    ]
+  },
+  {
+    "module": "SurveyView.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 2431,
+    "client_size": 2431,
+    "admin_sha": "698857fa2f98e0d4bb698b1ef7695dd3cf046c211275ad955e78a77dc58377be",
+    "client_sha": "698857fa2f98e0d4bb698b1ef7695dd3cf046c211275ad955e78a77dc58377be",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "TaskControl.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 1382,
+    "client_size": 1382,
+    "admin_sha": "314f4ef03b00461ae85e43913e58e10f123120e1cafd492f1747728c201edbd3",
+    "client_sha": "314f4ef03b00461ae85e43913e58e10f123120e1cafd492f1747728c201edbd3",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "TaskDataCache.ts",
+    "status": "MEDIO",
+    "danger_score": 4,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 4484,
+    "client_size": 4484,
+    "admin_sha": "ef39207d0e7f2e6f995fd0fd6b1e81529b6d9dfb310001edc2e99a1d7f93a56a",
+    "client_sha": "ef39207d0e7f2e6f995fd0fd6b1e81529b6d9dfb310001edc2e99a1d7f93a56a",
+    "similarity": 1.0,
+    "counts": {
+      "setTimeout": 2
+    },
+    "reasons": [
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "TitleControl.ts",
+    "status": "MEDIO",
+    "danger_score": 10,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 5849,
+    "client_size": 5849,
+    "admin_sha": "b894f96657f4977c5d754cca92626cc16edd35476875336c2f5b5380fa4253c0",
+    "client_sha": "b894f96657f4977c5d754cca92626cc16edd35476875336c2f5b5380fa4253c0",
+    "similarity": 1.0,
+    "counts": {
+      "setInterval": 1,
+      "setTimeout": 4,
+      "localStorage": 11
+    },
+    "reasons": [
+      "setInterval",
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "TitleDataCache.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 6176,
+    "client_size": 6176,
+    "admin_sha": "71d416af739df2a334b7a3c8afa91f652df06bbb7d0194fc1175608940a032d5",
+    "client_sha": "71d416af739df2a334b7a3c8afa91f652df06bbb7d0194fc1175608940a032d5",
+    "similarity": 1.0,
+    "counts": {
+      "localStorage": 9
+    },
+    "reasons": []
+  },
+  {
+    "module": "WelfareDataCache.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 7242,
+    "client_size": 7242,
+    "admin_sha": "b83e4ebc15a2be3c80eb54bfb2e4cdc7d53afdc36567071961965285ff4ea5df",
+    "client_sha": "b83e4ebc15a2be3c80eb54bfb2e4cdc7d53afdc36567071961965285ff4ea5df",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "WingControl.ts",
+    "status": "MEDIO",
+    "danger_score": 8,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 11029,
+    "client_size": 11029,
+    "admin_sha": "5aa62d5a7c12bc0d338140df5c6a76a36a2eb80442eec62e9c261c3b91b216aa",
+    "client_sha": "5aa62d5a7c12bc0d338140df5c6a76a36a2eb80442eec62e9c261c3b91b216aa",
+    "similarity": 1.0,
+    "counts": {
+      "setInterval": 1,
+      "setTimeout": 3,
+      "localStorage": 9
+    },
+    "reasons": [
+      "setInterval",
+      "setTimeout"
+    ]
+  },
+  {
+    "module": "WingDataCache.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 11489,
+    "client_size": 11489,
+    "admin_sha": "00500889a5d76b45b35ab586909989c8866d803a6f9a70d069654e8134b00218",
+    "client_sha": "00500889a5d76b45b35ab586909989c8866d803a6f9a70d069654e8134b00218",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  },
+  {
+    "module": "WorkShopControl.ts",
+    "status": "ALTO",
+    "danger_score": 74,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 8812,
+    "client_size": 8812,
+    "admin_sha": "3bdf334f2e7d597ca280bd185edaf60cfb65dd91f47ab7ffe8e2b2021b95edf2",
+    "client_sha": "3bdf334f2e7d597ca280bd185edaf60cfb65dd91f47ab7ffe8e2b2021b95edf2",
+    "similarity": 1.0,
+    "counts": {
+      "VLM_SHERIFF": 9,
+      "VLM_WORKSHOP": 5,
+      "setInterval": 1,
+      "setTimeout": 2,
+      "localStorage": 6,
+      "worker_processing_workshop.worker_pw_info_c2s": 1,
+      "worker_processing_workshop.worker_pw_food_auto_use_c2s": 1
+    },
+    "reasons": [
+      "VLM_SHERIFF",
+      "VLM_WORKSHOP",
+      "setInterval",
+      "setTimeout",
+      "worker_processing_workshop.worker_pw_info_c2s",
+      "worker_processing_workshop.worker_pw_food_auto_use_c2s"
+    ]
+  },
+  {
+    "module": "WorkShopDataCache.ts",
+    "status": "OK",
+    "danger_score": 0,
+    "admin_present": true,
+    "client_present": true,
+    "admin_dupes": 1,
+    "client_dupes": 1,
+    "admin_size": 2578,
+    "client_size": 2578,
+    "admin_sha": "d33a9087617f6ba96cb478609738bb3a8300ccd8850f96024eafc70d09b74122",
+    "client_sha": "d33a9087617f6ba96cb478609738bb3a8300ccd8850f96024eafc70d09b74122",
+    "similarity": 1.0,
+    "counts": {},
+    "reasons": []
+  }
+]

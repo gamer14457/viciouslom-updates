@@ -1,0 +1,26 @@
+{
+  "result": {
+    "created_on": "2026-06-16T12:21:41.19674Z",
+    "modified_on": "2026-06-19T05:34:29.066436Z",
+    "id": "vlm-dev-core4",
+    "tag": "8ed808091d064b02b84270bcb3928271",
+    "entry_point": "worker.mjs",
+    "tags": null,
+    "deployment_id": "03caa08c1078496ca20a695644f34cc8",
+    "tail_consumers": null,
+    "logpush": false,
+    "has_assets": false,
+    "has_modules": true,
+    "etag": "57da8e8bc12c6d374a9dd8942059b343ce30646b5511da1a1ba3870e37fc4702",
+    "handlers": [
+      "fetch"
+    ],
+    "last_deployed_from": "api",
+    "compatibility_date": "2024-11-01",
+    "usage_model": "standard",
+    "startup_time_ms": 0
+  },
+  "success": true,
+  "errors": [],
+  "messages": []
+}
