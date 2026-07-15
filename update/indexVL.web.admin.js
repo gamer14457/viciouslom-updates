@@ -8568,10 +8568,10 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
 
 
 ;/* VLM_FIX36AB_ACCOUNT_ENFORCEMENT_INDEX_START */
-/* VLM_FIX36AG_ACCOUNT_DECISION_STABLE_INDEX_START */
+/* VLM_FIX36AF_REAL_MENU_LICENSE_GATE_INDEX_START */
 (function(){
   "use strict";
-  var MARK="VLM_FIX36AG_ACCOUNT_DECISION_STABLE_VERSION_10_7";
+  var MARK="VLM_FIX36AF_REAL_MENU_GATE_VERSION_10_7";
   try{
     if(globalThis.__VLM_ACCOUNT_OBSERVER_INDEX_INSTALLED===MARK)return;
     globalThis.__VLM_ACCOUNT_OBSERVER_INDEX_INSTALLED=MARK;
@@ -8657,17 +8657,10 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
         var state=Object.assign({},base||globalThis.__VLM_ACCOUNT_OBSERVER_STATE||{},patch||{});
         saveSnapshot(state);
         try{
-          var __status=String(state.server_sync_status||"pending");
-          var __hasLast=!!state.server_last_success_at;
-          var __decided=(__status==="synced")||(__status==="error"&&__hasLast);
-          var __blocked=__decided&&state.server_account_enforcement===true&&state.server_account_authorized===false;
-          var __allowed=__decided&&!__blocked;
-          var __access=__blocked?"denied":(__allowed?"allowed":"pending");
-          globalThis.__VLM_ACCOUNT_ACCESS_STATE=__access;
-          globalThis.__VLM_ACCOUNT_ACCESS_ALLOWED=__blocked?false:(__allowed?true:null);
+          var __blocked=state.server_account_enforcement===true&&state.server_account_authorized===false;
+          globalThis.__VLM_ACCOUNT_ACCESS_ALLOWED=!__blocked;
           globalThis.__VLM_ACCOUNT_ACCESS_POLICY=state.server_account_policy||"observe";
-          writeLS("VLM_ACCOUNT_ACCESS_STATE",__access);
-          writeLS("VLM_ACCOUNT_ACCESS_ALLOWED",__blocked?"0":(__allowed?"1":""));
+          writeLS("VLM_ACCOUNT_ACCESS_ALLOWED",__blocked?"0":"1");
           writeLS("VLM_ACCOUNT_ACCESS_POLICY",state.server_account_policy||"observe");
         }catch(e){}
         emit(state);
@@ -8711,9 +8704,9 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
                 serverId:state.server_id,
                 serverName:state.server_name,
                 region:state.region,
-                source:"admin-index-v10.7-account-decision-stable"
+                source:"admin-index-v10.6-account-enforcement"
               },
-              source:"VLM_FIX36AG_ACCOUNT_DECISION_STABLE_VERSION_10_7"
+              source:"VLM_FIX36AB_ACCOUNT_ENFORCEMENT_VERSION_10_6"
             })
           });
           if(__timeout)clearTimeout(__timeout);
@@ -8796,8 +8789,6 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
         var serverMatches=!selectedServerId||selectedServerId===serverId;
         var ready=!!(uid&&roleId&&serverId&&roleInitialized&&roleMatches&&serverMatches);
         var previous=globalThis.__VLM_ACCOUNT_OBSERVER_STATE||safeJson(readLS(SNAP_KEY),null)||{};
-        var currentFingerprint=roleId?(region+":"+roleId):"";
-        if(!previous||previous.account_fingerprint!==currentFingerprint)previous={};
         return {
           ok:ready,
           status:ready?"detected":(uid||roleId?"partial":"waiting"),
@@ -8851,7 +8842,7 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
             state.server_matches_login
           ].join("|");
           if(force||sig!==lastSignature){lastSignature=sig;publish(state)}
-          if(state.ok)syncServer(state,force||sig!==lastServerAttemptSignature);
+          if(state.ok)syncServer(state,sig!==lastServerAttemptSignature);
           return state;
         }
       }finally{busy=false}
@@ -8869,10 +8860,8 @@ System.register("chunks:///_virtual/WorldBossRewardView.ts",["./rollupPluginModL
     setInterval(function(){tick(false)},2500);
   }catch(e){try{console.warn("[VLM_ACCOUNT_OBSERVER] install error",e&&e.message||e)}catch(_){}}
 })();
-/* VLM_FIX36AG_ACCOUNT_DECISION_STABLE_INDEX_END */
+/* VLM_FIX36AF_REAL_MENU_LICENSE_GATE_INDEX_END */
 /* VLM_FIX36AB_ACCOUNT_ENFORCEMENT_INDEX_END */
 /* VLM_FIX36AA_TIMEOUT_12S_DEDUPE_LAST_SUCCESS */
 
-;/* VLM_FIX36AG_ACCOUNT_DECISION_STABLE_INDEX=1 */
-
-;/* VLM_FIX36AG_NO_STALE_ROLE_DECISION=1; FORCE_SYNC_AFTER_KEY=1; ACCESS_TRI_STATE=1; */
+;/* VLM_FIX36AF_LICENSE_INSIDE_REAL_MENU_INDEX=1 */
