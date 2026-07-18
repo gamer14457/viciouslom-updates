@@ -1,0 +1,79 @@
+{
+  "run_id": "20260619_023620",
+  "restored": [
+    {
+      "module": "BattleMain.ts",
+      "admin_before_sha": "84a6e1dd04649628f918e9b2f4d23775fc007bbb2dbeb6263318a8fa844c48d2",
+      "client_sha": "84a6e1dd04649628f918e9b2f4d23775fc007bbb2dbeb6263318a8fa844c48d2",
+      "changed": false,
+      "admin_before_size": 7147,
+      "client_size": 7147
+    },
+    {
+      "module": "BattleChapterMainPanel.ts",
+      "admin_before_sha": "24b7609755281c0721363d4bcfec71c0054687c122f208859a1bb8063824fe50",
+      "client_sha": "24b7609755281c0721363d4bcfec71c0054687c122f208859a1bb8063824fe50",
+      "changed": false,
+      "admin_before_size": 5247,
+      "client_size": 5247
+    },
+    {
+      "module": "IBattleChapterPanel.ts",
+      "admin_before_sha": "8eeaabac7faf0b16955fc505a0eda9e0c96e35164ba05809c3f80f64128efac6",
+      "client_sha": "8eeaabac7faf0b16955fc505a0eda9e0c96e35164ba05809c3f80f64128efac6",
+      "changed": false,
+      "admin_before_size": 802,
+      "client_size": 802
+    },
+    {
+      "module": "ChapterNormal.ts",
+      "admin_before_sha": "9c67b472fbb0c131cb7d9470db23b5ebc6910e583dc6b5c220eadc251a1ae260",
+      "client_sha": "9c67b472fbb0c131cb7d9470db23b5ebc6910e583dc6b5c220eadc251a1ae260",
+      "changed": false,
+      "admin_before_size": 3387,
+      "client_size": 3387
+    },
+    {
+      "module": "ChapterControl.ts",
+      "admin_before_sha": "303f09445bc06bb708981be9893d324b351f0b161a5f61460010709c0997eee5",
+      "client_sha": "303f09445bc06bb708981be9893d324b351f0b161a5f61460010709c0997eee5",
+      "changed": false,
+      "admin_before_size": 5213,
+      "client_size": 5213
+    },
+    {
+      "module": "ChapterDataCache.ts",
+      "admin_before_sha": "a8a5b0a9327fac58a60097a830a98e12f0dd76993c2f1b20fb2834cd5c0af723",
+      "client_sha": "a8a5b0a9327fac58a60097a830a98e12f0dd76993c2f1b20fb2834cd5c0af723",
+      "changed": false,
+      "admin_before_size": 12249,
+      "client_size": 12249
+    },
+    {
+      "module": "MainView_BoxInfo.ts",
+      "admin_before_sha": "d8fe3586c3dfb972ab5e737111df4171a826d24736526ac2261c13574a2a4cd2",
+      "client_sha": "d8fe3586c3dfb972ab5e737111df4171a826d24736526ac2261c13574a2a4cd2",
+      "changed": false,
+      "admin_before_size": 20290,
+      "client_size": 20290
+    },
+    {
+      "module": "MainViewModel.ts",
+      "admin_before_sha": "7596835fe65895103c9b61dec53bd3749f731711edb7c97514b44f0f931d2013",
+      "client_sha": "7596835fe65895103c9b61dec53bd3749f731711edb7c97514b44f0f931d2013",
+      "changed": false,
+      "admin_before_size": 3961,
+      "client_size": 3961
+    }
+  ],
+  "skipped": [
+    {
+      "module": "BattleInfoType.ts",
+      "reason": "missing_admin"
+    }
+  ],
+  "admin_before_sha": "b8f089593a98f6bc1fc1b8767750a1da85c6503e8021c69b052ec559db1b2a49",
+  "admin_after_sha": "a168f1cf2d3d1d33d62ee670e953e50645c53563e3c788cceb370db86647bac7",
+  "admin_after_size": 20016991,
+  "changed_modules": []
+}

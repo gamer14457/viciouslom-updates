@@ -1,0 +1,29 @@
+{
+  "run_id": "20260619_021648",
+  "before_sha": "006362219a66d8a25923b5f75b0361364dc2abff1e09c445d3216362eb0c395e",
+  "before_size": 20016157,
+  "actions": [
+    {
+      "action": "removed_block",
+      "marker": "VLM_CHAT_MAINVIEW_PANEL_FIX_V3",
+      "bytes": 20261
+    },
+    {
+      "action": "removed_block",
+      "marker": "HARD_OFF",
+      "bytes": 16471
+    },
+    {
+      "action": "replace_text",
+      "from": "VALIDATING KEY",
+      "to": "ACCESS ACTIVE"
+    },
+    {
+      "action": "insert_guard",
+      "marker": "VLM_ADMIN_LICENSE_HARDOFF_FIX_V1"
+    }
+  ],
+  "after_sha": "27fe849b3a25c19e43d36c2dfc9a3e939a7e839be244b1c9046ef45316322b68",
+  "after_size": 19981255,
+  "changed": true
+}

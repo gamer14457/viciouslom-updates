@@ -1,0 +1,87 @@
+MEDIO score=12 AdModel.ts
+revisar: setTimeout
+
+MEDIO score=8 ArtifactControl.ts
+revisar: setInterval, setTimeout
+
+MEDIO score=14 BubbleControl.ts
+revisar: setInterval, setTimeout
+
+MEDIO score=30 DungeonControl.ts
+revisar: VLM_SHERIFF, setInterval, setTimeout
+
+MEDIO score=14 EquipControl.ts
+revisar: setInterval, setTimeout
+
+MEDIO score=36 GuildGVEControl.ts
+revisar: VLM_SHERIFF, setInterval, setTimeout
+
+MEDIO score=14 GuildGVEMapScene.ts
+revisar: setTimeout
+
+MEDIO score=10 HeadFrameControl.ts
+revisar: setInterval, setTimeout
+
+MEDIO score=8 HorseControl.ts
+revisar: setInterval, setTimeout
+
+MEDIO score=8 HorseSkinView.ts
+revisar: setInterval, setTimeout
+
+MEDIO score=4 KungfuRaceControl.ts
+revisar: setTimeout
+
+CRITICO score=176 MainView_SystemTop.ts
+revisar: HARD_OFF, PANEL_INACTIVE, activate pending panel/chat key, VALIDATING KEY, VLM_SHERIFF, VLM_ASSIST, VLM_WORKSHOP, setInterval, setTimeout
+
+ALTO score=84 MysteryControl.ts
+revisar: VLM_SHERIFF, VLM_ASSIST, setInterval, setTimeout, home.home_mine_info_c2s, worker_common.worker_common_farm_housekeeper
+
+MEDIO score=2 MysteryDungeonManagerView.ts
+revisar: VLM_ASSIST
+
+MEDIO score=16 MysteryMineView.ts
+revisar: setInterval, setTimeout
+
+ALTO score=50 ParkingControl.ts
+revisar: VLM_SHERIFF, setInterval, setTimeout
+
+MEDIO score=2 PetModel.ts
+revisar: setInterval
+
+ALTO score=69 PlantControl.ts
+revisar: VLM_SHERIFF, setInterval, setTimeout, home.home_farm_search_list_c2s
+
+MEDIO score=22 PlantMainView.ts
+revisar: setInterval, setTimeout
+
+MEDIO score=20 PlayerClosetView.ts
+revisar: setTimeout
+
+MEDIO score=2 RedBagListView.ts
+revisar: setTimeout
+
+MEDIO score=28 RoleControl.ts
+revisar: setInterval, setTimeout
+
+MEDIO score=8 RouletteControl.ts
+revisar: setInterval, setTimeout
+
+MEDIO score=8 SevenLoginControl.ts
+revisar: setInterval, setTimeout
+
+MEDIO score=2 SkillModel.ts
+revisar: setInterval
+
+MEDIO score=4 TaskDataCache.ts
+revisar: setTimeout
+
+MEDIO score=10 TitleControl.ts
+revisar: setInterval, setTimeout
+
+MEDIO score=8 WingControl.ts
+revisar: setInterval, setTimeout
+
+ALTO score=74 WorkShopControl.ts
+revisar: VLM_SHERIFF, VLM_WORKSHOP, setInterval, setTimeout, worker_processing_workshop.worker_pw_info_c2s, worker_processing_workshop.worker_pw_food_auto_use_c2s
+

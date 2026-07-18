@@ -1,0 +1,32 @@
+{
+  "ok": true,
+  "schema": 3,
+  "source": "official_discord_ocr",
+  "version": "20260716T183225Z",
+  "updated_at": "2026-07-16T18:32:25Z",
+  "count": 1,
+  "codes": [
+    "DealSealed"
+  ],
+  "entries": [
+    {
+      "code": "DealSealed",
+      "status": "active",
+      "regions": [
+        "eu"
+      ],
+      "event": "Rings of Destiny",
+      "source_type": "manual_backfill",
+      "source_verified": true,
+      "source_channel_id": "",
+      "source_message_id": "1527320738883703025",
+      "source_local_channel_id": "1527271981928681552",
+      "source_image_sha256": "303761fb0e1d0d994616851418496bfde8dd0f213679adc3eaffbf4fedb0a689",
+      "ocr_confidence": 0.8469,
+      "ocr_score": 0.0,
+      "ocr_consensus_count": 10,
+      "expires_at": null,
+      "added_at": "2026-07-16T18:32:25Z"
+    }
+  ]
+}
