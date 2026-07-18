@@ -1,9 +1,0 @@
-{
-  "run_id": "20260619_093107",
-  "module": "BattleChapterMainPanel.ts",
-  "admin_before_sha": "327b24e8d314e26989924e148e3064b31d770c35daa697dd2a15942341aeba95",
-  "admin_after_sha": "34ddc09a52c50b24b5909bab2a8edac8a15536834c15b61a1bc82d6b7872c4fc",
-  "module_after_sha": "bb9be98cc2e299a3192385241e874047a0eb3270bd9ba91edad67c61fe9db1c4",
-  "admin_after_size": 20020593,
-  "marker": "VLM_ADMIN_CHALLENGE_V4C_PARENT_FIX"
-}
