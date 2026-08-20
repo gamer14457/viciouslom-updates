@@ -2,11 +2,13 @@
   "ok": true,
   "schema": 3,
   "source": "official_discord_ocr",
-  "version": "20260716T183225Z",
-  "updated_at": "2026-07-16T18:32:25Z",
-  "count": 1,
+  "version": "20260820T003002Z",
+  "updated_at": "2026-08-20T00:30:02Z",
+  "count": 3,
   "codes": [
-    "DealSealed"
+    "DealSealed",
+    "MineAllDay",
+    "PlantBig"
   ],
   "entries": [
     {
@@ -27,6 +29,44 @@
       "ocr_consensus_count": 10,
       "expires_at": null,
       "added_at": "2026-07-16T18:32:25Z"
+    },
+    {
+      "code": "MineAllDay",
+      "status": "active",
+      "regions": [
+        "eu"
+      ],
+      "event": null,
+      "source_type": "official_discord_text",
+      "source_verified": true,
+      "source_channel_id": "1217058549872721930",
+      "source_message_id": "1530305852429435021",
+      "source_local_channel_id": "1539784835449618484",
+      "source_image_sha256": "4a842b2a729b5ca1540122ecb7d5653aeb71b3cc2cc929b7a798d3192f07cf9e",
+      "ocr_confidence": 1.0,
+      "ocr_score": 1.0,
+      "ocr_consensus_count": 3,
+      "expires_at": null,
+      "added_at": "2026-08-20T00:30:02Z"
+    },
+    {
+      "code": "PlantBig",
+      "status": "active",
+      "regions": [
+        "eu"
+      ],
+      "event": null,
+      "source_type": "official_discord_text",
+      "source_verified": true,
+      "source_channel_id": "1217058549872721930",
+      "source_message_id": "1530615376235462686",
+      "source_local_channel_id": "1539784835449618484",
+      "source_image_sha256": "f8c28b45c28e739e9b3f3cf76bd464e475e86daf0001e4267199cc5ceeb6e91c",
+      "ocr_confidence": 1.0,
+      "ocr_score": 1.0,
+      "ocr_consensus_count": 3,
+      "expires_at": null,
+      "added_at": "2026-08-20T00:30:02Z"
     }
   ]
 }
